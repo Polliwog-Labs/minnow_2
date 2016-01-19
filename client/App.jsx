@@ -1,8 +1,10 @@
 App = React.createClass({
   // mixins: [ReactMeteorData],
-  getInitialState: function() {
-      return {};
-  },
+  // getInitialState: function() {
+  //     return {
+  //       isAuth: Boolean(Meteor.userId())
+  //     };
+  // },
   
   render: function(){
     return (
