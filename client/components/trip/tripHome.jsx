@@ -19,9 +19,7 @@ TripHome = React.createClass({
       organizers: [],
     };
     for (var key in this.data.trip){
-      // this.state.trip[key] && (params[key] = this.state.trip[key]);
       params[key] = this.data.trip[key];
-      console.log('wrote key '+key+' = '+this.data.trip[key])
     };
     return (
       <div className='trip'>

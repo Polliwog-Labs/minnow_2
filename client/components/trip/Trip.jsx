@@ -47,7 +47,7 @@ Trip = React.createClass({
   },
 
 	render: function(){
-    console.log(this.state)
+    console.log('this.props: ', this.props)
     return (
       <div>
         <div className="tabs tabs-icon-top">
