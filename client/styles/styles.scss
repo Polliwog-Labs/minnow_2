@@ -84,3 +84,7 @@ label[for="nav-trigger"] {
 body {
     overflow-x: hidden;
 }
+
+.tab-item.tab-item-active, .tab-item.active, .tab-item.activated {
+    color: #0066ff;
+}
