@@ -1,19 +1,11 @@
 Messages = React.createClass({
-	
 
-	submitMessage(){
 
-		Trip.insert(messages: [{"text": ReactDOM.findDOMNode(this.refs.message_text).value}], function(error){
-			if(error){
-				console.log('error inserting indo MessageCollection: ',error)
-			}else if(!error){
-				console.log("Success on entering message into Database.")
-			}
-		});
-
-		
+	submitMessage(event){
+		event.preventDefault();
+		var message = ReactDOM.findDOMNode(this.refs.message_text).value;
+		console.log("Message: ", message);
 	},
-
 
 	render(){
 		return(

@@ -5,3 +5,7 @@
 .control-item {
   border: 1px;
 }
+.map-container {
+  width: 640px;
+  height: 480px;
+}
