@@ -2,6 +2,9 @@
 
 @import 'meteoric_ionicons-sass/ionicons';
 
+@import 'ratchet.css';
+@import 'minnow.css';
+
 
 h1.list {
   text-align: center;
@@ -88,3 +91,4 @@ body {
 .tab-item.tab-item-active, .tab-item.active, .tab-item.activated {
     color: #0066ff;
 }
+
