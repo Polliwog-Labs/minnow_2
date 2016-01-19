@@ -1,0 +1,33 @@
+Login = React.createClass({
+  // mixins: [ReactMeteorData, ReactRouter.Navigation],
+  userLogin(event){
+    //wont trigger page refresh?
+    event.preventDefault();
+    //this function will grab the user's email and password from the "LOGIN input"
+    var email = ReactDOM.findDOMNode(this.refs.email_input).value
+    var password = ReactDOM.findDOMNode(this.refs.password_input).value
+    //LoginWithPassword is a BUILT in function that comes with the "Accounts library we are using"
+    Meteor.loginWithPassword(email, password, function(err){
+      console.log(email, password)
+      if (err) {
+        console.log('ERROR: ', err)
+      } else {
+        document.location.href = '/mytrips';
+      }
+    });
+  }, 
+  render(){
+    return (
+      <div className="list col login-signup">
+        <form onSubmit={this.userLogin}>
+          <input className="login-input" type="email" placeholder='Email' ref='email_input'/>
+          <input className="login-input" type="password" placeholder="Password" ref="password_input"/>
+          <button type="submit" className="login-btn button button-block button-positive">
+            Signin
+          </button>
+        </form>
+        <ReactRouter.Link to="signup">Sign Up</ReactRouter.Link>
+      </div>
+    )
+  }
+})
