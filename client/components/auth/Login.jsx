@@ -1,5 +1,11 @@
 Login = React.createClass({
   // mixins: [ReactMeteorData, ReactRouter.Navigation],
+  getInitialState: function () {
+    return {
+      isAuth: Boolean(Meteor.userId)
+    }
+  },
+
   userLogin(event){
     //wont trigger page refresh?
     event.preventDefault();
@@ -17,6 +23,10 @@ Login = React.createClass({
     });
   }, 
   render(){
+    if (this.state.isAuth) {
+      document.location.href = '/mytrips';
+    }
+    
     return (
       <div className="list col login-signup">
         <form onSubmit={this.userLogin}>
