@@ -1,4 +1,4 @@
-const {Router, Route, Link} = ReactRouter;
+const {Router, Route, Link, IndexRoute} = ReactRouter;
 
 const history = ReactRouter.history.useQueries(ReactRouter.history.createHistory)()
 
@@ -12,6 +12,7 @@ Meteor.startup(function() {
   ReactDOM.render((
     <Router history={history}>
       <Route path="/" component={App}>
+        <IndexRoute component = {Login} />
         <Route name="login" path="login" component={Login} />
         <Route name="signup" path="signup" component={Signup} />
         <Route path="mytrips" component = {MyTrips} />

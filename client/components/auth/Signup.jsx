@@ -1,7 +1,10 @@
 Signup = React.createClass({
-  // getInitialState(){
-  //  return {};
-  // },
+  getInitialState: function () {
+    return {
+      isAuth: Boolean(Meteor.userId())
+    }
+  },
+
   signup: function(event){
     event.preventDefault();
     var username = ReactDOM.findDOMNode(this.refs.username).value 
@@ -23,6 +26,10 @@ Signup = React.createClass({
   },
 
   render: function(){
+    if (this.state.isAuth) {
+      document.location.href = '/mytrips';
+    }
+
     return(
       <div className="list col login-signup">
         <form>

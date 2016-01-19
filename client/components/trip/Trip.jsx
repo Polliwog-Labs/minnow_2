@@ -1,44 +1,40 @@
 Trip = React.createClass({
+  mixins: [ReactMeteorData],
+  getMeteorData: function(){
+    var trip = Trips.findOne(document.location.pathname.substring(6));
+    console.log('trip: ', trip)
+    return {trip:trip};
+  },
 
   getInitialState: function () {
-    return {
-      module: <TripHome/>
-    }
+    return {}
+  },
+
+  componentDidMount: function () {
+    this.renderHome()
   },
 
   renderHome: function () {
     $('.active').removeClass('active');
     $('#home').addClass('active');
-    // return <TripHome/>
-    this.setState({
-      module: <TripHome/>
-    })
-    // ReactDOM.render(<TripHome/>, document.getElementById('trip-module'))
+    ReactDOM.render(<TripHome trip={this.data.trip}/>, document.getElementById('trip-module'))
   },
 
   renderItinerary: function () {
     $('.active').removeClass('active');
     $('#itinerary').addClass('active');
-    this.setState({
-      module: <Itinerary/>
-    })
-    // ReactDOM.render(<Itinerary/>, document.getElementById('trip-module'))
+    ReactDOM.render(<Itinerary trip={this.data.trip}/>, document.getElementById('trip-module'))
   },
 
   renderChat: function () {
     $('.active').removeClass('active');
     $('#chat').addClass('active');
-    this.setState({
-      module: <Messages/>
-    })
+    ReactDOM.render(<Messages trip={this.data.trip}/>, document.getElementById('trip-module'))
   },
 
   renderSettings: function () {
     $('.active').removeClass('active');
     $('#settings').addClass('active');
-    // this.setState({
-    //   module: 
-    // })
   },
 
   renderExpenses: function () {
@@ -46,8 +42,9 @@ Trip = React.createClass({
     $('#cash').addClass('active');
   },
 
-	render: function(){
-    console.log('this.props: ', this.props)
+
+  render: function(){
+
     return (
       <div>
         <div className="tabs tabs-icon-top">
@@ -71,9 +68,10 @@ Trip = React.createClass({
             <i className="icon ion-gear-a settings"></i>
             Settings
           </a>
-        </div>
-        <div >{this.state.module}</div>
+        </div> 
+        <div id='trip-module'></div>
       </div>  
     )
   }
 })
+        // <div >{this.state.module}</div>
