@@ -2,6 +2,7 @@ TripHome = React.createClass({
   mixins: [ReactMeteorData],
   getMeteorData: function(){
     var trip = Trips.findOne(document.location.pathname.substring(6));
+    console.log('trip: ', trip)
     return {trip:trip};
   },
   render: function(){
