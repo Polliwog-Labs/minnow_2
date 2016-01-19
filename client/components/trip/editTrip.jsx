@@ -1,7 +1,7 @@
 EditTrip = React.createClass({
   mixins:[ReactMeteorData],
   getMeteorData: function(){
-    var trip = Trips.findOne(document.location.pathname.substring(6));
+    var trip = Trips.findOne(document.location.pathname.substring(11));
     return {trip:trip};
   },
   submitTrip: function(event){
@@ -10,7 +10,7 @@ EditTrip = React.createClass({
       return /^[\w,\.,-]+@[\w,\.,-]+\.[a-z]{2,3}$/.test(address);
     });
     Meteor.call('storeImageByUrl',ReactDOM.findDOMNode(this.refs.newTrip_url).value,(err,data)=>{
-      Trips.update({_id: document.location.pathname.substring(6)},{$set: {
+      Trips.update({_id: document.location.pathname.substring(11)},{$set: {
                     name: ReactDOM.findDOMNode(this.refs.newTrip_name).value,
                     members: invitees,
                     dates: [new Date(ReactDOM.findDOMNode(this.refs.newTrip_startDate).value).getTime(),

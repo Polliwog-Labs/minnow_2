@@ -28,9 +28,9 @@ Trip = React.createClass({
   renderChat: function () {
     $('.active').removeClass('active');
     $('#chat').addClass('active');
-    // this.setState({
-    //   module: 
-    // })
+    this.setState({
+      module: <Messages/>
+    })
   },
 
   renderSettings: function () {
