@@ -1,5 +1,5 @@
 var resizeImage = function(fileObj, readStream, writeStream) {
-  gm(readStream, fileObj.name()).resize(800,300).stream().pipe(writeStream);
+  gm(readStream, fileObj.name()).resize(800,600).stream().pipe(writeStream);
 };
 
 var renameImage = function(fileObj){
