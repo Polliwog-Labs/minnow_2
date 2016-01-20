@@ -27,11 +27,9 @@ MyTrips = React.createClass({
     // var invitees = ReactDOM.findDOMNode(this.refs.newTrip_members).value.replace(/\s/,'').split(',').filter(function(address){
     //   return /^[\w,\.,-]+@[\w,\.,-]+\.[a-z]{2,3}$/.test(address);
     // });
-    Trips.insert({name: ReactDOM.findDOMNode(this.refs.newTrip_name).value,
+    Trips.insert({
+                  name: ReactDOM.findDOMNode(this.refs.newTrip_name).value,
                   members: [Meteor.userId()],
-                  // dates: [new Date(ReactDOM.findDOMNode(this.refs.newTrip_startDate).value).getTime(),
-                  //         new Date(ReactDOM.findDOMNode(this.refs.newTrip_endDate).value).getTime()
-                  // ],
                   organizers: [Meteor.userId],
                   created_by: Meteor.user().username,
                   }, 

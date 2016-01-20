@@ -14,8 +14,8 @@ TripHome = React.createClass({
       organizers: [],
     };
     
-    for (var key in this.data.trip){
-      params[key] = this.data.trip[key];
+    for (var key in this.props.trip){
+      params[key] = this.props.trip[key];
 
     };
     console.log('home - this.props: ', this.props)

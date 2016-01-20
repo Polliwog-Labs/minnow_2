@@ -74,4 +74,3 @@ Trip = React.createClass({
     )
   }
 })
-        // <div >{this.state.module}</div>

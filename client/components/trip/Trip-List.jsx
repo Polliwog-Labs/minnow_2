@@ -21,9 +21,10 @@ TripList = React.createClass({
       todo: [],
       organizer: [],
     };
+    
     for (var key in this.props.trip){
       this.props.trip[key] && (params[key] = this.props.trip[key]);
-    }
+    };
 
     return (
       <div className='list trip-list'>

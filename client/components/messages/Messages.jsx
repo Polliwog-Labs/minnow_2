@@ -1,10 +1,15 @@
 Messages = React.createClass({
 
-
 	submitMessage(event){
 		event.preventDefault();
 		var message = ReactDOM.findDOMNode(this.refs.message_text).value;
-		console.log("Message: ", message);
+		Trips.update({"_id": this.props.trip._id}, {$push: {'messages': {'text': message, 'created_at': new Date(), 'sender': Meteor.user().username}}}, function(error){
+			if(!error){
+				console.log("inserted message into DB")
+			}else if(error){
+				console.log("error inserting message into DB: ", error);
+			}
+		});
 	},
 
 	render(){
