@@ -58,7 +58,7 @@ input {
     left: 0;
     z-index: 1;
     padding: 4em;
-    background-image: linear-gradient(135deg, 
+    background-image: linear-gradient(135deg,
                       rgb(254,255,255) 0%,
                       rgb(221,241,249) 35%,
                       rgb(160,216,239) 100%);
@@ -96,15 +96,15 @@ body {
 @import url(http://fonts.googleapis.com/css?family=Roboto:400,900);
 
 .tripListModule {
- background: 
+ background:
     linear-gradient(
       rgba(0, 0, 0, 0.6),
       rgba(0, 0, 0, 0.6)
     ),
   url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/3/skyscrapers.jpg);
-  background-size: cover;
+  background-size: contain;
   width: 94%;
-  height: 100px;
+  height: 300px;
   margin: 10px 0 0 10px;
   position: relative;
   float: left;
@@ -115,7 +115,7 @@ body {
   margin: 0;
   padding: 20px;
   font-size:22px;
-  margin-top:40px !important; 
+  margin-top:40px !important;
   width: 50% !important;
 
 }
@@ -125,7 +125,7 @@ body {
   margin: 0;
   padding: 20px;
   font-size:22px;
-  margin-top:40px !important; 
+  margin-top:40px !important;
   float:right !important;
 }
 
