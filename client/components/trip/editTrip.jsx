@@ -32,7 +32,7 @@ EditTrip = React.createClass({
         <div className='item'>
           <form id='newTrip-form' className='form-group' onSubmit={this.submitTrip}>
             <p>Enter a name for your new trip</p>
-            <input id="newTrip-name" type="text" defaultValue={this.data.trip.name} className="item-input" ref="newTrip_name"/>
+            <input id="newTrip-name" type="text" defaultValue={this.data.trip ? this.data.trip.name : 'Enter a Name'} className="item-input" ref="newTrip_name"/>
             <p>Start Date</p>
             <input type="date" className="item-input" ref="newTrip_startDate"/>
             <p>End Date</p>
