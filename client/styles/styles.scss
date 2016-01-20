@@ -92,3 +92,38 @@ body {
     color: #0066ff;
 }
 
+@import url(http://fonts.googleapis.com/css?family=Roboto:400,900);
+
+.tripListModule {
+ background: 
+    linear-gradient(
+      rgba(0, 0, 0, 0.6),
+      rgba(0, 0, 0, 0.6)
+    ),
+  url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/3/skyscrapers.jpg);
+  background-size: cover;
+  width: 94%;
+  height: 100px;
+  margin: 10px 0 0 10px;
+  position: relative;
+  float: left;
+}
+
+.tripListText {
+  color: white;
+  margin: 0;
+  padding: 20px;
+  font-size:22px;
+  margin-top:40px !important; 
+  width: 50% !important;
+
+}
+
+.tripListDateText {
+  color: white;
+  margin: 0;
+  padding: 20px;
+  font-size:22px;
+  margin-top:40px !important; 
+  float:right !important;
+}
