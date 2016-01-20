@@ -39,7 +39,6 @@ Login = React.createClass({
             Signin
           </button>
         </form>
-        <ReactRouter.Link to="signup">Sign Up</ReactRouter.Link>
       </div>
     )
   }
