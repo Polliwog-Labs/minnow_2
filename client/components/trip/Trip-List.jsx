@@ -21,19 +21,16 @@ TripList = React.createClass({
       todo: [],
       organizer: [],
     };
+
     for (var key in this.props.trip){
       this.props.trip[key] && (params[key] = this.props.trip[key]);
+      console.log("trip",this.props.trip[key]);
     }
 
     return (
-      <div className='list trip-list'>
-        <div className='item item-thumbnail-left' onClick={this.navToTrip}>
-          <Image image_id={params.image_id} height="100px" />
-          <h3>{params.name}</h3>
-          <p>From {new Date(params.dates[0]).toString()} to {new Date(params.dates[1]).toString()}</p>
-          <p>Created By: {params.created_by}</p>
-
-        </div>
+      <div className="tripListModule" onClick={this.navToTrip} >
+          <h2 className="tripListText">{params.name}</h2>
+          <h2 className="tripListDateText" >October 31st</h2>
       </div>
     );
   }
