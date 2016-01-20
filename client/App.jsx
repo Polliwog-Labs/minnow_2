@@ -17,7 +17,7 @@ App = React.createClass({
         </div>
         <div className="view">
           <div className="scroll-content ionic-scroll">
-            <div className="content overflow-scroll has-header">
+            <div className="content overflow-scroll has-header has-footer">
               { this.props.children }
             </div>
           </div>
