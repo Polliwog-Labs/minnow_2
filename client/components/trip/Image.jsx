@@ -39,8 +39,8 @@ Image = new React.createClass({
     }
   },
   render: function(){
-    return (<div>
+    return (
             <img src={this.state.url} height={this.props.height} />
-            </div>);
+            );
   }
 });
