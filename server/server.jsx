@@ -10,7 +10,6 @@ Images = new FS.Collection("images",{
   stores: [imageStore],
 });
 
-
 storeImageByUrl = function(url){
   if (url.length){
     return Images.insert(url,function(err){

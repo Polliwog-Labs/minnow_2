@@ -1,13 +1,17 @@
 App = React.createClass({
   // mixins: [ReactMeteorData],
-  getInitialState: function() {
-      return {};
-  },
+
 
   logout: function() {
     Meteor.logout();
     document.location.href = '/login'
   },
+
+  // getInitialState: function() {
+  //     return {
+  //       isAuth: Boolean(Meteor.userId())
+  //     };
+  // },
 
   
   render: function(){
@@ -22,7 +26,7 @@ App = React.createClass({
         </div>
         <div className="view">
           <div className="scroll-content ionic-scroll">
-            <div className="content overflow-scroll has-header">
+            <div className="content overflow-scroll has-header has-footer">
               { this.props.children }
             </div>
           </div>

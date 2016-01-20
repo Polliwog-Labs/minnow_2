@@ -92,6 +92,7 @@ body {
     color: #0066ff;
 }
 
+
 @import url(http://fonts.googleapis.com/css?family=Roboto:400,900);
 
 .tripListModule {
@@ -127,3 +128,8 @@ body {
   margin-top:40px !important; 
   float:right !important;
 }
+
+.auth-error {
+  color: red;
+}
+
