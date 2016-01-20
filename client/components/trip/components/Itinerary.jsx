@@ -3,7 +3,7 @@ Itinerary = React.createClass({
 
 
   render: function () {
-
+    console.log('itinerary props: ', this.props )
     return (
       <div>
         <div className="segmented-control col">

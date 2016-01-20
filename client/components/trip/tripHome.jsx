@@ -1,9 +1,4 @@
 TripHome = React.createClass({
-  mixins: [ReactMeteorData],
-  getMeteorData: function(){
-    var trip = Trips.findOne(document.location.pathname.substring(6));
-    return {trip:trip};
-  },
   render: function(){
     console.log('rendered');
     var params = {
@@ -18,11 +13,11 @@ TripHome = React.createClass({
       todo: [],
       organizers: [],
     };
-    for (var key in this.data.trip){
-      // this.state.trip[key] && (params[key] = this.state.trip[key]);
-      params[key] = this.data.trip[key];
-      console.log('wrote key '+key+' = '+this.data.trip[key])
+    for (var key in this.props.trip){
+      params[key] = this.props.trip[key];
+      console.log('wrote key '+key+' = '+this.props.trip[key])
     };
+    console.log('home - this.props: ', this.props)
     return (
       <div className='trip'>
         <h1>Trip Home</h1>
@@ -36,6 +31,6 @@ TripHome = React.createClass({
         <p className='tripParams'>Est. Cost: ${params.expenses.length ? 'Some Number' : 0}</p>
         <a href='/alltrips'>Go back home</a>
       </div>
-    );
+    )
   }
 });
