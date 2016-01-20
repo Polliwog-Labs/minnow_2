@@ -25,7 +25,6 @@ TripList = React.createClass({
     for (var key in this.props.trip){
       this.props.trip[key] && (params[key] = this.props.trip[key]);
     };
-
     return (
       <div className='list trip-list'>
         <div className='item item-thumbnail-left' onClick={this.navToTrip}>

@@ -10,20 +10,21 @@ Messages = React.createClass({
 				console.log("error inserting message into DB: ", error);
 			}
 		});
+		
 	},
 
 	render(){
 		return(
 			<div className="message-wrapper">
-			<MessageContent trip={this.props.trip}/>
-			<footer className='list fixed-input'>
+			<MessageLoader messages={this.props.trip}/>
+			<div className='list fixed-input'>
 				<form className='item item-input-inset'>
 					<label className='item-input-wrapper'>
 						<input type='text' placeholder="message your group" ref='message_text'/>
 					</label>
 					<button className='button button-positive' onClick={this.submitMessage}>Submit</button>
 				</form>	
-			</footer>
+			</div>
 			</div>
 		)
 	}

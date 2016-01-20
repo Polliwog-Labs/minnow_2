@@ -24,9 +24,6 @@ MyTrips = React.createClass({
 
   newTrip: function(event){
     event.preventDefault();
-    // var invitees = ReactDOM.findDOMNode(this.refs.newTrip_members).value.replace(/\s/,'').split(',').filter(function(address){
-    //   return /^[\w,\.,-]+@[\w,\.,-]+\.[a-z]{2,3}$/.test(address);
-    // });
     Trips.insert({
                   name: ReactDOM.findDOMNode(this.refs.newTrip_name).value,
                   members: [Meteor.userId()],
@@ -44,21 +41,12 @@ MyTrips = React.createClass({
               });
   },
 
-  // newTrip : function(){
-  //   document.location.href = "/newtrip"
-  // },
-
   renderTrips: function(){
     return Trips.find({_id: { $in: Meteor.user().profile.myTrips}}).fetch().map(function(trip) {
       return (
         <TripList key={trip._id} trip={trip}/>
       );
     })
-    // return this.data.trips.map(function(trip){
-    //   return (
-    //     <TripList key={trip._id} trip={trip}/>
-    //   );
-    // });
   },
   render: function(){
     return (

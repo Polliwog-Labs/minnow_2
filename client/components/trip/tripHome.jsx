@@ -16,9 +16,7 @@ TripHome = React.createClass({
     
     for (var key in this.props.trip){
       params[key] = this.props.trip[key];
-
     };
-    console.log('home - this.props: ', this.props)
     return (
       <div className='trip'>
         <h1>Trip Home</h1>
