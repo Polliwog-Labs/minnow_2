@@ -3,5 +3,7 @@
   "joi-validation-strategy": "0.3.3",
   "browserify": "13.0.0",
   "redis": "0.8.2",
-  "github": "0.1.8"
+  "github": "0.1.8",
+  "react-bootstrap" : "0.28.2",
+  "externalify": "0.1.0"
 }
