@@ -2,7 +2,41 @@ TripList = React.createClass({
   propTypes: {
     trip: React.PropTypes.object.isRequired
   },
-
+  getInitialState: function(){
+    return {url:'/doge.jpg'}
+  },
+  componentDidMount: function(){
+    var that = this;
+    var count = 1;
+    var getImageURL = function(context){
+      Meteor.call('retrieveImageUrlById',that.props.trip.image_id,(err,data)=>{
+        if (err) {
+          console.log(err);
+          console.log('err retrieving image. This shouldn\'t happen');
+          context.setState({url:'/doge.jpg'});
+        }
+        else {
+          if (data) context.setState({url:data})
+          else {
+            if (count >= 15) {context.setState({url:'/doge.jpg'});}
+            else {
+              setTimeout(function(){
+                count++;
+                getImageURL(context);
+              },1000);
+            }
+            //No more than 15 tries. If someone puts in a stupid big image, they can wait/refresh the page.
+          }
+        }
+      });
+    };
+    if (this.props.trip.image_id) {
+      getImageURL(that);
+    } else {
+      console.log('this.props.image_id is undefined. This shouldn\'t happen.');
+      this.setState({url:'/doge.jpg'});
+    }
+  },
   navToTrip: function(){
     console.log(this.props.trip)
     document.location.href = '/trip/' + this.props.trip._id;
@@ -24,16 +58,19 @@ TripList = React.createClass({
     
     for (var key in this.props.trip){
       this.props.trip[key] && (params[key] = this.props.trip[key]);
-    };
-    return (
-      <div className='list trip-list'>
-        <div className='item item-thumbnail-left' onClick={this.navToTrip}>
-          <Image image_id={params.image_id} height="100px" />
-          <h3>{params.name}</h3>
-          <p>From {new Date(params.dates[0]).toString()} to {new Date(params.dates[1]).toString()}</p>
-          <p>Created By: {params.created_by}</p>
 
-        </div>
+      console.log("trip",this.props.trip[key]);
+    }
+
+    var backgroundStyle = {
+     background: 'url('+this.state.url+')',
+     'background-size': 'cover'
+    }
+
+    return (
+      <div className="tripListModule" onClick={this.navToTrip} style={this.state.url.length ? backgroundStyle : {}}>
+          <h2 className="tripListText">{params.name}</h2>
+          <h2 className="tripListDateText" >October 31st</h2>
       </div>
     );
   }

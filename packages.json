@@ -1,0 +1,7 @@
+{
+  "react-validation-mixin": "5.3.4",
+  "joi-validation-strategy": "0.3.3",
+  "browserify": "13.0.0",
+  "redis": "0.8.2",
+  "github": "0.1.8"
+}

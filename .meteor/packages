@@ -22,10 +22,10 @@ accounts-password
 accounts-ui-unstyled
 reactrouter:react-router
 react
-meteoric:ionic-sass
-meteoric:ionicons-sass
-fourseven:scss
 cfs:standard-packages
 cfs:gridfs
 cfs:graphicsmagick
 dburles:google-maps
+fourseven:scss
+meteoric:ionicons-sass
+meteoric:ionic-sass
