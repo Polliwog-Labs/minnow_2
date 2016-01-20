@@ -4,7 +4,7 @@ Image = new React.createClass({
     height: React.PropTypes.string
   },
   getInitialState: function(){
-    return {url:'http://laughingsquid.com/wp-content/uploads/2013/12/20131231-16470752-doge.jpg'}
+    return {url:'/doge.jpg'}
   },
   componentDidMount: function(){
     var that = this;
@@ -14,12 +14,12 @@ Image = new React.createClass({
         if (err) {
           console.log(err);
           console.log('err retrieving image. This shouldn\'t happen');
-          context.setState({url:'http://laughingsquid.com/wp-content/uploads/2013/12/20131231-16470752-doge.jpg'});
+          context.setState({url:'/doge.jpg'});
         }
         else {
           if (data) context.setState({url:data})
           else {
-            if (count >= 15) {context.setState({url:'http://laughingsquid.com/wp-content/uploads/2013/12/20131231-16470752-doge.jpg'});}
+            if (count >= 15) {context.setState({url:'/doge.jpg'});}
             else {
               setTimeout(function(){
                 count++;
@@ -35,7 +35,7 @@ Image = new React.createClass({
       getImageURL(that);
     } else {
       console.log('this.props.image_id is undefined. This shouldn\'t happen.');
-      this.setState({url:'http://laughingsquid.com/wp-content/uploads/2013/12/20131231-16470752-doge.jpg'});
+      this.setState({url:'/doge.jpg'});
     }
   },
   render: function(){

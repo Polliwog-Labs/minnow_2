@@ -51,7 +51,7 @@ MyTrips = React.createClass({
   // },
 
   renderTrips: function(){
-    return Trips.find({_id: { $in: Meteor.user().profile.myTrips}}).fetch().map(function(trip) {
+    return Trips.find({_id: { $in: Meteor.user() ? Meteor.user().profile.myTrips : []}}).fetch().map(function(trip) {
       return (
         <TripList key={trip._id} trip={trip}/>
       );
