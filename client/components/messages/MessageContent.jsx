@@ -1,23 +1,26 @@
 MessageContent = React.createClass({
-	mixins: [ReactMeteorData],
 
-	getMeteorData(){
-		return Trips.find({}).fetch();
-	},
-	renderMessage(){
+	renderMessages(){
 		return this.data.messages.map((Message) =>{
-			<MessageLoader key={message._id} message={text}/>
+			
 		})
 		
 	},
 	render(){
+		console.log('this.props', this.props)
+		this.props.trip.messages.map((message)=> {
+			var sender = this.props.trip.messages.sender;
+			console.log('sender: ', sender);
+			var message = this.props.trip.messages.text;
+			console.log('message: ', message);
+		});
 		return(
 			<div className='message-list'>
 				<div className="list message-container">
 					<a className='anchor-resize item item-avatar'>
 						<img className="avatar-image" src="" />
-						<h2></h2>
-						<p></p>
+						<h2>{this.sender}</h2>
+						<p>{this.message}</p>
 					</a>
 				</div>
 			</div>

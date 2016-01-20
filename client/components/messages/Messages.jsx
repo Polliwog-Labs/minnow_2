@@ -15,7 +15,7 @@ Messages = React.createClass({
 	render(){
 		return(
 			<div className="message-wrapper">
-			<MessageContent/>
+			<MessageContent trip={this.props.trip}/>
 			<footer className='list fixed-input'>
 				<form className='item item-input-inset'>
 					<label className='item-input-wrapper'>
