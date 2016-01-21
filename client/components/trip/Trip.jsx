@@ -2,7 +2,6 @@ Trip = React.createClass({
   mixins: [ReactMeteorData],
   getMeteorData: function(){
     var trip = Trips.findOne(document.location.pathname.substring(6));
-    console.log('trip: ', trip)
     return {trip:trip};
   },
 
@@ -35,6 +34,7 @@ Trip = React.createClass({
   renderSettings: function () {
     $('.active').removeClass('active');
     $('#settings').addClass('active');
+    ReactDOM.render(<EditTrip />, document.getElementById('trip-module'))
   },
 
   renderExpenses: function () {
@@ -42,10 +42,12 @@ Trip = React.createClass({
     $('#cash').addClass('active');
   },
 
+
   render: function(){
+
     return (
-      <div>
-        <div className="tabs tabs-icon-top">
+      <div >
+        <div className="footer-fixed tabs tabs-icon-top">
           <a className="tab-item active" id='home'onClick={this.renderHome}>
             <i className="icon ion-home"></i>
             Home
@@ -72,4 +74,7 @@ Trip = React.createClass({
     )
   }
 })
+<<<<<<< HEAD
         // <div >{this.state.module}</div>
+=======
+>>>>>>> master

@@ -102,7 +102,7 @@ body {
       rgba(0, 0, 0, 0.6)
     ),
   url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/3/skyscrapers.jpg);
-  background-size: contain;
+  backgroundSize: contain;
   width: 94%;
   height: 300px;
   margin: 10px 0 0 10px;
@@ -133,3 +133,16 @@ body {
   color: red;
 }
 
+.footer-fixed {
+  position: fixed!important;
+  padding-top: 8px!important;
+  height: 60px!important;
+}
+
+.image-fixed{
+  height: 240px!important;
+}   
+
+.message-container{
+  margin-bottom: 0px!important;
+}
