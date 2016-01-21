@@ -44,7 +44,7 @@ Trip = React.createClass({
   
   render: function(){
     return (
-      <div >
+      <div>
         <div className="footer-fixed tabs tabs-icon-top">
           <a className="tab-item active" id='home'onClick={this.renderHome}>
             <i className="icon ion-home"></i>
@@ -67,7 +67,7 @@ Trip = React.createClass({
             Settings
           </a>
         </div> 
-        <div id='trip-module'></div>
+        <div className='has-footer' id='trip-module'></div>
       </div>  
     )
   }

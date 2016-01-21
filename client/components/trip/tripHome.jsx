@@ -24,13 +24,13 @@ TripHome = React.createClass({
     };
       console.log(params.image_id);
     return (
-      <div className='trip list card'>
-        <div className='item item-avatar'>
+      <div className='trip'>
+        <div className=''>
           <h1>Trip Home</h1>
           <h3>{params.name}</h3>
           <p className='tripParams'>From {new Date(params.dates[0]).toString()} to {new Date(params.dates[1]).toString()}</p>
         </div>
-        <div className ="item item-body">
+        <div className ="">
           <Image image_id={params.image_id} height="300px" />
           <p className='tripParams'>Attendees: {params.members.join(', ')}</p>
           <p className='tripParams'>{params.itinerary.length} Events</p>
