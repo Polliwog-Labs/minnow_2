@@ -1,15 +1,13 @@
-// MessageContent = React.createClass({
-// 	render(){
-// 		var params = {
-// 			text: [],
-// 			sender: []
-// 		};
-// 		for (var key in this.props.params.messages){
-// 			this.props.params.messages[key] && (params[key] = this.props.params.messages[key])
-// 			console.log('set key: ', params[key])
-// 		}
-// 		return(
-			
-// 		)
-// 	}
-// })
+MessageContent = React.createClass({
+	render(){
+		return(
+			<div className="list message-container">
+				<a className='anchor-resize item item-avatar'>
+					<img className="avatar-image" src="https://facebook.github.io/react/img/logo.svg" />
+					<h2>{this.props.sender}</h2>
+					<p>{this.props.text}</p>
+				</a>
+			</div>
+		)
+	}
+})

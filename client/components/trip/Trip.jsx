@@ -45,8 +45,8 @@ Trip = React.createClass({
   render: function(){
 
     return (
-      <div>
-        <div className="tabs tabs-icon-top">
+      <div >
+        <div className="footer-fixed tabs tabs-icon-top">
           <a className="tab-item active" id='home'onClick={this.renderHome}>
             <i className="icon ion-home"></i>
             Home
