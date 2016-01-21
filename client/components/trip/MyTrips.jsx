@@ -24,16 +24,12 @@ MyTrips = React.createClass({
 
   newTrip: function(event){
     event.preventDefault();
-    // var invitees = ReactDOM.findDOMNode(this.refs.newTrip_members).value.replace(/\s/,'').split(',').filter(function(address){
-    //   return /^[\w,\.,-]+@[\w,\.,-]+\.[a-z]{2,3}$/.test(address);
-    // });
-    Trips.insert({name: ReactDOM.findDOMNode(this.refs.newTrip_name).value,
+    Trips.insert({
+                  name: ReactDOM.findDOMNode(this.refs.newTrip_name).value,
                   members: [Meteor.userId()],
-                  // dates: [new Date(ReactDOM.findDOMNode(this.refs.newTrip_startDate).value).getTime(),
-                  //         new Date(ReactDOM.findDOMNode(this.refs.newTrip_endDate).value).getTime()
-                  // ],
                   organizers: [Meteor.userId],
                   created_by: Meteor.user().username,
+                  messages: []
                   }, 
                   function(err, id){
                     if (err){ 
@@ -46,21 +42,12 @@ MyTrips = React.createClass({
               });
   },
 
-  // newTrip : function(){
-  //   document.location.href = "/newtrip"
-  // },
-
   renderTrips: function(){
     return Trips.find({_id: { $in: Meteor.user() ? Meteor.user().profile.myTrips : []}}).fetch().map(function(trip) {
       return (
         <TripList key={trip._id} trip={trip}/>
       );
     })
-    // return this.data.trips.map(function(trip){
-    //   return (
-    //     <TripList key={trip._id} trip={trip}/>
-    //   );
-    // });
   },
   render: function(){
     return (
