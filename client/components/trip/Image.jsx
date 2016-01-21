@@ -6,6 +6,15 @@ Image = new React.createClass({
   getInitialState: function(){
     return {url:'/doge.jpg'}
   },
+  componentDidMount: function(){
+    console.log('image id: '+this.props.image_id);
+    if (this.props.image_id) {
+      this.getImageURL();
+    } else {
+      console.log('this.props.image_id is blank. Defaulting to doge.');
+      this.setState({url:'/doge.jpg'});
+    }
+  },
   getImageURL: function(){
     var that = this;
     var count = 1;
@@ -30,18 +39,11 @@ Image = new React.createClass({
       }
     });
   },
-  componentDidMount: function(){
-    if (this.props.image_id) {
-      this.getImageURL();
-    } else {
-      console.log('this.props.image_id is undefined. This shouldn\'t happen.');
-      this.setState({url:'/doge.jpg'});
-    }
-  },
   componentWillReceiveProps(newProps) {
     this.getImageURL();
   },
   render: function(){
+    console.log('url: '+this.state.url)
     return (
             <img src={this.state.url} height={this.props.height} />
             );
