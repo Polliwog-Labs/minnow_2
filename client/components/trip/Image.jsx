@@ -6,37 +6,40 @@ Image = new React.createClass({
   getInitialState: function(){
     return {url:'/doge.jpg'}
   },
-  componentDidMount: function(){
+  getImageURL: function(){
     var that = this;
     var count = 1;
-    var getImageURL = function(context){
-      Meteor.call('retrieveImageUrlById',that.props.image_id,(err,data)=>{
-        if (err) {
-          console.log(err);
-          console.log('err retrieving image. This shouldn\'t happen');
-          context.setState({url:'/doge.jpg'});
-        }
+    Meteor.call('retrieveImageUrlById',that.props.image_id,(err,data)=>{
+      if (err) {
+        console.log(err);
+        console.log('err retrieving image. This shouldn\'t happen');
+        that.setState({url:'/doge.jpg'});
+      }
+      else {
+        if (data) that.setState({url:data})
         else {
-          if (data) context.setState({url:data})
+          if (count >= 15) {that.setState({url:'/doge.jpg'});}
           else {
-            if (count >= 15) {context.setState({url:'/doge.jpg'});}
-            else {
-              setTimeout(function(){
-                count++;
-                getImageURL(context);
-              },1000);
-            }
-            //No more than 15 tries. If someone puts in a stupid big image, they can wait/refresh the page.
+            setTimeout(function(){
+              count++;
+              that.getImageURL();
+            },1000);
           }
+          //No more than 15 tries. If someone puts in a stupid big image, they can wait/refresh the page.
         }
-      });
-    };
+      }
+    });
+  },
+  componentDidMount: function(){
     if (this.props.image_id) {
-      getImageURL(that);
+      this.getImageURL();
     } else {
       console.log('this.props.image_id is undefined. This shouldn\'t happen.');
       this.setState({url:'/doge.jpg'});
     }
+  },
+  componentWillReceiveProps(newProps) {
+    this.getImageURL();
   },
   render: function(){
     return (
