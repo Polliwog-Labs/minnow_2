@@ -1,4 +1,9 @@
 TripHome = React.createClass({
+
+  renderList: function() {
+    document.location.href = '/mytrips';
+  },
+
   render: function(){
     console.log('rendered');
     var params = {
@@ -29,7 +34,7 @@ TripHome = React.createClass({
         <p className='tripParams'>{params.messages.length} Messages</p>
         <p className='tripParams'>{params.todo.length} Action Items</p>
         <p className='tripParams'>Est. Cost: ${params.expenses.length ? 'Some Number' : 0}</p>
-        <a href='/alltrips'>Go back home</a>
+        <button onClick={this.renderList}>Go back home</button>
       </div>
     )
   }
