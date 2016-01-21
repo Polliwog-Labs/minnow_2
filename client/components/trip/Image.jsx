@@ -6,13 +6,21 @@ Image = new React.createClass({
   getInitialState: function(){
     return {url:'/doge.jpg'}
   },
+  componentDidMount: function(){
+    if (this.props.image_id) {
+      this.getImageURL();
+    } else {
+      console.log('this.props.image_id is blank. Defaulting to doge.');
+      this.setState({url:'/doge.jpg'});
+    }
+  },
   getImageURL: function(){
     var that = this;
     var count = 1;
     Meteor.call('retrieveImageUrlById',that.props.image_id,(err,data)=>{
       if (err) {
         console.log(err);
-        console.log('err retrieving image. This shouldn\'t happen');
+        console.log('err retrieving image. Defaulting to doge.');
         that.setState({url:'/doge.jpg'});
       }
       else {
@@ -29,14 +37,6 @@ Image = new React.createClass({
         }
       }
     });
-  },
-  componentDidMount: function(){
-    if (this.props.image_id) {
-      this.getImageURL();
-    } else {
-      console.log('this.props.image_id is undefined. This shouldn\'t happen.');
-      this.setState({url:'/doge.jpg'});
-    }
   },
   componentWillReceiveProps(newProps) {
     this.getImageURL();

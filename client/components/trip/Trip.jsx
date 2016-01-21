@@ -41,7 +41,7 @@ Trip = React.createClass({
   renderSettings: function () {
     $('.active').removeClass('active');
     $('#settings').addClass('active');
-    ReactDOM.render(<EditTrip />, document.getElementById('trip-module'))
+    ReactDOM.render(<EditTrip trip={this.data.trip}/>, document.getElementById('trip-module'))
   },
 
   renderExpenses: function () {
@@ -53,7 +53,7 @@ Trip = React.createClass({
   render: function(){
     console.log('this.data: ', this.data)
     return (
-      <div >
+      <div>
         <div className="footer-fixed tabs tabs-icon-top">
           <a className="tab-item active" id='home'onClick={this.renderHome}>
             <i className="icon ion-home"></i>
@@ -75,9 +75,10 @@ Trip = React.createClass({
             <i className="icon ion-gear-a settings"></i>
             Settings
           </a>
-        </div>
-        <div id='trip-module'></div>
-      </div>
+        </div> 
+        <div className='has-footer' id='trip-module'></div>
+      </div>  
+
     )
   }
 })
