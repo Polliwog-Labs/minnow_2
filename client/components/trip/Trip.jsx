@@ -34,6 +34,7 @@ Trip = React.createClass({
   renderSettings: function () {
     $('.active').removeClass('active');
     $('#settings').addClass('active');
+    ReactDOM.render(<EditTrip />, document.getElementById('trip-module'))
   },
 
   renderExpenses: function () {
