@@ -7,7 +7,6 @@ Image = new React.createClass({
     return {url:'/doge.jpg'}
   },
   componentDidMount: function(){
-    console.log('image id: '+this.props.image_id);
     if (this.props.image_id) {
       this.getImageURL();
     } else {
@@ -21,7 +20,7 @@ Image = new React.createClass({
     Meteor.call('retrieveImageUrlById',that.props.image_id,(err,data)=>{
       if (err) {
         console.log(err);
-        console.log('err retrieving image. This shouldn\'t happen');
+        console.log('err retrieving image. Defaulting to doge.');
         that.setState({url:'/doge.jpg'});
       }
       else {
@@ -43,7 +42,6 @@ Image = new React.createClass({
     this.getImageURL();
   },
   render: function(){
-    console.log('url: '+this.state.url)
     return (
             <img src={this.state.url} height={this.props.height} />
             );

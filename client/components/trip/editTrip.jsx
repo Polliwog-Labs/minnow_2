@@ -7,8 +7,7 @@ EditTrip = React.createClass({
     return {image_id:null};
   },
   getMeteorData: function(){
-    var trip = Trips.findOne({_id:this.props.trip._id});
-    return {trip:trip};
+    return {trip:Trips.findOne({_id: this.props.trip._id})};
   },
   updateTrip: function(invitees, image_id){
     Trips.update({_id:this.props.trip._id},{$set: {
