@@ -1,4 +1,18 @@
 Messages = React.createClass({
+
+	// mixins: [LinkedStateMixin],
+
+	getInitialState: function(){
+		console.log(this.props.trip.messages);
+		return {key: this.props.trip.messages};
+	},
+
+	handleChange: function(event){
+		this.setState({key: event.target.value});
+	},
+
+
+
 	submitMessage(event){
 		event.preventDefault();
 		var message = ReactDOM.findDOMNode(this.refs.message_text).value;
@@ -12,6 +26,7 @@ Messages = React.createClass({
 	},
 
 	render(){
+		var key = this.state.key;
 		return(
 			<div className="message-wrapper">
 			<MessageLoader messages={this.props.trip}/>
@@ -20,8 +35,8 @@ Messages = React.createClass({
 					<label className='item-input-wrapper'>
 						<input type='text' placeholder="message your group" ref='message_text'/>
 					</label>
-					<button className='button button-positive' onClick={this.submitMessage}>Submit</button>
-				</form>	
+					<button className='button button-positive' value={key} onChange={this.handleChange} onClick={this.submitMessage}>Submit</button>
+				</form>
 			</div>
 			</div>
 		)
