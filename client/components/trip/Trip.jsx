@@ -66,9 +66,9 @@ Trip = React.createClass({
             <i className="icon ion-gear-a settings"></i>
             Settings
           </a>
-        </div> 
+        </div>
         <div id='trip-module'></div>
-      </div>  
+      </div>
     )
   }
 })

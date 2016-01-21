@@ -8,7 +8,7 @@ MessageContent = React.createClass({
 		return this.data.messages.map((Message) =>{
 			<MessageLoader key={message._id} message={text}/>
 		})
-		
+
 	},
 	render(){
 		return(
@@ -21,7 +21,7 @@ MessageContent = React.createClass({
 					</a>
 				</div>
 			</div>
-			
+
 		)
 	}
 })
