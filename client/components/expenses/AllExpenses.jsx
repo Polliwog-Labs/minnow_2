@@ -1,10 +1,11 @@
 AllExpenses = React.createClass({
 	render:function(){
-		console.log(this.props)
+		var expense_list = this.props.trip.expenses.map(function(expense){
+			return <Expense {...expense} />
+		});
 		return(
-			<div className= "expensesDash">
-				<h2>You owe Mac a million dollars</h2>
-				<h2>You owe Joey</h2>
+			<div className="card">
+			  {expense_list}
 			</div>
 
 	)

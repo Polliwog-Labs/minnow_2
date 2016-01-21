@@ -1,15 +1,21 @@
 NewExpense = React.createClass({
 
+	mixins: [ReactMeteorData],
+
+	getMeteorData: function(){
+		
+		return{};
+	},
+
 	submitExpense(event){
 		event.preventDefault();
 		var expense_details = ReactDOM.findDOMNode(this.refs.expense_details).value;
 		var expense_amount = ReactDOM.findDOMNode(this.refs.expense_amount).value;
-		var expense_split = ReactDOM.findDOMNode(this.refs.expense_split).value;
-		console.log("Expense ", expense);
+		// var expense_split = ReactDOM.findDOMNode(this.refs.expense_split).value;
 		//Need to set a expenses schedma that can keep track of how much each person owes 
-		Trips.update({"_id": this.props.trip._id}, {$push: {'expenses': {'description': expense_details, 'amount': expense_amount, 'split': expense_split, 'created_at': new Date(), 'sender': Meteor.user().username}}}, function(error){
+		Trips.update({"_id": this.props.trip._id}, {$push: {'expenses': {'description': expense_details, 'amount': Number(expense_amount),  'created_at': new Date(), 'sender': Meteor.user().username}}}, function(error){
 			if(!error){
-				console.log("inserted message into DB");
+				console.log("inserted expense into DB");
 			}else if(error){
 				console.log("error inserting message into DB: ", error);
 			}
@@ -42,7 +48,7 @@ NewExpense = React.createClass({
 				      <option>Ashley</option>
 				    </select>
 			  </label>
-			  <button className="button button-block button-positive">Submit</button>
+			  <button className="button button-block button-positive" onClick={this.submitExpense}>Submit</button>
 		</div>
 		)
 	}
