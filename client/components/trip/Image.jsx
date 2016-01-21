@@ -45,7 +45,7 @@ Image = new React.createClass({
   render: function(){
     console.log('url: '+this.state.url)
     return (
-            <img src={this.state.url} height={this.props.height} width="800px"/>
+            <img src={this.state.url} height={this.props.height} />
             );
   }
 });
