@@ -1,8 +1,15 @@
 Trip = React.createClass({
   mixins: [ReactMeteorData],
   getMeteorData: function(){
-    var trip = Trips.findOne({_id:document.location.pathname.substring(6)});
-    return {trip:trip};
+    var trip = Trips.findOne(document.location.pathname.substring(6));
+    var members = Meteor.users.find({_id: {$in: trip.members}}).fetch();
+    console.log('trip: ', members)
+    // console.log('members: ', members)
+
+    return {
+      trip:trip,
+      members: members
+    };
   },
 
   getInitialState: function () {
@@ -43,8 +50,9 @@ Trip = React.createClass({
   },
   
   render: function(){
+    console.log('this.data: ', this.data)
     return (
-      <div >
+      <div>
         <div className="footer-fixed tabs tabs-icon-top">
           <a className="tab-item active" id='home'onClick={this.renderHome}>
             <i className="icon ion-home"></i>
@@ -66,9 +74,10 @@ Trip = React.createClass({
             <i className="icon ion-gear-a settings"></i>
             Settings
           </a>
-        </div>
-        <div id='trip-module'></div>
-      </div>
+        </div> 
+        <div className='has-footer' id='trip-module'></div>
+      </div>  
+
     )
   }
 })
