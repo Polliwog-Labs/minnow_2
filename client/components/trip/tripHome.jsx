@@ -1,13 +1,23 @@
 TripHome = React.createClass({
 
-  renderList: function() {
+renderList: function() {
     document.location.href = '/mytrips';
   },
+
+  submitInvitees: function(event) {
+    var invitee_email = ReactDOM.findDOMNode(this.refs.input_email).value;
+
+    var invitees = trip.email.address;
+    console.log('SEE THIS', invitees);
+
+  },
+    // var members = Meteor.users.find({_id: {$in: trip.members}}).fetch();
 
   // submitInvitees: function(event) {
   //   // Push user id into the members array
   //   // Query meteor.users collection and find corresponding emails to the user id
   // },
+
 
   render: function(){
     var params = {
@@ -44,7 +54,11 @@ TripHome = React.createClass({
           <p className='tripParams'>{params.todo.length} Action Items</p>
           <p className='tripParams'>Est. Cost: ${params.expenses.length ? 'Some Number' : 0}</p>
 
-
+        <form className='form-group' ref='input_email'>
+             <p>Invite attendees by email address:</p>
+             <input type="email" label="Email Address" placeholder="Enter email" />
+             <button className='button button-positive' onClick={this.submitInvitees}>Submit</button>
+         </form>
 
           <button onClick={this.renderList}>Go back home</button>
       </div>
@@ -54,10 +68,12 @@ TripHome = React.createClass({
 });
 
 
+
 //   <form id='' className='form-group' onSubmit={this.submitInvitees}>
         //   <p>Invite attendees by email address:</p>
         //   <Input type="text" label="Text" placeholder="Enter text" />
         //   <Input type="email" label="Email Address" placeholder="Enter email" />
         //   <ButtonInput type="submit" value="Submit Button" />
         // </form>
+
 
