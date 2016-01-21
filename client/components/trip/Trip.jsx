@@ -23,7 +23,7 @@ Trip = React.createClass({
   renderHome: function () {
     $('.active').removeClass('active');
     $('#home').addClass('active');
-    ReactDOM.render(<TripHome trip={this.data.trip}/>, document.getElementById('trip-module'))
+    ReactDOM.render(<TripHome members={this.data.members} trip={this.data.trip}/>, document.getElementById('trip-module'))
   },
 
   renderItinerary: function () {
@@ -75,7 +75,7 @@ Trip = React.createClass({
             Settings
           </a>
         </div> 
-        <div id='trip-module'></div>
+        <div className="has-footer" id='trip-module'></div>
       </div>  
     )
   }
