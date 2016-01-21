@@ -1,5 +1,4 @@
 Messages = React.createClass({
-
 	propTypes: {
 		trip: React.PropTypes.object.isRequired
 	},
@@ -8,7 +7,6 @@ Messages = React.createClass({
 		var trip = Trips.findOne({_id:this.props.trip._id});
 		return {trip:trip}
 	},
-
 	submitMessage(event){
 		event.preventDefault();
 		var message = ReactDOM.findDOMNode(this.refs.message_text).value;
@@ -21,7 +19,6 @@ Messages = React.createClass({
 		});
 	},
 	render(){
-		var key = this.state.key;
 		return(
 			<div className="message-wrapper">
 			<MessageLoader messages={this.data.trip}/>
@@ -30,7 +27,7 @@ Messages = React.createClass({
 					<label className='item-input-wrapper'>
 						<input type='text' placeholder="message your group" ref='message_text'/>
 					</label>
-					<button className='button button-positive' value={key} onChange={this.handleChange} onClick={this.submitMessage}>Submit</button>
+					<button className='button button-positive' onClick={this.submitMessage}>Submit</button>
 				</form>
 			</div>
 			</div>
