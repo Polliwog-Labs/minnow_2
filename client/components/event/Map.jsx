@@ -1,14 +1,8 @@
 EventMap = React.createClass({
   mixins: [ReactMeteorData],
-  componentWillMount() {
-    $.getScript('https://maps.googleapis.com/maps/api/js?libraries=places',()=>{
-      GoogleMaps.initialize();
-      this.setState({mapApi:true});
-    })
-    // GoogleMaps.load({key:'AIzaSyDrj8LPd0RL2sGKYND-us2UlB5kexUdjJ0',
-    //                 libraries: 'places'});
-  },
   getMeteorData() {
+    GoogleMaps.load({key:'AIzaSyDrj8LPd0RL2sGKYND-us2UlB5kexUdjJ0',
+                    libraries: 'places'});
     return {
       loaded: GoogleMaps.loaded(),
       mapOptions: GoogleMaps.loaded() && this._mapOptions()
@@ -26,15 +20,11 @@ EventMap = React.createClass({
     if (this.data.loaded)
       return (<div> 
                 <GoogleMap name="eventmap" options={this.data.mapOptions} />
-                <form>
-                  <input type="text" className="placesSearch" placeholder="Search by Location" />
-                </form>
               </div>);
 
     return <div>Loading map...</div>;
   }
 });
-
 GoogleMap = React.createClass({
   propTypes: {
     name: React.PropTypes.string.isRequired,
@@ -46,9 +36,6 @@ GoogleMap = React.createClass({
       element: ReactDOM.findDOMNode(this),
       options: this.props.options
     });
-    var search = new google.maps.places.SearchBox({
-      inputField: $('placesSearch')[0]
-    });
 
     GoogleMaps.ready(this.props.name, (map)=> {
       var marker = new google.maps.Marker({
@@ -57,7 +44,6 @@ GoogleMap = React.createClass({
         optimized: false
       });
       console.log('map ready');
-      this.setState({loaded: true});
     });
   },
   componentWillUnmount() {

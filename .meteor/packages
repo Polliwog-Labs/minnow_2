@@ -31,5 +31,5 @@ meteoric:ionic-sass
 meteorhacks:npm
 cosmos:browserify
 npm-container
-minnow:google-maps
 twbs:bootstrap
+dburles:google-maps
