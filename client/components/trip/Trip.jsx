@@ -40,6 +40,7 @@ Trip = React.createClass({
   renderExpenses: function () {
     $('.active').removeClass('active');
     $('#cash').addClass('active');
+    ReactDOM.render(<Expenses trip={this.data.trip}/>, document.getElementById('trip-module'))
   },
 
 
