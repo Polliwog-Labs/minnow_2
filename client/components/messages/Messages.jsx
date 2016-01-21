@@ -1,4 +1,5 @@
 Messages = React.createClass({
+	
 	submitMessage(event){
 		event.preventDefault();
 		var message = ReactDOM.findDOMNode(this.refs.message_text).value;
