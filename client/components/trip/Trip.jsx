@@ -42,10 +42,8 @@ Trip = React.createClass({
     $('#cash').addClass('active');
     ReactDOM.render(<Expenses trip={this.data.trip}/>, document.getElementById('trip-module'))
   },
-
-
+  
   render: function(){
-
     return (
       <div >
         <div className="footer-fixed tabs tabs-icon-top">

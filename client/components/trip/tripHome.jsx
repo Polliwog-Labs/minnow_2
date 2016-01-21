@@ -16,6 +16,7 @@ TripHome = React.createClass({
       expenses: [],
       todo: [],
       organizers: [],
+      expenses: [],
     };
     
     for (var key in this.props.trip){

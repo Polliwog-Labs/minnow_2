@@ -3,8 +3,10 @@ Expenses = React.createClass({
 
 	submitExpense(event){
 		event.preventDefault();
-		var expense = ReactDOM.findDOMNode(this.refs.message_expense).value;
-		console.log("Message: ", message);
+		var expense_details = ReactDOM.findDOMNode(this.refs.expense_details).value;
+		var expense_amount = ReactDOM.findDOMNode(this.refs.expense_amount).value;
+		var expense_split = ReactDOM.findDOMNode(this.refs.expense_split).value;
+		console.log("Expense ", expense);
 		//Need to set a expenses schedma that can keep track of how much each person owes 
 		Trips.update({"_id": this.props.trip._id}, {$push: {'expenses': {'text': expense, 'created_at': new Date(), 'sender': Meteor.user().username}}}, function(error){
 			if(!error){
@@ -30,3 +32,19 @@ Expenses = React.createClass({
 		)
 	}
 })
+
+<div className="list">
+  <label className="item item-input item-stacked-label">
+    <span className="input-label">Add a new expense</span>
+    <input type="text" placeholder="Description" ref='expense_details'>
+  </label>
+  <label className="item item-input item-stacked-label">
+    <span className="input-label">Amount</span>
+    <input type="number" placeholder="$" ref='expense_amount'>
+  </label>
+  <label className="item item-input item-stacked-label">
+    <span classNae="input-label">Split with:</span>
+    <input type="text" placeholder="Name" ref='expense_split'>
+  </label>
+  <button class="button button-block button-positive">Submit</button>
+</div>
