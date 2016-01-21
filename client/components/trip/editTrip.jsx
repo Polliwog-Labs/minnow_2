@@ -1,14 +1,16 @@
 EditTrip = React.createClass({
   mixins:[ReactMeteorData],
+  propTypes: {
+    trip: React.PropTypes.object.isRequired
+  },
   getInitialState: function(){
     return {image_id:null};
   },
   getMeteorData: function(){
-    var trip = Trips.findOne(document.location.pathname.substring(11));
-    return {trip:trip};
+    return {trip:Trips.findOne({_id: this.props.trip._id})};
   },
   updateTrip: function(invitees, image_id){
-    Trips.update({_id: document.location.pathname.substring(11)},{$set: {
+    Trips.update({_id:this.props.trip._id},{$set: {
                   name: ReactDOM.findDOMNode(this.refs.newTrip_name).value,
                   members: invitees,
                   dates: [new Date(ReactDOM.findDOMNode(this.refs.newTrip_startDate).value).getTime(),
