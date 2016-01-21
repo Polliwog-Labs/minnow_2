@@ -12,7 +12,8 @@ NewTrip = React.createClass({
                   //       new Date(ReactDOM.findDOMNode(this.refs.newTrip_endDate).value).getTime()
                   // ],
                   // image_id: data._id,
-                  organizers: [Meteor.userId()]
+                  organizers: [Meteor.userId()],
+                  messages: []
                 }, function(err, id){
       if (err) {console.log(err);}
       else {

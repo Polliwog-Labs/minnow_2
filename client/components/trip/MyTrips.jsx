@@ -11,7 +11,8 @@ MyTrips = React.createClass({
                               {name:'Movie, drinks, and dinner',
                               _id:99,
                               members:["","",""],
-                              itinerary: ["",""]
+                              itinerary: ["",""],
+                              messages: []
                             } 
                           ];
     var myTrips = Trips.find().fetch().sort(function(tripA, tripB){
@@ -29,7 +30,7 @@ MyTrips = React.createClass({
                   members: [Meteor.userId()],
                   organizers: [Meteor.userId],
                   created_by: Meteor.user().username,
-                  messages: []
+                  message: []
                   }, 
                   function(err, id){
                     if (err){ 
