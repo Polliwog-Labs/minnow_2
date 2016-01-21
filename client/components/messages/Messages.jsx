@@ -1,22 +1,16 @@
 Messages = React.createClass({
-
-	// mixins: [LinkedStateMixin],
-
-	getInitialState: function(){
-		console.log(this.props.trip.messages);
-		return {key: this.props.trip.messages};
+	propTypes: {
+		trip: React.PropTypes.object.isRequired
 	},
-
-	handleChange: function(event){
-		this.setState({key: event.target.value});
+	mixins: [ReactMeteorData],
+	getMeteorData(){
+		var trip = Trips.findOne({_id:this.props.trip._id});
+		return {trip:trip}
 	},
-
-
-
 	submitMessage(event){
 		event.preventDefault();
 		var message = ReactDOM.findDOMNode(this.refs.message_text).value;
-		Trips.update({"_id": this.props.trip._id}, {$push: {'messages': {'text': message, 'created_at': new Date(), 'sender': Meteor.user().username}}}, function(error){
+		Trips.update({_id:this.data.trip._id}, {$push: {'messages': {'text': message, 'created_at': new Date(), 'sender': Meteor.user().username}}}, (error)=>{
 			if(!error){
 				console.log("inserted message into DB")
 			}else if(error){
@@ -24,18 +18,16 @@ Messages = React.createClass({
 			}
 		});
 	},
-
 	render(){
-		var key = this.state.key;
 		return(
 			<div className="message-wrapper">
-			<MessageLoader messages={this.props.trip}/>
+			<MessageLoader messages={this.data.trip}/>
 			<div className='list fixed-input'>
 				<form className='item item-input-inset'>
 					<label className='item-input-wrapper'>
 						<input type='text' placeholder="message your group" ref='message_text'/>
 					</label>
-					<button className='button button-positive' value={key} onChange={this.handleChange} onClick={this.submitMessage}>Submit</button>
+					<button className='button button-positive' onClick={this.submitMessage}>Submit</button>
 				</form>
 			</div>
 			</div>
