@@ -1,15 +1,11 @@
 MessageLoader = React.createClass({
-	
-	propTypes:{
-		messages: React.PropTypes.object.isRequired
-	},
-
 	render(){
-
+		var message_list = this.props.messages.messages.map(function(message){
+			return <MessageContent {...message}/>
+		});
 		return(
-			<div> 
-				{this.props.messages.message}
-			</div>
+			<div>{message_list}</div>
 		)
 	}
 });
+
