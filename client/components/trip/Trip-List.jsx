@@ -38,7 +38,6 @@ TripList = React.createClass({
     }
   },
   navToTrip: function(){
-    console.log(this.props.trip)
     document.location.href = '/trip/edit/' + this.props.trip._id;
   },
 
@@ -58,8 +57,6 @@ TripList = React.createClass({
     
     for (var key in this.props.trip){
       this.props.trip[key] && (params[key] = this.props.trip[key]);
-
-      console.log("trip",this.props.trip[key]);
     }
 
     var backgroundStyle = {

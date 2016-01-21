@@ -1,14 +1,14 @@
-Event = new React.createClass({
+ Itinerary = new React.createClass({
   propTypes: {
     // event_id: React.PropTypes.string,
     // trip_id: React.PropTypes.string
   },
   mixins: [ReactMeteorData],
   getMeteorData: function(){
-    return ({event: Events.findOne({_id:this.props.event_id}) || {}});
+    return ({event: Itineraries.findOne({_id:this.props.event_id}) || {}});
   },
   submitEvent: function(){
-    Events.insert({
+    Itineraries.insert({
       name: ReactDOM.findDOMNode(this.refs.event_name).value,
       cost: ReactDOM.findDOMNode(this.refs.event_cost).value
     },function(err,event_id){

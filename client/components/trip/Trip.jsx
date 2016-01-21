@@ -41,10 +41,8 @@ Trip = React.createClass({
     $('.active').removeClass('active');
     $('#cash').addClass('active');
   },
-
-
+  
   render: function(){
-
     return (
       <div >
         <div className="footer-fixed tabs tabs-icon-top">
