@@ -55,8 +55,10 @@ TripList = React.createClass({
       todo: [],
       organizer: [],
     };
+    
     for (var key in this.props.trip){
       this.props.trip[key] && (params[key] = this.props.trip[key]);
+
       console.log("trip",this.props.trip[key]);
     }
 
@@ -64,7 +66,6 @@ TripList = React.createClass({
      background: 'url('+this.state.url+')',
      'background-size': 'cover'
     }
-
 
     return (
       <div className="tripListModule" onClick={this.navToTrip} style={this.state.url.length ? backgroundStyle : {}}>
