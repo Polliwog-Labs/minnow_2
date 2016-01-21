@@ -23,6 +23,7 @@ App = React.createClass({
           }
           <h1 className="h1 title">minnow</h1>
           <button className="button button-clear" onClick={this.logout}>Logout</button>
+          <button className="button button-clear" onClick={function(){document.location.href='/newevent'}}>New Event</button>
         </div>
         <div className="view">
           <div className="scroll-content ionic-scroll">

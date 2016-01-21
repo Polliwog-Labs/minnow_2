@@ -9,3 +9,11 @@
   width: 640px;
   height: 480px;
 }
+.map-canvas {
+  width: 640px;
+  height: 480px;
+}
+.map-canvas img {
+  max-height: none;
+  max-width: none;
+}

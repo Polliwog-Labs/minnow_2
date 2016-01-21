@@ -1,8 +1,12 @@
 EventMap = React.createClass({
   mixins: [ReactMeteorData],
-  componentDidMount() {
-    GoogleMaps.load({key:'AIzaSyDrj8LPd0RL2sGKYND-us2UlB5kexUdjJ0',
-                    libraries: 'places'});
+  componentWillMount() {
+    $.getScript('https://maps.googleapis.com/maps/api/js?libraries=places',()=>{
+      GoogleMaps.initialize();
+      this.setState({mapApi:true});
+    })
+    // GoogleMaps.load({key:'AIzaSyDrj8LPd0RL2sGKYND-us2UlB5kexUdjJ0',
+    //                 libraries: 'places'});
   },
   getMeteorData() {
     return {
@@ -14,12 +18,18 @@ EventMap = React.createClass({
     return {
       center: new google.maps.LatLng(30.2932637, -97.7571322),
       //MakerSquare!
-      zoom: 10 
+      zoom: 10,
+      noClear: true 
     };
   },
   render() {
     if (this.data.loaded)
-      return <GoogleMap name="event-map" options={this.data.mapOptions} />;
+      return (<div> 
+                <GoogleMap name="eventmap" options={this.data.mapOptions} />
+                <form>
+                  <input type="text" className="placesSearch" placeholder="Search by Location" />
+                </form>
+              </div>);
 
     return <div>Loading map...</div>;
   }
@@ -28,7 +38,7 @@ EventMap = React.createClass({
 GoogleMap = React.createClass({
   propTypes: {
     name: React.PropTypes.string.isRequired,
-    options: React.PropTypes.object.isRequired
+    options: React.PropTypes.object.isRequired,
   },
   componentDidMount() {
     var eventMap = GoogleMaps.create({
@@ -36,13 +46,18 @@ GoogleMap = React.createClass({
       element: ReactDOM.findDOMNode(this),
       options: this.props.options
     });
+    var search = new google.maps.places.SearchBox({
+      inputField: $('placesSearch')[0]
+    });
 
-    GoogleMaps.ready(this.props.name, function(map) {
+    GoogleMaps.ready(this.props.name, (map)=> {
       var marker = new google.maps.Marker({
         position: new google.maps.LatLng(30.2932637, -97.7571322),
-        map: map.instance
+        map: GoogleMaps.get(this.props.name).instance,
+        optimized: false
       });
       console.log('map ready');
+      this.setState({loaded: true});
     });
   },
   componentWillUnmount() {
@@ -52,6 +67,6 @@ GoogleMap = React.createClass({
     } 
   },
   render() {
-    return <div className="map-container"></div>;
+    return <div className="map-canvas"></div>;
   }
 });
