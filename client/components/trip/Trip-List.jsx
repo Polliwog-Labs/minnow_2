@@ -39,7 +39,7 @@ TripList = React.createClass({
   },
   navToTrip: function(){
     console.log(this.props.trip)
-    document.location.href = '/trip/' + this.props.trip._id;
+    document.location.href = '/trip/edit/' + this.props.trip._id;
   },
 
   render: function(){

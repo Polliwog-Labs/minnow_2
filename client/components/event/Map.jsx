@@ -33,7 +33,7 @@ GoogleMap = React.createClass({
   componentDidMount() {
     var eventMap = GoogleMaps.create({
       name: this.props.name,
-      element: ReactDOM.findDOMNode(this),
+      element: document.getElementsByClassName('map-container')[0],//ReactDOM.findDOMNode(this),
       options: {
         center: new google.maps.LatLng(30.2932637, -97.7571322),
         //MakerSquare!

@@ -10,8 +10,6 @@ retrieveImageUrlById = function(id){
 
 Meteor.methods({
   storeImage: function(image){
-    console.log(image);
-    console.log(typeof image)
     return storeImage(image);
   },
   retrieveImageUrlById: function(id){

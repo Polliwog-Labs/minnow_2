@@ -60,7 +60,7 @@ EditTrip = React.createClass({
             <input id="newTrip-file" type="file" className="item-input" ref="newTrip_file"/>
             <button id="btn-submit" className='btn btn-default'>Submit</button>
           </form>
-          <Image image_id={this.state.image_id || this.data.trip.image_id} height="400px" />
+          <Image image_id={this.state.image_id || this.data.trip ? this.data.trip.image_id : null} height="400px" />
           <p><a href='/mytrips'>Go back home</a></p>
         </div>
       </div>
