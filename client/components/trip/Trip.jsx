@@ -74,7 +74,3 @@ Trip = React.createClass({
     )
   }
 })
-<<<<<<< HEAD
-        // <div >{this.state.module}</div>
-=======
->>>>>>> master
