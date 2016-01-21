@@ -19,17 +19,22 @@ App = React.createClass({
       <div>
         <ReactBootstrap.Navbar>
           <ReactBootstrap.Navbar.Header>
-            <ReactBootstrap.Navbar.Toggle />
+            { Meteor.userId() ?
+              <ReactBootstrap.Navbar.Toggle /> : ''
+            }
             <ReactBootstrap.Navbar.Brand >
               minnow
             </ReactBootstrap.Navbar.Brand>
           </ReactBootstrap.Navbar.Header>
           <ReactBootstrap.Navbar.Collapse>
             <ReactBootstrap.Navbar.Text>
-              Signed in as: <ReactBootstrap.Navbar.Link href="#">Mark Otto</ReactBootstrap.Navbar.Link>
+              <ReactBootstrap.Navbar.Link href="/mytrips">My Trips</ReactBootstrap.Navbar.Link> 
             </ReactBootstrap.Navbar.Text>
             <ReactBootstrap.Navbar.Text >
-              Have a great day!
+              Account
+            </ReactBootstrap.Navbar.Text>
+            <ReactBootstrap.Navbar.Text onClick={this.logout}>
+              Logout
             </ReactBootstrap.Navbar.Text>
           </ReactBootstrap.Navbar.Collapse>
         </ReactBootstrap.Navbar>

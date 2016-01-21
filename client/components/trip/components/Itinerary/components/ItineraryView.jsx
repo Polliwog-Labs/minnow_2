@@ -1,11 +1,7 @@
 ItineraryView = React.createClass({
-
-
   render: function () {
-    return(
+    return
       <h1>itinerary</h1>
-    )
-
   }
 })
 
