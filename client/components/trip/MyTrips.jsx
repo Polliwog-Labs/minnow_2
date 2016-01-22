@@ -7,13 +7,13 @@ MyTrips = React.createClass({
                               _id:98,
                               members:["","",""],
                               image_url: 'http://blog.adoptandshop.org/wp-content/uploads/2013/07/wet-cat.jpg',
-                              itinerary: ["",""]}, 
+                              itinerary: ["",""]},
                               {name:'Movie, drinks, and dinner',
                               _id:99,
                               members:["","",""],
                               itinerary: ["",""],
                               messages: []
-                            } 
+                            }
                           ];
     var myTrips = Trips.find().fetch().sort(function(tripA, tripB){
       return tripA._id > tripB._id;
@@ -30,13 +30,14 @@ MyTrips = React.createClass({
                   members: [Meteor.userId()],
                   organizers: [Meteor.userId],
                   created_by: Meteor.user().username,
-                  messages: []
-                  }, 
+                  messages: [],
+                  addresses: []
+                  },
                   function(err, id){
-                    if (err){ 
+                    if (err){
                       console.error("error inserting into DB", err)
                     } else {
-                      console.log(id)    
+                      console.log(id)
                       Meteor.users.update(Meteor.userId(), {$push: {"profile.myTrips": id}});
                       document.location.href='/trip/'+id;
                     }

@@ -2,13 +2,13 @@ Trip = React.createClass({
   mixins: [ReactMeteorData],
   getMeteorData: function(){
     var trip = Trips.findOne(document.location.pathname.substring(6));
-    var members = Meteor.users.find({_id: {$in: trip.members}}).fetch();
-    console.log('trip: ', members)
+    // var members = Meteor.users.find({_id: {$in: trip.members}}).fetch();
+    // console.log('trip: ', members)
     // console.log('members: ', members)
 
     return {
       trip:trip,
-      members: members
+      // members: members
     };
   },
 
@@ -74,9 +74,9 @@ Trip = React.createClass({
             <i className="icon ion-gear-a settings"></i>
             Settings
           </a>
-        </div> 
+        </div>
         <div className='has-footer' id='trip-module'></div>
-      </div>  
+      </div>
 
     )
   }
