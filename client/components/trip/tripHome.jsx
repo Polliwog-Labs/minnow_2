@@ -3,6 +3,7 @@ TripHome = React.createClass({
   propTypes: {
     trip: React.PropTypes.object
   },
+
   getMeteorData() {
     var tripid = this.props.trip ? this.props.trip._id : document.location.pathname.substring(6);
     return {trip:Trips.findOne({_id: tripid})};
@@ -15,7 +16,6 @@ TripHome = React.createClass({
     event.preventDefault();
     var invitee_email = ReactDOM.findDOMNode(this.refs.input_email).value;
     this.props.trip.addresses.push(invitee_email);
-
   },
 
   render: function(){
@@ -36,9 +36,10 @@ TripHome = React.createClass({
 
     for (var key in this.data.trip){
       params[key] = this.data.trip[key];
-
     };
+
     return (
+
       <div className='trip list'>
         <div className='item'>
           <div className ="">
@@ -49,10 +50,10 @@ TripHome = React.createClass({
             <p className='tripParams'>{params.todo.length} Action Items</p>
             <p className='tripParams'>Est. Cost: ${params.expenses.length ? 'Some Number' : 0}</p>
 
-            <form className='form-group' onSubmit={this.submitInvitees}>
+            <form className='form-group' >
             <p>Invite attendees by email address:</p>
             <input type="email" placeholder = "Email address" className="item-input" ref="input_email"/>
-            <button id="btn-submit" className='btn btn-default'>Submit</button>
+            <button id="btn-submit" className='btn btn-default' onSubmit={this.submitInvitees}>Submit</button>
           </form>
 
             <button onClick={this.renderList}>Go back home</button>

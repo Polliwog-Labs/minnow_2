@@ -7,7 +7,6 @@ Trip = React.createClass({
     return {
       trip:trip,
       members:members
-
     };
   },
 
