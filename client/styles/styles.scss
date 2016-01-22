@@ -1,22 +1,22 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto:400,900);
 @import 'meteoric_ionic-sass/ionic';
-
 @import 'meteoric_ionicons-sass/ionicons';
 
-/*@import 'ratchet.css';*/
-/*@import 'minnow.css';*/
-
+html {
+  overflow: auto;
+}
 
 h1.list {
   text-align: center;
 
 }
 .trip-list{
-	border-bottom: none;
-	margin-bottom: 0;
+  border-bottom: none;
+  margin-bottom: 0;
 }
 
 .item-thumbnail-left:hover {
-  curser: pointer;
+  cursor: pointer;
 }
 
 .login-signup {
@@ -84,16 +84,12 @@ label[for="nav-trigger"] {
 .nav-trigger + label, .site-wrap {
     transition: left 0.2s;
 }
-body {
-    overflow-x: hidden;
-}
 
 .tab-item.tab-item-active, .tab-item.active, .tab-item.activated {
     color: #0066ff;
 }
 
 
-@import url(http://fonts.googleapis.com/css?family=Roboto:400,900);
 
 .tripListModule {
  background:
@@ -117,7 +113,6 @@ body {
   font-size:22px;
   margin-top:40px !important;
   width: 50% !important;
-
 }
 
 .tripListDateText {
@@ -147,7 +142,6 @@ body {
   margin-bottom: 0px!important;
 }
 
-
 .expensesNav{
   height:350px;
   width:96%;
@@ -157,7 +151,6 @@ body {
 
 .map-toggle {
   float: right;
-
 }
 
 .navbar-brand {
