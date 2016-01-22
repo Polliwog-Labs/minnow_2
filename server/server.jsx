@@ -1,5 +1,3 @@
-Trips = new Mongo.Collection('trips');
-
 Meteor.methods({
   //Images methods
   storeImage: function(image){
