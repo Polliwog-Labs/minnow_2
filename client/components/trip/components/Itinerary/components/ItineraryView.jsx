@@ -1,7 +1,16 @@
 ItineraryView = React.createClass({
   render: function () {
-    return
-      <h1>itinerary</h1>
+
+    return (
+      <div className='col'>
+        <h5>Itinerary</h5>
+        <ReactBootstrap.Accordion>
+          <ReactBootstrap.Panel header="Collapsible Group Item #1" eventKey="1">
+            
+          </ReactBootstrap.Panel>
+        </ReactBootstrap.Accordion>
+      </div>
+    )
   }
 })
 
