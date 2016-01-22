@@ -1,17 +1,8 @@
 NewTrip = React.createClass({
   submitTrip: function(event){
     event.preventDefault();
-    // var invitees = ReactDOM.findDOMNode(this.refs.newTrip_members).value.replace(/\s/,'').split(',').filter(function(address){
-    //   return /^[\w,\.,-]+@[\w,\.,-]+\.[a-z]{2,3}$/.test(address);
-    // });
-
-    // Meteor.call('storeImageByUrl',ReactDOM.findDOMNode(this.refs.newTrip_url).value,(err,data)=>{
     Trips.insert({name: ReactDOM.findDOMNode(this.refs.newTrip_name).value,
                   members: [Meteor.userId()],
-                  // dates: [new Date(ReactDOM.findDOMNode(this.refs.newTrip_startDate).value).getTime(),
-                  //       new Date(ReactDOM.findDOMNode(this.refs.newTrip_endDate).value).getTime()
-                  // ],
-                  // image_id: data._id,
                   organizers: [Meteor.userId()],
                   messages: []
                 }, function(err, id){
@@ -22,30 +13,7 @@ NewTrip = React.createClass({
         document.location.href='/trip/'+id + '/home';
       }
     });
-    // });
   },
-
-  // submitTrip: function(event){
-  //   event.preventDefault();
-  //   var invitees = ReactDOM.findDOMNode(this.refs.newTrip_members).value.replace(/\s/,'').split(',').filter(function(address){
-  //     return /^[\w,\.,-]+@[\w,\.,-]+\.[a-z]{2,3}$/.test(address);
-  //   });
-  //   Trips.insert({name: ReactDOM.findDOMNode(this.refs.newTrip_name).value,
-  //                 members: invitees,
-  //                 dates: [new Date(ReactDOM.findDOMNode(this.refs.newTrip_startDate).value).getTime(),
-  //                         new Date(ReactDOM.findDOMNode(this.refs.newTrip_endDate).value).getTime()
-  //                 ],
-  //                 image_url: ReactDOM.findDOMNode(this.refs.newTrip_url).value,
-  //                 organizers: [Meteor.user()]
-  //                 }, 
-  //                 function(err, id){
-  //                   if (err){ 
-  //                     console.error("error inserting into DB", err)
-  //                   }else {
-  //                     document.location.href='/trip/'+id;
-  //                   }
-  //             });
-  // },
 
   render: function(){
     return (

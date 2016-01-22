@@ -76,7 +76,7 @@ Trip = React.createClass({
             Settings
           </a>
         </div> 
-        <div className='has-footer' id='trip-module'></div>
+        <div className="has-footer" id='trip-module'></div>
       </div>  
 
     )
