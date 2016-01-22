@@ -5,7 +5,7 @@ Trip = React.createClass({
     var members = (trip && trip.members) ? Meteor.users.find({_id: {$in: trip.members}}).fetch() : [];
 
     return {
-      trip:trip
+      trip:trip,
       members:members
     };
   },
