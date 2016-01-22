@@ -9,7 +9,7 @@ TripList = React.createClass({
     var that = this;
     var count = 1;
     var getImageURL = function(context){
-      Meteor.call('retrieveImageUrlById',that.props.trip.image_id,(err,data)=>{
+      Meteor.call('retrieveImageUrlById',that.props.trip.image_id,'backgrounds',(err,data)=>{
         if (err) {
           console.log(err);
           console.log('err retrieving image. This shouldn\'t happen');
@@ -60,7 +60,7 @@ TripList = React.createClass({
     }
 
     var backgroundStyle = {
-     background: 'url('+this.state.url+')',
+     'background': 'url('+this.state.url+')',
      'backgroundSize': 'cover'
     }
 
