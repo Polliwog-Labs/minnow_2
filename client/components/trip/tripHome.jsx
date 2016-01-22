@@ -23,6 +23,8 @@ TripHome = React.createClass({
       expenses: [],
       todo: [],
       organizers: [],
+      expenses: [],
+      expense_dash:[]
     };
     
     for (var key in this.data.trip){

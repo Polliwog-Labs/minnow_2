@@ -30,7 +30,9 @@ MyTrips = React.createClass({
                   members: [Meteor.userId()],
                   organizers: [Meteor.userId],
                   created_by: Meteor.user().username,
-                  messages: []
+                  messages: [],
+                  expenses: [],
+                  expense_dash: []
                   }, 
                   function(err, id){
                     if (err){ 
