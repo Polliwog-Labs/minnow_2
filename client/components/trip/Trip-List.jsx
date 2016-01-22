@@ -5,11 +5,10 @@ TripList = React.createClass({
   getInitialState: function(){
     return {url:'/doge.jpg'}
   },
-  componentDidMount: function(){
-    var that = this;
+  getImageUrl(){
     var count = 1;
-    var getImageURL = function(context){
-      Meteor.call('retrieveImageUrlById',that.props.trip.image_id,(err,data)=>{
+    function getThisImageUrl(context){
+      Meteor.call('retrieveImageUrlById',context.props.trip.image_id,'backgrounds',(err,data)=>{
         if (err) {
           console.log(err);
           console.log('err retrieving image. This shouldn\'t happen');
@@ -22,7 +21,7 @@ TripList = React.createClass({
             else {
               setTimeout(function(){
                 count++;
-                getImageURL(context);
+                getImageUrl(context);
               },1000);
             }
             //No more than 15 tries. If someone puts in a stupid big image, they can wait/refresh the page.
@@ -30,8 +29,11 @@ TripList = React.createClass({
         }
       });
     };
+    getThisImageUrl(this);
+  },
+  componentDidMount: function(){
     if (this.props.trip.image_id) {
-      getImageURL(that);
+      this.getImageUrl()
     } else {
       console.log('this.props.image_id is undefined. This shouldn\'t happen.');
       this.setState({url:'/doge.jpg'});
@@ -42,32 +44,14 @@ TripList = React.createClass({
   },
 
   render: function(){
-    var params = {
-      _id: null,
-      name: 'Unnamed Trip',
-      dates: [0,0],
-      members: [],
-      ideas: [],
-      itinerary: [],
-      messages: [],
-      expenses: [],
-      todo: [],
-      organizer: [],
-    };
-    
-    for (var key in this.props.trip){
-      this.props.trip[key] && (params[key] = this.props.trip[key]);
-    }
 
-    var backgroundStyle = {
-     background: 'url('+this.state.url+')',
-     'backgroundSize': 'cover'
-    }
+    var backgroundStyle = {'background': 'url('+this.state.url+')'};
+    var tripStart = this.props.trip.dates ? (this.props.trip.dates[0] || 'October 32nd') : 'October 32nd';
 
     return (
-      <div className="tripListModule" onClick={this.navToTrip} style={this.state.url.length ? backgroundStyle : {}}>
-          <h2 className="tripListText">{params.name}</h2>
-          <h2 className="tripListDateText" >October 31st</h2>
+      <div className="tripListModule" onClick={this.navToTrip} style={backgroundStyle}>
+          <h2 className="tripListText">{this.props.trip.name || 'Unnamed Trip'}</h2>
+          <h2 className="tripListDateText" >{tripStart}</h2>
       </div>
     );
   }

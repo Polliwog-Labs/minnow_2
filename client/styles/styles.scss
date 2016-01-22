@@ -1,11 +1,15 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto:400,900);
 @import 'meteoric_ionic-sass/ionic';
-
 @import 'meteoric_ionicons-sass/ionicons';
+
 
 /*@import 'ratchet.css';*/
 /*@import 'minnow.css';*/
 .body {
   font-family: "Helvetica Neue", "Roboto", sans-serif;
+}
+html {
+  overflow: auto;
 }
 
 h1.list {
@@ -13,12 +17,12 @@ h1.list {
 
 }
 .trip-list{
-	border-bottom: none;
-	margin-bottom: 0;
+  border-bottom: none;
+  margin-bottom: 0;
 }
 
 .item-thumbnail-left:hover {
-  curser: pointer;
+  cursor: pointer;
 }
 
 .login-signup {
@@ -86,16 +90,12 @@ label[for="nav-trigger"] {
 .nav-trigger + label, .site-wrap {
     transition: left 0.2s;
 }
-body {
-    overflow-x: hidden;
-}
 
 .tab-item.tab-item-active, .tab-item.active, .tab-item.activated {
     color: #0066ff;
 }
 
 
-@import url(http://fonts.googleapis.com/css?family=Roboto:400,900);
 
 .tripListModule {
  background:
@@ -104,9 +104,9 @@ body {
       rgba(0, 0, 0, 0.6)
     ),
   url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/3/skyscrapers.jpg);
-  backgroundSize: contain;
+  backgroundSize: 100% 100%;
   width: 94%;
-  height: 300px;
+  height: 200px;
   margin: 10px 0 0 10px;
   position: relative;
   float: left;
@@ -119,7 +119,6 @@ body {
   font-size:22px;
   margin-top:40px !important;
   width: 50% !important;
-
 }
 
 .tripListDateText {
@@ -147,6 +146,13 @@ body {
 
 .message-container{
   margin-bottom: 0px!important;
+}
+
+.expensesNav{
+  height:350px;
+  width:96%;
+  padding:10px;
+  position: fixed;
 }
 
 .map-toggle {

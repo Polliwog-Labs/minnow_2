@@ -1,50 +1,32 @@
 MyTrips = React.createClass({
-  mixins: [ReactMeteorData],
-  getMeteorData: function(){
-    var fallbackGarbage = [
-                            {
-                              name:'Tubing the river',
-                              _id:98,
-                              members:["","",""],
-                              image_url: 'http://blog.adoptandshop.org/wp-content/uploads/2013/07/wet-cat.jpg',
-                              itinerary: ["",""]}, 
-                              {name:'Movie, drinks, and dinner',
-                              _id:99,
-                              members:["","",""],
-                              itinerary: ["",""],
-                              messages: []
-                            } 
-                          ];
-    var myTrips = Trips.find().fetch().sort(function(tripA, tripB){
-      return tripA._id > tripB._id;
-    });
-    return {
-      trips: myTrips.length ? myTrips : fallbackGarbage
-    }
+  getInitialState(){
+    return {trips:[]};
   },
-
+  componentDidMount(){
+    setTimeout(()=>{
+      Meteor.call('getTripsByUser',Meteor.user(),(err,data)=>{
+        if (err) console.log(err)
+        else this.setState({trips:data});
+      });
+    },500);
+  },
   newTrip: function(event){
     event.preventDefault();
-    Trips.insert({
-                  name: ReactDOM.findDOMNode(this.refs.newTrip_name).value,
-                  members: [Meteor.userId()],
-                  organizers: [Meteor.userId],
-                  created_by: Meteor.user().username,
-                  messages: []
-                  }, 
-                  function(err, id){
-                    if (err){ 
-                      console.error("error inserting into DB", err)
-                    } else {
-                      console.log(id)    
-                      Meteor.users.update(Meteor.userId(), {$push: {"profile.myTrips": id}});
-                      document.location.href='/trip/'+id;
-                    }
-              });
+    Meteor.call('createTrip',{
+      name: ReactDOM.findDOMNode(this.refs.newTrip_name).value,
+      user: Meteor.user()
+    },(err,id)=>{
+      if (err){ 
+        console.error("error inserting into DB", err)
+      } else {
+        console.log(id)    
+        Meteor.users.update(Meteor.userId(), {$push: {"profile.myTrips": id}});
+        document.location.href='/trip/'+id;
+      }
+    });
   },
-
   renderTrips: function(){
-    return Trips.find({_id: { $in: Meteor.user() ? Meteor.user().profile.myTrips : []}}).fetch().map(function(trip) {
+    return this.state.trips.map(trip=>{
       return (
         <TripList key={trip._id} trip={trip}/>
       );

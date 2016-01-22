@@ -1,58 +1,54 @@
 Trip = React.createClass({
-  mixins: [ReactMeteorData],
-  getMeteorData: function(){
-    var trip = Trips.findOne(document.location.pathname.substring(6));
-    var members = Meteor.users.find({_id: {$in: trip.members}}).fetch();
-    console.log('trip: ', members)
-    // console.log('members: ', members)
-
-    return {
-      trip:trip,
-      members: members
-    };
-  },
-
   getInitialState: function () {
-    return {}
+    return {trip:{members:[]}}
   },
 
   componentDidMount: function () {
-    this.renderHome()
+    Meteor.call('getTripById',document.location.pathname.substring(6),(err,data)=>{
+      if (err) console.log(err)
+      else {
+        this.setState({trip:data});
+      }
+    });
+  },
+
+  componentDidUpdate(){
+    this.renderHome();
   },
 
   renderHome: function () {
     $('.active').removeClass('active');
     $('#home').addClass('active');
-    ReactDOM.render(<TripHome members={this.data.members} trip={this.data.trip}/>, document.getElementById('trip-module'))
+    ReactDOM.render(<TripHome members={this.state.members} trip={this.state.trip}/>, document.getElementById('trip-module'));
   },
 
   renderItinerary: function () {
     $('.active').removeClass('active');
     $('#itinerary').addClass('active');
-    ReactDOM.render(<Itinerary trip={this.data.trip}/>, document.getElementById('trip-module'))
+    ReactDOM.render(<Itinerary trip={this.state.trip}/>, document.getElementById('trip-module'));
   },
 
   renderChat: function () {
     $('.active').removeClass('active');
     $('#chat').addClass('active');
-    ReactDOM.render(<Messages trip={this.data.trip}/>, document.getElementById('trip-module'))
+    ReactDOM.render(<Messages trip={this.state.trip}/>, document.getElementById('trip-module'));
   },
 
   renderSettings: function () {
     $('.active').removeClass('active');
     $('#settings').addClass('active');
-    ReactDOM.render(<EditTrip />, document.getElementById('trip-module'))
+    ReactDOM.render(<EditTrip trip={this.state.trip}/>, document.getElementById('trip-module'));
   },
 
   renderExpenses: function () {
     $('.active').removeClass('active');
     $('#cash').addClass('active');
+    ReactDOM.render(<Expenses trip={this.state.trip}/>, document.getElementById('trip-module'));
   },
   
   render: function(){
-    console.log('this.data: ', this.data)
     return (
-      <div >
+      <div>
         <div className="footer-fixed tabs tabs-icon-top">
           <a className="tab-item active" id='home'onClick={this.renderHome}>
             <i className="icon ion-home"></i>
@@ -75,8 +71,8 @@ Trip = React.createClass({
             Settings
           </a>
         </div> 
-        <div className="has-footer" id='trip-module'></div>
+        <div className='has-footer' id='trip-module'></div>
       </div>  
-    )
+    );
   }
-})
+});
