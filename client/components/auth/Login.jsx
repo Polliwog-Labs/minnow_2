@@ -24,11 +24,12 @@ Login = React.createClass({
       }
     });
   }, 
+  componentDidMount(){
+    setTimeout(()=>{
+      !Meteor.user() && (document.location.href = '/mytrips');
+    },1000);
+  },
   render(){
-    if (Boolean(Meteor.userId())) {
-      document.location.href = '/mytrips';
-    }
-
     return (
       <div className="list col login-signup">
           <p className="auth-error">{this.state.authError}</p>
