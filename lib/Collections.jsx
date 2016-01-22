@@ -1,6 +1,3 @@
-//Trips = new Mongo.Collection('trips');
-Events = new Mongo.Collection('events');
-
 var resizeImage = function(fileObj, readStream, writeStream) {
   gm(readStream, fileObj.name()).resize(800,600).stream().pipe(writeStream);
 };

@@ -1,11 +1,21 @@
 MessageLoader = React.createClass({
+  propTypes: {
+    messages: React.PropTypes.array.isRequired
+  },
+  getInitialState(){
+    return({messages:null});
+  },
+  componentWillReceiveProps(newProps){
+    this.setState({messages:newProps.messages});
+  },
+  message_list(){
+    var messages = this.state.messages || this.props.messages;
+    return messages.map(function(message){
+      return (<MessageContent key={message.created_at} {...message}/>);
+    });
+  },
 	render(){
-		var message_list = this.props.messages.messages.map(function(message){
-			return <MessageContent {...message}/>
-		});
-		return(
-			<div>{message_list}</div>
-		)
+		return (<div>{this.message_list()}</div>);
 	}
 });
 

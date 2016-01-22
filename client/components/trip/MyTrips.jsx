@@ -12,24 +12,18 @@ MyTrips = React.createClass({
   },
   newTrip: function(event){
     event.preventDefault();
-    Trips.insert({
-                  name: ReactDOM.findDOMNode(this.refs.newTrip_name).value,
-                  members: [Meteor.userId()],
-                  organizers: [Meteor.userId],
-                  created_by: Meteor.user().username,
-                  messages: [],
-                  expenses: [],
-                  expense_dash: []
-                  }, 
-                  function(err, id){
-                    if (err){ 
-                      console.error("error inserting into DB", err)
-                    } else {
-                      console.log(id)    
-                      Meteor.users.update(Meteor.userId(), {$push: {"profile.myTrips": id}});
-                      document.location.href='/trip/'+id;
-                    }
-              });
+    Meteor.call('createTrip',{
+      name: ReactDOM.findDOMNode(this.refs.newTrip_name).value,
+      user: Meteor.user()
+    },(err,id)=>{
+      if (err){ 
+        console.error("error inserting into DB", err)
+      } else {
+        console.log(id)    
+        Meteor.users.update(Meteor.userId(), {$push: {"profile.myTrips": id}});
+        document.location.href='/trip/'+id;
+      }
+    });
   },
   renderTrips: function(){
     return this.state.trips.map(trip=>{

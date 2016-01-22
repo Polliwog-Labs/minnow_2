@@ -1,9 +1,3 @@
-retrieveImageUrlById = function(id,store){
-  var store = store || 'images'
-  var fileObj = Images.findOne({_id:id});
-  return fileObj ? fileObj.url({store:store}) : null;
-};
-
 Trips = new Mongo.Collection('trips');
 
 Meteor.methods({
@@ -34,5 +28,23 @@ Meteor.methods({
                   dates: update.dates,
                   image_id: update.image_id
                 }});
+  },
+  createTrip: function(trip){
+    return Trips.insert({
+      name: trip.name,
+      members: [trip.user],
+      organizers: [trip.user],
+      created_by: trip.user,
+      messages: [],
+      expenses: [],
+      expense_dash: []
+    },(err,result)=> {if (!err) return result});
+  },
+  //messages
+  pushMessage: function(message){
+    return Trips.update({_id:message.trip_id}, {$push: {
+      'messages': {'text': message.messageText, 'created_at': new Date(), 'sender': message.sender}}}, (err)=>{
+      return !err;
+    });
   }
 })

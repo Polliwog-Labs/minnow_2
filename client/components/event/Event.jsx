@@ -5,16 +5,16 @@ Event = new React.createClass({
   },
   mixins: [ReactMeteorData],
   getMeteorData: function(){
-    return ({event: Events.findOne({_id:this.props.event_id}) || {}});
+    // return ({event: Events.findOne({_id:this.props.event_id}) || {}});
   },
   submitEvent: function(){
-    Events.insert({
-      name: ReactDOM.findDOMNode(this.refs.event_name).value,
-      cost: ReactDOM.findDOMNode(this.refs.event_cost).value
-    },function(err,event_id){
-      if (err) console.log(err)
-      else console.log(event_id);
-    });
+    // Events.insert({
+    //   name: ReactDOM.findDOMNode(this.refs.event_name).value,
+    //   cost: ReactDOM.findDOMNode(this.refs.event_cost).value
+    // },function(err,event_id){
+    //   if (err) console.log(err)
+    //   else console.log(event_id);
+    // });
   },
   render: function(){
     return (<div>
