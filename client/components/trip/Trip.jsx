@@ -7,8 +7,8 @@ Trip = React.createClass({
     // console.log('members: ', members)
 
     return {
-      trip:trip,
-      members: members
+      trip:trip
+      
     };
   },
 
