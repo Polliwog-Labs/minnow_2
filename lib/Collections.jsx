@@ -1,4 +1,4 @@
-Trips = new Mongo.Collection('trips');
+//Trips = new Mongo.Collection('trips');
 Events = new Mongo.Collection('events');
 
 var resizeImage = function(fileObj, readStream, writeStream) {
@@ -34,6 +34,19 @@ var BGStore = new FS.Store.GridFS("backgrounds",{
 });
 
 Images = new FS.Collection("images",{
-  stores: [imageStore,BGStore]
+  stores: [imageStore,BGStore],
+  filter: {
+    allow: {
+      contentTypes: ['image/*'],
+    },
+    deny: {
+      extensions: ['gif']
+    },
+    onInvalid(){
+      if (Meteor.isClient){
+        alert('this is a bullshit image');
+      }
+    }
+  }
 });
 

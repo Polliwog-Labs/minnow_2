@@ -4,8 +4,8 @@ Messages = React.createClass({
 	},
 	mixins: [ReactMeteorData],
 	getMeteorData(){
-		var trip = Trips.findOne({_id:this.props.trip._id});
-		return {trip:trip}
+		// var trip = Trips.findOne({_id:this.props.trip._id});
+		return {trip:this.props.trip}
 	},
 	submitMessage(event){
 		event.preventDefault();
@@ -17,6 +17,7 @@ Messages = React.createClass({
 				console.log("error inserting message into DB: ", error);
 			}
 		});
+		ReactDOM.findDOMNode(this.refs.message_text).value = '';
 	},
 	render(){
 		return(

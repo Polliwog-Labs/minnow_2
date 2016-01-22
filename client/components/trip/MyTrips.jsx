@@ -1,14 +1,15 @@
 MyTrips = React.createClass({
-  mixins: [ReactMeteorData],
-  getMeteorData: function(){
-    var myTrips = Trips.find().fetch().sort(function(tripA, tripB){
-      return tripA._id > tripB._id;
-    });
-    return {
-      trips: myTrips
-    }
+  getInitialState(){
+    return {trips:[]};
   },
-
+  componentDidMount(){
+    setTimeout(()=>{
+      Meteor.call('getTripsByUser',Meteor.user(),(err,data)=>{
+        if (err) console.log(err)
+        else this.setState({trips:data});
+      });
+    },500);
+  },
   newTrip: function(event){
     event.preventDefault();
     Trips.insert({
@@ -30,9 +31,8 @@ MyTrips = React.createClass({
                     }
               });
   },
-
   renderTrips: function(){
-    return Trips.find({_id: { $in: Meteor.user() ? Meteor.user().profile.myTrips : []}}).fetch().map(function(trip) {
+    return this.state.trips.map(trip=>{
       return (
         <TripList key={trip._id} trip={trip}/>
       );
