@@ -1,24 +1,43 @@
 Expenses = React.createClass({
 
+	mixins: [ReactMeteorData], 
 
-	submitMessage(event){
-		event.preventDefault();
-		var message = ReactDOM.findDOMNode(this.refs.message_text).value;
-		console.log("Message: ", message);
-	},
+  getMeteorData:function(){
+		var trip = Trips.findOne({_id:this.props.trip._id});
+		return {trip:trip}
+  },
 
-	render(){
-		return(
-		   <div className="message-wrapper">
-			<footer className='list fixed-input'>
-				<form className='item item-input-inset'>
-					<label className='item-input-wrapper'>
-						<input type='text' placeholder="message your group" ref='message_text'/>
-					</label>
-					<button className='button button-positive' onClick={this.submitMessage}>Submit</button>
-				</form>	
-			</footer>
-		   </div>
-		)
-	}
-})
+
+  componentDidMount: function () {
+    this.renderDash();
+  },
+
+  renderDash: function () {
+  	console.log("this.props", this.props);
+    $('#newExpense').removeClass('active');
+    $('#dashboard').addClass('active');
+    ReactDOM.render(<AllExpenses trip={this.data.trip}/>, document.getElementById('expense-module'))
+  },
+
+  renderNew: function () {
+    $('#dashboard').removeClass('active');
+    $('#newExpense').addClass('active');
+    ReactDOM.render(<NewExpense trip={this.data.trip} />, document.getElementById('expense-module'))
+  },
+
+render: function () {
+    return (
+      <div>
+        <div className="segmented-control col">
+          <a className="control-item modualactive" id="dashboard" onClick={this.renderDash}>
+            All Expenses
+          </a>
+          <a className="control-item" id="newExpense" onClick={this.renderNew}>
+            New Expense
+          </a>
+        </div>
+        <div id='expense-module'></div>
+      </div>
+    )
+  }
+});
