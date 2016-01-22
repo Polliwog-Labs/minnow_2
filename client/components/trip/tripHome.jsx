@@ -45,7 +45,7 @@ TripHome = React.createClass({
               <p className=''>Est. Cost: ${params.expenses.length ? '500' : 0}</p>
             </div>
             <div className='clear'></div>
-            <button onClick={this.renderList}>Go back home</button>
+            <i className='ion-edit' onClick={this.renderList}>Go back home</i>
           </div>
       </div>
     </div>
