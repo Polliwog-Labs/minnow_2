@@ -33,14 +33,15 @@ TripHome = React.createClass({
     return (
       <div className='trip list'>
         <div className='item'>
-        <div className ="">
-          <Image image_id={params.image_id} height="300px" />
-          <p className='tripParams'>Attendees: {params.members.join(', ')}</p>
-          <p className='tripParams'>{params.itinerary.length} Events</p>
-          <p className='tripParams'>{params.messages.length} Messages</p>
-          <p className='tripParams'>{params.todo.length} Action Items</p>
-          <p className='tripParams'>Est. Cost: ${params.expenses.length ? 'Some Number' : 0}</p>
-          <button onClick={this.renderList}>Go back home</button>
+          <div className ="">
+            <Image image_id={params.image_id} height="300px" />
+            <p className='tripParams'>Attendees: {params.members.join(', ')}</p>
+            <p className='tripParams'>{params.itinerary.length} Events</p>
+            <p className='tripParams'>{params.messages.length} Messages</p>
+            <p className='tripParams'>{params.todo.length} Action Items</p>
+            <p className='tripParams'>Est. Cost: ${params.expenses.length ? 'Some Number' : 0}</p>
+            <button onClick={this.renderList}>Go back home</button>
+          </div>
       </div>
     </div>
     )
