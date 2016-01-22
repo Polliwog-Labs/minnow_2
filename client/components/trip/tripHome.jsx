@@ -1,11 +1,6 @@
 TripHome = React.createClass({
-  mixins: [ReactMeteorData],
   propTypes: {
     trip: React.PropTypes.object
-  },
-  getMeteorData() {
-    var tripid = this.props.trip ? this.props.trip._id : document.location.pathname.substring(6); 
-    return {trip:Trips.findOne({_id: tripid})};
   },
   renderList: function() {
     document.location.href = '/mytrips';
@@ -26,9 +21,8 @@ TripHome = React.createClass({
       expenses: [],
       expense_dash:[]
     };
-    
-    for (var key in this.data.trip){
-      params[key] = this.data.trip[key];
+    for (var key in this.props.trip){
+      params[key] = this.props.trip[key];
     };
     return (
       <div className='trip list'>

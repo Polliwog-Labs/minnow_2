@@ -2,26 +2,40 @@ Messages = React.createClass({
 	propTypes: {
 		trip: React.PropTypes.object.isRequired
 	},
-	mixins: [ReactMeteorData],
-	getMeteorData(){
-		var trip = Trips.findOne({_id:this.props.trip._id});
-		return {trip:trip}
+	getInitialState(){
+		return ({messages:null});
 	},
 	submitMessage(event){
 		event.preventDefault();
 		var message = ReactDOM.findDOMNode(this.refs.message_text).value;
-		Trips.update({_id:this.data.trip._id}, {$push: {'messages': {'text': message, 'created_at': new Date(), 'sender': Meteor.user().username}}}, (error)=>{
-			if(!error){
-				console.log("inserted message into DB")
-			}else if(error){
-				console.log("error inserting message into DB: ", error);
-			}
+		Meteor.call('pushMessage',{
+      trip_id: this.props.trip._id,
+      messageText: message,
+      sender: Meteor.user().username
+		},(err)=>{
+			if (err) console.log(err)
+			else this.getMessages();
 		});
+		ReactDOM.findDOMNode(this.refs.message_text).value = '';
+	},
+	getMessages(){
+		Meteor.call('getTripById',this.props.trip._id,(err,data)=>{
+			!err && this.setState({messages:data.messages});
+		});
+	},
+	componentDidMount(){
+		var that = this;
+		window.refreshInterval = setInterval(function(){
+			that.getMessages();
+		},2000);
+	},
+	componentWillUnmount(){
+    clearInterval(window.refreshInterval);
 	},
 	render(){
 		return(
 			<div className="message-wrapper">
-			<MessageLoader messages={this.data.trip}/>
+			<MessageLoader messages={this.state.messages || this.props.trip.messages} />
 			<div className='list fixed-input'>
 				<form className='item item-input-inset'>
 					<label className='item-input-wrapper'>
