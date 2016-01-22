@@ -34,4 +34,4 @@ cosmos:browserify
 
 npm-container
 twbs:bootstrap
-minnow:google-maps
+dburles:google-maps
