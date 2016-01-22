@@ -42,10 +42,12 @@ TripHome = React.createClass({
               <p className=''>Events {params.itinerary.length} </p>
               <p className=''>Messages {params.messages.length}</p>
               <p className=''>Action Items {params.todo.length}</p>
-              <p className=''>Est. Cost: ${params.expenses.length ? '500' : 0}</p>
+              <div className='row edit-row'>
+                <p className='col-50'>Est. Cost: ${params.expenses.length ? '500' : 0}</p>
+                <p className='col-25'></p>
+                <p className='col_25'><i className='ion-edit'></i></p>
+              </div>
             </div>
-            <div className='clear'></div>
-            <i className='ion-edit' onClick={this.renderList}>Go back home</i>
           </div>
       </div>
     </div>
