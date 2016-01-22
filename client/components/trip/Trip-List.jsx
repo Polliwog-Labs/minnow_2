@@ -61,7 +61,6 @@ TripList = React.createClass({
 
     var backgroundStyle = {
      'background': 'url('+this.state.url+')',
-     'backgroundSize': 'cover'
     }
 
     return (
