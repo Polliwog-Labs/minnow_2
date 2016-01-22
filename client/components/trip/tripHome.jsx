@@ -34,12 +34,17 @@ TripHome = React.createClass({
       <div className='trip list'>
         <div className='item'>
           <div className ="">
-            <Image image_id={params.image_id} height="300px" />
-            <p className='tripParams'>Attendees: {params.members.join(', ')}</p>
-            <p className='tripParams'>{params.itinerary.length} Events</p>
-            <p className='tripParams'>{params.messages.length} Messages</p>
-            <p className='tripParams'>{params.todo.length} Action Items</p>
-            <p className='tripParams'>Est. Cost: ${params.expenses.length ? 'Some Number' : 0}</p>
+            <div className='image-div'>
+              <Image image_id={params.image_id} height="100%" />
+            </div>
+            <div className='item'>
+              <p className=''>Who's Coming? {params.members.join(', ')} </p>
+              <p className=''>Events {params.itinerary.length} </p>
+              <p className=''>Messages {params.messages.length}</p>
+              <p className=''>Action Items {params.todo.length}</p>
+              <p className=''>Est. Cost: ${params.expenses.length ? '500' : 0}</p>
+            </div>
+            <div className='clear'></div>
             <button onClick={this.renderList}>Go back home</button>
           </div>
       </div>

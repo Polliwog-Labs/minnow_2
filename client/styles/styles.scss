@@ -10,11 +10,18 @@ h1.list {
   text-align: center;
 
 }
+.clear {
+  margin-top: 10px;
+}
+
 .trip-list{
   border-bottom: none;
   margin-bottom: 0;
 }
-
+.image-div{
+  height: 257px;
+  width: 100%;
+}
 .item-thumbnail-left:hover {
   cursor: pointer;
 }
