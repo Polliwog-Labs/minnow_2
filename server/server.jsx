@@ -4,17 +4,17 @@ storeImage = function(image){
   });
 };
 
-retrieveImageUrlById = function(id){
-  return Images.findOne({_id:id}).url({store:"images"});
+retrieveImageUrlById = function(id,store){
+  var store = store || 'images'
+  var fileObj = Images.findOne({_id:id});
+  return fileObj ? fileObj.url({store:store}) : null;
 };
 
 Meteor.methods({
   storeImage: function(image){
-    console.log(image);
-    console.log(typeof image)
     return storeImage(image);
   },
-  retrieveImageUrlById: function(id){
-    return retrieveImageUrlById(id)
+  retrieveImageUrlById: function(id,store){
+    return retrieveImageUrlById(id,store);
   }
 })

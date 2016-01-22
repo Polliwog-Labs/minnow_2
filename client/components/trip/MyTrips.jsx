@@ -1,25 +1,11 @@
 MyTrips = React.createClass({
   mixins: [ReactMeteorData],
   getMeteorData: function(){
-    var fallbackGarbage = [
-                            {
-                              name:'Tubing the river',
-                              _id:98,
-                              members:["","",""],
-                              image_url: 'http://blog.adoptandshop.org/wp-content/uploads/2013/07/wet-cat.jpg',
-                              itinerary: ["",""]},
-                              {name:'Movie, drinks, and dinner',
-                              _id:99,
-                              members:["","",""],
-                              itinerary: ["",""],
-                              messages: []
-                            }
-                          ];
     var myTrips = Trips.find().fetch().sort(function(tripA, tripB){
       return tripA._id > tripB._id;
     });
     return {
-      trips: myTrips.length ? myTrips : fallbackGarbage
+      trips: myTrips
     }
   },
 
@@ -31,8 +17,11 @@ MyTrips = React.createClass({
                   organizers: [Meteor.userId],
                   created_by: Meteor.user().username,
                   messages: [],
-                  addresses: []
+                  addresses: [],
+                  expenses: [],
+                  expense_dash: []
                   },
+
                   function(err, id){
                     if (err){
                       console.error("error inserting into DB", err)

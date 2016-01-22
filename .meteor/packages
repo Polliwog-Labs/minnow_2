@@ -25,7 +25,6 @@ react
 cfs:standard-packages
 cfs:gridfs
 cfs:graphicsmagick
-dburles:google-maps
 fourseven:scss
 meteoric:ionicons-sass
 meteoric:ionic-sass
@@ -35,3 +34,4 @@ cosmos:browserify
 
 npm-container
 twbs:bootstrap
+dburles:google-maps

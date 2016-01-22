@@ -2,8 +2,9 @@ Trip = React.createClass({
   mixins: [ReactMeteorData],
   getMeteorData: function(){
     var trip = Trips.findOne(document.location.pathname.substring(6));
-    // var members = Meteor.users.find({_id: {$in: trip.members}}).fetch();
-    // console.log('trip: ', members)
+    var members = (trip && trip.members) ? Meteor.users.find({_id: {$in: trip.members}}).fetch() : [];
+    console.log('trip: ', members)
+
     // console.log('members: ', members)
 
     return {
@@ -47,6 +48,7 @@ Trip = React.createClass({
   renderExpenses: function () {
     $('.active').removeClass('active');
     $('#cash').addClass('active');
+    ReactDOM.render(<Expenses trip={this.data.trip}/>, document.getElementById('trip-module'))
   },
 
   render: function(){
@@ -77,7 +79,6 @@ Trip = React.createClass({
         </div>
         <div className='has-footer' id='trip-module'></div>
       </div>
-
     )
   }
 })

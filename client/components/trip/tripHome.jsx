@@ -32,6 +32,8 @@ TripHome = React.createClass({
       expenses: [],
       todo: [],
       organizers: [],
+      expenses: [],
+      expense_dash:[]
     };
 
     for (var key in this.data.trip){
@@ -39,30 +41,24 @@ TripHome = React.createClass({
 
     };
     return (
-      <div className='trip'>
-        <div className=''>
-          <h1>Trip Home</h1>
-          <h3>{params.name}</h3>
-          <p className='tripParams'>From {new Date(params.dates[0]).toString()} to {new Date(params.dates[1]).toString()}</p>
-        </div>
-        <div className ="">
-          <Image image_id={params.image_id} height="300px" />
-          <p className='tripParams'>Attendees: {params.members.join(', ')}</p>
-          <p className='tripParams'>{params.itinerary.length} Events</p>
-          <p className='tripParams'>{params.messages.length} Messages</p>
-          <p className='tripParams'>{params.todo.length} Action Items</p>
-          <p className='tripParams'>Est. Cost: ${params.expenses.length ? 'Some Number' : 0}</p>
+      <div className='trip list'>
+        <div className='item'>
+          <div className ="">
+            <Image image_id={params.image_id} height="300px" />
+            <p className='tripParams'>Attendees: {params.members.join(', ')}</p>
+            <p className='tripParams'>{params.itinerary.length} Events</p>
+            <p className='tripParams'>{params.messages.length} Messages</p>
+            <p className='tripParams'>{params.todo.length} Action Items</p>
+            <p className='tripParams'>Est. Cost: ${params.expenses.length ? 'Some Number' : 0}</p>
 
-          <form className='form-group' onSubmit={this.submitInvitees}>
-
+            <form className='form-group' onSubmit={this.submitInvitees}>
             <p>Invite attendees by email address:</p>
             <input type="email" placeholder = "Email address" className="item-input" ref="input_email"/>
-
             <button id="btn-submit" className='btn btn-default'>Submit</button>
           </form>
 
-
-          <button onClick={this.renderList}>Go back home</button>
+            <button onClick={this.renderList}>Go back home</button>
+          </div>
       </div>
     </div>
     )
