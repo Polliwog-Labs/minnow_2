@@ -4,7 +4,6 @@ Trip = React.createClass({
     var trip = Trips.findOne(document.location.pathname.substring(6));
     var members = (trip && trip.members) ? Meteor.users.find({_id: {$in: trip.members}}).fetch() : [];
     console.log('trip: ', members)
-
     // console.log('members: ', members)
 
     return {

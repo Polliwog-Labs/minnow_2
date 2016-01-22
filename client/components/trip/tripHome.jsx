@@ -14,9 +14,7 @@ TripHome = React.createClass({
   submitInvitees: function(event) {
     event.preventDefault();
     var invitee_email = ReactDOM.findDOMNode(this.refs.input_email).value;
-
-    var invitees = this.props.trip.email.address;
-    console.log('SEE THIS', invitees);
+    this.props.trip.addresses.push(invitee_email);
 
   },
 
