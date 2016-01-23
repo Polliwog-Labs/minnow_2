@@ -5,10 +5,10 @@ MyTrips = React.createClass({
   componentDidMount(){
     setTimeout(()=>{
       Meteor.call('getTripsByUser',Meteor.user(),(err,data)=>{
-        if (err) console.log(err)
-        else this.setState({trips:data});
+        !err && this.setState({trips:data});
       });
-    },500);
+    },800);
+    
   },
   newTrip: function(event){
     event.preventDefault();

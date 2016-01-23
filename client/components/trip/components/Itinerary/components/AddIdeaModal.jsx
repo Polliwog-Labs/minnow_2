@@ -4,16 +4,20 @@ AddIdeaModal = React.createClass({
     return (
       <div className="list">
         <label className="item item-input item-stacked-label">
-          <span className="input-label">First Name</span>
-          <input type="text" placeholder="John"/>
+          <span className="input-label">Event Name</span>
+          <input type="text" placeholder="example"/>
         </label>
         <label className="item item-input item-stacked-label">
-          <span className="input-label">Last Name</span>
-          <input type="text" placeholder="Suhr"/>
+          <span className="input-label">Description</span>
+          <input type="text" placeholder="optional"/>
         </label>
         <label className="item item-input item-stacked-label">
-          <span className="input-label">Email</span>
-          <input type="text" placeholder="john@suhr.com"/>
+          <span className="input-label">URL</span>
+          <input type="text" placeholder="example"/>
+        </label>
+        <label className="item item-input item-stacked-label">
+          <span className="input-label">Date</span>
+          <input type="date" placeholder="example"/>
         </label>
       </div>
     )

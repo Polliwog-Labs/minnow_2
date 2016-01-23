@@ -1,12 +1,4 @@
 NewExpense = React.createClass({
-
-	mixins: [ReactMeteorData],
-
-	getMeteorData: function(){
-		
-		return{};
-	},
-
 	submitExpense(event){
 		event.preventDefault();
 		var expense_details = ReactDOM.findDOMNode(this.refs.expense_details).value;
@@ -14,19 +6,19 @@ NewExpense = React.createClass({
 		console.log("expense details", expense_details)
 		// var expense_split = ReactDOM.findDOMNode(this.refs.expense_split).value;
 		//Need to set a expenses schedma that can keep track of how much each person owes
-		
-		Trips.update({"_id": this.props.trip._id}, {$push: {'expenses': {'description': expense_details, 'amount': Number(expense_amount),  'created_at': new Date(), 'sender': Meteor.user().username}}}, function(error){
-			if(!error){
-				console.log("inserted expense into DB");
-			}else if(error){
-				console.log("error inserting message into DB: ", error);
-			}
+
+		Meteor.call('pushExpense',{
+			trip_id: this.props.trip._id,
+			description: expense_details,
+			amount: expense_amount,
+			uername: Meteor.user().username
+		},(err)=>{
+      !err && this.props.update();
 		});
 	},
 
 	findUsers:function(){
 		console.log("this.props",this.props)
-
 	},
 
 	getInitialState() {
