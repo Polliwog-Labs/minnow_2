@@ -4,7 +4,8 @@ NewTrip = React.createClass({
     Trips.insert({name: ReactDOM.findDOMNode(this.refs.newTrip_name).value,
                   members: [Meteor.userId()],
                   organizers: [Meteor.userId()],
-                  messages: []
+                  messages: [],
+                  pending: []
                 }, function(err, id){
       if (err) {console.log(err);}
       else {

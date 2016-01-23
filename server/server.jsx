@@ -12,6 +12,25 @@ Meteor.methods({
     return fileObj ? fileObj.url({store:store}) : null;
   },
   //trip methods
+
+  inviteUserByEmail: function(inviteeEmail,id){
+    var user = Accounts.findUserByEmail(inviteeEmail);
+    if (!user){
+      return false;
+    }
+    Meteor.users.update({_id:user._id},{$push:{"profile.invites":id}});
+    return Trips.update( {_id:id}, {$push: {"pending": user}});
+  },
+  sendInvitationEmail: function(inviteeEmail,trip){
+   /* Email.send({
+      from:'team.polliwog@gmail.com',
+      to:inviteeEmail,
+      subject:'You\'re Invited: '+trip.name,
+      text:'Welcome to Minnow! You\'ve been invited to join the trip '+trip.name+'.\nPlease check it out at http://localhost:3000/trip/'+trip._id+' to sign up!'
+    });*/
+    //commented out because I don't want to send lots of emails while testing
+  },
+
   getTripById: function(id){
     return Trips.findOne({_id:id});
   },
@@ -38,6 +57,7 @@ Meteor.methods({
       organizers: [trip.user],
       created_by: trip.user,
       messages: [],
+      pending: [],
       expenses: [],
       expense_dash: [],
       ideas: [],
@@ -69,6 +89,20 @@ Meteor.methods({
     return Trips.update({_id:message.trip_id}, {$push: {
       'messages': {'text': message.messageText, 'created_at': new Date(), 'sender': message.sender}}}, (err)=>{
       return !err;
+    });
+  },
+  //expenses
+  pushExpense: function(expense){
+    return Trips.update({"_id": expense.trip_id}, {$push: {
+      'expenses': {
+        'description': expense.description, 
+        'amount': Number(expense.amount),  
+        'created_at': new Date(), 
+        'created_by': expense.username,
+        'split_with': expense.split_with
+      }
+    }},(error)=>{
+      return !error;
     });
   }
 

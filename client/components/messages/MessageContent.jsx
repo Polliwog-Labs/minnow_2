@@ -1,4 +1,8 @@
 MessageContent = React.createClass({
+	propTypes:{
+		sender: React.PropTypes.string.isRequired,
+		text: React.PropTypes.string,
+	},
 	render(){
 		return(
 			<div className="list message-container">
