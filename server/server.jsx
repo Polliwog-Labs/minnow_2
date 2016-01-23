@@ -14,8 +14,8 @@ Meteor.methods({
   //Invite methods
  getInvitesByUser: function(user){
   var trips = [];
-  user && user.profile && user.profile.invites && (pending = user.profile.invites);
-  return Trips.find({_id: { $in: pending}}).fetch();
+  user && user.profile && user.profile.invites && (trips = user.profile.invites);
+  return Trips.find({_id: { $in: trips}}).fetch();
  },
 
   // inviteAccepted: function(user, trip){
@@ -32,7 +32,16 @@ Meteor.methods({
     if (!user){
       return false;
     }
+    //Update User profile.invites push 
     return Trips.update( {_id:id}, {$push: {"pending": user}});
+  },
+
+  getUserByEmail: function(inviteeEmail) {
+    var user = Accounts.findUserByEmail(inviteeEmail);
+    if (!user){
+      return false;
+    }
+    return user;
   },
 
   getTripById: function(id){

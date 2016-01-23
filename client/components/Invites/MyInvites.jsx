@@ -6,7 +6,7 @@ MyInvites = React.createClass({
 		
 	 componentDidMount(){
 	    setTimeout(()=>{
-	      Meteor.call('getTripsByUser',Meteor.user(),(err,data)=>{
+	      Meteor.call('getInvitesByUser',Meteor.user(),(err,data)=>{
 	        !err && this.setState({trips:data});
 	      });
 	    },800);

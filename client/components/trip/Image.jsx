@@ -42,7 +42,7 @@ Image = new React.createClass({
     getThisImageUrl(this);
   },
   componentWillReceiveProps(newProps) {
-    this.getImageURL(newProps.image_id);
+    newProps.image_id && this.getImageURL(newProps.image_id);
   },
   render: function(){
     console.log(this.state.url);

@@ -19,10 +19,20 @@ TripHome = React.createClass({
     event.preventDefault();
     var invitee_email = ReactDOM.findDOMNode(this.refs.input_email).value;
     var tripId = this.state.trip._id;
-    if ((invitee_email !== Meteor.user().emails[0].address) && invitee_email.includes('@') &&
+    var invite_user = undefined;
+
+    if((invitee_email !== Meteor.user().emails[0].address) && invitee_email.includes('@') &&
       this.state.trip.pending.every((invitee)=>{
         return invitee.emails[0].address !== invitee_email;
       })){
+
+      Meteor.call("getUserByEmail", invitee_email,(err, data) =>{
+      if(err){
+        console.log(err);
+      } else {
+        invite_user = data;
+      }
+    }
       // Make sure user isn't inviting themself, email address is an email address,
       // and is not a duplicate.
       Meteor.call('inviteUserByEmail', invitee_email,tripId,(err,data)=>{
@@ -33,6 +43,9 @@ TripHome = React.createClass({
              this.flashError();
              return;
           }
+          var trip_id = this.props.trip._id;
+          Meteor.users.update(invite_user._id, {$push: {"profile.invites": trip_id}});
+          console.log("data", data)
           this.props.updateParent();
         }
       });
@@ -45,6 +58,7 @@ TripHome = React.createClass({
       return <li key={index}>{user.emails[0].address}</li>;
     })
   },
+
   flashError(){
     $('.error-email').show();
     setTimeout(()=>{
