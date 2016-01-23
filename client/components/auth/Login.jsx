@@ -26,7 +26,7 @@ Login = React.createClass({
   }, 
   componentDidMount(){
     setTimeout(()=>{
-      !Meteor.user() && (document.location.href = '/mytrips');
+      Meteor.user() && (document.location.href = '/mytrips');
     },1000);
   },
   render(){

@@ -4,9 +4,9 @@ Ideas = React.createClass({
     return {show: false};
   },
 
-  getIdeas() {
-    console.log('getting ideas')
-  },
+  // getIdeas() {
+  //   Meteor.call('')
+  // },
 
   submitIdea() {
     this.hideModal();
@@ -15,6 +15,7 @@ Ideas = React.createClass({
     var event_url = encodeURIComponent(ReactDOM.findDOMNode(this.refs.url).value);
     var event_date = ReactDOM.findDOMNode(this.refs.idea_date).value;
     var cost = Math.ceil(ReactDOM.findDOMNode(this.refs.cost).value);
+    var trip = this.props.trip._id;
     HTTP.call('GET', 'https://opengraph.io/api/1.0/site/' + event_url, function(error, response) {
       if (error) {
         console.log('API call error:', error)
@@ -22,6 +23,7 @@ Ideas = React.createClass({
         console.log(JSON.parse(response.content).hybridGraph)
         var og = JSON.parse(response.content).hybridGraph;
         var event = {
+          trip_id: trip,
           name: event_name,
           desc: event_desc,
           og: og,
@@ -101,17 +103,8 @@ Ideas = React.createClass({
           </div>
           <div className='col'></div>
         </div>
-        <div className="list">
-          <a className="item item-thumbnail-left" href="#">
-            <img src="cover.jpg"/>
-            <h2>Suck My Balls</h2>
-            <p>Ninny Fannyweather</p>
-          </a>
-          <a className="item item-thumbnail-left" href="#">
-            <img src="cover.jpg"/>
-            <h2>Pretty Hate Machine</h2>
-            <p>Nine Inch Nails</p>
-          </a>
+        <div >
+          <IdeaLoader />
         </div>
       </div>
 

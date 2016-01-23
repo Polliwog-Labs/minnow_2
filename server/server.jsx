@@ -5,6 +5,7 @@ Meteor.methods({
       if (!err) return result;
     });
   },
+
   retrieveImageUrlById: function(id,store){
     var store = store || 'images'
     var fileObj = Images.findOne({_id:id});
@@ -14,11 +15,13 @@ Meteor.methods({
   getTripById: function(id){
     return Trips.findOne({_id:id});
   },
+
   getTripsByUser: function(user){
     var trips = [];
     user && user.profile && user.profile.myTrips && (trips = user.profile.myTrips);
     return Trips.find({_id: { $in: trips}}).fetch();
   },
+  
   updateTrip: function(update){
     return Trips.update({_id:update.trip_id},{$set: {
                   name: update.name,
@@ -27,6 +30,7 @@ Meteor.methods({
                   image_id: update.image_id
                 }});
   },
+
   createTrip: function(trip){
     return Trips.insert({
       name: trip.name,
@@ -42,6 +46,7 @@ Meteor.methods({
   },
 
   addIdea: function (event) {
+    console.log('adding idea!')
     return Trips.update({_id: event.trip_id}, {$push: {"ideas": {
                 name: event.name,
                 desc: event.desc,
