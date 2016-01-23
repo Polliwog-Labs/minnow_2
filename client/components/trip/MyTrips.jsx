@@ -15,7 +15,7 @@ MyTrips = React.createClass({
 
     Meteor.call('createTrip',{
       name: ReactDOM.findDOMNode(this.refs.newTrip_name).value,
-      user: Meteor.user()
+      user: Meteor.userId()
     },(err,id)=>{
       if (err){
         console.error("error inserting into DB", err)

@@ -5,6 +5,7 @@ Meteor.methods({
       if (!err) return result;
     });
   },
+
   retrieveImageUrlById: function(id,store){
     var store = store || 'images'
     var fileObj = Images.findOne({_id:id});
@@ -33,11 +34,13 @@ Meteor.methods({
   getTripById: function(id){
     return Trips.findOne({_id:id});
   },
+
   getTripsByUser: function(user){
     var trips = [];
     user && user.profile && user.profile.myTrips && (trips = user.profile.myTrips);
     return Trips.find({_id: { $in: trips}}).fetch();
   },
+  
   updateTrip: function(update){
     return Trips.update({_id:update.trip_id},{$set: {
                   name: update.name,
@@ -46,6 +49,7 @@ Meteor.methods({
                   image_id: update.image_id
                 }});
   },
+
   createTrip: function(trip){
     return Trips.insert({
       name: trip.name,
@@ -55,8 +59,30 @@ Meteor.methods({
       messages: [],
       pending: [],
       expenses: [],
-      expense_dash: []
+      expense_dash: [],
+      ideas: [],
+      itinerary: []
     },(err,result)=> {if (!err) return result});
+  },
+
+  getIdeas: function () {
+
+  },
+
+  addIdea: function (event) {
+    return Trips.update({_id: event.trip_id}, {$push: {"ideas": {
+                name: event.name,
+                desc: event.desc,
+                og: event.og,
+                date: event.date,
+                upvotes: 0,
+                created_by: event.created_by,
+                cost: event.cost
+            }}}, function (error) {
+              if (error) {
+                console.log('Failed to add idea: ', error)
+              }
+          })
   },
   //messages
   pushMessage: function(message){
@@ -79,4 +105,6 @@ Meteor.methods({
       return !error;
     });
   }
+
+
 })
