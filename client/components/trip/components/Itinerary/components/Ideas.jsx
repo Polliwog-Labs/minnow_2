@@ -98,7 +98,6 @@ Ideas = React.createClass({
               Block Button
             </button>
           </ReactBootstrap.Modal.Body>
-
         </ReactBootstrap.Modal>
         <div className="row add-idea">
           <div className='col'>

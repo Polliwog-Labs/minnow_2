@@ -2,7 +2,6 @@ IdeaEvent = React.createClass({
   render() {
     return (
       <div className="item item-thumbnail-left ">
-        
           <img src={this.props.og.image}/>
           <h2>{this.props.name}</h2>
           <p>{this.props.desc}</p>
@@ -18,15 +17,21 @@ IdeaEvent = React.createClass({
             <div className='col-sm-2'>
               <p>{this.props.upvotes}</p>
             </div>
+            {
+              Meteor.user().username === this.props.created_by || 
+                _.contains(this.props.trip.organizers, Meteor.userId()) ?
+                  <div className='col-sm-2'>
+                    <i className="icon ion-trash-b delete-event"></i>
+                  </div> : ''   
+            }
+            <div className='col-sm-2'></div>
+            {  _.contains(this.props.trip.organizers, Meteor.userId()) ?
+                <div className='col-sm-4'>
+                  <p>Add to Itineray</p>
+                </div> : ''
+            }  
           </div>
       </div>
     )
   }
 })
-            // {
-            //   Meteor.user().username === this.props.created_by || 
-            //     _.contains(this.props.trip.organizers, Meteor.user().username) ?
-            //       <div className='col-sm-2'>
-            //         <i className="icon ion-trash-b delete-event"></i>
-            //       </div> : ''                
-            // }
