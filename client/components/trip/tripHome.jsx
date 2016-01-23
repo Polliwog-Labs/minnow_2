@@ -10,7 +10,10 @@ TripHome = React.createClass({
   submitInvitees: function(event) {
     event.preventDefault();
     var invitee_email = ReactDOM.findDOMNode(this.refs.input_email).value;
-    this.props.trip.addresses.push(invitee_email);
+    var email = this.props.trip.created_by.emails[0].address;
+    var tripId = this.props.trip._id;
+
+
   },
 
   render: function(){
@@ -49,7 +52,7 @@ TripHome = React.createClass({
             <form className='form-group' >
             <p>Invite attendees by email address:</p>
             <input type="email" placeholder = "Email address" className="item-input" ref="input_email"/>
-            <button id="btn-submit" className='btn btn-default' onSubmit={this.submitInvitees}>Submit</button>
+            <button id="btn-submit" className='btn btn-default' onClick={this.submitInvitees}>Submit</button>
           </form>
 
             <button onClick={this.renderList}>Go back home</button>

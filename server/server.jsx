@@ -11,6 +11,11 @@ Meteor.methods({
     return fileObj ? fileObj.url({store:store}) : null;
   },
   //trip methods
+
+  // getEmailOfInvitees: function(user){
+  //   return Trips.update({_id:user.trip_id, {$push: {"pending": user}});
+  // },
+
   getTripById: function(id){
     return Trips.findOne({_id:id});
   },
@@ -34,6 +39,7 @@ Meteor.methods({
       organizers: [trip.user],
       created_by: trip.user,
       messages: [],
+      pending: [],
       expenses: [],
       expense_dash: []
     },(err,result)=> {if (!err) return result});
