@@ -1,12 +1,4 @@
 NewExpense = React.createClass({
-
-	mixins: [ReactMeteorData],
-
-	getMeteorData: function(){
-		
-		return{};
-	},
-
 	submitExpense(event){
 		event.preventDefault();
 		var expense_details = ReactDOM.findDOMNode(this.refs.expense_details).value;
