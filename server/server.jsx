@@ -10,6 +10,21 @@ Meteor.methods({
     var fileObj = Images.findOne({_id:id});
     return fileObj ? fileObj.url({store:store}) : null;
   },
+
+  //Invite methods
+ getInvitesByUser: function(user){
+  var trips = [];
+  user && user.profile && user.profile.invites && (pending = user.profile.invites);
+  return Trips.find({_id: { $in: pending}}).fetch();
+ },
+
+  // inviteAccepted: function(user, trip){
+  //   return Trips.update({_id:trip.trip_id}, {$push: {
+  //     'members': {user.id}}}, (err)=>{
+  //     return !err;
+  //   });
+  // },
+
   //trip methods
   getTripById: function(id){
     return Trips.findOne({_id:id});
