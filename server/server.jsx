@@ -57,7 +57,15 @@ Meteor.methods({
   },
   //expenses
   pushExpense: function(expense){
-    return Trips.update({"_id": expense.trip_id}, {$push: {'expenses': {'description': expense.description, 'amount': Number(expense.amount),  'created_at': new Date(), 'sender': expense.username}}},(error)=>{
+    return Trips.update({"_id": expense.trip_id}, {$push: {
+      'expenses': {
+        'description': expense.description, 
+        'amount': Number(expense.amount),  
+        'created_at': new Date(), 
+        'created_by': expense.username,
+        'split_with': expense.split_with
+      }
+    }},(error)=>{
       return !error;
     });
   }

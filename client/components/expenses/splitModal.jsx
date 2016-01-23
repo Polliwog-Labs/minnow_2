@@ -1,5 +1,10 @@
 SplitModal = React.createClass({
-
+  split(){
+    this.update(/*array of users*/[])
+  },
+  change(){
+  	console.log('changed something');
+  },
 	render:function(){
 		return(
 	<div>
@@ -7,7 +12,7 @@ SplitModal = React.createClass({
 		  <li className="item item-toggle">
 		     Joey
 		     <label className="toggle toggle-balanced">
-		       <input type="checkbox" />
+		       <input type="checkbox" onChange={this.change}/>
 		       <div className="track">
 		         <div className="handle" />
 		       </div>
@@ -16,7 +21,7 @@ SplitModal = React.createClass({
 		  <li className="item item-toggle">
 		     Daniel
 		     <label className="toggle toggle-balanced">
-		       <input type="checkbox" />
+		       <input type="checkbox" onChange={this.change}/>
 		       <div className="track">
 		         <div className="handle" />
 		       </div>
