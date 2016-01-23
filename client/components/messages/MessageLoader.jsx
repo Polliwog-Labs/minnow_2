@@ -11,6 +11,7 @@ MessageLoader = React.createClass({
   message_list(){
     var messages = this.state.messages || this.props.messages;
     return messages.map(function(message){
+      console.log(<MessageContent key={message.created_at} {...message}/>)
       return (<MessageContent key={message.created_at} {...message}/>);
     });
   },

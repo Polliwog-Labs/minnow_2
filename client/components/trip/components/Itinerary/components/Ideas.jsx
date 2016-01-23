@@ -15,6 +15,7 @@ Ideas = React.createClass({
     var event_url = encodeURIComponent(ReactDOM.findDOMNode(this.refs.url).value);
     var event_date = ReactDOM.findDOMNode(this.refs.idea_date).value;
     var cost = Math.ceil(ReactDOM.findDOMNode(this.refs.cost).value);
+    var event_location = ReactDOM.findDOMNode(this.refs.idea_location).value;
     var trip = this.props.trip._id;
     HTTP.call('GET', 'https://opengraph.io/api/1.0/site/' + event_url, function(error, response) {
       if (error) {
@@ -28,8 +29,9 @@ Ideas = React.createClass({
           desc: event_desc,
           og: og,
           date: event_date,
-          created_by: Meteor.userId(),
-          cost: cost
+          created_by: Meteor.user().username,
+          cost: cost,
+          location: event_location
         }
 
         Meteor.call('addIdea', event, (error) => {
@@ -72,16 +74,20 @@ Ideas = React.createClass({
                 <input type="text" ref="idea_name" placeholder="example"/>
               </label>
               <label className="item item-input item-stacked-label">
+                <span className="input-label">Date</span>
+                <input type="date" ref='idea_date' placeholder="example"/>
+              </label>
+              <label className="item item-input item-stacked-label">
                 <span className="input-label">Description</span>
                 <input type="text" ref="idea_desc" placeholder="optional"/>
               </label>
               <label className="item item-input item-stacked-label">
-                <span className="input-label">URL</span>
-                <input type="text" ref="url" placeholder="example"/>
+                <span className="input-label">Location</span>
+                <input type="text" ref="idea_location" placeholder=""/>
               </label>
               <label className="item item-input item-stacked-label">
-                <span className="input-label">Date</span>
-                <input type="date" ref='idea_date' placeholder="example"/>
+                <span className="input-label">URL</span>
+                <input type="text" ref="url" placeholder="example"/>
               </label>
               <label className="item item-input item-stacked-label">
                 <span className="input-label">Est. Group Cost</span>
@@ -104,7 +110,7 @@ Ideas = React.createClass({
           <div className='col'></div>
         </div>
         <div >
-          <IdeaLoader />
+          <IdeaLoader ideas={this.props.trip.ideas}/>
         </div>
       </div>
 
