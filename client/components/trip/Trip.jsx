@@ -3,7 +3,11 @@ Trip = React.createClass({
     return {trip:{members:[]}}
   },
 
-  componentDidMount: function () {
+  componentDidMount(){
+    this.getTripData();
+  },
+
+  getTripData: function () {
     Meteor.call('getTripById',document.location.pathname.substring(6),(err,data)=>{
       if (err) console.log(err)
       else {
@@ -19,7 +23,7 @@ Trip = React.createClass({
   renderHome: function () {
     $('.active').removeClass('active');
     $('#home').addClass('active');
-    ReactDOM.render(<TripHome members={this.state.members} trip={this.state.trip}/>, document.getElementById('trip-module'));
+    ReactDOM.render(<TripHome members={this.state.members} updateParent={this.getTripData} trip={this.state.trip}/>, document.getElementById('trip-module'));
   },
 
   renderItinerary: function () {
@@ -45,7 +49,7 @@ Trip = React.createClass({
     $('#cash').addClass('active');
     ReactDOM.render(<Expenses trip={this.state.trip}/>, document.getElementById('trip-module'));
   },
-  
+
   render: function(){
     return (
       <div>
@@ -70,9 +74,10 @@ Trip = React.createClass({
             <i className="icon ion-gear-a settings"></i>
             Settings
           </a>
-        </div> 
+
+        </div>
         <div className='has-footer' id='trip-module'></div>
-      </div>  
-    );
+      </div>
+    )
   }
 });

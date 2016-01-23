@@ -12,18 +12,20 @@ MyTrips = React.createClass({
   },
   newTrip: function(event){
     event.preventDefault();
+
     Meteor.call('createTrip',{
       name: ReactDOM.findDOMNode(this.refs.newTrip_name).value,
       user: Meteor.user()
     },(err,id)=>{
-      if (err){ 
+      if (err){
         console.error("error inserting into DB", err)
       } else {
-        console.log(id)    
+        console.log(id)
         Meteor.users.update(Meteor.userId(), {$push: {"profile.myTrips": id}});
         document.location.href='/trip/'+id;
       }
     });
+
   },
   renderTrips: function(){
     return this.state.trips.map(trip=>{
