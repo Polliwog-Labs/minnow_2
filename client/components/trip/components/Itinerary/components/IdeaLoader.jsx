@@ -13,12 +13,12 @@ IdeaLoader = React.createClass({
 
   ideasList(){
     return this.props.ideas.map(function (idea, index) {
-       return <Event key={index} {...idea}/>
+       return <IdeaEvent key={index} {...idea}/>
     })
   },
 
   render() {
-   
+    console.log(this.props.trip)
     return (
       <div className="list"> 
         {this.ideasList()}

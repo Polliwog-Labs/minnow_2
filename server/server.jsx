@@ -46,11 +46,10 @@ Meteor.methods({
   },
 
   getIdeas: function () {
-    
-  }
+
+  },
 
   addIdea: function (event) {
-    console.log('adding idea!')
     return Trips.update({_id: event.trip_id}, {$push: {"ideas": {
                 name: event.name,
                 desc: event.desc,
