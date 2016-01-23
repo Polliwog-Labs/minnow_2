@@ -35,8 +35,26 @@ Meteor.methods({
       created_by: trip.user,
       messages: [],
       expenses: [],
-      expense_dash: []
+      expense_dash: [],
+      ideas: [],
+      itinerary: []
     },(err,result)=> {if (!err) return result});
+  },
+
+  addIdea: function (event) {
+    return Trips.update({_id: event.trip_id}, {$push: {"ideas": {
+                name: event.name,
+                desc: event.desc,
+                og: event.og,
+                date: event.date,
+                upvotes: 0,
+                created_by: event.created_by,
+                cost: event.cost
+            }}}, function (error) {
+              if (error) {
+                console.log('Failed to add idea: ', error)
+              }
+          })
   },
   //messages
   pushMessage: function(message){
@@ -45,4 +63,6 @@ Meteor.methods({
       return !err;
     });
   }
+
+
 })
