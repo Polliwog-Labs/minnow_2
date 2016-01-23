@@ -19,9 +19,10 @@ Messages = React.createClass({
 		ReactDOM.findDOMNode(this.refs.message_text).value = '';
 	},
 	getMessages(){
-		Meteor.call('getTripById',this.props.trip._id,(err,data)=>{
-			!err && this.setState({messages:data.messages});
-		});
+		// Meteor.call('getTripById',this.props.trip._id,(err,data)=>{
+		// 	!err && this.setState({messages:data.messages});
+		// });
+    this.props.updateParent('Messages');
 	},
 	componentDidMount(){
 		var that = this;

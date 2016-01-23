@@ -1,23 +1,42 @@
 Trip = React.createClass({
   getInitialState: function () {
-    return {trip:{members:[]}}
+    return {trip:{members:[]},
+            view:null}
   },
 
   componentDidMount(){
     this.getTripData();
   },
 
-  getTripData: function () {
+  getTripData: function (view) {
     Meteor.call('getTripById',document.location.pathname.substring(6),(err,data)=>{
       if (err) console.log(err)
       else {
-        this.setState({trip:data});
+        this.setState({trip:data,
+                       view:view});
       }
     });
   },
 
   componentDidUpdate(){
-    this.renderHome();
+    switch(this.state.view){
+      case 'Itinerary':
+        this.renderItinerary();
+        break;
+      /*case 'Messages':
+        this.renderChat();
+        break;*/
+        //not used
+      case 'EditTrip':
+        this.renderSettings();
+        break;
+      case 'Expenses':
+        this.renderExpenses();
+        break;
+      default:
+        this.renderHome();
+        break;
+    }
   },
 
   renderHome: function () {
@@ -29,19 +48,19 @@ Trip = React.createClass({
   renderItinerary: function () {
     $('.active').removeClass('active');
     $('#itinerary').addClass('active');
-    ReactDOM.render(<Itinerary trip={this.state.trip}/>, document.getElementById('trip-module'));
+    ReactDOM.render(<Itinerary updateParent={this.getTripData} trip={this.state.trip}/>, document.getElementById('trip-module'));
   },
 
   renderChat: function () {
     $('.active').removeClass('active');
     $('#chat').addClass('active');
-    ReactDOM.render(<Messages trip={this.state.trip}/>, document.getElementById('trip-module'));
+    ReactDOM.render(<Messages updateParent={this.getTripData} trip={this.state.trip}/>, document.getElementById('trip-module'));
   },
 
   renderSettings: function () {
     $('.active').removeClass('active');
     $('#settings').addClass('active');
-    ReactDOM.render(<EditTrip trip={this.state.trip}/>, document.getElementById('trip-module'));
+    ReactDOM.render(<EditTrip updateParent={this.getTripData} trip={this.state.trip}/>, document.getElementById('trip-module'));
   },
 
   renderExpenses: function () {
