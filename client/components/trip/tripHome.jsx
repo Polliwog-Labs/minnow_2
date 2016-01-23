@@ -73,7 +73,7 @@ TripHome = React.createClass({
     };
     var cost = params.expenses.reduce((a,b)=>{
       return {amount: a.amount+b.amount};
-    }).amount
+    },{amount:0}).amount
 
 
     return (

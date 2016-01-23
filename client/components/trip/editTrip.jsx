@@ -23,7 +23,7 @@ EditTrip = React.createClass({
   },
   submitTrip: function(event){
     event.preventDefault();
-    var file = $('#newTrip-file')[0].files[0] || ReactDOM.findDOMNode(this.refs.newTrip_url).value;
+    var file = $('#newTrip-file')[0].files[0] || ReactDOM.findDOMNode(this.refs.newTrip_url).value || {};
     var invitees = ReactDOM.findDOMNode(this.refs.newTrip_members).value.replace(/\s/,'').split(',').filter(function(address){
       return /^[\w,\.,-]+@[\w,\.,-]+\.[a-z]{2,3}$/.test(address);
     });
