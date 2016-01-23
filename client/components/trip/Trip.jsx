@@ -3,7 +3,11 @@ Trip = React.createClass({
     return {trip:{members:[]}}
   },
 
-  componentDidMount: function () {
+  componentDidMount(){
+    this.getTripData();
+  },
+
+  getTripData: function () {
     Meteor.call('getTripById',document.location.pathname.substring(6),(err,data)=>{
       if (err) console.log(err)
       else {
@@ -19,7 +23,7 @@ Trip = React.createClass({
   renderHome: function () {
     $('.active').removeClass('active');
     $('#home').addClass('active');
-    ReactDOM.render(<TripHome members={this.state.members} trip={this.state.trip}/>, document.getElementById('trip-module'));
+    ReactDOM.render(<TripHome members={this.state.members} updateParent={this.getTripData} trip={this.state.trip}/>, document.getElementById('trip-module'));
   },
 
   renderItinerary: function () {

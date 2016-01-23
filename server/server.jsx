@@ -12,9 +12,13 @@ Meteor.methods({
   },
   //trip methods
 
-  // getEmailOfInvitees: function(user){
-  //   return Trips.update({_id:user.trip_id, {$push: {"pending": user}});
-  // },
+  inviteUserByEmail: function(inviteeEmail,id){
+    var user = Accounts.findUserByEmail(inviteeEmail);
+    if (!user){
+      return false;
+    }
+    return Trips.update( {_id:id}, {$push: {"pending": user}});
+  },
 
   getTripById: function(id){
     return Trips.findOne({_id:id});
