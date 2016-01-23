@@ -17,15 +17,17 @@ Meteor.methods({
     if (!user){
       return false;
     }
+    Meteor.users.update({_id:user._id},{$push:{"profile.invites":id}});
     return Trips.update( {_id:id}, {$push: {"pending": user}});
   },
   sendInvitationEmail: function(inviteeEmail,trip){
-    Email.send({
+   /* Email.send({
       from:'team.polliwog@gmail.com',
       to:inviteeEmail,
       subject:'You\'re Invited: '+trip.name,
       text:'Welcome to Minnow! You\'ve been invited to join the trip '+trip.name+'.\nPlease check it out at http://localhost:3000/trip/'+trip._id+' to sign up!'
-    });
+    });*/
+    //commented out because I don't want to send lots of emails while testing
   },
 
   getTripById: function(id){
