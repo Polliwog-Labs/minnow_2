@@ -44,5 +44,11 @@ Meteor.methods({
       'messages': {'text': message.messageText, 'created_at': new Date(), 'sender': message.sender}}}, (err)=>{
       return !err;
     });
+  },
+  //expenses
+  pushExpense: function(expense){
+    return Trips.update({"_id": expense.trip_id}, {$push: {'expenses': {'description': expense.description, 'amount': Number(expense.amount),  'created_at': new Date(), 'sender': expense.username}}},(error)=>{
+      return !err;
+    });
   }
 })

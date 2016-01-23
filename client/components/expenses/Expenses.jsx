@@ -13,24 +13,29 @@ Expenses = React.createClass({
  //  },
 
 
-  componentDidMount: function () {
-    this.renderDash();
-    Meteor.call('getTripById',this.props.trip._id,(err,data)=>{
-      this.setState({trip:data});
-    });
-  },
+componentDidMount: function () {
+  this.renderDash();
+  this.getExpenses();
+},
+getExpenses(){
+  Meteor.call('getTripById',this.props.trip._id,(err,data)=>{
+    this.setState({trip:data});
+  });
+},
+renderDash: function () {
+  $('#newExpense').removeClass('active');
+  $('#dashboard').addClass('active');
+  ReactDOM.render(<AllExpenses trip={this.state.trip}/>, document.getElementById('expense-module'))
+},
 
-  renderDash: function () {
-    $('#newExpense').removeClass('active');
-    $('#dashboard').addClass('active');
-    ReactDOM.render(<AllExpenses trip={this.state.trip}/>, document.getElementById('expense-module'))
-  },
-
-  renderNew: function () {
-    $('#dashboard').removeClass('active');
-    $('#newExpense').addClass('active');
-    ReactDOM.render(<NewExpense trip={this.state.trip} />, document.getElementById('expense-module'))
-  },
+renderNew: function () {
+  $('#dashboard').removeClass('active');
+  $('#newExpense').addClass('active');
+  ReactDOM.render(<NewExpense update={this.getExpenses} trip={this.state.trip} />, document.getElementById('expense-module'))
+},
+componentDidUpdate(){
+  this.renderDash();
+},
 
 render: function () {
     return (

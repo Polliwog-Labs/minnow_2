@@ -6,19 +6,30 @@ NewExpense = React.createClass({
 		console.log("expense details", expense_details)
 		// var expense_split = ReactDOM.findDOMNode(this.refs.expense_split).value;
 		//Need to set a expenses schedma that can keep track of how much each person owes
-		
-		Trips.update({"_id": this.props.trip._id}, {$push: {'expenses': {'description': expense_details, 'amount': Number(expense_amount),  'created_at': new Date(), 'sender': Meteor.user().username}}}, function(error){
-			if(!error){
-				console.log("inserted expense into DB");
-			}else if(error){
-				console.log("error inserting message into DB: ", error);
-			}
+		Meteor.call('pushExpense'{
+			trip_id: this.props.trip._id,
+			description: expense_details,
+			amount: expense_amount,
+			uername: Meteor.user().username
+		},(err)={
+      !err && this.props.update();
 		});
+  //   return Trips.update({"_id": expense.trip._id}, {$push: {'expenses': {'description': expense.description, 'amount': Number(expense.amount),  'created_at': new Date(), 'sender': expense.username}}},(error)=>{
+  //     return !err;
+  //   });
+		
+		// Trips.update({"_id": this.props.trip._id}, {$push: {'expenses': {'description': expense_details, 'amount': Number(expense_amount),  'created_at': new Date(), 'sender': Meteor.user().username}}},(error)=>{
+		// 	if(!error){
+		// 		console.log("inserted expense into DB");
+		// 		this.props.callback();
+		// 	}else if(error){
+		// 		console.log("error inserting message into DB: ", error);
+		// 	}
+		// });
 	},
 
 	findUsers:function(){
 		console.log("this.props",this.props)
-
 	},
 
 	getInitialState() {

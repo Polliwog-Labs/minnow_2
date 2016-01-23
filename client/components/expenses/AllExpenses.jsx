@@ -2,13 +2,18 @@ AllExpenses = React.createClass({
 	getInitialState(){
 		return {trip:{expenses:[]}}
 	},
-	render:function(){
-		var expense_list = this.props.trip.expenses.map(function(expense,index){
+	componentWillReceieveProps(newProps){
+		this.setState({trip:newProps});
+	},
+	expense_list(){
+		return this.props.trip.expenses.map(function(expense,index){
 			return <Expense key={index} {...expense} />
 		});
+	},
+	render:function(){
 		return(
 			<div className="card">
-			  {expense_list}
+			  {this.expense_list()}
 			</div>
 
 	)
