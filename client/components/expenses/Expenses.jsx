@@ -5,13 +5,6 @@ Expenses = React.createClass({
    getInitialState(){
     return {trip:{expenses:[]}};
    },
-	// mixins: [ReactMeteorData], 
-
- //  getMeteorData:function(){
-	// 	var trip = Trips.findOne({_id:this.props.trip._id});
-	// 	return {trip:trip}
- //  },
-
 
 componentDidMount: function () {
   this.renderDash();
@@ -19,7 +12,7 @@ componentDidMount: function () {
 },
 getExpenses(){
   Meteor.call('getTripById',this.props.trip._id,(err,data)=>{
-    this.setState({trip:data});
+    !err && this.setState({trip:data});
   });
 },
 renderDash: function () {

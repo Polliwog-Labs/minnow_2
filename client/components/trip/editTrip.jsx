@@ -17,7 +17,7 @@ EditTrip = React.createClass({
      },(err, id)=>{
       if (err) {console.log(err);}
       else {
-        this.setState({image_id:image_id});
+        this.props.updateParent('EditTrip');
       }
     });
   },
@@ -31,7 +31,6 @@ EditTrip = React.createClass({
       Meteor.call('storeImage',file,(err,data)=>{
         if (err) console.log(err)
         else {
-          console.log(data);
           this.updateTrip(invitees,data._id);
         }
       });
@@ -39,7 +38,6 @@ EditTrip = React.createClass({
       Images.insert(file,(err,data)=>{
         if (err) console.log(err)
         else {
-          console.log(data);
           this.updateTrip(invitees,data._id);
         }
       })
