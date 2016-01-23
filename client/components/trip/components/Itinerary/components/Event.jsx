@@ -1,7 +1,7 @@
 Event = React.createClass({ 
   render() {
     return (
-      <div className="item item-thumbnail-left anchor-resize">
+      <div className="item item-thumbnail-left ">
         
           <img src={this.props.og.image}/>
           <h2>{this.props.name}</h2>
