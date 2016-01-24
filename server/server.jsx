@@ -84,6 +84,20 @@ Meteor.methods({
               }
           })
   },
+
+  addIdeaToItin: function (tripId, idea) {
+    return Trips.update({_id: tripId}, {$push: {'itinerary': idea}}, function (error) {
+      if (error) {
+        console.log('failed to add to itinerary: ', error);
+      } else {
+        Trips.update({_id: tripId}, {$pull: {'ideas': {name: idea.name}}}, function (error) {
+          if (error) {
+            console.log('failed to remove idea after adding to itinerary: ', error)
+          }
+        })
+      }
+    })
+  },
   //messages
   pushMessage: function(message){
     return Trips.update({_id:message.trip_id}, {$push: {

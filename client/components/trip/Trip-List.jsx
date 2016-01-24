@@ -35,7 +35,6 @@ TripList = React.createClass({
     if (this.props.trip.image_id) {
       this.getImageUrl()
     } else {
-      console.log('this.props.image_id is undefined. Defaulting to doge.');
       this.setState({url:'/doge.jpg'});
     }
   },
