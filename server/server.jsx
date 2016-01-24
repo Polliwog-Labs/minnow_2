@@ -98,6 +98,14 @@ Meteor.methods({
       }
     })
   },
+
+  deleteIdea: function (tripId, ideaName) {
+    return Trips.update({_id: tripId}, {$pull: {'ideas': {name: ideaName}}}, function (error) {
+      if (error) {
+        console.log('idea failed to delete: ', error)
+      }
+    })
+  },
   //messages
   pushMessage: function(message){
     return Trips.update({_id:message.trip_id}, {$push: {

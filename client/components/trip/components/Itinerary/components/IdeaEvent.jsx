@@ -4,6 +4,10 @@ IdeaEvent = React.createClass({
     Meteor.call('addIdeaToItin', this.props.trip._id, this.props.idea)
   },
 
+  deleteIdea() {
+    Meteor.call('deleteIdea', this.props.trip._id, this.props.idea.name)
+  },
+
   render() {
     return (
       <div className="item item-thumbnail-left ">
@@ -32,8 +36,8 @@ IdeaEvent = React.createClass({
             {
               Meteor.user().username === this.props.created_by || 
                 _.contains(this.props.trip.organizers, Meteor.userId()) ?
-                  <div className='col-xs-2' >
-                    <i className="icon ion-trash-b delete-event"></i>
+                  <div className='col-xs-2' onClick={ this.deleteIdea } >
+                    <i className="icon ion-trash-b"></i>
                   </div> : ''   
             }
           </div>
