@@ -8,6 +8,14 @@ IdeaEvent = React.createClass({
     Meteor.call('deleteIdea', this.props.trip._id, this.props.idea.name)
   },
 
+  upvote() {
+    Meteor.call('ideaUpVote', this.props.trip._id, this.props.idea.name)
+  },
+
+  downVote() {
+    Meteor.call('ideaDownVote', this.props.trip._id, this.props.idea.name)
+  },
+
   render() {
     return (
       <div className="item item-thumbnail-left ">
@@ -17,10 +25,10 @@ IdeaEvent = React.createClass({
           <h3 className='event-link'>{this.props.idea.og.title}</h3>          
           <p>{this.props.idea.og.description}</p>
           <div className='row'>
-            <div className="col-xs-1">
+            <div className="col-xs-1" onClick={ this.upvote } >
               <i className="icon ion-thumbsup"></i>
             </div>
-            <div className='col-xs-1'>
+            <div className='col-xs-1' onClick={ this.downVote } >
               <i className="icon ion-thumbsdown"></i>
             </div>
             <div className='col-xs-2'>
@@ -30,7 +38,7 @@ IdeaEvent = React.createClass({
             {  _.contains(this.props.trip.organizers, Meteor.userId()) ?
                 <div className='col-xs-2' onClick={ this.addToItinerary }>
                   <i className="icon ion-ios-plus-empty"></i>
-                  <i className="icon ion-ios-list-outline"></i>
+                  <i className="icon ion-ios-list-outline idea-delete"></i>
                 </div> : ''
             }  
             {

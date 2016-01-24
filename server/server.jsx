@@ -106,6 +106,22 @@ Meteor.methods({
       }
     })
   },
+
+  ideaUpVote: function (tripId, ideaName) {
+    return Trips.update({_id: tripId, 'ideas.name': ideaName}, {$inc: {'ideas.$.upvotes': 1}}, function (error) {
+      if (error) {
+        console.log('failed to upvote: ', error)
+      }
+    })
+  },
+
+  ideaDownVote: function (tripId, ideaName) {
+    return Trips.update({_id: tripId, 'ideas.name': ideaName}, {$inc: {'ideas.$.upvotes': -1}}, function (error) {
+      if (error) {
+        console.log('failed to down vote: ', error)
+      }
+    })
+  },
   //messages
   pushMessage: function(message){
     return Trips.update({_id:message.trip_id}, {$push: {
