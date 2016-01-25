@@ -13,10 +13,9 @@ Trip = React.createClass({
   },
 
   getInitialState: function () {
-    return {
-      trip:{members:[]},
-      view:null
-    }
+    return {trip:{members:[]},
+            view:null,
+            members:[]}
   },
 
   componentDidMount(){
@@ -27,8 +26,15 @@ Trip = React.createClass({
     Meteor.call('getTripById',document.location.pathname.substring(6),(err,data)=>{
       if (err) console.log(err)
       else {
-        this.setState({trip:data,
-                       view:view});
+        var members = [];
+        data.members.forEach(member=>{
+          Meteor.call('getUserById',member,(err,memberData)=>{
+            !err && members.push(memberData);
+            this.setState({trip:data,
+                           view:view,
+                           members:members});
+          });
+        });
       }
     });
   },
