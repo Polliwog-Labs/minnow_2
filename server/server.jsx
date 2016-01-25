@@ -11,13 +11,17 @@ Meteor.methods({
     var fileObj = Images.findOne({_id:id});
     return fileObj ? fileObj.url({store:store}) : null;
   },
+  //user search methods
+  getUserById: function(id){
+    return Meteor.users.findOne({_id:id});
+  },
 
   //Invite methods
- getInvitesByUser: function(user){
-  var trips = [];
-  user && user.profile && user.profile.invites && (trips = user.profile.invites);
-  return Trips.find({_id: { $in: trips}}).fetch();
- },
+   getInvitesByUser: function(user){
+    var trips = [];
+    user && user.profile && user.profile.invites && (trips = user.profile.invites);
+    return Trips.find({_id: { $in: trips}}).fetch();
+   },
 
   inviteAccepted: function(user, trip){
     Meteor.users.update({_id:user._id}, {$pull:{"profile.invites": trip}});
