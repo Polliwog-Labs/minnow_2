@@ -23,6 +23,8 @@ Ideas = React.createClass({
       } else {
         console.log(JSON.parse(response.content).hybridGraph)
         var og = JSON.parse(response.content).hybridGraph;
+        console.log('og');
+        console.log(og);
         var event = {
           trip_id: trip,
           name: event_name,
@@ -107,7 +109,7 @@ Ideas = React.createClass({
           </div>
         </div>
         <div >
-          <IdeaLoader trip={this.props.trip} ideas={this.props.trip.ideas}/>
+          <IdeaLoader trip={this.props.trip} ideas={this.props.trip.ideas || {}}/>
         </div>
       </div>
 

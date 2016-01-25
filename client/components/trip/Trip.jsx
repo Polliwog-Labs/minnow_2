@@ -20,21 +20,20 @@ Trip = React.createClass({
   },
 
   componentDidMount(){
-    // this.getTripData();
-    this.renderHome()
+    this.getTripData();
   },
 
-  // getTripData: function (view) {
-  //   // Meteor.call('getTripById',document.location.pathname.substring(6),(err,data)=>{
-  //   //   if (err) console.log(err)
-  //   //   else {
-  //       this.setState({trip:data,
-  //                      view:view});
-  //     // }
-  //   // });
-  // },
-
+  getTripData: function (view) {
+    Meteor.call('getTripById',document.location.pathname.substring(6),(err,data)=>{
+      if (err) console.log(err)
+      else {
+        this.setState({trip:data,
+                       view:view});
+      }
+    });
+  },
   componentDidUpdate(){
+    //console.log(this.data);
     switch(this.state.view){
       case 'Itinerary':
         this.renderItinerary();
@@ -42,7 +41,6 @@ Trip = React.createClass({
       case 'Messages':
         this.renderChat();
         break;
-        //not used
       case 'EditTrip':
         this.renderSettings();
         break;
