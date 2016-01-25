@@ -20,7 +20,10 @@ Meteor.methods({
  },
 
   inviteAccepted: function(user, trip){
+<<<<<<< HEAD
 
+=======
+>>>>>>> master
     Meteor.users.update({_id:user_id}, {$pull:{"profile.invites": trip}});
     Trips.update({_id:trip},{$pull:{"pending": {_id: user._id}}});
     Meteor.users.update({_id:user._id}, {$push:{"profile.myTrips": trip}});

@@ -12,7 +12,6 @@ InviteList = React.createClass({
       Meteor.call('retrieveImageUrlById',context.props.trip.image_id,'backgrounds',(err,data)=>{
         if (err) {
           console.log(err);
-          console.log('err retrieving image. This shouldn\'t happen');
           context.setState({url:'/doge.jpg'});
         }
         else {
