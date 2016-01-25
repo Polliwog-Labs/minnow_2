@@ -19,7 +19,9 @@ TripHome = React.createClass({
     event.preventDefault();
     var invitee_email = ReactDOM.findDOMNode(this.refs.input_email).value;
     var tripId = this.state.trip._id;
-    if ((invitee_email !== Meteor.user().emails[0].address) && invitee_email.includes('@') &&
+    var invite_user = undefined;
+
+    if((invitee_email !== Meteor.user().emails[0].address) && invitee_email.includes('@') &&
       this.state.trip.pending.every((invitee)=>{
         return invitee.emails[0].address !== invitee_email;
       })){
@@ -36,7 +38,8 @@ TripHome = React.createClass({
           Meteor.call('sendInvitationEmail',invitee_email,this.state.trip);
           this.props.updateParent();
         }
-      });
+      })
+
     } else this.flashError();
     ReactDOM.findDOMNode(this.refs.input_email).value = null;
   },
@@ -46,6 +49,7 @@ TripHome = React.createClass({
       return <li key={index}>{user.emails[0].address}</li>;
     })
   },
+
   flashError(){
     $('.error-email').show();
     setTimeout(()=>{
