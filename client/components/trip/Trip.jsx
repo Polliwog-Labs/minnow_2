@@ -3,11 +3,12 @@ Trip = React.createClass({
   mixins: [ReactMeteorData],
 
   getMeteorData() {
-    var data = {}
+    var user = Meteor.user();
+    var data = {view:'Home'};
     var tripId = document.location.pathname.substring(6);
-    var handle = Meteor.subscribe('singleTrip', tripId);
-    if (handle.ready()) {
-      data.trip = Trips.findOne({_id: tripId})
+    var handle = Meteor.subscribe('singleTrip',tripId,user);
+    if (handle.ready()){
+      data.trip = Trips.findOne({_id: tripId});
     }
     return data;
   },
@@ -19,7 +20,7 @@ Trip = React.createClass({
   },
 
   componentDidMount(){
-    this.getTripData();
+    this.renderHome();
   },
 
   getTripData: function (view) {
@@ -39,26 +40,24 @@ Trip = React.createClass({
     });
   },
   componentDidUpdate(){
-    //console.log(this.data);
-    switch(this.state.view){
-      case 'Itinerary':
-        this.renderItinerary();
-        break;
+    switch (this.state.view){
       case 'Messages':
         this.renderChat();
         break;
-      case 'EditTrip':
+      case 'Settings':
         this.renderSettings();
         break;
       case 'Expenses':
-        this.renderExpenses();
+        this.renderSettings();
         break;
       default:
         this.renderHome();
         break;
     }
   },
-
+  setParentState(view){
+    this.setState({view:view})
+  },
   renderHome: function () {
     $('.active').removeClass('active');
     $('#home').addClass('active');
@@ -69,29 +68,28 @@ Trip = React.createClass({
     // this.setState({view: 'Itinerary'});
     $('.active').removeClass('active');
     $('#itinerary').addClass('active');
-    // ReactDOM.render(<Itinerary updateParent={this.getTripData} trip={this.state.trip}/>, document.getElementById('trip-module'));
-    ReactDOM.render(<Itinerary trip={this.data.trip} />, document.getElementById('trip-module'));
+    ReactDOM.render(<Itinerary trip={this.data.trip}/>, document.getElementById('trip-module'));
+    // ReactDOM.render(<Itinerary trip={this.data.trip} />, document.getElementById('trip-module'));
 
   },
 
   renderChat: function () {
     $('.active').removeClass('active');
     $('#chat').addClass('active');
-    ReactDOM.render(<Messages updateParent={this.getTripData} trip={this.state.trip}/>, document.getElementById('trip-module'));
+    ReactDOM.render(<Messages updateParent={this.setParentState} trip={this.data.trip}/>, document.getElementById('trip-module'));
   },
 
   renderSettings: function () {
     $('.active').removeClass('active');
     $('#settings').addClass('active');
-    ReactDOM.render(<EditTrip updateParent={this.getTripData} trip={this.state.trip}/>, document.getElementById('trip-module'));
+    ReactDOM.render(<EditTrip updateParent={this.gettripdata} trip={this.data.trip}/>, document.getElementById('trip-module'));
   },
 
   renderExpenses: function () {
     $('.active').removeClass('active');
     $('#cash').addClass('active');
-    ReactDOM.render(<Expenses trip={this.state.trip}/>, document.getElementById('trip-module'));
+    ReactDOM.render(<Expenses updateParent={this.gettripdata} trip={this.data.trip}/>, document.getElementById('trip-module'));
   },
-
   render: function(){
     return (
       <div>

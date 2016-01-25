@@ -12,6 +12,7 @@ TripHome = React.createClass({
   },
 
   componentWillReceiveProps: function(newprops) {
+    console.log('new props received on image')
     this.setState(newprops);
   },
 
@@ -45,9 +46,11 @@ TripHome = React.createClass({
   },
 
   renderInvitees: function(){
-    return this.state.trip.pending.map((user,index)=>{
-      return <li key={index}>{user.emails[0].address}</li>;
-    })
+    if (this.state.trip && this.state.trip.pending){
+      return this.state.trip.pending.map((user,index)=>{
+        return <li key={index}>{user.emails[0].address}</li>;
+      })
+    }
   },
 
   flashError(){
@@ -55,6 +58,9 @@ TripHome = React.createClass({
     setTimeout(()=>{
       $('.error-email').hide()
     },1000);
+  },
+  componentWillReceiveProps(newProps){
+    this.setState(newProps)
   },
 
   render: function(){
