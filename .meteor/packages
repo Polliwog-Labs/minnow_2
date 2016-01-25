@@ -35,3 +35,6 @@ cosmos:browserify
 npm-container
 twbs:bootstrap
 dburles:google-maps
+http
+email
+

@@ -20,7 +20,9 @@ IdeaLoader = React.createClass({
   render() {
     return (
       <div className="list"> 
+
         {this.ideasList()} 
+
       </div>
     )
   }
