@@ -100,15 +100,14 @@ Ideas = React.createClass({
           </ReactBootstrap.Modal.Body>
         </ReactBootstrap.Modal>
         <div className="row add-idea">
-          <div className='col'>
+          <div className='col-33 col-offset-33'>
             <a onClick={ this.showModal }>
               <i className="icon ion-plus-circled"></i>
               <span className='icon-label'>Add Idea</span>
             </a>
           </div>
-          <div className='col'></div>
         </div>
-        <div >
+        <div>
           <IdeaLoader trip={this.props.trip} ideas={this.props.trip.ideas}/>
         </div>
       </div>

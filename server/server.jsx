@@ -1,5 +1,7 @@
 Meteor.methods({
+  
   //Images methods
+
   storeImage: function(image){
     return Images.insert(image,function(err,result){
       if (!err) return result;
@@ -31,8 +33,6 @@ Meteor.methods({
       return !err;
     });
   },
-
-
 
   //trip methods
 
@@ -89,10 +89,6 @@ Meteor.methods({
     },(err,result)=> {if (!err) return result});
   },
 
-  getIdeas: function () {
-
-  },
-
   addIdea: function (event) {
     return Trips.update({_id: event.trip_id}, {$push: {"ideas": {
                 name: event.name,
@@ -107,6 +103,44 @@ Meteor.methods({
                 console.log('Failed to add idea: ', error)
               }
           })
+  },
+
+  addIdeaToItin: function (tripId, idea) {
+    return Trips.update({_id: tripId}, {$push: {'itinerary': idea}}, function (error) {
+      if (error) {
+        console.log('failed to add to itinerary: ', error);
+      } else {
+        Trips.update({_id: tripId}, {$pull: {'ideas': {name: idea.name}}}, function (error) {
+          if (error) {
+            console.log('failed to remove idea after adding to itinerary: ', error)
+          }
+        })
+      }
+    })
+  },
+
+  deleteIdea: function (tripId, ideaName) {
+    return Trips.update({_id: tripId}, {$pull: {'ideas': {name: ideaName}}}, function (error) {
+      if (error) {
+        console.log('idea failed to delete: ', error)
+      }
+    })
+  },
+
+  ideaUpVote: function (tripId, ideaName) {
+    return Trips.update({_id: tripId, 'ideas.name': ideaName}, {$inc: {'ideas.$.upvotes': 1}}, function (error) {
+      if (error) {
+        console.log('failed to upvote: ', error)
+      }
+    })
+  },
+
+  ideaDownVote: function (tripId, ideaName) {
+    return Trips.update({_id: tripId, 'ideas.name': ideaName}, {$inc: {'ideas.$.upvotes': -1}}, function (error) {
+      if (error) {
+        console.log('failed to down vote: ', error)
+      }
+    })
   },
   //messages
   pushMessage: function(message){
