@@ -30,6 +30,10 @@ App = React.createClass({
             <ReactBootstrap.Navbar.Text>
               <ReactBootstrap.Navbar.Link href="/mytrips">My Trips</ReactBootstrap.Navbar.Link> 
             </ReactBootstrap.Navbar.Text>
+            <ReactBootstrap.Navbar.Text>
+              <ReactBootstrap.Navbar.Link href="/myinvites">My Invites</ReactBootstrap.Navbar.Link>
+            </ReactBootstrap.Navbar.Text>
+
             <ReactBootstrap.Navbar.Text >
               Account
             </ReactBootstrap.Navbar.Text>
