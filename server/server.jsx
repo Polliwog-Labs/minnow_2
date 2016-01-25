@@ -32,17 +32,12 @@ Meteor.methods({
     if (!user){
       return false;
     }
+    console.log("user", user)
     //Update User profile.invites push 
+    Meteor.users.update({_id:user._id},{$push:{"profile.invites":id}});
     return Trips.update( {_id:id}, {$push: {"pending": user}});
   },
 
-  getUserByEmail: function(inviteeEmail) {
-    var user = Accounts.findUserByEmail(inviteeEmail);
-    if (!user){
-      return false;
-    }
-    return user;
-  },
 
   getTripById: function(id){
     return Trips.findOne({_id:id});
