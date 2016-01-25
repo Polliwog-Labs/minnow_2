@@ -1,36 +1,29 @@
 NewExpense = React.createClass({
-
-	mixins: [ReactMeteorData],
-
-	getMeteorData: function(){
-		
-		return{};
-	},
-
 	submitExpense(event){
 		event.preventDefault();
 		var expense_details = ReactDOM.findDOMNode(this.refs.expense_details).value;
 		var expense_amount = ReactDOM.findDOMNode(this.refs.expense_amount).value;
-		console.log("expense details", expense_details)
+		console.log("expense details", expense_details);
 		// var expense_split = ReactDOM.findDOMNode(this.refs.expense_split).value;
 		//Need to set a expenses schedma that can keep track of how much each person owes
-		
-		Trips.update({"_id": this.props.trip._id}, {$push: {'expenses': {'description': expense_details, 'amount': Number(expense_amount),  'created_at': new Date(), 'sender': Meteor.user().username}}}, function(error){
-			if(!error){
-				console.log("inserted expense into DB");
-			}else if(error){
-				console.log("error inserting message into DB: ", error);
-			}
+
+		Meteor.call('pushExpense',{
+			trip_id: this.props.trip._id,
+			description: expense_details,
+			amount: expense_amount,
+			created_by: Meteor.user().username,
+			split_with: this.state.split_with
+		},(err)=>{
+      !err && this.props.update();
 		});
 	},
 
 	findUsers:function(){
 		console.log("this.props",this.props)
-
 	},
 
 	getInitialState() {
-    return {show: false};
+    return {show: false,split_with:[]};
     },
 
 	showModal() {
@@ -40,6 +33,9 @@ NewExpense = React.createClass({
 	  hideModal() {
 	    this.setState({show: false});
 	  },
+	updateSplitWith(users){
+		this.setState({split_with:users})
+	},
 
 
 	render(){
@@ -65,7 +61,9 @@ NewExpense = React.createClass({
 			            <ReactBootstrap.Modal.Title id="contained-modal-title-lg">Toggle to split</ReactBootstrap.Modal.Title>
 			          </ReactBootstrap.Modal.Header>
 			          <ReactBootstrap.Modal.Body>
-			            <SplitModal />
+
+			            <SplitModal update={this.updateSplitWith} />
+
 			          </ReactBootstrap.Modal.Body>
 			          <ReactBootstrap.Modal.Footer>
 			            <ReactBootstrap.Button onClick={this.hideModal}>Return</ReactBootstrap.Button>

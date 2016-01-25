@@ -5,25 +5,27 @@ MyTrips = React.createClass({
   componentDidMount(){
     setTimeout(()=>{
       Meteor.call('getTripsByUser',Meteor.user(),(err,data)=>{
-        if (err) console.log(err)
-        else this.setState({trips:data});
+        !err && this.setState({trips:data});
       });
-    },500);
+    },800);
+    
   },
   newTrip: function(event){
     event.preventDefault();
+
     Meteor.call('createTrip',{
       name: ReactDOM.findDOMNode(this.refs.newTrip_name).value,
-      user: Meteor.user()
+      user: Meteor.userId()
     },(err,id)=>{
-      if (err){ 
+      if (err){
         console.error("error inserting into DB", err)
       } else {
-        console.log(id)    
+        console.log(id)
         Meteor.users.update(Meteor.userId(), {$push: {"profile.myTrips": id}});
         document.location.href='/trip/'+id;
       }
     });
+
   },
   renderTrips: function(){
     return this.state.trips.map(trip=>{

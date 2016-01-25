@@ -175,6 +175,7 @@ label[for="nav-trigger"] {
 }
 
 .add-idea {
+  text-align: center;
   margin-left: 0px;
   font-size: 18px;
 }
@@ -185,5 +186,9 @@ label[for="nav-trigger"] {
 
 .modal-body {
   padding:0px;
+}
+
+.delete-event {
+  float: right;
 }
 
