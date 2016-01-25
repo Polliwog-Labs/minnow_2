@@ -78,28 +78,32 @@ TripHome = React.createClass({
 
 
     return (
-
-      <div className='trip list'>
+     <div className='trip list'>
         <div className='item'>
           <div className ="">
-            <Image image_id={params.image_id} height="300px" />
-            <p className='tripParams'>Attendees: {/*params.members.join(', ')*/}</p>
-            <p className='tripParams'>{params.itinerary.length} Events</p>
-            <p className='tripParams'>{params.messages.length} Messages</p>
-            <p className='tripParams'>{params.todo.length} Action Items</p>
-            <p className='tripParams'>Est. Cost Per Person: ${cost / (params.members.length || 1)}</p>
-
-            <form className='form-group' >
-            <p>Invitees:</p>
-            <ul>{this.renderInvitees()}</ul>
-            <p>Invite attendees by email address:</p>
-            <input type="email" placeholder = "Email address" className="item-input" ref="input_email"/>
-            <button id="btn-submit" className='btn btn-default' onClick={this.submitInvitees}>Submit</button>
-            <span style={{'color':'red','display':'none'}} className="error-email">Bad Email</span>
-
-          </form>
-
-            <button onClick={this.renderList}>Go back home</button>
+            <div className='image-div'>
+              <Image image_id={params.image_id} height="100%" />
+            </div>
+            <div className='item'>
+              <p className=''>Who's Coming? {params.members.join(', ')} </p>
+              <p className=''>Events {params.itinerary.length} </p>
+              <p className=''>Messages {params.messages.length}</p>
+              <p className=''>Action Items {params.todo.length}</p>
+              <p className='tripParams'>Est. Cost Per Person: ${cost / (params.members.length || 1)}</p>
+              <form className='form-group' >
+                <p>Invitees:</p>
+                <ul>{this.renderInvitees()}</ul>
+                <p>Invite attendees by email address:</p>
+                <input type="email" placeholder = "Email address" className="item-input" ref="input_email"/>
+                <button id="btn-submit" className='btn btn-default' onClick={this.submitInvitees}>Submit</button>
+                <span style={{'color':'red','display':'none'}} className="error-email">Bad Email</span>
+              </form>
+              <div className='row edit-row'>
+                <p className='col-50'>Est. Cost: ${params.expenses.length ? '500' : 0}</p>
+                <p className='col-25'></p>
+                <p className='col_25'><i className='ion-edit'></i></p>
+              </div>
+            </div>
           </div>
       </div>
     </div>
