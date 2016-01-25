@@ -1,5 +1,7 @@
 Meteor.methods({
+  
   //Images methods
+
   storeImage: function(image){
     return Images.insert(image,function(err,result){
       if (!err) return result;
@@ -10,6 +12,7 @@ Meteor.methods({
     var fileObj = Images.findOne({_id:id});
     return fileObj ? fileObj.url({store:store}) : null;
   },
+
   //trip methods
 
   inviteUserByEmail: function(inviteeEmail,id){
@@ -17,6 +20,7 @@ Meteor.methods({
     if (!user){
       return false;
     }
+
     return Trips.update( {_id:id}, {$push: {"pending": user}});
   },
 

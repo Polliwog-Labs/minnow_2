@@ -35,8 +35,6 @@ Messages = React.createClass({
 	},
 	render(){
 		return(
-			<div className="message-wrapper">
-			<MessageLoader messages={this.state.messages || this.props.trip.messages} />
 			<div className='list fixed-input'>
 				<form className='item item-input-inset'>
 					<label className='item-input-wrapper'>
@@ -44,8 +42,10 @@ Messages = React.createClass({
 					</label>
 					<button className='button button-positive' onClick={this.submitMessage}>Submit</button>
 				</form>
-			</div>
-			</div>
+				<div className="message-wrapper">
+					<MessageLoader messages={this.state.messages || this.props.trip.messages} />
+				</div>
+		</div>
 		)
 	}
 })
