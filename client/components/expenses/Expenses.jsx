@@ -18,13 +18,13 @@ getExpenses(){
 renderDash: function () {
   $('#newExpense').removeClass('active');
   $('#dashboard').addClass('active');
-  ReactDOM.render(<AllExpenses trip={this.state.trip}/>, document.getElementById('expense-module'))
+  ReactDOM.render(<AllExpenses members={this.props.members} trip={this.state.trip}/>, document.getElementById('expense-module'))
 },
 
 renderNew: function () {
   $('#dashboard').removeClass('active');
   $('#newExpense').addClass('active');
-  ReactDOM.render(<NewExpense update={this.getExpenses} trip={this.state.trip} />, document.getElementById('expense-module'))
+  ReactDOM.render(<NewExpense update={this.getExpenses} members={this.props.members} trip={this.state.trip} />, document.getElementById('expense-module'))
 },
 componentDidUpdate(){
   this.renderDash();

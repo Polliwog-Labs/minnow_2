@@ -55,18 +55,19 @@ NewExpense = React.createClass({
 			          {...this.props}
 			          show={this.state.show}
 			          onHide={this.hideModal}
-			          dialogClassName="custom-modal"
-			        >
+			          dialogClassName="custom-modal">
+
 			          <ReactBootstrap.Modal.Header closeButton>
 			            <ReactBootstrap.Modal.Title id="contained-modal-title-lg">Toggle to split</ReactBootstrap.Modal.Title>
 			          </ReactBootstrap.Modal.Header>
 			          <ReactBootstrap.Modal.Body>
 
-			            <SplitModal update={this.updateSplitWith} />
+			            <MemberLoader trip={this.props.trip} members={this.props.members} />
+			            
 
 			          </ReactBootstrap.Modal.Body>
 			          <ReactBootstrap.Modal.Footer>
-			            <ReactBootstrap.Button onClick={this.hideModal}>Return</ReactBootstrap.Button>
+			            <ReactBootstrap.Button onClick={this.hideModal}>Split With Selected</ReactBootstrap.Button>
 			          </ReactBootstrap.Modal.Footer>
 			        </ReactBootstrap.Modal>
 			        <div className="row add-idea">
