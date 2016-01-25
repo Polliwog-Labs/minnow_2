@@ -46,11 +46,18 @@ TripHome = React.createClass({
       return <li key={index}>{user.emails[0].address}</li>;
     })
   },
+
   flashError(){
     $('.error-email').show();
     setTimeout(()=>{
       $('.error-email').hide()
     },1000);
+  },
+
+  renderSettings: function () {
+    $('.active').removeClass('active');
+    $('#pencil').addClass('active');
+    ReactDOM.render(<EditTrip updateParent={this.getTripData} trip={this.state.trip}/>, document.getElementById('trip-module'));
   },
 
   render: function(){
@@ -86,10 +93,8 @@ TripHome = React.createClass({
             </div>
             <div className='item'>
               <p className=''>Who's Coming? {params.members.join(', ')} </p>
-              <p className=''>Events {params.itinerary.length} </p>
-              <p className=''>Messages {params.messages.length}</p>
-              <p className=''>Action Items {params.todo.length}</p>
-              <p className='tripParams'>Est. Cost Per Person: ${cost / (params.members.length || 1)}</p>
+              {/*<p className=''>Action Items {params.todo.length}</p>*/}
+              {/*<p className='tripParams'>Est. Cost Per Person: ${cost / (params.members.length || 1)}</p>*/}
               <form className='form-group' >
                 <p>Invitees:</p>
                 <ul>{this.renderInvitees()}</ul>
@@ -101,7 +106,7 @@ TripHome = React.createClass({
               <div className='row edit-row'>
                 <p className='col-50'>Est. Cost: ${params.expenses.length ? '500' : 0}</p>
                 <p className='col-25'></p>
-                <p className='col_25'><i className='ion-edit'></i></p>
+                <p className='col_25'><i id="pencil" onClick={this.renderSettings} className='ion-edit'></i></p>
               </div>
             </div>
           </div>
