@@ -163,6 +163,10 @@ label[for="nav-trigger"] {
   float: right;
 }
 
+.navbar {
+  margin-bottom: 0px;
+}
+
 .navbar-toggle {
   float: left;
   margin-left: 10px;
@@ -176,3 +180,12 @@ label[for="nav-trigger"] {
 .icon-label {
   margin-left: 15px;
 }
+
+.modal-body {
+  padding:0px;
+}
+
+.delete-event {
+  float: right;
+}
+

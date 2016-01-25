@@ -35,6 +35,7 @@ TripHome = React.createClass({
              this.flashError();
              return;
           }
+          Meteor.call('sendInvitationEmail',invitee_email,this.state.trip);
           this.props.updateParent();
         }
       })
@@ -74,8 +75,11 @@ TripHome = React.createClass({
 
     for (var key in this.state.trip){
       params[key] = this.state.trip[key];
-
     };
+    var cost = params.expenses.reduce((a,b)=>{
+      return {amount: a.amount+b.amount};
+    },{amount:0}).amount
+
 
     return (
 
@@ -87,7 +91,7 @@ TripHome = React.createClass({
             <p className='tripParams'>{params.itinerary.length} Events</p>
             <p className='tripParams'>{params.messages.length} Messages</p>
             <p className='tripParams'>{params.todo.length} Action Items</p>
-            <p className='tripParams'>Est. Cost: ${params.expenses.length ? 'Some Number' : 0}</p>
+            <p className='tripParams'>Est. Cost Per Person: ${cost / (params.members.length || 1)}</p>
 
             <form className='form-group' >
             <p>Invitees:</p>

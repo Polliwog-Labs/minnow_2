@@ -11,7 +11,7 @@ TripList = React.createClass({
       Meteor.call('retrieveImageUrlById',context.props.trip.image_id,'backgrounds',(err,data)=>{
         if (err) {
           console.log(err);
-          console.log('err retrieving image. This shouldn\'t happen');
+          console.log('err retrieving image. This shouldn\'t happen. Doge time.');
           context.setState({url:'/doge.jpg'});
         }
         else {
@@ -35,7 +35,7 @@ TripList = React.createClass({
     if (this.props.trip.image_id) {
       this.getImageUrl()
     } else {
-      console.log('this.props.image_id is undefined. This shouldn\'t happen.');
+      console.log('this.props.image_id is undefined. Defaulting to doge.');
       this.setState({url:'/doge.jpg'});
     }
   },
@@ -46,12 +46,10 @@ TripList = React.createClass({
   render: function(){
 
     var backgroundStyle = {'background': 'url('+this.state.url+')'};
-    var tripStart = this.props.trip.dates ? (this.props.trip.dates[0] || 'October 32nd') : 'October 32nd';
-
     return (
       <div className="tripListModule" onClick={this.navToTrip} style={backgroundStyle}>
           <h2 className="tripListText">{this.props.trip.name || 'Unnamed Trip'}</h2>
-          <h2 className="tripListDateText" >{tripStart}</h2>
+          <h2 className="tripListDateText" >{DateUtils.getTripDate(this.props.trip.dates)}</h2>
       </div>
     );
   }

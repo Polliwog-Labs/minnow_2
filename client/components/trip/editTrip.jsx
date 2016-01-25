@@ -17,13 +17,13 @@ EditTrip = React.createClass({
      },(err, id)=>{
       if (err) {console.log(err);}
       else {
-        this.setState({image_id:image_id});
+        this.props.updateParent('EditTrip');
       }
     });
   },
   submitTrip: function(event){
     event.preventDefault();
-    var file = $('#newTrip-file')[0].files[0] || ReactDOM.findDOMNode(this.refs.newTrip_url).value;
+    var file = $('#newTrip-file')[0].files[0] || ReactDOM.findDOMNode(this.refs.newTrip_url).value || {};
     var invitees = ReactDOM.findDOMNode(this.refs.newTrip_members).value.replace(/\s/,'').split(',').filter(function(address){
       return /^[\w,\.,-]+@[\w,\.,-]+\.[a-z]{2,3}$/.test(address);
     });
@@ -31,7 +31,6 @@ EditTrip = React.createClass({
       Meteor.call('storeImage',file,(err,data)=>{
         if (err) console.log(err)
         else {
-          console.log(data);
           this.updateTrip(invitees,data._id);
         }
       });
@@ -39,7 +38,6 @@ EditTrip = React.createClass({
       Images.insert(file,(err,data)=>{
         if (err) console.log(err)
         else {
-          console.log(data);
           this.updateTrip(invitees,data._id);
         }
       })
