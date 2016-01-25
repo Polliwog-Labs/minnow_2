@@ -11,10 +11,20 @@
 html {
   overflow: auto;
 }
-
+.anchor-resize{
+  height: 100%;
+}
 h1.list {
   text-align: center;
 
+}
+.edit-row{
+  margin-left: -5px;
+  margin-top: -4px;
+}
+.image-div{
+  height: 257px;
+  width: 100%;
 }
 .trip-list{
   border-bottom: none;

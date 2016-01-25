@@ -48,11 +48,13 @@ Trip = React.createClass({
         this.renderSettings();
         break;
       case 'Expenses':
-        this.renderSettings();
+        this.renderExpenses();
+        break;
+      case 'Itinerary':
+        this.renderItinerary();
         break;
       default:
         this.renderHome();
-        break;
     }
   },
   setParentState(view){
@@ -61,7 +63,7 @@ Trip = React.createClass({
   renderHome: function () {
     $('.active').removeClass('active');
     $('#home').addClass('active');
-    ReactDOM.render(<TripHome members={this.data.members} trip={this.data.trip}/>, document.getElementById('trip-module'));
+    ReactDOM.render(<TripHome members={this.data.members || []} trip={this.data.trip}/>, document.getElementById('trip-module'));
   },
 
   renderItinerary: function () {
@@ -69,7 +71,7 @@ Trip = React.createClass({
     $('.active').removeClass('active');
     $('#itinerary').addClass('active');
     ReactDOM.render(<Itinerary trip={this.data.trip}/>, document.getElementById('trip-module'));
-    // ReactDOM.render(<Itinerary trip={this.data.trip} />, document.getElementById('trip-module'));
+   // ReactDOM.render(<Itinerary trip={this.data.trip} />, document.getElementById('trip-module'));
 
   },
 
@@ -80,15 +82,16 @@ Trip = React.createClass({
   },
 
   renderSettings: function () {
+    console.log('renderSettings called')
     $('.active').removeClass('active');
     $('#settings').addClass('active');
-    ReactDOM.render(<EditTrip updateParent={this.gettripdata} trip={this.data.trip}/>, document.getElementById('trip-module'));
+    ReactDOM.render(<EditTrip updateParent={this.getTripData} trip={this.data.trip}/>, document.getElementById('trip-module'));
   },
 
   renderExpenses: function () {
     $('.active').removeClass('active');
     $('#cash').addClass('active');
-    ReactDOM.render(<Expenses updateParent={this.gettripdata} trip={this.data.trip}/>, document.getElementById('trip-module'));
+    ReactDOM.render(<Expenses updateParent={this.getTripData} trip={this.data.trip}/>, document.getElementById('trip-module'));
   },
   render: function(){
     return (
@@ -114,7 +117,6 @@ Trip = React.createClass({
             <i className="icon ion-gear-a settings"></i>
             Settings
           </a>
-
         </div>
         <div className='has-footer' id='trip-module'></div>
       </div>

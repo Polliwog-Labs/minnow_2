@@ -1,9 +1,9 @@
 EditTrip = React.createClass({
   propTypes: {
-    trip: React.PropTypes.object.isRequired
+    trip: React.PropTypes.object
   },
   getInitialState: function(){
-    return {image_id:null};
+    return {image_id:null, hide:false};
   },
   updateTrip: function(invitees, image_id){
     Meteor.call('updateTrip',{
@@ -17,10 +17,11 @@ EditTrip = React.createClass({
      },(err, id)=>{
       if (err) {console.log(err);}
       else {
-        this.props.updateParent('EditTrip');
+        this.props.updateParent('Settings');
       }
     });
   },
+
   submitTrip: function(event){
     event.preventDefault();
     var file = $('#newTrip-file')[0].files[0] || ReactDOM.findDOMNode(this.refs.newTrip_url).value || {};
@@ -43,29 +44,67 @@ EditTrip = React.createClass({
       })
     } else this.updateTrip(invitees,this.props.trip.image_id);
   },
+
+  hideModal() {
+    this.setState({hide:true});
+  },
+
   render: function(){
+    console.log('rendering editTrip')
     return (
-      <div className='list'>
-        <div className='item'>
-          <form id='newTrip-form' className='form-group' onSubmit={this.submitTrip}>
-            <p>Enter a name for your new trip</p>
-            <input id="newTrip-name" type="text" defaultValue={this.props.trip.name || 'Enter a Name'} className="item-input" ref="newTrip_name"/>
-            <p>Start Date</p>
-            <input type="date" className="item-input" ref="newTrip_startDate"/>
-            <p>End Date</p>
-            <input type="date" className="item-input" ref="newTrip_endDate"/>
-            <p>Invite attendees by email address:</p>
-            <input id="newTrip-members" type="text" placeholder = "Invitees" className="item-input" ref="newTrip_members"/>
-            <p>Add a picture (optional)</p>
-            <input id="newTrip-url" type="text" placeholder = "URL" className="item-input" ref="newTrip_url"/>
-            <p>OR</p>
-            <input id="newTrip-file" type="file" className="item-input" ref="newTrip_file"/>
-            <button id="btn-submit" className='btn btn-default'>Submit</button>
-          </form>
-          <Image image_id={this.state.image_id || this.props.trip.image_id} height="400px" />
-          <p><a href='/mytrips'>Go back home</a></p>
-        </div>
+      <div>
+        <ReactBootstrap.Modal 
+          {...this.props}
+          onHide={this.props.onHide}
+          dialogClassName="custom-modal">
+          <ReactBootstrap.Modal.Header closeButton>
+            <ReactBootstrap.Modal.Title id="contained-modal-title-lg">Edit Trip</ReactBootstrap.Modal.Title>
+          </ReactBootstrap.Modal.Header>
+        <ReactBootstrap.Modal.Body>  
+          <div className='list'>
+              <form id='newTrip-form' className='form-group' onSubmit={this.submitTrip}>
+                <label className="item item-input item-stacked-label">
+                  <span>{this.props.trip ? this.props.trip.name : 'Enter a Name'}</span>
+                  <input id="newTrip-name" type="text" ref="newTrip_name" placeholder="Trip Name"/>
+                </label>
+                <div className="row item">
+                  <div className='col-50'>
+                    <label className="item-stacked-label">
+                      <span>Start Date</span>
+                      <input className="item-input" type="date" ref="newTrip_startDate"/>
+                    </label>
+                  </div>
+                  <div className='col-50'>
+                    <label className="item-stacked-label">
+                      <span>End Date</span>
+                      <input className="item-input" type="date" ref="newTrip_endDate"/>
+                    </label> 
+                  </div>
+                </div>
+                <label id="newTrip-members" className="item item-input item-stacked-label">
+                  <span>Invite members by email address:</span>
+                  <input className="item-input" id="newTrip-members" type="text" ref="newTrip_members"/>
+                </label>
+                <label id="newTrip-members" className="item item-input item-stacked-label">
+                  <span>Add a picture URL (optional)</span>
+                  <input id="newTrip-url" className="item-input" type="text" ref="newTrip_url"/>
+                </label>
+                <span className='item shrink-item'>OR</span>
+                <label id="newTrip-members" className="item item-input item-stacked-label">
+                  <span>Upload a photo (optional)</span>
+                  <input id="newTrip-file" className="item-input" type="file" ref="newTrip_file"/>
+                </label>
+                <button id="btn-submit" className='button button-block button-positive'>Submit</button>
+              </form>
+              <p><a href='/mytrips'>My Trips</a></p>
+              <div className='image-div'>
+                <Image image_id={this.state.image_id || this.props.trip ? this.props.trip.image_id : null} height="100%" />
+              </div>
+           </div>
+          </ReactBootstrap.Modal.Body>
+        </ReactBootstrap.Modal>
       </div>
+       
     );
   }
 })
