@@ -5,10 +5,11 @@ Itinerary = React.createClass({
   },
 
   componentDidMount: function () {
-    this.renderItinerary()
+    // this.renderItinerary()
   },
 
   renderItinerary: function() {
+    this.setState()
     $('#idea-toggle').removeClass('active');
     $('#itin-toggle').addClass('active');
     ReactDOM.render(<ItineraryView trip={this.props.trip}/>, document.getElementById('itinerary-module'))

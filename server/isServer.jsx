@@ -3,4 +3,5 @@ if (Meteor.isServer) {
   Meteor.publish("singleTrip", function (tripId) {
     return Trips.find({_id: tripId})
   });
+
 }

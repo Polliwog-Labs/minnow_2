@@ -4,7 +4,6 @@ Trip = React.createClass({
 
   getMeteorData() {
     var data = {}
-    console.log(this.params)
     var tripId = document.location.pathname.substring(6);
     var handle = Meteor.subscribe('singleTrip', tripId);
     if (handle.ready()) {
@@ -21,17 +20,18 @@ Trip = React.createClass({
   },
 
   componentDidMount(){
-    this.getTripData();
+    // this.getTripData();
+    this.renderHome()
   },
 
   // getTripData: function (view) {
-  //   Meteor.call('getTripById',document.location.pathname.substring(6),(err,data)=>{
-  //     if (err) console.log(err)
-  //     else {
+  //   // Meteor.call('getTripById',document.location.pathname.substring(6),(err,data)=>{
+  //   //   if (err) console.log(err)
+  //   //   else {
   //       this.setState({trip:data,
   //                      view:view});
-  //     }
-  //   });
+  //     // }
+  //   // });
   // },
 
   componentDidUpdate(){
@@ -39,9 +39,9 @@ Trip = React.createClass({
       case 'Itinerary':
         this.renderItinerary();
         break;
-      /*case 'Messages':
+      case 'Messages':
         this.renderChat();
-        break;*/
+        break;
         //not used
       case 'EditTrip':
         this.renderSettings();
@@ -58,7 +58,7 @@ Trip = React.createClass({
   renderHome: function () {
     $('.active').removeClass('active');
     $('#home').addClass('active');
-    ReactDOM.render(<TripHome members={this.state.members} updateParent={this.getTripData} trip={this.state.trip}/>, document.getElementById('trip-module'));
+    ReactDOM.render(<TripHome members={this.data.members} trip={this.data.trip}/>, document.getElementById('trip-module'));
   },
 
   renderItinerary: function () {
@@ -66,7 +66,7 @@ Trip = React.createClass({
     $('.active').removeClass('active');
     $('#itinerary').addClass('active');
     // ReactDOM.render(<Itinerary updateParent={this.getTripData} trip={this.state.trip}/>, document.getElementById('trip-module'));
-    ReactDOM.render(<Itinerary trip={this.data.trip}/>, document.getElementById('trip-module'));
+    ReactDOM.render(<Itinerary trip={this.data.trip} />, document.getElementById('trip-module'));
 
   },
 
