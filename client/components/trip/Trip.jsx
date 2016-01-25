@@ -1,22 +1,38 @@
 Trip = React.createClass({
+
+  mixins: [ReactMeteorData],
+
+  getMeteorData() {
+    var data = {}
+    console.log(this.params)
+    var tripId = document.location.pathname.substring(6);
+    var handle = Meteor.subscribe('singleTrip', tripId);
+    if (handle.ready()) {
+      data.trip = Trips.findOne({_id: tripId})
+    }
+    return data;
+  },
+
   getInitialState: function () {
-    return {trip:{members:[]},
-            view:null}
+    return {
+      trip:{members:[]},
+      view:null
+    }
   },
 
   componentDidMount(){
     this.getTripData();
   },
 
-  getTripData: function (view) {
-    Meteor.call('getTripById',document.location.pathname.substring(6),(err,data)=>{
-      if (err) console.log(err)
-      else {
-        this.setState({trip:data,
-                       view:view});
-      }
-    });
-  },
+  // getTripData: function (view) {
+  //   Meteor.call('getTripById',document.location.pathname.substring(6),(err,data)=>{
+  //     if (err) console.log(err)
+  //     else {
+  //       this.setState({trip:data,
+  //                      view:view});
+  //     }
+  //   });
+  // },
 
   componentDidUpdate(){
     switch(this.state.view){
@@ -46,9 +62,12 @@ Trip = React.createClass({
   },
 
   renderItinerary: function () {
+    // this.setState({view: 'Itinerary'});
     $('.active').removeClass('active');
     $('#itinerary').addClass('active');
-    ReactDOM.render(<Itinerary updateParent={this.getTripData} trip={this.state.trip}/>, document.getElementById('trip-module'));
+    // ReactDOM.render(<Itinerary updateParent={this.getTripData} trip={this.state.trip}/>, document.getElementById('trip-module'));
+    ReactDOM.render(<Itinerary trip={this.data.trip}/>, document.getElementById('trip-module'));
+
   },
 
   renderChat: function () {
