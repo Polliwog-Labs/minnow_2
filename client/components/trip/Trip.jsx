@@ -57,6 +57,12 @@ Trip = React.createClass({
     ReactDOM.render(<Messages updateParent={this.getTripData} trip={this.state.trip}/>, document.getElementById('trip-module'));
   },
 
+  // renderSettings: function () {
+  //   $('.active').removeClass('active');
+  //   $('#pencil').addClass('active');
+  //   ReactDOM.render(<EditTrip updateParent={this.getTripData} trip={this.state.trip}/>, document.getElementById('trip-module'));
+  // },
+
   renderExpenses: function () {
     $('.active').removeClass('active');
     $('#cash').addClass('active');
@@ -87,7 +93,6 @@ Trip = React.createClass({
             <i className="icon ion-gear-a settings"></i>
             Settings
           </a>
-
         </div>
         <div className='has-footer' id='trip-module'></div>
       </div>

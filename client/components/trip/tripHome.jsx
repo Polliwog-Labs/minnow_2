@@ -15,6 +15,16 @@ TripHome = React.createClass({
     this.setState(newprops);
   },
 
+  getTripData: function (view) {
+    Meteor.call('getTripById',document.location.pathname.substring(6),(err,data)=>{
+      if (err) console.log(err)
+      else {
+        this.setState({trip:data,
+                       view:view});
+      }
+    });
+  },
+
   submitInvitees: function(event) {
     event.preventDefault();
     var invitee_email = ReactDOM.findDOMNode(this.refs.input_email).value;
@@ -62,11 +72,6 @@ TripHome = React.createClass({
     this.setState({show: false});
   },
 
-  renderSettings: function () {
-    $('.active').removeClass('active');
-    $('#pencil').addClass('active');
-    ReactDOM.render(<EditTrip updateParent={this.getTripData} trip={this.state.trip}/>, document.getElementById('trip-module'));
-  },
 
   render: function(){
     var params = {
@@ -94,30 +99,29 @@ TripHome = React.createClass({
 
     return (
        <div className='trip list'>
+        <EditTrip updateParent={this.getTripData} onHide={this.hideModal} show={this.state.show} trip={this.props.trip}/>
+         <div className='image-div'>              
+          <Image image_id={params.image_id} height="100%" />
+         </div>
+         <div className='item'>   
           <div className='item'>
-            <div className ="">
-              <div className='image-div'>
-                <Image image_id={params.image_id} height="100%" />
-              </div>
-              <div className='item'>
-                <p className=''>Who's Coming? {params.members.join(', ')} </p>
-                {/*<p className=''>Action Items {params.todo.length}</p>*/}
-                {/*<p className='tripParams'>Est. Cost Per Person: ${cost / (params.members.length || 1)}</p>*/}
-                <form className='form-group' >
-                  <p>Invitees:</p>
-                  <ul>{this.renderInvitees()}</ul>
-                  <p>Invite attendees by email address:</p>
-                  <input type="email" placeholder = "Email address" className="item-input" ref="input_email"/>
-                  <button id="btn-submit" className='btn btn-default' onClick={this.submitInvitees}>Submit</button>
-                  <span style={{'color':'red','display':'none'}} className="error-email">Bad Email</span>
-                </form>
-                <div className='row edit-row'>
-                  <p className='col-50'>Est. Cost: ${params.expenses.length ? '500' : 0}</p>
-                  <p className='col-25'></p>
-                  <p className='col_25'><a onClick={ this.showModal }><i id="pencil" className='ion-edit'></i></a></p>
-                </div>
-              </div>
+            <p className=''>Who's Coming? {params.members.join(', ')} </p>
+            {/*<p className=''>Action Items {params.todo.length}</p>*/}
+            {/*<p className='tripParams'>Est. Cost Per Person: ${cost / (params.members.length || 1)}</p>*/}
+            <form className='form-group' >
+              <p>Invitees:</p>
+              <ul>{this.renderInvitees()}</ul>
+              <p>Invite attendees by email address:</p>
+              <input type="email" placeholder = "Email address" className="item-input" ref="input_email"/>
+              <button id="btn-submit" className='btn btn-default' onClick={this.submitInvitees}>Submit</button>
+              <span style={{'color':'red','display':'none'}} className="error-email">Bad Email</span>
+            </form>
+            <div className='row edit-row'>
+              <p className='col-50'>Est. Cost: ${params.expenses.length ? '500' : 0}</p>
+              <p className='col-25'></p>
+              <p className='col_25'><a onClick={ this.showModal }><i id="pencil" className='ion-edit'></i></a></p>
             </div>
+          </div>
         </div>
       </div>
     )
