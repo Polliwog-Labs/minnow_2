@@ -1,7 +1,8 @@
 Trip = React.createClass({
   getInitialState: function () {
     return {trip:{members:[]},
-            view:null}
+            view:null,
+            members:[]}
   },
 
   componentDidMount(){
