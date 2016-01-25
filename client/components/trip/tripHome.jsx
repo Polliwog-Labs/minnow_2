@@ -4,7 +4,7 @@ TripHome = React.createClass({
   },
 
   getInitialState: function(){
-    return {trip: this.props.trip};
+    return {trip: this.props.trip, show:false};
   },
 
   renderList: function() {
@@ -54,6 +54,14 @@ TripHome = React.createClass({
     },1000);
   },
 
+  showModal() {
+    this.setState({show: true});
+  },
+
+  hideModal() {
+    this.setState({show: false});
+  },
+
   renderSettings: function () {
     $('.active').removeClass('active');
     $('#pencil').addClass('active');
@@ -85,33 +93,33 @@ TripHome = React.createClass({
 
 
     return (
-     <div className='trip list'>
-        <div className='item'>
-          <div className ="">
-            <div className='image-div'>
-              <Image image_id={params.image_id} height="100%" />
-            </div>
-            <div className='item'>
-              <p className=''>Who's Coming? {params.members.join(', ')} </p>
-              {/*<p className=''>Action Items {params.todo.length}</p>*/}
-              {/*<p className='tripParams'>Est. Cost Per Person: ${cost / (params.members.length || 1)}</p>*/}
-              <form className='form-group' >
-                <p>Invitees:</p>
-                <ul>{this.renderInvitees()}</ul>
-                <p>Invite attendees by email address:</p>
-                <input type="email" placeholder = "Email address" className="item-input" ref="input_email"/>
-                <button id="btn-submit" className='btn btn-default' onClick={this.submitInvitees}>Submit</button>
-                <span style={{'color':'red','display':'none'}} className="error-email">Bad Email</span>
-              </form>
-              <div className='row edit-row'>
-                <p className='col-50'>Est. Cost: ${params.expenses.length ? '500' : 0}</p>
-                <p className='col-25'></p>
-                <p className='col_25'><i id="pencil" onClick={this.renderSettings} className='ion-edit'></i></p>
+       <div className='trip list'>
+          <div className='item'>
+            <div className ="">
+              <div className='image-div'>
+                <Image image_id={params.image_id} height="100%" />
+              </div>
+              <div className='item'>
+                <p className=''>Who's Coming? {params.members.join(', ')} </p>
+                {/*<p className=''>Action Items {params.todo.length}</p>*/}
+                {/*<p className='tripParams'>Est. Cost Per Person: ${cost / (params.members.length || 1)}</p>*/}
+                <form className='form-group' >
+                  <p>Invitees:</p>
+                  <ul>{this.renderInvitees()}</ul>
+                  <p>Invite attendees by email address:</p>
+                  <input type="email" placeholder = "Email address" className="item-input" ref="input_email"/>
+                  <button id="btn-submit" className='btn btn-default' onClick={this.submitInvitees}>Submit</button>
+                  <span style={{'color':'red','display':'none'}} className="error-email">Bad Email</span>
+                </form>
+                <div className='row edit-row'>
+                  <p className='col-50'>Est. Cost: ${params.expenses.length ? '500' : 0}</p>
+                  <p className='col-25'></p>
+                  <p className='col_25'><a onClick={ this.showModal }><i id="pencil" className='ion-edit'></i></a></p>
+                </div>
               </div>
             </div>
-          </div>
+        </div>
       </div>
-    </div>
     )
   }
 });
