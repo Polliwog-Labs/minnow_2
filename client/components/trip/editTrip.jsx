@@ -70,28 +70,28 @@ EditTrip = React.createClass({
                   <div className='col-50'>
                     <label className="item-stacked-label">
                       <span>Start Date</span>
-                      <input className="item-input" id="newTrip-name" type="date" ref="newTrip_startDate"/>
+                      <input className="item-input" type="date" ref="newTrip_startDate"/>
                     </label>
                   </div>
                   <div className='col-50'>
                     <label className="item-stacked-label">
                       <span>End Date</span>
-                      <input className="item-input" id="newTrip-name" type="date" ref="newTrip_endDate"/>
+                      <input className="item-input" type="date" ref="newTrip_endDate"/>
                     </label> 
                   </div>
                 </div>
                 <label id="newTrip-members" className="item item-input item-stacked-label">
                   <span>Invite members by email address:</span>
-                  <input className="item-input" id="newTrip-name" type="text" ref="newTrip_members"/>
+                  <input className="item-input" id="newTrip-members" type="text" ref="newTrip_members"/>
                 </label>
                 <label id="newTrip-members" className="item item-input item-stacked-label">
                   <span>Add a picture URL (optional)</span>
-                  <input id="newTrip-url" className="item-input" id="newTrip-name" type="text" ref="newTrip_url"/>
+                  <input id="newTrip-url" className="item-input" type="text" ref="newTrip_url"/>
                 </label>
                 <span className='item shrink-item'>OR</span>
                 <label id="newTrip-members" className="item item-input item-stacked-label">
                   <span>Upload a photo (optional)</span>
-                  <input id="newTrip-file" className="item-input" id="newTrip-name" type="file" ref="newTrip_file"/>
+                  <input id="newTrip-file" className="item-input" type="file" ref="newTrip_file"/>
                 </label>
                 <button id="btn-submit" className='button button-block button-positive'>Submit</button>
               </form>
