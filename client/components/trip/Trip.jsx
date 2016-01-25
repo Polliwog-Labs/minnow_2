@@ -23,9 +23,9 @@ Trip = React.createClass({
       case 'Itinerary':
         this.renderItinerary();
         break;
-      /*case 'Messages':
-        this.renderChat();
-        break;*/
+      // case 'Messages':
+      //   this.renderChat();
+      //   break;
         //not used
       case 'EditTrip':
         this.renderSettings();
