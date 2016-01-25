@@ -5,6 +5,7 @@ NewTrip = React.createClass({
                   members: [Meteor.userId()],
                   organizers: [Meteor.userId()],
                   messages: [],
+                  ideas: [],
                   pending: []
                 }, function(err, id){
       if (err) {console.log(err);}
