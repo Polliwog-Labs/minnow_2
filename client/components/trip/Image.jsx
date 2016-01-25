@@ -41,7 +41,9 @@ Image = new React.createClass({
     getThisImageUrl(this);
   },
   componentWillReceiveProps(newProps) {
+    
     newProps && this.getImageURL(newProps.image_id);
+
   },
   render: function(){
     return <img src={this.state.url} height={this.props.height} />;
