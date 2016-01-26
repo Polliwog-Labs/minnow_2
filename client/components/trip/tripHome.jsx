@@ -1,6 +1,7 @@
 TripHome = React.createClass({
   propTypes: {
-    trip: React.PropTypes.object
+    trip: React.PropTypes.object,
+    members: React.PropTypes.array
   },
 
   getInitialState: function(){
@@ -9,6 +10,9 @@ TripHome = React.createClass({
 
   renderList: function() {
     document.location.href = '/mytrips';
+  },
+  componentDidMount(){
+    this.props.updateParent();
   },
 
   componentWillReceiveProps: function(newprops) {
@@ -28,7 +32,7 @@ TripHome = React.createClass({
   submitInvitees: function(event) {
     event.preventDefault();
     var invitee_email = ReactDOM.findDOMNode(this.refs.input_email).value;
-    var tripId = this.state.trip._id;
+    var tripId = this.props.trip._id;
     var invite_user = undefined;
 
     if((invitee_email !== Meteor.user().emails[0].address) && invitee_email.includes('@') &&
@@ -104,6 +108,8 @@ TripHome = React.createClass({
       return {amount: a.amount+b.amount};
     },{amount:0}).amount
 
+    
+
 
     return (
        <div className='trip list'>
@@ -113,7 +119,7 @@ TripHome = React.createClass({
          </div>
          <div className='item'>   
           <div className='item'>
-            <p className=''>Whos Coming? {params.members.join(', ')} </p>
+            <p className=''>Whos Coming? {this.props.members && this.props.members.map((member)=>{return member.username;}).join(', ')} </p>
             {/*<p className=''>Action Items {params.todo.length}</p>*/}
             {/*<p className='tripParams'>Est. Cost Per Person: ${cost / (params.members.length || 1)}</p>*/}
             <form className='form-group' >

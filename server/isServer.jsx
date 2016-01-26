@@ -6,5 +6,5 @@ if (Meteor.isServer) {
       $in:{"pending":user._id}});
   });
   Meteor.publish("Images",()=>{return Images.find()})
-
+  Meteor.publish("ProfilePics",()=>{return ProfilePics.find()})
 }

@@ -35,14 +35,14 @@ NewExpense = React.createClass({
 	},
 
 	populateMembers:function() {
-	     return this.props.members.map(function (user) {
-	     	var id = Meteor.userId();
-	     	if(user._id !== id) {
-			return (
-				<MemberLoader key={user._id} member={user} />
-			)
+	  if(this.props.members) return this.props.members.map(function (user) {
+	    var id = Meteor.userId();
+	    if(user._id !== id) {
+			  return (
+				  <MemberLoader key={user._id} member={user} />
+			  );
 		  }
-		})
+		});
 	},
 
 	render(){

@@ -18,24 +18,25 @@ Trip = React.createClass({
             view:null,
             members:[]}
   },
-
-  componentDidMount(){
-    this.renderHome();
-  },
-
   getTripData: function (view) {
     Meteor.call('getTripById',document.location.pathname.substring(6),(err,data)=>{
       if (err) console.log(err)
       else {
         var members = [];
-        data.members.forEach(member=>{
-          Meteor.call('getUserById',member,(err,memberData)=>{
-            !err && members.push(memberData);
-            this.setState({trip:data,
-                           view:view,
-                           members:members});
+        if (data.members) {
+          data.members.forEach(member=>{
+            Meteor.call('getUserById',member,(err,memberData)=>{
+              !err && members.push(memberData);
+              this.setState({trip:data,
+                             view:view,
+                             members:members});
+            });
           });
-        });
+        } else {
+          this.setState({trip:data,
+                         view:view,
+                         members:members});
+        }
       }
     });
   },
@@ -63,7 +64,7 @@ Trip = React.createClass({
   renderHome: function () {
     $('.active').removeClass('active');
     $('#home').addClass('active');
-    ReactDOM.render(<TripHome members={this.data.members || []} trip={this.data.trip}/>, document.getElementById('trip-module'));
+    ReactDOM.render(<TripHome updateParent={this.setParentState} members={this.state.members} trip={this.data.trip}/>, document.getElementById('trip-module'));
   },
 
   renderItinerary: function () {
@@ -90,7 +91,7 @@ Trip = React.createClass({
   renderExpenses: function () {
     $('.active').removeClass('active');
     $('#cash').addClass('active');
-    ReactDOM.render(<Expenses updateParent={this.getTripData} trip={this.data.trip}/>, document.getElementById('trip-module'));
+    ReactDOM.render(<Expenses updateParent={this.setParentState} trip={this.data.trip}/>, document.getElementById('trip-module'));
   },
   render: function(){
     return (
