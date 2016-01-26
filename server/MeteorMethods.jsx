@@ -34,6 +34,12 @@ Meteor.methods({
     user && user.profile && user.profile.invites && (trips = user.profile.invites);
     return Trips.find({_id: { $in: trips}}).fetch();
   },
+  getTripsFromInvites: function(invites){
+    //takes an array of invites
+    return Trips.find({_id:{$in:invites.map(invite=>{
+      return invite.trip_id;
+    })}}).fetch();
+  },
   inviteAccepted: function(user, trip){
     Meteor.users.update({_id:user._id}, {$pull:{"profile.invites": trip}});
     Trips.update({_id:trip},{$pull:{"pending": {_id: user._id}}});
@@ -60,6 +66,12 @@ Meteor.methods({
       text:'Welcome to Minnow! You\'ve been invited to join the trip '+trip.name+'.\nPlease check it out at http://localhost:3000/trip/'+trip._id+' to sign up!'
     });*/
     //commented out because I don't want to send lots of emails while testing
+    console.log('called sendInviationEmail')
+    return Invites.insert({
+      trip_id:trip._id,
+      recipient: inviteeEmail,
+      sender: ''//not yet implemented
+    });
   },
   getTripById: function(id){
     return Trips.findOne({_id:id});
