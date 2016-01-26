@@ -16,9 +16,13 @@ IdeaEvent = React.createClass({
     var hour = ReactDOM.findDOMNode(this.refs.hour).value;
     var min = ReactDOM.findDOMNode(this.refs.min).value;
     var amPm = ReactDOM.findDOMNode(this.refs.am_pm).value;
+    var utc = DateUtils.dateConvert(ReactDOM.findDOMNode(this.refs.date).value, hour + ':' + min + amPm)
+    var unixTime = new Date(utc).getTime();
     var dateTime = {
       date: ReactDOM.findDOMNode(this.refs.date).value,
-      time: hour + ':' + min + amPm
+      time: hour + ':' + min + amPm,
+      utc: utc,
+      unixTime: unixTime
     }
     Meteor.call('addIdeaToItin', this.props.trip._id, this.props.idea, dateTime)
   },

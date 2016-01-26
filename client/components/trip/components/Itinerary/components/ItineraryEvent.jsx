@@ -1,5 +1,9 @@
 ItineraryEvent = React.createClass({
   
+  displayTime() {
+    return this.props.event.utc.toLocaleString().replace(':00 ', ' ')
+  },
+
   deleteEvent() {
     Meteor.call('deleteEvent', this.props.trip._id, this.props.event.created_at)
   },
@@ -7,10 +11,11 @@ ItineraryEvent = React.createClass({
   render() {
     return (
       <div className="item item-thumbnail-left event-list-item">
-          <img src={this.props.event.og.image}/>*/}
-          <h2>{this.props.event.name}</h2>
+          <img src={this.props.event.og.image}/>
+          <h2>{this.displayTime()} </h2>
+          <h3>{this.props.event.name}</h3>
           <p>{this.props.event.desc}</p>
-          <h3 className='event-link'>{this.props.event.og.title}</h3>          
+          <h4 className='event-link'>{this.props.event.og.title}</h4>          
           <p>{this.props.event.og.description}</p>
           <div className='row'>
             <div className='col-xs-2'>

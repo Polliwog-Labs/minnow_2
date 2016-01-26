@@ -121,7 +121,9 @@ Meteor.methods({
           } else {
             Trips.update({_id: tripId, 'itinerary.created_at': idea.created_at}, {$set: {
                 'itinerary.$.date' :dateTime.date,
-                'itinerary.$.time' : dateTime.time
+                'itinerary.$.time' : dateTime.time,
+                'itinerary.$.utc' : dateTime.utc,
+                'itinerary.$.unixTime' : dateTime.unixTime
               }
             }, function (error) {
               if (error) {
