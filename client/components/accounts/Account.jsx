@@ -4,11 +4,14 @@ Account = React.createClass({
 
 	getMeteorData(){
 		 var user = Meteor.user();
-		 console.log("user: ", user);
+		 
+		 return {};
 	},
 	render(){
 		return(
-			<div>Hello Account</div>
+			<div>
+				<h2>Hello {user.username}</h2>
+			</div>
 		)
 	}
 
