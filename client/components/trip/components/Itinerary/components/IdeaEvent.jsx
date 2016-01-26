@@ -36,7 +36,6 @@ IdeaEvent = React.createClass({
   },
 
   render() {
-    console.log(this.props.idea);
     this.props.idea.og = this.props.idea.og || {image:'/doge.jpg',title:'foo',description:'bar'}
     return (
       <div className="item item-thumbnail-left ">
