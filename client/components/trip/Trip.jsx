@@ -9,7 +9,7 @@ Trip = React.createClass({
     var handle = Meteor.subscribe('singleTrip',tripId,user);
     if (handle.ready()){
       data.trip = Trips.findOne({_id: tripId});
-      data.memberProfiles = Meteor.users.find({ _id: { $in: data.trip.members } } ).fetch()
+      data.members = Meteor.users.find({_id:{$in:data.trip.members}}).fetch();
     }
     console.log('data: ', data)
     return data;
@@ -47,9 +47,6 @@ Trip = React.createClass({
     switch (this.state.view){
       case 'Messages':
         this.renderChat();
-        break;
-      case 'Settings':
-        this.renderSettings();
         break;
       case 'Expenses':
         this.renderExpenses();
