@@ -46,7 +46,6 @@ TripHome = React.createClass({
              return;
           }
           Meteor.call('sendInvitationEmail',invitee_email,this.props.statetrip);
-          this.props.updateParent();
         }
       })
 

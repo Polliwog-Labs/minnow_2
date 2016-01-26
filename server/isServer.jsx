@@ -6,4 +6,7 @@ if (Meteor.isServer) {
   });
   Meteor.publish("Images",()=>{return Images.find()});
   Meteor.publish("ProfilePics",()=>{return ProfilePics.find()});
+  Meteor.publish("tripUsers",(trip)=>{
+    return Users.find({_id:{$in:trip.members}});
+  });
 }
