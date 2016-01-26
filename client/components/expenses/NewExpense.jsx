@@ -18,9 +18,6 @@ NewExpense = React.createClass({
 		});
 	},
 
-	findUsers:function(){
-		console.log("this.props",this.props)
-	},
 
 	getInitialState() {
     return {show: false,split_with:[]};
@@ -37,6 +34,16 @@ NewExpense = React.createClass({
 		this.setState({split_with:users})
 	},
 
+	populateMembers:function() {
+	     return this.props.members.map(function (user) {
+	     	var id = Meteor.userId();
+	     	if(user._id !== id) {
+			return (
+				<MemberLoader key={user._id} member={user} />
+			)
+		  }
+		})
+	},
 
 	render(){
 		return(
@@ -55,18 +62,18 @@ NewExpense = React.createClass({
 			          {...this.props}
 			          show={this.state.show}
 			          onHide={this.hideModal}
-			          dialogClassName="custom-modal"
-			        >
+			          dialogClassName="custom-modal">
+
 			          <ReactBootstrap.Modal.Header closeButton>
 			            <ReactBootstrap.Modal.Title id="contained-modal-title-lg">Toggle to split</ReactBootstrap.Modal.Title>
 			          </ReactBootstrap.Modal.Header>
 			          <ReactBootstrap.Modal.Body>
 
-			            <SplitModal update={this.updateSplitWith} />
+			          	{this.state.show && this.populateMembers()}
 
 			          </ReactBootstrap.Modal.Body>
 			          <ReactBootstrap.Modal.Footer>
-			            <ReactBootstrap.Button onClick={this.hideModal}>Return</ReactBootstrap.Button>
+			            <ReactBootstrap.Button onClick={this.hideModal} >Split With Selected</ReactBootstrap.Button>
 			          </ReactBootstrap.Modal.Footer>
 			        </ReactBootstrap.Modal>
 			        <div className="row add-idea">
