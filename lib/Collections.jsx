@@ -96,3 +96,10 @@ Trips.allow({
   update(){return true},
   remove(){return true}
 });
+
+Users = Meteor.users;
+Users.allow({
+  insert(){return true},
+  update(){return true},
+  remove(){return true}
+});
