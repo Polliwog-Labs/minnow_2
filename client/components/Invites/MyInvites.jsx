@@ -3,7 +3,7 @@ MyInvites = React.createClass({
 	 getInitialState(){
 	    return {trips:[]};
 	  },
-		
+
 	 componentDidMount(){
 	    setTimeout(()=>{
 	      Meteor.call('getInvitesByUser',Meteor.user(),(err,data)=>{
@@ -17,6 +17,7 @@ MyInvites = React.createClass({
     return this.state.trips.map(trip=>{
       return (
         <InviteList key={trip._id} trip={trip}/>
+
       )
     })
   },
