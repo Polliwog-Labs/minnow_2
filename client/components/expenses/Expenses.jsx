@@ -30,6 +30,7 @@ componentDidUpdate(){
   this.renderDash();
 },
 
+
 render: function () {
     return (
       <div>

@@ -18,9 +18,6 @@ NewExpense = React.createClass({
 		});
 	},
 
-	findUsers:function(){
-		console.log("this.props",this.props)
-	},
 
 	getInitialState() {
     return {show: false,split_with:[]};
@@ -37,6 +34,16 @@ NewExpense = React.createClass({
 		this.setState({split_with:users})
 	},
 
+	populateMembers:function() {
+	     return this.props.members.map(function (user) {
+	     	var id = Meteor.userId();
+	     	if(user._id !== id) {
+			return (
+				<MemberLoader key={user._id} member={user} />
+			)
+		  }
+		})
+	},
 
 	render(){
 		return(
@@ -62,12 +69,11 @@ NewExpense = React.createClass({
 			          </ReactBootstrap.Modal.Header>
 			          <ReactBootstrap.Modal.Body>
 
-			            <MemberLoader trip={this.props.trip} members={this.props.members} />
-			            
+			          	{this.state.show && this.populateMembers()}
 
 			          </ReactBootstrap.Modal.Body>
 			          <ReactBootstrap.Modal.Footer>
-			            <ReactBootstrap.Button onClick={this.hideModal}>Split With Selected</ReactBootstrap.Button>
+			            <ReactBootstrap.Button onClick={this.hideModal} >Split With Selected</ReactBootstrap.Button>
 			          </ReactBootstrap.Modal.Footer>
 			        </ReactBootstrap.Modal>
 			        <div className="row add-idea">
