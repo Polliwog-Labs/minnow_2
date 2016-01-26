@@ -36,9 +36,10 @@ IdeaEvent = React.createClass({
   },
 
   render() {
-    this.props.idea.og = this.props.idea.og || {image:'/doge.jpg',title:'foo',description:'bar'}
+    this.props.idea.og = this.props.idea.og || {image:"http://static1.squarespace.com/static/5542dcefe4b0f37cdc4d6e60/5542e8dae4b0b79fc2fc8dfd/5542e9a0e4b0b79fc2fc9a9e/1430448712022/Virginia-Group-Travel1.jpeg",
+    title:'',description:''}
     return (
-      <div className="item item-thumbnail-left ">
+      <div className="item item-thumbnail-left event-list-item">
           <img src={this.props.idea.og.image}/>
           <h2>{this.props.idea.name}</h2>
           <p>{this.props.idea.desc}</p>
@@ -48,24 +49,27 @@ IdeaEvent = React.createClass({
             <div className="col-xs-1" onClick={ this.upvote } >
               <i className="icon ion-chevron-up"></i>
             </div>
-            <div className='col-xs-2'>
-              <p>{this.props.idea.upvotes}</p>
+            <div className='col-xs-1'>
+              {this.props.idea.upvotes}
             </div>
-            <div className='col-xs-1' onClick={ this.downVote } >
+            <div className='col-xs-2' onClick={ this.downVote } >
               <i className="icon ion-chevron-down"></i>
             </div>
-            <div className='col-xs-6'></div>
+            <div className='col-xs-1'></div>
             {  _.contains(this.props.trip.organizers, Meteor.userId()) ?
                 <div className='col-xs-2' onClick={ this.showModal }>
                   <i className="icon ion-ios-plus-empty"></i>
-                  <i className="icon ion-ios-list-outline idea-delete"></i>
+                  <i className="icon ion-ios-list-outline"></i>
                 </div> : ''
             }  
+            <div className='col-xs-6'></div>
             {
               Meteor.user().username === this.props.created_by || 
                 _.contains(this.props.trip.organizers, Meteor.userId()) ?
-                  <div className='col-xs-2' onClick={ this.deleteIdea } >
+                  <div className='col-xs-2 delete-event' onClick={ this.deleteIdea } >
                     <i className="icon ion-trash-b"></i>
+                  </div> : ''
+            }
                     <ReactBootstrap.Modal {...this.props} bsSize="small" show={this.state.showModal} onHide={this.hideModal} aria-labelledby="contained-modal-title-sm">
                       <ReactBootstrap.Modal.Header closeButton>
                         <ReactBootstrap.Modal.Title id="contained-modal-title-sm">Date & Time</ReactBootstrap.Modal.Title>
@@ -137,8 +141,6 @@ IdeaEvent = React.createClass({
                         <ReactBootstrap.Button onClick={this.addToItinerary}>Add to Itinerary</ReactBootstrap.Button>
                       </ReactBootstrap.Modal.Footer>
                     </ReactBootstrap.Modal>   
-                  </div> : ''
-            }
           </div>
       </div>
     )

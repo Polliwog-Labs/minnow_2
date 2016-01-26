@@ -9,7 +9,9 @@ Trip = React.createClass({
     var handle = Meteor.subscribe('singleTrip',tripId,user);
     if (handle.ready()){
       data.trip = Trips.findOne({_id: tripId});
+      data.memberProfiles = Meteor.users.find({ _id: { $in: data.trip.members } } ).fetch()
     }
+    console.log('data: ', data)
     return data;
   },
 
@@ -21,15 +23,16 @@ Trip = React.createClass({
 
   componentDidMount(){
     this.renderHome();
+
   },
 
   getTripData: function (view) {
     Meteor.call('getTripById',document.location.pathname.substring(6),(err,data)=>{
       if (err) console.log(err)
       else {
+            Meteor.call('getUserById',member,(err,memberData)=>{
         var members = [];
         data.members.forEach(member=>{
-          Meteor.call('getUserById',member,(err,memberData)=>{
             !err && members.push(memberData);
             this.setState({trip:data,
                            view:view,
@@ -39,6 +42,7 @@ Trip = React.createClass({
       }
     });
   },
+
   componentDidUpdate(){
     switch (this.state.view){
       case 'Messages':
@@ -63,7 +67,7 @@ Trip = React.createClass({
   renderHome: function () {
     $('.active').removeClass('active');
     $('#home').addClass('active');
-    ReactDOM.render(<TripHome members={this.data.members || []} trip={this.data.trip}/>, document.getElementById('trip-module'));
+    ReactDOM.render(<TripHome members={this.data.memberProfiles || []} trip={this.data.trip}/>, document.getElementById('trip-module'));
   },
 
   renderItinerary: function () {

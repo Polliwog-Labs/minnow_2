@@ -19,13 +19,12 @@ Ideas = React.createClass({
     var trip = this.props.trip._id;
     var created_at = String(new Date())
     console.log('date: ', created_at)
-    HTTP.call('GET', 'https://opengraph.io/api/1.0/site/' + event_url, function(error, response) {
+    HTTP.call('GET', 'http://opengraph.io/api/1.0/site/' + event_url, function(error, response) {
       if (error) {
-        console.log('API call error:', error)
+        console.log('API call error - no URL data saved:', error)
       } else {
-        console.log(JSON.parse(response.content).hybridGraph)
+        console.log('og: ', JSON.parse(response.content).hybridGraph)
         var og = JSON.parse(response.content).hybridGraph;
-        console.log('og');
         console.log(og);
         var event = {
           trip_id: trip,
@@ -60,6 +59,7 @@ Ideas = React.createClass({
 
 
   render: function () {
+    console.log('ideas props', this.props)
     return (
       <div>
         <ReactBootstrap.Modal

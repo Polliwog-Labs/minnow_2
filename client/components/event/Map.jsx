@@ -1,8 +1,8 @@
 EventMap = React.createClass({
   mixins: [ReactMeteorData],
   componentDidMount() {
-    GoogleMaps.load(/*{key:'AIzaSyDrj8LPd0RL2sGKYND-us2UlB5kexUdjJ0',
-                    libraries: 'places'}*/);
+    GoogleMaps.load({key:'AIzaSyDrj8LPd0RL2sGKYND-us2UlB5kexUdjJ0',
+                    libraries: 'places'});
   },
   getMeteorData() {
     return {
@@ -18,8 +18,9 @@ EventMap = React.createClass({
     };
   },
   render() {
-    if (this.data.loaded)
+    if (this.data.loaded) {
       return <GoogleMap className="map-container" name="event-map" options={this.data.mapOptions} />;
+    }
 
     return <div>Loading map...</div>;
   }
