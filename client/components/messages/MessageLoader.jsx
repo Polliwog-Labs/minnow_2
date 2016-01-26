@@ -4,7 +4,12 @@ MessageLoader = React.createClass({
   },
   message_list(){
     var messages = this.props.messages;
-    return messages.map(function(message,index){
+    return messages.sort(function(x,y){
+      var xTime = new Date(x.created_at).getTime();
+      var yTime = new Date(y.created_at).getTime();
+      return yTime - xTime;
+      //newest first
+    }).map(function(message,index){
       return (<MessageContent index={index} key={index} {...message}/>);
     });
   },

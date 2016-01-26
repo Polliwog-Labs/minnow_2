@@ -81,12 +81,11 @@ Trip = React.createClass({
     ReactDOM.render(<Messages updateParent={this.setParentState} trip={this.data.trip}/>, document.getElementById('trip-module'));
   },
 
-  renderSettings: function () {
-    console.log('renderSettings called')
-    $('.active').removeClass('active');
-    $('#settings').addClass('active');
-    ReactDOM.render(<EditTrip updateParent={this.getTripData} trip={this.data.trip}/>, document.getElementById('trip-module'));
-  },
+  // renderSettings: function () {
+  //   $('.active').removeClass('active');
+  //   $('#pencil').addClass('active');
+  //   ReactDOM.render(<EditTrip updateParent={this.getTripData} trip={this.state.trip}/>, document.getElementById('trip-module'));
+  // },
 
   renderExpenses: function () {
     $('.active').removeClass('active');
