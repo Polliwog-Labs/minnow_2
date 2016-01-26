@@ -1,4 +1,18 @@
 Trip = React.createClass({
+
+  mixins: [ReactMeteorData],
+
+  getMeteorData() {
+    var user = Meteor.user();
+    var data = {view:'Home'};
+    var tripId = document.location.pathname.substring(6);
+    var handle = Meteor.subscribe('singleTrip',tripId,user);
+    if (handle.ready()){
+      data.trip = Trips.findOne({_id: tripId});
+    }
+    return data;
+  },
+
   getInitialState: function () {
     return {trip:{members:[]},
             view:null,
@@ -6,7 +20,7 @@ Trip = React.createClass({
   },
 
   componentDidMount(){
-    this.getTripData();
+    this.renderHome();
   },
 
   getTripData: function (view) {
@@ -25,44 +39,46 @@ Trip = React.createClass({
       }
     });
   },
-
   componentDidUpdate(){
-    switch(this.state.view){
-      case 'Itinerary':
-        this.renderItinerary();
+    switch (this.state.view){
+      case 'Messages':
+        this.renderChat();
         break;
-      // case 'Messages':
-      //   this.renderChat();
-      //   break;
-        //not used
-      case 'EditTrip':
+      case 'Settings':
         this.renderSettings();
         break;
       case 'Expenses':
         this.renderExpenses();
         break;
+      case 'Itinerary':
+        this.renderItinerary();
+        break;
       default:
         this.renderHome();
-        break;
     }
   },
-
+  setParentState(view){
+    this.setState({view:view})
+  },
   renderHome: function () {
     $('.active').removeClass('active');
     $('#home').addClass('active');
-    ReactDOM.render(<TripHome members={this.state.members} updateParent={this.getTripData} trip={this.state.trip}/>, document.getElementById('trip-module'));
+    ReactDOM.render(<TripHome members={this.data.members || []} trip={this.data.trip}/>, document.getElementById('trip-module'));
   },
 
   renderItinerary: function () {
+    // this.setState({view: 'Itinerary'});
     $('.active').removeClass('active');
     $('#itinerary').addClass('active');
-    ReactDOM.render(<Itinerary updateParent={this.getTripData} trip={this.state.trip}/>, document.getElementById('trip-module'));
+    ReactDOM.render(<Itinerary trip={this.data.trip}/>, document.getElementById('trip-module'));
+   // ReactDOM.render(<Itinerary trip={this.data.trip} />, document.getElementById('trip-module'));
+
   },
 
   renderChat: function () {
     $('.active').removeClass('active');
     $('#chat').addClass('active');
-    ReactDOM.render(<Messages updateParent={this.getTripData} trip={this.state.trip}/>, document.getElementById('trip-module'));
+    ReactDOM.render(<Messages updateParent={this.setParentState} trip={this.data.trip}/>, document.getElementById('trip-module'));
   },
 
   // renderSettings: function () {
@@ -74,9 +90,8 @@ Trip = React.createClass({
   renderExpenses: function () {
     $('.active').removeClass('active');
     $('#cash').addClass('active');
-    ReactDOM.render(<Expenses trip={this.state.trip} members={this.state.members}/>, document.getElementById('trip-module'));
+     ReactDOM.render(<Expenses updateParent={this.getTripData} trip={this.data.trip}/>, document.getElementById('trip-module'));
   },
-
   render: function(){
     return (
       <div>
@@ -97,7 +112,7 @@ Trip = React.createClass({
             <i className="icon ion-cash expenses"></i>
             Expenses
           </a>
-          <a className="tab-item" id='settings'>
+          <a className="tab-item" id='settings' onClick={this.renderSettings}>
             <i className="icon ion-gear-a settings"></i>
             Settings
           </a>

@@ -17,6 +17,7 @@ IdeaEvent = React.createClass({
   },
 
   render() {
+    this.props.idea.og = this.props.idea.og || {image:'/doge.jpg',title:'foo',description:'bar'}
     return (
       <div className="item item-thumbnail-left ">
           <img src={this.props.idea.og.image}/>

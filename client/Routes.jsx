@@ -17,7 +17,6 @@ Meteor.startup(function() {
         <Route name="signup" path="signup" component={Signup} />
         <Route path="mytrips" component = {MyTrips} />
         <Route path="newevent" component = {Event} />
-        <Route path="/trip/edit/:tripid" component = {EditTrip} />
         <Route path="myinvites" component = {MyInvites} />
         <Route path="/trip/:tripid" component = {Trip} >
           <Route name='tripHome' path="home" component = {TripHome} />

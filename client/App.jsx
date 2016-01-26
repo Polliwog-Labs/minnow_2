@@ -1,5 +1,5 @@
 App = React.createClass({
-  // mixins: [ReactMeteorData],
+  mixins: [ReactMeteorData],
 
 
   logout: function() {
@@ -7,11 +7,10 @@ App = React.createClass({
     document.location.href = '/login'
   },
 
-  // getInitialState: function() {
-  //     return {
-  //       isAuth: Boolean(Meteor.userId())
-  //     };
-  // },
+  getMeteorData: function() {
+    var images = Meteor.subscribe('Images');
+    return {};
+  },
 
   
   render: function(){

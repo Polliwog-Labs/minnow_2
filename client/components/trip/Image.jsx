@@ -1,4 +1,5 @@
 Image = new React.createClass({
+  _isMounted:false,
   propTypes: {
     image_id: React.PropTypes.string,
     height: React.PropTypes.string
@@ -7,31 +8,29 @@ Image = new React.createClass({
     return {url:'/doge.jpg'}
   },
   componentDidMount: function(){
+    this._isMounted = true;
     if (this.props.image_id) {
       this.getImageURL(this.props.image_id);
-    } else {
-      this.setState({url:'/doge.jpg'});
-    }
+    } 
   },
   getImageURL: function(id){
     var count = 1;
     function getThisImageUrl(context){
       Meteor.call('retrieveImageUrlById',id,'images',(err,data)=>{
-        if (err) {
+        if (err && context._isMounted) {
           console.log(err);
-          console.log('err retrieving image. This shouldn\'t happen');
+          console.log('Bad Image ID');
           context.setState({url:'/doge.jpg'});
         }
         else {
-          console.log(data);
-          if (data) context.setState({url:data})
+          if (data && context._isMounted) context.setState({url:data})
           else {
-            if (count >= 15) {context.setState({url:'/doge.jpg'});}
+            if (count >= 15 && context._isMounted) {context.setState({url:'/doge.jpg'});}
             else {
-              setTimeout(function(){
+              window['timeout'+count] = setTimeout(function(){
                 count++;
                 getThisImageUrl(context);
-              },1500);
+              },1000);
             }
             //No more than 15 tries. If someone puts in a stupid big image, they can wait/refresh the page.
           }
@@ -41,9 +40,13 @@ Image = new React.createClass({
     getThisImageUrl(this);
   },
   componentWillReceiveProps(newProps) {
-    
     newProps && this.getImageURL(newProps.image_id);
-
+  },
+  componentWillUnmount(){
+    this._isMounted=false;
+    for (var i=1;i<16;i++){
+      clearTimeout(window['timeout'+i]);
+    }
   },
   render: function(){
     return <img src={this.state.url} height={this.props.height} />;
