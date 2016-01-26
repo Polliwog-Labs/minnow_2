@@ -9,6 +9,7 @@ App = React.createClass({
 
   getMeteorData: function() {
     var images = Meteor.subscribe('Images');
+    var profiles = Meteor.subscribe('ProfilePics');
     return {};
   },
 
