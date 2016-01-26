@@ -9,6 +9,7 @@ Trip = React.createClass({
     var handle = Meteor.subscribe('singleTrip',tripId,user);
     if (handle.ready()){
       data.trip = Trips.findOne({_id: tripId});
+      data.members = Meteor.users.find({_id:{$in:data.trip.members}}).fetch();
     }
     return data;
   },

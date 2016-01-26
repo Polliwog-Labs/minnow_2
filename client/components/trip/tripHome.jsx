@@ -107,13 +107,15 @@ TripHome = React.createClass({
 
     return (
        <div className='trip list'>
-        <EditTrip updateParent={this.getTripData} onHide={this.hideModal} show={this.props.show} trip={this.props.trip}/>
+        <EditTrip updateParent={this.getTripData} onHide={this.hideModal} show={this.state.show} trip={this.props.trip}/>
          <div className='image-div'>              
           <Image image_id={params.image_id} height="100%" />
          </div>
          <div className='item'>   
           <div className='item'>
-            <p className=''>Whos Coming? {params.members.join(', ')} </p>
+            <p className=''>Whos Coming? {this.props.members.map((member)=>{
+              return member.username;
+            }).join(', ')} </p>
             {/*<p className=''>Action Items {params.todo.length}</p>*/}
             {/*<p className='tripParams'>Est. Cost Per Person: ${cost / (params.members.length || 1)}</p>*/}
             <form className='form-group' >
