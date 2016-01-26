@@ -24,15 +24,15 @@ IdeaEvent = React.createClass({
   },
 
   deleteIdea() {
-    Meteor.call('deleteIdea', this.props.trip._id, this.props.idea.name)
+    Meteor.call('deleteIdea', this.props.trip._id, this.props.idea.created_at)
   },
 
   upvote() {
-    Meteor.call('ideaUpVote', this.props.trip._id, this.props.idea.name)
+    Meteor.call('ideaUpVote', this.props.trip._id, this.props.idea.created_at)
   },
 
   downVote() {
-    Meteor.call('ideaDownVote', this.props.trip._id, this.props.idea.name)
+    Meteor.call('ideaDownVote', this.props.trip._id, this.props.idea.created_at)
   },
 
   render() {
