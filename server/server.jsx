@@ -1,5 +1,7 @@
 Meteor.methods({
+  
   //Images methods
+
   storeImage: function(image){
     return Images.insert(image,function(err,result){
       if (!err) return result;
@@ -11,6 +13,27 @@ Meteor.methods({
     var fileObj = Images.findOne({_id:id});
     return fileObj ? fileObj.url({store:store}) : null;
   },
+  //user search methods
+  getUserById: function(id){
+    return Meteor.users.findOne({_id:id});
+  },
+
+  //Invite methods
+   getInvitesByUser: function(user){
+    var trips = [];
+    user && user.profile && user.profile.invites && (trips = user.profile.invites);
+    return Trips.find({_id: { $in: trips}}).fetch();
+   },
+
+  inviteAccepted: function(user, trip){
+    Meteor.users.update({_id:user._id}, {$pull:{"profile.invites": trip}});
+    Trips.update({_id:trip},{$pull:{"pending": {_id: user._id}}});
+    Meteor.users.update({_id:user._id}, {$push:{"profile.myTrips": trip}});
+    return Trips.update({_id:trip}, {$push:{"members": user}},(err)=>{
+      return !err;
+    });
+  },
+
   //trip methods
 
   inviteUserByEmail: function(inviteeEmail,id){
@@ -30,6 +53,7 @@ Meteor.methods({
     });*/
     //commented out because I don't want to send lots of emails while testing
   },
+
 
   getTripById: function(id){
     return Trips.findOne({_id:id});
@@ -65,11 +89,6 @@ Meteor.methods({
     },(err,result)=> {if (!err) return result});
   },
 
-  getIdeas: function () {
-
-  },
-
-  //Ideas
   addIdea: function (event) {
     return Trips.update({_id: event.trip_id}, {$push: {"ideas": {
                 name: event.name,

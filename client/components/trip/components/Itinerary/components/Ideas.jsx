@@ -110,7 +110,7 @@ Ideas = React.createClass({
             </a>
           </div>
         </div>
-        <div >
+        <div>
           <IdeaLoader trip={this.props.trip} ideas={this.props.trip.ideas}/>
         </div>
       </div>

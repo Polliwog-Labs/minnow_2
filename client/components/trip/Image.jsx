@@ -10,7 +10,6 @@ Image = new React.createClass({
     if (this.props.image_id) {
       this.getImageURL(this.props.image_id);
     } else {
-      console.log('Defaulting to doge.');
       this.setState({url:'/doge.jpg'});
     }
   },
@@ -42,11 +41,11 @@ Image = new React.createClass({
     getThisImageUrl(this);
   },
   componentWillReceiveProps(newProps) {
+    
     newProps && this.getImageURL(newProps.image_id);
+
   },
   render: function(){
-    console.log(this.state.url);
-    console.log('rendered');
     return <img src={this.state.url} height={this.props.height} />;
   }
 });

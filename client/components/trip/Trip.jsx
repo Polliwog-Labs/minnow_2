@@ -1,7 +1,8 @@
 Trip = React.createClass({
   getInitialState: function () {
     return {trip:{members:[]},
-            view:null}
+            view:null,
+            members:[]}
   },
 
   componentDidMount(){
@@ -12,8 +13,15 @@ Trip = React.createClass({
     Meteor.call('getTripById',document.location.pathname.substring(6),(err,data)=>{
       if (err) console.log(err)
       else {
-        this.setState({trip:data,
-                       view:view});
+        var members = [];
+        data.members.forEach(member=>{
+          Meteor.call('getUserById',member,(err,memberData)=>{
+            !err && members.push(memberData);
+            this.setState({trip:data,
+                           view:view,
+                           members:members});
+          });
+        });
       }
     });
   },
@@ -23,9 +31,9 @@ Trip = React.createClass({
       case 'Itinerary':
         this.renderItinerary();
         break;
-      /*case 'Messages':
-        this.renderChat();
-        break;*/
+      // case 'Messages':
+      //   this.renderChat();
+      //   break;
         //not used
       case 'EditTrip':
         this.renderSettings();
@@ -57,11 +65,11 @@ Trip = React.createClass({
     ReactDOM.render(<Messages updateParent={this.getTripData} trip={this.state.trip}/>, document.getElementById('trip-module'));
   },
 
-  renderSettings: function () {
-    $('.active').removeClass('active');
-    $('#settings').addClass('active');
-    ReactDOM.render(<EditTrip updateParent={this.getTripData} trip={this.state.trip}/>, document.getElementById('trip-module'));
-  },
+  // renderSettings: function () {
+  //   $('.active').removeClass('active');
+  //   $('#pencil').addClass('active');
+  //   ReactDOM.render(<EditTrip updateParent={this.getTripData} trip={this.state.trip}/>, document.getElementById('trip-module'));
+  // },
 
   renderExpenses: function () {
     $('.active').removeClass('active');
@@ -89,11 +97,10 @@ Trip = React.createClass({
             <i className="icon ion-cash expenses"></i>
             Expenses
           </a>
-          <a className="tab-item" id='settings' onClick={this.renderSettings}>
+          <a className="tab-item" id='settings'>
             <i className="icon ion-gear-a settings"></i>
             Settings
           </a>
-
         </div>
         <div className='has-footer' id='trip-module'></div>
       </div>
