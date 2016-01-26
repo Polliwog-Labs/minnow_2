@@ -7,7 +7,7 @@ ItineraryEvent = React.createClass({
   render() {
     return (
       <div className="item item-thumbnail-left ">
-          <img src={this.props.event.og.image}/>
+          <img src={this.props.event.og.image}/>*/}
           <h2>{this.props.event.name}</h2>
           <p>{this.props.event.desc}</p>
           <h3 className='event-link'>{this.props.event.og.title}</h3>          
