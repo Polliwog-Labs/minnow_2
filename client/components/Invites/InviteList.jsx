@@ -44,19 +44,19 @@ InviteList = React.createClass({
   navToTrip: function(){
     Meteor.call('inviteAccepted', Meteor.userId(), this.props.trip._id, (err, data) => {
       if(err) {
-        console.log("error from Server on insert: ", err);
-      } else {
+        console.log(err);
+      }  else {
         document.location.href = '/trip/' + this.props.trip._id;
       }
     })
   },
 
   render: function(){
-
+    console.log(this.props.trip);
     var tripStart = this.props.trip.dates ? (this.props.trip.dates[0] || 'October 32nd') : 'October 32nd';
-
     var user = Meteor.users.find({ _id: this.props.trip.organizers[0] }).fetch()
     var username = user[0].username;
+    console.log('USER', username);
 
     return (
 
