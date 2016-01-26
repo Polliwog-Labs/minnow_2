@@ -45,13 +45,13 @@ IdeaEvent = React.createClass({
           <p>{this.props.idea.og.description}</p>
           <div className='row'>
             <div className="col-xs-1" onClick={ this.upvote } >
-              <i className="icon ion-thumbsup"></i>
-            </div>
-            <div className='col-xs-1' onClick={ this.downVote } >
-              <i className="icon ion-thumbsdown"></i>
+              <i className="icon ion-chevron-up"></i>
             </div>
             <div className='col-xs-2'>
               <p>{this.props.idea.upvotes}</p>
+            </div>
+            <div className='col-xs-1' onClick={ this.downVote } >
+              <i className="icon ion-chevron-down"></i>
             </div>
             <div className='col-xs-6'></div>
             {  _.contains(this.props.trip.organizers, Meteor.userId()) ?

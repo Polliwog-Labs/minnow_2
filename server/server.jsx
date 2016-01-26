@@ -108,6 +108,7 @@ Meteor.methods({
   },
 
   addIdeaToItin: function (tripId, idea, dateTime) {
+    console.log('dateTime: ', dateTime)
     return Trips.update({_id: tripId}, {$push: {'itinerary': idea}}, function (error) {
       if (error) {
         console.log('failed to add to itinerary: ', error);
@@ -118,8 +119,8 @@ Meteor.methods({
             console.log('failed to remove idea after adding to itinerary: ', error)
           } else {
             Trips.update({_id: tripId, 'itinerary.created_at': idea.created_at}, {$set: {
-                date:dateTime.date,
-                time: dateTime.time
+                'itinerary.$.date' :dateTime.date,
+                'itinerary.$.time' : dateTime.time
               }
             }, function (error) {
               if (error) {
