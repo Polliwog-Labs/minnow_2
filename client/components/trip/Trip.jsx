@@ -45,9 +45,6 @@ Trip = React.createClass({
       case 'Messages':
         this.renderChat();
         break;
-      case 'Settings':
-        this.renderSettings();
-        break;
       case 'Expenses':
         this.renderExpenses();
         break;

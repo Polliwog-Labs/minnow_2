@@ -17,7 +17,7 @@ EditTrip = React.createClass({
      },(err, id)=>{
       if (err) {console.log(err);}
       else {
-        this.props.updateParent('Settings');
+        this.props.onHide();
       }
     });
   },
