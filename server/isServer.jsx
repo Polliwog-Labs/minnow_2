@@ -8,18 +8,9 @@ if (Meteor.isServer) {
   Meteor.publish("Images",()=>{return Images.find()});
   
   Meteor.publish("ProfilePics",()=>{return ProfilePics.find()});
-  
-  //Makes sure the user is attached to the trip, as a member pending
-  function validateUser(trip,user){
-    if (trip && user) return !!Trips.findOne({_id:trip._id},{$or:{
-      $in:{"members":user._id},
-      $in:{"pending":user._id}}});
-    return false;
-  };
 
-  Meteor.publish("tripUsers",(trip,user)=>{
-    if (validateUser(trip,user)) return Users.find({_id:{$in:trip.members}});
-    return null;
+  Meteor.publish("tripUsers",(trip)=>{
+    return Users.find({_id:{$in:trip.members}});
   });
 
   Meteor.publish("Invites",(user)=>{
