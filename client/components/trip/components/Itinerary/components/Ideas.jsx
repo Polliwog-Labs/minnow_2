@@ -19,7 +19,7 @@ Ideas = React.createClass({
     var trip = this.props.trip._id;
     var created_at = String(new Date())
     console.log('date: ', created_at)
-    HTTP.call('GET', 'https://opengraph.io/api/1.0/site/' + event_url, function(error, response) {
+    HTTP.call('GET', 'http://opengraph.io/api/1.0/site/' + event_url, function(error, response) {
       if (error) {
         console.log('API call error:', error)
       } else {
