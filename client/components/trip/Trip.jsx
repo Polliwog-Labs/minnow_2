@@ -1,74 +1,95 @@
 Trip = React.createClass({
+
+  mixins: [ReactMeteorData],
+
+  getMeteorData() {
+    var user = Meteor.user();
+    var data = {view:'Home'};
+    var tripId = document.location.pathname.substring(6);
+    var handle = Meteor.subscribe('singleTrip',tripId,user);
+    if (handle.ready()){
+      data.trip = Trips.findOne({_id: tripId});
+      data.members = Meteor.users.find({_id:{$in:data.trip.members}}).fetch();
+    }
+    return data;
+  },
+
   getInitialState: function () {
     return {trip:{members:[]},
-            view:null}
+            view:null,
+            members:[]}
   },
 
   componentDidMount(){
-    this.getTripData();
+    this.renderHome();
   },
 
   getTripData: function (view) {
     Meteor.call('getTripById',document.location.pathname.substring(6),(err,data)=>{
       if (err) console.log(err)
       else {
-        this.setState({trip:data,
-                       view:view});
+        var members = [];
+        data.members.forEach(member=>{
+          Meteor.call('getUserById',member,(err,memberData)=>{
+            !err && members.push(memberData);
+            this.setState({trip:data,
+                           view:view,
+                           members:members});
+          });
+        });
       }
     });
   },
-
   componentDidUpdate(){
-    switch(this.state.view){
-      case 'Itinerary':
-        this.renderItinerary();
-        break;
-      /*case 'Messages':
+    switch (this.state.view){
+      case 'Messages':
         this.renderChat();
-        break;*/
-        //not used
-      case 'EditTrip':
-        this.renderSettings();
         break;
       case 'Expenses':
         this.renderExpenses();
         break;
+      case 'Itinerary':
+        this.renderItinerary();
+        break;
       default:
         this.renderHome();
-        break;
     }
   },
-
+  setParentState(view){
+    this.setState({view:view})
+  },
   renderHome: function () {
     $('.active').removeClass('active');
     $('#home').addClass('active');
-    ReactDOM.render(<TripHome members={this.state.members} updateParent={this.getTripData} trip={this.state.trip}/>, document.getElementById('trip-module'));
+    ReactDOM.render(<TripHome members={this.data.members || []} trip={this.data.trip}/>, document.getElementById('trip-module'));
   },
 
   renderItinerary: function () {
+    // this.setState({view: 'Itinerary'});
     $('.active').removeClass('active');
     $('#itinerary').addClass('active');
-    ReactDOM.render(<Itinerary updateParent={this.getTripData} trip={this.state.trip}/>, document.getElementById('trip-module'));
+    ReactDOM.render(<Itinerary trip={this.data.trip}/>, document.getElementById('trip-module'));
+   // ReactDOM.render(<Itinerary trip={this.data.trip} />, document.getElementById('trip-module'));
+
   },
 
   renderChat: function () {
     $('.active').removeClass('active');
     $('#chat').addClass('active');
-    ReactDOM.render(<Messages updateParent={this.getTripData} trip={this.state.trip}/>, document.getElementById('trip-module'));
+    ReactDOM.render(<Messages updateParent={this.setParentState} trip={this.data.trip}/>, document.getElementById('trip-module'));
   },
 
-  renderSettings: function () {
-    $('.active').removeClass('active');
-    $('#settings').addClass('active');
-    ReactDOM.render(<EditTrip updateParent={this.getTripData} trip={this.state.trip}/>, document.getElementById('trip-module'));
-  },
+  // renderSettings: function () {
+  //   $('.active').removeClass('active');
+  //   $('#pencil').addClass('active');
+  //   ReactDOM.render(<EditTrip updateParent={this.getTripData} trip={this.state.trip}/>, document.getElementById('trip-module'));
+  // },
 
   renderExpenses: function () {
     $('.active').removeClass('active');
     $('#cash').addClass('active');
-    ReactDOM.render(<Expenses trip={this.state.trip}/>, document.getElementById('trip-module'));
+    ReactDOM.render(<Expenses updateParent={this.getTripData} trip={this.data.trip}/>, document.getElementById('trip-module'));
   },
-
   render: function(){
     return (
       <div>
@@ -93,7 +114,6 @@ Trip = React.createClass({
             <i className="icon ion-gear-a settings"></i>
             Settings
           </a>
-
         </div>
         <div className='has-footer' id='trip-module'></div>
       </div>

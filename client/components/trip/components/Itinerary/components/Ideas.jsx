@@ -17,12 +17,16 @@ Ideas = React.createClass({
     var cost = Math.ceil(ReactDOM.findDOMNode(this.refs.cost).value);
     var event_location = ReactDOM.findDOMNode(this.refs.idea_location).value;
     var trip = this.props.trip._id;
-    HTTP.call('GET', 'https://opengraph.io/api/1.0/site/' + event_url, function(error, response) {
+    var created_at = String(new Date())
+    console.log('date: ', created_at)
+    HTTP.call('GET', 'http://opengraph.io/api/1.0/site/' + event_url, function(error, response) {
       if (error) {
         console.log('API call error:', error)
       } else {
         console.log(JSON.parse(response.content).hybridGraph)
         var og = JSON.parse(response.content).hybridGraph;
+        console.log('og');
+        console.log(og);
         var event = {
           trip_id: trip,
           name: event_name,
@@ -30,6 +34,7 @@ Ideas = React.createClass({
           og: og,
           date: event_date,
           created_by: Meteor.user().username,
+          created_at: created_at,
           cost: cost,
           location: event_location
         }
@@ -55,7 +60,6 @@ Ideas = React.createClass({
 
 
   render: function () {
-
     return (
       <div>
         <ReactBootstrap.Modal
@@ -106,10 +110,9 @@ Ideas = React.createClass({
               <span className='icon-label'>Add Idea</span>
             </a>
           </div>
-          <div className='col'></div>
         </div>
         <div >
-          <IdeaLoader trip={this.props.trip} ideas={this.props.trip.ideas}/>
+          <IdeaLoader trip={this.props.trip} ideas={this.props.trip.ideas || [] }/>
         </div>
       </div>
 
