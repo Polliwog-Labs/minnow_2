@@ -75,6 +75,7 @@ Meteor.methods({
                 desc: event.desc,
                 og: event.og,
                 date: event.date,
+                time: '',
                 upvotes: 0,
                 created_by: event.created_by,
                 cost: event.cost
@@ -85,17 +86,32 @@ Meteor.methods({
           })
   },
 
-  addIdeaToItin: function (tripId, idea) {
+  addIdeaToItin: function (tripId, idea, dateTime) {
     return Trips.update({_id: tripId}, {$push: {'itinerary': idea}}, function (error) {
       if (error) {
         console.log('failed to add to itinerary: ', error);
       } else {
+        console.log(idea.name)
         Trips.update({_id: tripId}, {$pull: {'ideas': {name: idea.name}}}, function (error) {
           if (error) {
             console.log('failed to remove idea after adding to itinerary: ', error)
           }
         })
       }
+      // } else {
+      //   Trips.update({_id: tripId}, {$pull: {'ideas': {name: idea.name}}}, function (error) {
+      //     if (error) {
+        // Trips.update({_id: tripId, 'ideas.name': ideaName}, {$set: {
+        //   date: dateTime.date,
+        //   time: dateTime.time
+        // }}, function (error) {
+        //   if (error) {
+        //     console.log('failed to set time/date after adding ', error)
+        //   } else {
+      //       console.log('failed to remove idea after adding to itinerary: ', error)
+      //     }
+      //   })
+      // }
     })
   },
 

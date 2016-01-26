@@ -100,7 +100,7 @@ Ideas = React.createClass({
           </ReactBootstrap.Modal.Body>
         </ReactBootstrap.Modal>
         <div className="row add-idea">
-          <div className='col-33 col-offset-33'>
+          <div className='col'>
             <a onClick={ this.showModal }>
               <i className="icon ion-plus-circled"></i>
               <span className='icon-label'>Add Idea</span>
