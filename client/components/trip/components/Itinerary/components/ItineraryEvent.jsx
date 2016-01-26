@@ -1,4 +1,9 @@
 ItineraryEvent = React.createClass({
+  
+  deleteEvent() {
+    Meteor.call('deleteEvent', this.props.trip._id, this.props.event.created_at)
+  },
+
   render() {
     return (
       <div className="item item-thumbnail-left ">
@@ -20,7 +25,7 @@ ItineraryEvent = React.createClass({
             <div className='col-xs-6'></div>
             {
               _.contains(this.props.trip.organizers, Meteor.userId()) ?
-                <div className='col-xs-2' onClick={ this.deleteIdea } >
+                <div className='col-xs-2' onClick={ this.deleteEvent } >
                   <i className="icon ion-trash-b"></i>
                 </div> : ''   
             }

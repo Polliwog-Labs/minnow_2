@@ -95,8 +95,10 @@ Meteor.methods({
                 desc: event.desc,
                 og: event.og,
                 date: event.date,
+                time: '',
                 upvotes: 0,
                 created_by: event.created_by,
+                created_at: event.created_at,
                 cost: event.cost
             }}}, function (error) {
               if (error) {
@@ -105,40 +107,75 @@ Meteor.methods({
           })
   },
 
-  addIdeaToItin: function (tripId, idea) {
+  addIdeaToItin: function (tripId, idea, dateTime) {
+    console.log('dateTime: ', dateTime)
     return Trips.update({_id: tripId}, {$push: {'itinerary': idea}}, function (error) {
       if (error) {
         console.log('failed to add to itinerary: ', error);
       } else {
-        Trips.update({_id: tripId}, {$pull: {'ideas': {name: idea.name}}}, function (error) {
+        console.log(idea.name)
+        Trips.update({_id: tripId}, {$pull: {'ideas': {created_at: idea.created_at}}}, function (error) {
           if (error) {
             console.log('failed to remove idea after adding to itinerary: ', error)
+          } else {
+            Trips.update({_id: tripId, 'itinerary.created_at': idea.created_at}, {$set: {
+                'itinerary.$.date' :dateTime.date,
+                'itinerary.$.time' : dateTime.time
+              }
+            }, function (error) {
+              if (error) {
+                console.log('failed to update time/date: ', error)
+              }
+            })
           }
         })
       }
+      // } else {
+      //   Trips.update({_id: tripId}, {$pull: {'ideas': {name: idea.name}}}, function (error) {
+      //     if (error) {
+      //   Trips.update({_id: tripId, 'ideas.created_at': ideaName}, {$set: {
+      //     date: dateTime.date,
+      //     time: dateTime.time
+      //   }}, function (error) {
+      //     if (error) {
+      //       console.log('failed to set time/date after adding ', error)
+      //     } else {
+      //       console.log('failed to remove idea after adding to itinerary: ', error)
+      //     }
+      //   })
+      // }
     })
   },
 
-  deleteIdea: function (tripId, ideaName) {
-    return Trips.update({_id: tripId}, {$pull: {'ideas': {name: ideaName}}}, function (error) {
+  deleteIdea: function (tripId, createdAt) {
+    return Trips.update({_id: tripId}, {$pull: {'ideas': {created_at: createdAt}}}, function (error) {
       if (error) {
         console.log('idea failed to delete: ', error)
       }
     })
   },
 
-  ideaUpVote: function (tripId, ideaName) {
-    return Trips.update({_id: tripId, 'ideas.name': ideaName}, {$inc: {'ideas.$.upvotes': 1}}, function (error) {
+  ideaUpVote: function (tripId, createdAt) {
+    return Trips.update({_id: tripId, 'ideas.created_at': createdAt}, {$inc: {'ideas.$.upvotes': 1}}, function (error) {
       if (error) {
         console.log('failed to upvote: ', error)
       }
     })
   },
 
-  ideaDownVote: function (tripId, ideaName) {
-    return Trips.update({_id: tripId, 'ideas.name': ideaName}, {$inc: {'ideas.$.upvotes': -1}}, function (error) {
+  ideaDownVote: function (tripId, createdAt) {
+    return Trips.update({_id: tripId, 'ideas.created_at': createdAt}, {$inc: {'ideas.$.upvotes': -1}}, function (error) {
       if (error) {
         console.log('failed to down vote: ', error)
+      }
+    })
+  },
+
+  //Itinerary
+  deleteEvent: function (tripId, createdAt) {
+    return Trips.update({_id: tripId}, {$pull: {'itinerary': {created_at: createdAt}}}, function (error) {
+      if (error) {
+        console.log('event failed to delete: ', error)
       }
     })
   },

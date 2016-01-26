@@ -17,6 +17,8 @@ Ideas = React.createClass({
     var cost = Math.ceil(ReactDOM.findDOMNode(this.refs.cost).value);
     var event_location = ReactDOM.findDOMNode(this.refs.idea_location).value;
     var trip = this.props.trip._id;
+    var created_at = String(new Date())
+    console.log('date: ', created_at)
     HTTP.call('GET', 'https://opengraph.io/api/1.0/site/' + event_url, function(error, response) {
       if (error) {
         console.log('API call error:', error)
@@ -32,6 +34,7 @@ Ideas = React.createClass({
           og: og,
           date: event_date,
           created_by: Meteor.user().username,
+          created_at: created_at,
           cost: cost,
           location: event_location
         }
@@ -101,7 +104,7 @@ Ideas = React.createClass({
           </ReactBootstrap.Modal.Body>
         </ReactBootstrap.Modal>
         <div className="row add-idea">
-          <div className='col-33 col-offset-33'>
+          <div className='col'>
             <a onClick={ this.showModal }>
               <i className="icon ion-plus-circled"></i>
               <span className='icon-label'>Add Idea</span>
