@@ -5,7 +5,7 @@ Itinerary = React.createClass({
   },
 
   componentDidMount: function () {
-    // this.renderItinerary()
+    this.renderItinerary()
   },
 
   renderItinerary: function() {
