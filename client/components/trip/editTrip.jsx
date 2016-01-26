@@ -1,6 +1,6 @@
 EditTrip = React.createClass({
   propTypes: {
-    trip: React.PropTypes.object.isRequired
+    trip: React.PropTypes.object
   },
   getInitialState: function(){
     return {image_id:null, hide:false};
@@ -17,7 +17,7 @@ EditTrip = React.createClass({
      },(err, id)=>{
       if (err) {console.log(err);}
       else {
-        this.props.updateParent('EditTrip');
+        this.props.updateParent('Settings');
       }
     });
   },
@@ -50,6 +50,7 @@ EditTrip = React.createClass({
   },
 
   render: function(){
+    console.log('rendering editTrip')
     return (
       <div>
         <ReactBootstrap.Modal 
@@ -63,7 +64,7 @@ EditTrip = React.createClass({
           <div className='list'>
               <form id='newTrip-form' className='form-group' onSubmit={this.submitTrip}>
                 <label className="item item-input item-stacked-label">
-                  <span>{this.props.trip.name || 'Enter a Name'}</span>
+                  <span>{this.props.trip ? this.props.trip.name : 'Enter a Name'}</span>
                   <input id="newTrip-name" type="text" ref="newTrip_name" placeholder="Trip Name"/>
                 </label>
                 <div className="row item">
@@ -97,7 +98,7 @@ EditTrip = React.createClass({
               </form>
               <p><a href='/mytrips'>My Trips</a></p>
               <div className='image-div'>
-                <Image image_id={this.state.image_id || this.props.trip.image_id} height="100%" />
+                <Image image_id={this.state.image_id || this.props.trip ? this.props.trip.image_id : null} height="100%" />
               </div>
            </div>
           </ReactBootstrap.Modal.Body>

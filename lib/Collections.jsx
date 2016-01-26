@@ -1,4 +1,3 @@
-Trips = new Mongo.Collection('trips');
 var resizeImage = function(fileObj, readStream, writeStream) {
   gm(readStream, fileObj.name()).resize(800,600).stream().pipe(writeStream);
 };
@@ -47,4 +46,16 @@ Images = new FS.Collection("images",{
     }
   }
 });
+Images.allow({
+  download(){return true},
+  insert(){return true},
+  update(){return true},
+  remove(){return true}
+});
 
+Trips = new Mongo.Collection('trips');
+Trips.allow({
+  insert(){return true},
+  update(){return true},
+  remove(){return true}
+});

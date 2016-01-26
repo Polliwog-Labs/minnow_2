@@ -4,7 +4,7 @@ TripHome = React.createClass({
   },
 
   getInitialState: function(){
-    return {trip: this.props.trip, show:false};
+    return $.extend(this.props.trip,{show:false});
   },
 
   renderList: function() {
@@ -32,11 +32,11 @@ TripHome = React.createClass({
     var invite_user = undefined;
 
     if((invitee_email !== Meteor.user().emails[0].address) && invitee_email.includes('@') &&
-      this.state.trip.pending.every((invitee)=>{
+      this.props.trip && this.props.trip.pending && this.props.trip.pending.every((invitee)=>{
         return invitee.emails[0].address !== invitee_email;
       })){
       // Make sure user isn't inviting themself, email address is an email address,
-      // and is not a duplicate.
+      // and is not a duplicate, also that trip is loaded into state
       Meteor.call('inviteUserByEmail', invitee_email,tripId,(err,data)=>{
         if(err){
           console.log(err);
@@ -45,7 +45,7 @@ TripHome = React.createClass({
              this.flashError();
              return;
           }
-          Meteor.call('sendInvitationEmail',invitee_email,this.state.trip);
+          Meteor.call('sendInvitationEmail',invitee_email,this.props.statetrip);
           this.props.updateParent();
         }
       })
@@ -55,9 +55,11 @@ TripHome = React.createClass({
   },
 
   renderInvitees: function(){
-    return this.state.trip.pending.map((user,index)=>{
-      return <li key={index}>{user.emails[0].address}</li>;
-    })
+    if (this.props.trip && this.props.trip.pending){
+      return this.props.trip.pending.map((user,index)=>{
+        return <li key={index}>{user.emails[0].address}</li>;
+      })
+    }
   },
 
   flashError(){
@@ -65,6 +67,9 @@ TripHome = React.createClass({
     setTimeout(()=>{
       $('.error-email').hide()
     },1000);
+  },
+  componentWillReceiveProps(newProps){
+    this.setState(newProps)
   },
 
   showModal() {
@@ -92,8 +97,8 @@ TripHome = React.createClass({
       expense_dash:[]
     };
 
-    for (var key in this.state.trip){
-      params[key] = this.state.trip[key];
+    for (var key in this.props.trip){
+      params[key] = this.props.trip[key];
     };
     var cost = params.expenses.reduce((a,b)=>{
       return {amount: a.amount+b.amount};
@@ -102,13 +107,13 @@ TripHome = React.createClass({
 
     return (
        <div className='trip list'>
-        <EditTrip updateParent={this.getTripData} onHide={this.hideModal} show={this.state.show} trip={this.props.trip}/>
+        <EditTrip updateParent={this.getTripData} onHide={this.hideModal} show={this.props.show} trip={this.props.trip}/>
          <div className='image-div'>              
           <Image image_id={params.image_id} height="100%" />
          </div>
          <div className='item'>   
           <div className='item'>
-            <p className=''>Who's Coming? {params.members.join(', ')} </p>
+            <p className=''>Whos Coming? {params.members.join(', ')} </p>
             {/*<p className=''>Action Items {params.todo.length}</p>*/}
             {/*<p className='tripParams'>Est. Cost Per Person: ${cost / (params.members.length || 1)}</p>*/}
             <form className='form-group' >
