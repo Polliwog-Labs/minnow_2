@@ -1,7 +1,6 @@
 Meteor.methods({
   
   //Images methods
-
   storeImage: function(image){
     return Images.insert(image,function(err,result){
       if (!err) return result;
@@ -13,6 +12,18 @@ Meteor.methods({
     var fileObj = Images.findOne({_id:id});
     return fileObj ? fileObj.url({store:store}) : null;
   },
+  //Profile Pic methods
+  storeProfilePic: function(image){
+    return ProfilePics.insert(image,function(err,result){
+      if (!err) return result;
+    });
+  },
+
+  retrieveProfilePic: function(id){
+    var fileObj = ProfilePics.findOne({_id:id});
+    return fileObj ? fileObj.url() : null;
+  },
+
   //user search methods
   getUserById: function(id){
     return Meteor.users.findOne({_id:id});

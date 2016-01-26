@@ -5,6 +5,6 @@ if (Meteor.isServer) {
       $in:{"members":user._id}},
       $in:{"pending":user._id}});
   });
-  Meteor.publish("Images",()=>{return Images.find()})
-  Meteor.publish("ProfilePics",()=>{return ProfilePics.find()})
+  Meteor.publish("Images",()=>{return Images.find()});
+  Meteor.publish("ProfilePics",()=>{return ProfilePics.find()});
 }
