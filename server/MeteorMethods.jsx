@@ -1,5 +1,7 @@
 Meteor.methods({
+  
   //Images methods
+
   storeImage: function(image){
     return Images.insert(image,function(err,result){
       if (!err) return result;
@@ -31,8 +33,6 @@ Meteor.methods({
       return !err;
     });
   },
-
-
 
   //trip methods
 
@@ -87,10 +87,6 @@ Meteor.methods({
       ideas: [],
       itinerary: []
     },(err,result)=> {if (!err) return result});
-  },
-
-  getIdeas: function () {
-
   },
 
   addIdea: function (event) {
