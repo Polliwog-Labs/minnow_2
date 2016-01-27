@@ -14,7 +14,7 @@ InviteList = React.createClass({
   },
 
   navToTrip: function(){
-    Meteor.call('inviteAccepted', Meteor.userId(), this.props.trip._id, (err, data) => {
+    Meteor.user() && Meteor.call('inviteAccepted', Meteor.userId(), this.props.trip._id, (err, data) => {
       if(err) {
         console.log(err);
       }  else {
@@ -22,11 +22,21 @@ InviteList = React.createClass({
       }
     })
   },
+  renderButtons(){
+    if (Meteor.user()) return (
+      <div>
+        <button className="button button-small button-balanced" onClick={this.navToTrip}>
+          Accept
+        </button>
+        <button className="button button-small button-assertive">
+          Decline
+        </button>
+      </div>
+    );
+  },
 
   render: function(){
-
     var tripStart = this.props.trip.dates ? (this.props.trip.dates[0] || 'October 32nd') : 'October 32nd';
-
     return (
       <div className="list">
 		    <a className="item item-thumbnail-left">
@@ -34,14 +44,9 @@ InviteList = React.createClass({
 		      <h2>{this.props.trip.name}</h2>
 		      <p>{this.state.organizer}</p>
 		      <p>{tripStart}</p>
-		       <button className="button button-small button-balanced" onClick={this.navToTrip}>
-				  Accept
-				</button>
-				<button className="button button-small button-assertive">
-				  Decline
-				</button>
+          {this.renderButtons()}
 		    </a>
-		</div>
-      )
+		  </div>
+    );
 	}
 })

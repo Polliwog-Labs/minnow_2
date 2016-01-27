@@ -3,46 +3,41 @@ EditTrip = React.createClass({
     trip: React.PropTypes.object
   },
   getInitialState: function(){
-    return {image_id:null, hide:false};
+    return {//image_id:null, 
+      hide:false};
   },
-  updateTrip: function(invitees, image_id){
-    Meteor.call('updateTrip',{
-      trip_id: this.props.trip._id,
-      name: ReactDOM.findDOMNode(this.refs.newTrip_name).value,
-      members: invitees,
-      dates: [new Date(ReactDOM.findDOMNode(this.refs.newTrip_startDate).value).getTime(),
-              new Date(ReactDOM.findDOMNode(this.refs.newTrip_endDate).value).getTime()
-             ],
-      image_id: image_id
-     },(err, id)=>{
-      if (err) {console.log(err);}
-      else {
-        this.props.onHide();
-      }
-    });
+  getHelperObj(image_id){
+    var helperObj = {dates:[]};
+    if (image_id) helperObj.image_id = image_id;
+    var name = ReactDOM.findDOMNode(this.refs.newTrip_name).value;
+    if (name) helperObj.name = name;
+    var startDate = new Date(ReactDOM.findDOMNode(this.refs.newTrip_startDate).value).getTime();
+    if (startDate && startDate !== NaN) helperObj.dates.push(startDate);
+    var endDate = new Date(ReactDOM.findDOMNode(this.refs.newTrip_endDate).value).getTime();
+    if (helperObj.dates[0] && endDate && endDate !== NaN) helperObj.dates.push(endDate);
+    if (!helperObj.dates.length) delete helperObj.dates;
+    return helperObj;
   },
 
   submitTrip: function(event){
     event.preventDefault();
     var file = $('#newTrip-file')[0].files[0] || ReactDOM.findDOMNode(this.refs.newTrip_url).value || {};
-    var invitees = ReactDOM.findDOMNode(this.refs.newTrip_members).value.replace(/\s/,'').split(',').filter(function(address){
-      return /^[\w,\.,-]+@[\w,\.,-]+\.[a-z]{2,3}$/.test(address);
-    });
     if (typeof file === 'string'){
       Meteor.call('storeImage',file,(err,data)=>{
         if (err) console.log(err)
         else {
-          this.updateTrip(invitees,data._id);
+          Trips.update({_id:this.props.trip._id},{$set:this.getHelperObj(data._id)});
         }
       });
     } else if (file.constructor === File) {
       Images.insert(file,(err,data)=>{
         if (err) console.log(err)
         else {
-          this.updateTrip(invitees,data._id);
+          Trips.update({_id:this.props.trip._id},{$set:this.getHelperObj(data._id)});
         }
       })
-    } else this.updateTrip(invitees,this.props.trip.image_id);
+    } else Trips.update({_id:this.props.trip._id},{$set:this.getHelperObj()});
+    $('.close').click();
   },
 
   hideModal() {
@@ -50,7 +45,6 @@ EditTrip = React.createClass({
   },
 
   render: function(){
-    console.log('rendering editTrip')
     return (
       <div>
         <ReactBootstrap.Modal 
@@ -71,20 +65,18 @@ EditTrip = React.createClass({
                   <div className='col-50'>
                     <label className="item-stacked-label">
                       <span>Start Date</span>
-                      <input className="item-input" type="date" ref="newTrip_startDate"/>
+                      <input className="item-input" type="date" ref="newTrip_startDate" 
+                        defaultValue={(this.props.trip && this.props.trip.dates && this.props.trip.dates[0]) ? DateUtils.getHTMLDate(this.props.trip.dates[0]) : null}/>
                     </label>
                   </div>
                   <div className='col-50'>
                     <label className="item-stacked-label">
                       <span>End Date</span>
-                      <input className="item-input" type="date" ref="newTrip_endDate"/>
+                      <input className="item-input" type="date" ref="newTrip_endDate" 
+                        defaultValue={(this.props.trip && this.props.trip.dates && this.props.trip.dates[0]) ? DateUtils.getHTMLDate(this.props.trip.dates[1]) : null}/>
                     </label> 
                   </div>
                 </div>
-                <label id="newTrip-members" className="item item-input item-stacked-label">
-                  <span>Invite members by email address:</span>
-                  <input className="item-input" id="newTrip-members" type="text" ref="newTrip_members"/>
-                </label>
                 <label id="newTrip-members" className="item item-input item-stacked-label">
                   <span>Add a picture URL (optional)</span>
                   <input id="newTrip-url" className="item-input" type="text" ref="newTrip_url"/>
