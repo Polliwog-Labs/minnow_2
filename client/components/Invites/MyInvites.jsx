@@ -1,15 +1,30 @@
 MyInvites = React.createClass({
-
-	 getInitialState(){
-	    return {trips:[]};
-	  },
+  mixins: [ReactMeteorData],
+  getMeteorData(){
+    var user = Meteor.user() || window.location.pathname.substring(9);
+    var invites = Meteor.subscribe('Invites',user);
+    var data = {};
+    if (invites.ready()){
+      data.invites = Invites.find().fetch();
+    }
+    return data;
+  },
+	getInitialState(){
+	  return {trips:[]};
+  },
 		
-	 componentDidMount(){
-	    setTimeout(()=>{
-	      Meteor.call('getInvitesByUser',Meteor.user(),(err,data)=>{
-	        !err && this.setState({trips:data});
-	      });
-	    },800);
+  componentDidMount(){
+      setTimeout(()=>{
+        if (Meteor.user()){
+          Meteor.call('getInvitesByUser',Meteor.user(),(err,data)=>{
+            !err && this.setState({trips:data});
+          });
+        } else {
+          Meteor.call('getTripsFromInvites',this.data.invites,(err,data)=>{
+            !err && this.setState({trips:data});
+          })
+        }
+      },800);
 	},
 		    // Meteor.users.update(Meteor.userId(), {$push: {"profile.myTrips": id}});
 
@@ -17,8 +32,19 @@ MyInvites = React.createClass({
     return this.state.trips.map(trip=>{
       return (
         <InviteList key={trip._id} trip={trip}/>
+
       )
     })
+  },
+
+  renderSignupLink(){
+    if (!Meteor.user()){
+      return (
+        <div>
+          <a href="/signup">Sign up for Minnow to join these trips!</a>
+        </div>
+      );
+    }
   },
 
   render: function(){
@@ -26,6 +52,7 @@ MyInvites = React.createClass({
       <div className='list'>
         <h2>My Invites</h2>
         {this.renderTrips()}
+        {this.renderSignupLink()}
       </div>
     );
   }
