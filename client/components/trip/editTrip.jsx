@@ -45,7 +45,6 @@ EditTrip = React.createClass({
   },
 
   render: function(){
-    console.log('rendering editTrip')
     return (
       <div>
         <ReactBootstrap.Modal 
@@ -67,14 +66,14 @@ EditTrip = React.createClass({
                     <label className="item-stacked-label">
                       <span>Start Date</span>
                       <input className="item-input" type="date" ref="newTrip_startDate" 
-                        defaultValue={DateUtils.getHTMLDate(this.props.trip.dates[0])}/>
+                        defaultValue={(this.props.trip && this.prop.trip.dates && this.prop.trips.dates[0]) ? DateUtils.getHTMLDate(this.props.trip.dates[0]) : null}/>
                     </label>
                   </div>
                   <div className='col-50'>
                     <label className="item-stacked-label">
                       <span>End Date</span>
                       <input className="item-input" type="date" ref="newTrip_endDate" 
-                        defaultValue={DateUtils.getHTMLDate(this.props.trip.dates[1])}/>
+                        defaultValue={(this.props.trip && this.prop.trip.dates && this.prop.trips.dates[0]) ? DateUtils.getHTMLDate(this.props.trip.dates[1]) : null}/>
                     </label> 
                   </div>
                 </div>
