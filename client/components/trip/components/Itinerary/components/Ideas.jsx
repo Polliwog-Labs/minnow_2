@@ -106,10 +106,11 @@ Ideas = React.createClass({
         <div className="row add-idea">
           <div className='col'>
             <a onClick={ this.showModal }>
-              <i className="icon ion-plus-circled"></i>
+              <i className="icon ion-ios-plus-outline"></i>
               <span className='icon-label'>Add Idea</span>
             </a>
           </div>
+          <div className='col'></div>
         </div>
         <div >
           <IdeaLoader trip={this.props.trip} ideas={this.props.trip.ideas || [] }/>
