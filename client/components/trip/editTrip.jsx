@@ -50,7 +50,6 @@ EditTrip = React.createClass({
   },
 
   render: function(){
-    console.log('rendering editTrip')
     return (
       <div>
         <ReactBootstrap.Modal 

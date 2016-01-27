@@ -78,10 +78,6 @@ Ideas = React.createClass({
                 <input type="text" ref="idea_name" placeholder="example"/>
               </label>
               <label className="item item-input item-stacked-label">
-                <span className="input-label">Date</span>
-                <input type="date" ref='idea_date' placeholder="example"/>
-              </label>
-              <label className="item item-input item-stacked-label">
                 <span className="input-label">Description</span>
                 <input type="text" ref="idea_desc" placeholder="optional"/>
               </label>

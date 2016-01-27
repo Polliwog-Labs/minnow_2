@@ -14,7 +14,6 @@ Trip = React.createClass({
         data.members = Users.find({_id:{$in:data.trip.members}}).fetch();
       }
     }
-    console.log('data: ', data)
     return data;
   },
 

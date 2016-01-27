@@ -9,6 +9,9 @@ ItineraryEvent = React.createClass({
   },
 
   render() {
+    console.log(this.props)
+    this.props.event.og = this.props.event.og || {image:"http://static1.squarespace.com/static/5542dcefe4b0f37cdc4d6e60/5542e8dae4b0b79fc2fc8dfd/5542e9a0e4b0b79fc2fc9a9e/1430448712022/Virginia-Group-Travel1.jpeg",
+    title:'',description:''}
     return (
       <div className="item item-thumbnail-left event-list-item">
           <img src={this.props.event.og.image}/>

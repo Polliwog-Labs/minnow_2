@@ -62,7 +62,7 @@ IdeaEvent = React.createClass({
             <div className='col-xs-1'></div>
             {  _.contains(this.props.trip.organizers, Meteor.userId()) ?
                 <div className='col-xs-2' onClick={ this.showModal }>
-                  <i className="icon ion-ios-plus-empty"></i>
+                  <i className="icon ion-arrow-right-a"></i>
                   <i className="icon ion-ios-list-outline"></i>
                 </div> : ''
             }  
