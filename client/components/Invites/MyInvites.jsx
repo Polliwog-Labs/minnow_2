@@ -29,12 +29,13 @@ MyInvites = React.createClass({
 		    // Meteor.users.update(Meteor.userId(), {$push: {"profile.myTrips": id}});
 
   renderTrips: function(){
-    return this.state.trips.map(trip=>{
-      return (
-        <InviteList key={trip._id} trip={trip}/>
-
-      )
-    })
+    if (this.state.trips.length){
+      return this.state.trips.map(trip=>{
+        return (
+          <InviteList key={trip._id} trip={trip}/>
+        );
+      })
+    } else return (<p>No trips found!</p>);
   },
 
   renderSignupLink(){

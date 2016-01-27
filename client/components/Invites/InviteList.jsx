@@ -4,49 +4,17 @@ InviteList = React.createClass({
   },
 
   getInitialState: function(){
-    return {//url:'/doge.jpg',
-            organizer: null}
+    return {organizer: null}
   },
-  // getImageUrl(){
-  //   var count = 1;
-  //   function getThisImageUrl(context){
-  //     Meteor.call('retrieveImageUrlById',context.props.trip.image_id,'backgrounds',(err,data)=>{
-  //       if (err) {
-  //         console.log(err);
-  //         context.setState({url:'/doge.jpg'});
-  //       }
-  //       else {
-  //         if (data) context.setState({url:data})
-  //         else {
-  //           if (count >= 15) {context.setState({url:'/doge.jpg'});}
-  //           else {
-  //             setTimeout(function(){
-  //               count++;
-  //               getImageUrl(context);
-  //             },1000);
-  //           }
-  //           //No more than 15 tries. If someone puts in a stupid big image, they can wait/refresh the page.
-  //         }
-  //       }
-  //     });
-  //   };
-  //   getThisImageUrl(this);
-  // },
 
   componentDidMount: function(){
     Meteor.call('getOrganizer',this.props.trip,(err,data)=>{
-      !data && this.setState({organizer:data.username});
+      !err && this.setState({organizer:data.username});
     })
-    // if (this.props.trip.image_id) {
-    //   this.getImageUrl()
-    // } else {
-    //   console.log('this.props.image_id is undefined. This shouldn\'t happen.');
-    //   this.setState({url:'/doge.jpg'});
-    // }
   },
 
   navToTrip: function(){
-    Meteor.call('inviteAccepted', Meteor.userId(), this.props.trip._id, (err, data) => {
+    Meteor.user() && Meteor.call('inviteAccepted', Meteor.userId(), this.props.trip._id, (err, data) => {
       if(err) {
         console.log(err);
       }  else {
@@ -54,30 +22,31 @@ InviteList = React.createClass({
       }
     })
   },
+  renderButtons(){
+    return (
+      <div>
+        <button className="button button-small button-balanced" onClick={this.navToTrip}>
+          Accept
+        </button>
+        <button className="button button-small button-assertive">
+          Decline
+        </button>
+      </div>
+    );
+  },
 
   render: function(){
-    // console.log(this.props.trip);
     var tripStart = this.props.trip.dates ? (this.props.trip.dates[0] || 'October 32nd') : 'October 32nd';
-    // var user = Meteor.users.find({ _id: this.props.trip.organizers[0] }).fetch()
-    // var username = user[0].username;
-    // console.log('USER', username);
-
     return (
-
       <div className="list">
 		    <a className="item item-thumbnail-left">
           <Image image_id={this.props.trip.image_id} />
 		      <h2>{this.props.trip.name}</h2>
 		      <p>{this.state.organizer}</p>
 		      <p>{tripStart}</p>
-		       <button className="button button-small button-balanced" onClick={this.navToTrip}>
-				  Accept
-				</button>
-				<button className="button button-small button-assertive">
-				  Decline
-				</button>
+          {Meteor.user() && this.renderButtons()}
 		    </a>
-		</div>
-      )
+		  </div>
+    );
 	}
 })

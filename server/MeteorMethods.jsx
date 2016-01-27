@@ -48,6 +48,9 @@ Meteor.methods({
       return !err;
     });
   },
+  addUserIdToInvites: function(user){
+    return Invites.update({'recipient':user.emails[0]},{'invitee':user._id});
+  },
 
   //trip methods
   inviteUserByEmail: function(inviteeEmail,id){
@@ -56,6 +59,7 @@ Meteor.methods({
       return false;
     }
     Meteor.users.update({_id:user._id},{$push:{"profile.invites":id}});
+    Invites.insert()
     return Trips.update( {_id:id}, {$push: {"pending": user}});
   },
   sendInvitationEmail: function(inviteeEmail,trip){
