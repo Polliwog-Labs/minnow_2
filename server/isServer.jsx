@@ -13,6 +13,10 @@ if (Meteor.isServer) {
     return Users.find({_id:{$in:trip.members}});
   });
 
+  Meteor.publish("userData",(user)=>{
+    return Users.find({_id:user._id});
+  });
+
   Meteor.publish("Invites",(user)=>{
     //takes a user or a string
     if (typeof user === 'object'){
