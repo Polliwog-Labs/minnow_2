@@ -24,7 +24,7 @@ Trip = React.createClass({
   },
 
   componentDidMount(){
-    this.renderHome();
+    !this.state.view && this.renderHome();
   },
 
   getTripData: function (view) {
