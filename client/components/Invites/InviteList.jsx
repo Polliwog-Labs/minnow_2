@@ -23,7 +23,7 @@ InviteList = React.createClass({
     })
   },
   renderButtons(){
-    return (
+    if (Meteor.user()) return (
       <div>
         <button className="button button-small button-balanced" onClick={this.navToTrip}>
           Accept
@@ -44,7 +44,7 @@ InviteList = React.createClass({
 		      <h2>{this.props.trip.name}</h2>
 		      <p>{this.state.organizer}</p>
 		      <p>{tripStart}</p>
-          {Meteor.user() && this.renderButtons()}
+          {this.renderButtons()}
 		    </a>
 		  </div>
     );
