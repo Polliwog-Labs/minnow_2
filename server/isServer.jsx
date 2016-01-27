@@ -4,16 +4,20 @@ if (Meteor.isServer) {
       $in:{"members":user._id}},
       $in:{"pending":user._id}});
   });
-  
+
+  Meteor.publish("userTrips", function (user){
+    return Trips.find({_id:{$in:user.profile.invites}});
+  });
+
   Meteor.publish("Images",()=>{return Images.find()});
-  
+
   Meteor.publish("ProfilePics",()=>{return ProfilePics.find()});
 
   Meteor.publish("tripUsers",(trip)=>{
     return Users.find({_id:{$in:trip.members}});
   });
 
-  Meteor.publish("userData",(user)=>{
+  Meteor.publish("UserData",(user)=>{
     return Users.find({_id:user._id});
   });
 
@@ -29,6 +33,6 @@ if (Meteor.isServer) {
 }
 
 // { trip_id: tripid,
-//   invitee: optional userid, 
+//   invitee: optional userid,
 //   recipient: (email addy),
 //   sender: userid}

@@ -48,8 +48,8 @@ Meteor.methods({
       return !err;
     });
   },
-  addUserIdToInvites: function(user){
-    return Invites.update({'recipient':user.emails[0]},{'invitee':user._id});
+  getUserInvites: function(email){
+    return Invites.find({'recipient':email}).fetch().map(invite=>{return invite.trip_id;});
   },
 
   //trip methods
@@ -58,9 +58,9 @@ Meteor.methods({
     if (!user){
       return false;
     }
-    Meteor.users.update({_id:user._id},{$push:{"profile.invites":id}});
-    Invites.insert()
-    return Trips.update( {_id:id}, {$push: {"pending": user}});
+    return Meteor.users.update({_id:user._id},{$push:{"profile.invites":id}});
+    // Invites.insert({invitee})
+    // return Trips.update( {_id:id}, {$push: {"pending": user}});
   },
   sendInvitationEmail: function(inviteeEmail,trip){
    /* Email.send({
@@ -70,7 +70,7 @@ Meteor.methods({
       text:'Welcome to Minnow! You\'ve been invited to join the trip '+trip.name+'.\nPlease check it out at http://localhost:3000/trip/'+trip._id+' to sign up!'
     });*/
     //commented out because I don't want to send lots of emails while testing
-    console.log('called sendInviationEmail')
+    console.log('called sendInvitationEmail')
     return Invites.insert({
       trip_id:trip._id,
       recipient: inviteeEmail,
@@ -211,9 +211,9 @@ Meteor.methods({
   pushExpense: function(expense){
     return Trips.update({"_id": expense.trip_id}, {$push: {
       'expenses': {
-        'description': expense.description, 
-        'amount': Number(expense.amount),  
-        'created_at': new Date(), 
+        'description': expense.description,
+        'amount': Number(expense.amount),
+        'created_at': new Date(),
         'created_by': expense.username,
         'split_with': expense.split_with
       }
