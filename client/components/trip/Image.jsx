@@ -14,32 +14,31 @@ Image = new React.createClass({
     } 
   },
   getImageURL: function(id){
-   var meteorCall = this.props.profile ? 'retrieveProfilePic' : 'retrieveImageUrlById';
-   var count = 1;
-   function getThisImageUrl(context){
-     Meteor.call(meteorCall,id,'images',(err,data)=>{
-       if (err && context._isMounted) {
-         console.log(err);
-         console.log('Bad Image ID');
-         context.setState({url:'/doge.jpg'});
-       }
-       else {
-         if (data && context._isMounted) context.setState({url:data})
-         else {
-           if (count >= 15 && context._isMounted) {context.setState({url:'/doge.jpg'});}
-           else {
-             window['timeout'+count] = setTimeout(function(){
-               count++;
-               getThisImageUrl(context);
-             },1000);
-           }
-           //No more than 15 tries. If someone puts in a stupid big image, they can wait/refresh the page.
-         }
-       }
-     });
-   };
-   getThisImageUrl(this);
- },
+    var count = 1;
+    function getThisImageUrl(context){
+      Meteor.call('retrieveImageUrlById',id,'images',(err,data)=>{
+        if (err && context._isMounted) {
+          console.log(err);
+          console.log('Bad Image ID');
+          context.setState({url:'/doge.jpg'});
+        }
+        else {
+          if (data && context._isMounted) context.setState({url:data})
+          else {
+            if (count >= 15 && context._isMounted) {context.setState({url:'/doge.jpg'});}
+            else {
+              window['timeout'+count] = setTimeout(function(){
+                count++;
+                getThisImageUrl(context);
+              },1000);
+            }
+            //No more than 15 tries. If someone puts in a stupid big image, they can wait/refresh the page.
+          }
+        }
+      });
+    };
+    getThisImageUrl(this);
+  },
   componentWillReceiveProps(newProps) {
     newProps && this.getImageURL(newProps.image_id);
   },

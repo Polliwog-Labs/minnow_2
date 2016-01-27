@@ -26,6 +26,12 @@ h1.list {
   height: 257px;
   width: 100%;
 }
+
+#button-selector{
+  float: right;
+  margin-right: 50px;
+  width: 26%;
+}
 .trip-list{
   border-bottom: none;
   margin-bottom: 0;
@@ -34,7 +40,13 @@ h1.list {
 .item-thumbnail-left:hover {
   cursor: pointer;
 }
-
+.button-override{
+  max-width: 100%;
+}
+.profile-image{
+  height: 257px;
+  width: 100%;
+}
 .login-signup {
   text-align: center;
   padding-top: 200px;
