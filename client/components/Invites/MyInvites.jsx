@@ -12,7 +12,7 @@ MyInvites = React.createClass({
 	getInitialState(){
 	  return {trips:[]};
   },
-		
+
   componentDidMount(){
       setTimeout(()=>{
         if (Meteor.user()){
