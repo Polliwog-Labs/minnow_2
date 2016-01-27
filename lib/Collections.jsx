@@ -22,7 +22,7 @@ var backgroundImage = function(fileObj, readStream, writeStream) {
 };
 
 var profileImageResize = function(fileObj, readStream, writeStream) {
-  gm(readStream, fileObj.name()).resize(120,120).gravity('Center').crop(80,80).stream().pipe(writeStream);
+  gm(readStream, fileObj.name()).resize(300,300).gravity('Center').crop(250,250).stream().pipe(writeStream);
 };
 
 //Stores

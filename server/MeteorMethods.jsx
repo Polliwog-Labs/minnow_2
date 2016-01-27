@@ -28,6 +28,8 @@ Meteor.methods({
     return Meteor.users.findOne({_id:id});
   },
 
+
+
   //Invite methods
   getInvitesByUser: function(user){
     var trips = [];

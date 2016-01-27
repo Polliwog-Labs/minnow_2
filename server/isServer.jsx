@@ -9,6 +9,10 @@ if (Meteor.isServer) {
   
   Meteor.publish("ProfilePics",()=>{return ProfilePics.find()});
 
+  Meteor.publish("UserData", (user) => {
+      return Users.find({_id:user._id});
+  });
+
   Meteor.publish("tripUsers",(trip)=>{
     return Users.find({_id:{$in:trip.members}});
   });
