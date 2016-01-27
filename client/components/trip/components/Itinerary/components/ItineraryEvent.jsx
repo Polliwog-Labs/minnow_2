@@ -1,7 +1,7 @@
 ItineraryEvent = React.createClass({
   
   displayTime() {
-    return this.props.event.utc.toLocaleString().replace(':00 ', ' ')
+    return this.props.event.utc.toLocaleString().replace(':00 ', ' ').replace('at', ' ')
   },
 
   deleteEvent() {
@@ -12,7 +12,7 @@ ItineraryEvent = React.createClass({
     return (
       <div className="item item-thumbnail-left event-list-item">
           <img src={this.props.event.og.image}/>
-          <h2>{this.displayTime()} </h2>
+          <h2>{this.displayTime().toString()} </h2>
           <h3>{this.props.event.name}</h3>
           <p>{this.props.event.desc}</p>
           <h4 className='event-link'>{this.props.event.og.title}</h4>          
