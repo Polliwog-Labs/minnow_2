@@ -42,27 +42,29 @@ InviteList = React.createClass({
   },
 
   navToTrip: function(){
-    Meteor.call('inviteAccepted', Meteor.user(), this.props.trip._id, (err, data) => {
+    Meteor.call('inviteAccepted', Meteor.userId(), this.props.trip._id, (err, data) => {
       if(err) {
         console.log(err);
-      } else {
+      }  else {
         document.location.href = '/trip/' + this.props.trip._id;
       }
     })
   },
-  
-  render: function(){
 
-  	var backgroundStyle = {'background': 'url('+this.state.url+')'};
+  render: function(){
+    console.log(this.props.trip);
     var tripStart = this.props.trip.dates ? (this.props.trip.dates[0] || 'October 32nd') : 'October 32nd';
+    var user = Meteor.users.find({ _id: this.props.trip.organizers[0] }).fetch()
+    var username = user[0].username;
+    console.log('USER', username);
 
     return (
-   
+
       <div className="list">
 		    <a className="item item-thumbnail-left">
-		      <img src={backgroundStyle}/>
+        <img src={this.state.url}/>
 		      <h2>{this.props.trip.name}</h2>
-		      <p>{this.props.trip.organizers.id}</p>
+		      <p>{username}</p>
 		      <p>{tripStart}</p>
 		       <button className="button button-small button-balanced" onClick={this.navToTrip}>
 				  Accept

@@ -103,3 +103,10 @@ Users.allow({
   update(){return true},
   remove(){return true}
 });
+
+Invites = new Mongo.Collection('invites');
+Invites.allow({
+  insert(){return true},
+  update(){return true},
+  remove(){return true}
+})
