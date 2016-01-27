@@ -9,7 +9,7 @@ InviteList = React.createClass({
 
   componentDidMount: function(){
     Meteor.call('getOrganizer',this.props.trip,(err,data)=>{
-      !data && this.setState({organizer:data.username});
+      !err && this.setState({organizer:data.username});
     })
   },
 
