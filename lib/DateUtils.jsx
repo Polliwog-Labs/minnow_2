@@ -18,7 +18,7 @@ DateUtils={
     if (array && array[0] && (array[0]!== NaN)){
       var startDate = new Date(array[0]);
       tripDate.month = months[startDate.getMonth()];
-      tripDate.day = startDate.getDay();
+      tripDate.day = startDate.getDate();
       tripDate.year = startDate.getFullYear();
       tripDate.string = `${tripDate.day} ${tripDate.month}, ${tripDate.year}`
     }
@@ -47,5 +47,11 @@ DateUtils={
     var day = date[2]
 
     return new Date(year, month, day, hour, min)
+  },
+
+  getHTMLDate(value){
+    var date = new Date(value);
+    return date.getFullYear()+'-'+(date.getMonth() >= 9 ? '' : '0')+(date.getMonth()+1)+'-'+(date.getDate() >= 10 ? '' : '0')+date.getDate();
   }
+  
 }
