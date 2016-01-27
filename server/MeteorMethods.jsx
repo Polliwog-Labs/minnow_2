@@ -11,12 +11,12 @@ Meteor.methods({
     return fileObj ? fileObj.url({store:store}) : null;
   },
 
-  //Profile Pic methods
-  storeProfilePic: function(image){
-    return ProfilePics.insert(image,function(err,result){
-      if (!err) return result;
-    });
-  },
+  // //Profile Pic methods
+  // storeProfilePic: function(image){
+  //   return ProfilePics.insert(image,function(err,result){
+  //     if (!err) return result;
+  //   });
+  // },
 
   retrieveProfilePic: function(id){
     var fileObj = ProfilePics.findOne({_id:id});

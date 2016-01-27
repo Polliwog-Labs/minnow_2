@@ -14,19 +14,18 @@ MyInvites = React.createClass({
   },
 
   componentDidMount(){
-      setTimeout(()=>{
-        if (Meteor.user()){
-          Meteor.call('getInvitesByUser',Meteor.user(),(err,data)=>{
-            !err && this.setState({trips:data});
-          });
-        } else {
-          Meteor.call('getTripsFromInvites',this.data.invites,(err,data)=>{
-            !err && this.setState({trips:data});
-          })
-        }
-      },800);
+    setTimeout(()=>{
+      if (Meteor.user()){
+        // Meteor.call('getInvitesByUser',Meteor.user(),(err,data)=>{
+        //   !err && this.setState({trips:data});
+        // });
+      } else {
+        // Meteor.call('getTripsFromInvites',this.data.invites,(err,data)=>{
+        //   !err && this.setState({trips:data});
+        // })
+      }
+    },800);
 	},
-		    // Meteor.users.update(Meteor.userId(), {$push: {"profile.myTrips": id}});
 
   renderTrips: function(){
     if (this.state.trips.length){

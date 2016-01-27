@@ -33,19 +33,20 @@ TripHome = React.createClass({
 
     if((invitee_email !== Meteor.user().emails[0].address) && invitee_email.includes('@') &&
       this.props.trip && this.props.trip.pending && this.props.trip.pending.every((invitee)=>{
-        return invitee.emails[0].address !== invitee_email;
+        return invitee !== invitee_email;
       })){
       // Make sure user isn't inviting themself, email address is an email address,
       // and is not a duplicate, also that trip is loaded into state
-      Meteor.call('inviteUserByEmail', invitee_email,tripId,(err,data)=>{
-        if(err){
-          console.log(err);
-        } else {
-          if (!data){
-            Meteor.call('sendInvitationEmail',invitee_email,this.props.trip);
-          }
-        }
-      })
+      // Meteor.call('inviteUserByEmail', invitee_email,tripId,(err,data)=>{
+      //   if(err){
+      //     console.log(err);
+      //   } else {
+      //     if (!data){
+      //       Meteor.call('sendInvitationEmail',invitee_email,this.props.trip);
+      //     }
+      //   }
+      // })
+      Trips.update({_id:this.props.trip._id},{$push:{'pending':invitee_email}});
 
     } else this.flashError();
     ReactDOM.findDOMNode(this.refs.input_email).value = null;
@@ -53,8 +54,8 @@ TripHome = React.createClass({
 
   renderInvitees: function(){
     if (this.props.trip && this.props.trip.pending){
-      return this.props.trip.pending.map((user,index)=>{
-        return <li key={index}>{user.emails[0].address}</li>;
+      return this.props.trip.pending.map((email,index)=>{
+        return <li key={index}>{email}</li>;
       })
     }
   },
