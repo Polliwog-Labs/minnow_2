@@ -18,9 +18,9 @@ InviteList = React.createClass({
       if(err) {
         console.log(err);
       }  else {
-        document.location.href = '/trip/' + this.props.trip._id;
-      }
-    })
+         document.location.href = '/trip/' + this.props.trip._id;
+       }
+     })
   },
   renderButtons(){
     if (Meteor.user()) return (
