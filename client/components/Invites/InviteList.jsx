@@ -14,13 +14,16 @@ InviteList = React.createClass({
   },
 
   navToTrip: function(){
-    Meteor.call('inviteAccepted', Meteor.userId(), this.props.trip._id, (err, data) => {
+    var userId = Meteor.userId;
+    var tripId = this.props.trip._id;
+
+    Meteor.call('inviteAccepted', Meteor.user(), this.props.trip._id, (err, data) => {
       if(err) {
         console.log(err);
       }  else {
-        document.location.href = '/trip/' + this.props.trip._id;
-      }
-    })
+         document.location.href = '/trip/' + this.props.trip._id;
+       }
+     })
   },
 
   render: function(){
