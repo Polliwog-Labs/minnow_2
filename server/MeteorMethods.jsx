@@ -103,6 +103,11 @@ Meteor.methods({
       itinerary: []
     },(err,result)=> {if (!err) return result});
   },
+  getOrganizer: function(trip){
+    var organizer = Meteor.users.findOne({_id:trip.organizers[0]});
+    return organizer;
+  },
+  //idea methods
   addIdea: function (event) {
     return Trips.update({_id: event.trip_id}, {$push: {"ideas": {
                 name: event.name,

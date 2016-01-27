@@ -9,7 +9,7 @@ Trip = React.createClass({
     var handle = Meteor.subscribe('singleTrip',tripId,user);
     if (handle.ready()){
       data.trip = Trips.findOne({_id: tripId});
-      var handle0 = Meteor.subscribe('tripUsers',data.trip,user);
+      var handle0 = Meteor.subscribe('tripUsers',data.trip);
       if (handle0.ready()){
         data.members = Users.find({_id:{$in:data.trip.members}}).fetch();
       }
