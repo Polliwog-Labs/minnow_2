@@ -17,7 +17,7 @@ Signup = React.createClass({
       username: username,
       email: email,
       password: password,
-      profile: { myTrips: [], invites:[] } ,
+      profile: { myTrips: [], invites:[], toggled:false } ,
     }, function(error) {
         if (error) {
           console.log(error)

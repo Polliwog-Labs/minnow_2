@@ -20,7 +20,10 @@ NewExpense = React.createClass({
 
 
 	getInitialState() {
-    return {show: false,split_with:[]};
+    return {show: false,
+    	   split_with:[], 
+    	   toggled: false
+      };
     },
 
 	showModal() {
@@ -34,16 +37,38 @@ NewExpense = React.createClass({
 		this.setState({split_with:users})
 	},
 
+   onSplitSumbit:function (){
+    	
+  },
+
+  onToggle:function(){
+  	var toggled_user = ReactDOM.findDOMNode(this.refs.input_email).value
+  },
+
 	populateMembers:function() {
-	     return this.props.members.map(function (user) {
+		var toggle = this.onToggle;
+		var tog = this.state.toggled;
+	     return this.props.members.map(function (user, index) {
 	     	var id = Meteor.userId();
 	     	if(user._id !== id) {
 			return (
-				<MemberLoader key={user._id} member={user} />
-			)
-		  }
-		})
-	},
+    	  <div >
+			<ul className="list">
+			  <li className="item item-toggle">
+			        {user.username}
+				     <label className="toggle toggle-balanced">
+				       <input type="checkbox"/>
+			     	       <div className="track">
+					         <div className="handle" />
+						       </div>
+					    </label>
+				    </li>
+				</ul>
+		   </div>
+		   )
+	}
+  })		
+},
 
 	render(){
 		return(
