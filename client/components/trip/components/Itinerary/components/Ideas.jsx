@@ -13,7 +13,7 @@ Ideas = React.createClass({
     var event_name = ReactDOM.findDOMNode(this.refs.idea_name).value;
     var event_desc = ReactDOM.findDOMNode(this.refs.idea_desc).value;
     var event_url = encodeURIComponent(ReactDOM.findDOMNode(this.refs.url).value);
-    var event_date = ReactDOM.findDOMNode(this.refs.idea_date).value;
+    // var event_date = ReactDOM.findDOMNode(this.refs.idea_date).value;
     var cost = Math.ceil(ReactDOM.findDOMNode(this.refs.cost).value);
     var event_location = ReactDOM.findDOMNode(this.refs.idea_location).value;
     var trip = this.props.trip._id;
@@ -31,7 +31,6 @@ Ideas = React.createClass({
           name: event_name,
           desc: event_desc,
           og: og,
-          date: event_date,
           created_by: Meteor.user().username,
           created_at: created_at,
           cost: cost,

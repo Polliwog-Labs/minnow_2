@@ -34,16 +34,11 @@ ItineraryView = React.createClass({
     var hour = ReactDOM.findDOMNode(this.refs.hour).value;
     var min = ReactDOM.findDOMNode(this.refs.min).value;
     var amPm = ReactDOM.findDOMNode(this.refs.am_pm).value;
-    var utc = DateUtils.dateConvert(ReactDOM.findDOMNode(this.refs.date).value, hour + ':' + min + amPm)
+    var utc = DateUtils.dateConvert(ReactDOM.findDOMNode(this.refs.date).value, hour + ':' + min + amPm);
     var unixTime = new Date(utc).getTime();
     var date = ReactDOM.findDOMNode(this.refs.date).value;
-    var time = hour + ':' + min + amPm
-    // var dateTime = {
-    //   date: ReactDOM.findDOMNode(this.refs.date).value,
-    //   time: hour + ':' + min + amPm,
-    //   utc: utc,
-    //   unixTime: unixTime
-    // }
+    var time = hour + ':' + min + amPm;
+
     HTTP.call('GET', 'http://opengraph.io/api/1.0/site/' + event_url, function(error, response) {
       if (error) {
         console.log('API call error - no URL data saved:', error)
@@ -51,7 +46,7 @@ ItineraryView = React.createClass({
         var og = JSON.parse(response.content).hybridGraph;
         console.log(og);
         var event = {
-          trip_id: trip,
+          // trip_id: trip,
           name: event_name,
           desc: event_desc,
           og: og,
@@ -82,12 +77,6 @@ ItineraryView = React.createClass({
       <div>
         <div className='row add-idea'>
           <div className='col'>
-            <a onClick={ this.showModal }>
-              <i className="icon ion-ios-plus-outline"></i>
-              <span className='icon-label'>Add Event</span>
-            </a>
-          </div>
-          <div className='col'>
             <a onClick={ this.toggleMap }>
               <i className="icon ion-map"></i>
               {
@@ -96,6 +85,15 @@ ItineraryView = React.createClass({
                   <span className='icon-label'>Show Map</span>       
               }
             </a>
+          </div>
+          <div className='col'>
+            {
+              _.contains(this.props.trip.organizers, Meteor.userId()) ?
+                <a onClick={ this.showModal }>
+                  <i className="icon ion-ios-plus-outline"></i>
+                  <span className='icon-label'>Add Event</span>
+                </a> : ''
+            }
           </div>
         </div>
         {

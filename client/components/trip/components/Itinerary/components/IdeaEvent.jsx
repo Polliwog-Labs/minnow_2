@@ -47,7 +47,7 @@ IdeaEvent = React.createClass({
           <img src={this.props.idea.og.image}/>
           <h2>{this.props.idea.name}</h2>
           <p>{this.props.idea.desc}</p>
-          <h3 className='event-link'>{this.props.idea.og.title}</h3>          
+          <a href={this.props.idea.og.url} target="_blank"><h3 className='event-link'>{this.props.idea.og.title}</h3></a>          
           <p>{this.props.idea.og.description}</p>
           <div className='row'>
             <div className="col-xs-1" onClick={ this.upvote } >
