@@ -38,18 +38,28 @@ NewExpense = React.createClass({
 	},
 
    onSplitSumbit:function (){
-    	
+       
   },
 
-  onToggle:function(){
-  	var toggled_user = ReactDOM.findDOMNode(this.refs.input_email).value
+  onToggle:function(prop){
+  	var index = prop.index;
+  	this.setState.index = true;
+  	console.log("prop", prop);
+  	console.log("this.state",this.state);
   },
+
+
+ 
 
 	populateMembers:function() {
 		var toggle = this.onToggle;
 		var tog = this.state.toggled;
+		var that = this
 	     return this.props.members.map(function (user, index) {
 	     	var id = Meteor.userId();
+	     	// that.setState({ [index]: false});
+	     	user.toggled = false;
+	     	console.log(user)
 	     	if(user._id !== id) {
 			return (
     	  <div >
@@ -57,7 +67,7 @@ NewExpense = React.createClass({
 			  <li className="item item-toggle">
 			        {user.username}
 				     <label className="toggle toggle-balanced">
-				       <input type="checkbox"/>
+				       <input id={index} type="checkbox"  onChange = {this.change} onClick= {this.onToggle(this)}/>
 			     	       <div className="track">
 					         <div className="handle" />
 						       </div>
