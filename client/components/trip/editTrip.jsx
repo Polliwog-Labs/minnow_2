@@ -66,14 +66,14 @@ EditTrip = React.createClass({
                     <label className="item-stacked-label">
                       <span>Start Date</span>
                       <input className="item-input" type="date" ref="newTrip_startDate" 
-                        defaultValue={(this.props.trip && this.prop.trip.dates && this.prop.trips.dates[0]) ? DateUtils.getHTMLDate(this.props.trip.dates[0]) : null}/>
+                        defaultValue={(this.props.trip && this.props.trip.dates && this.props.trip.dates[0]) ? DateUtils.getHTMLDate(this.props.trip.dates[0]) : null}/>
                     </label>
                   </div>
                   <div className='col-50'>
                     <label className="item-stacked-label">
                       <span>End Date</span>
                       <input className="item-input" type="date" ref="newTrip_endDate" 
-                        defaultValue={(this.props.trip && this.prop.trip.dates && this.prop.trips.dates[0]) ? DateUtils.getHTMLDate(this.props.trip.dates[1]) : null}/>
+                        defaultValue={(this.props.trip && this.props.trip.dates && this.props.trip.dates[0]) ? DateUtils.getHTMLDate(this.props.trip.dates[1]) : null}/>
                     </label> 
                   </div>
                 </div>
