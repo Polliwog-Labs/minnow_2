@@ -72,7 +72,7 @@ Trip = React.createClass({
     // this.setState({view: 'Itinerary'});
     $('.active').removeClass('active');
     $('#itinerary').addClass('active');
-    ReactDOM.render(<Itinerary trip={this.data.trip}/>, document.getElementById('trip-module'));
+    ReactDOM.render(<Itinerary updateParent={this.setParentState} trip={this.data.trip} />, document.getElementById('trip-module'));
    // ReactDOM.render(<Itinerary trip={this.data.trip} />, document.getElementById('trip-module'));
 
   },
@@ -81,6 +81,7 @@ Trip = React.createClass({
     $('.active').removeClass('active');
     $('#chat').addClass('active');
     ReactDOM.render(<Messages updateParent={this.setParentState} trip={this.data.trip}/>, document.getElementById('trip-module'));
+    console.log(this.state)
   },
 
   // renderSettings: function () {

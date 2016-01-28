@@ -9,11 +9,14 @@ Messages = React.createClass({
 		event.preventDefault();
 		var message = ReactDOM.findDOMNode(this.refs.message_text).value;
     Trips.update({_id:this.props.trip._id},{$push:{'messages':{
-    	'text': message, 
-    	'created_at': new Date(), 
-    	'sender': Meteor.user().username}}},(err,data)=>{
-    		!err && this.props.updateParent('Messages');
-    	});
+		    	'text': message, 
+		    	'created_at': new Date(), 
+		    	'sender': Meteor.user().username
+		    }
+		  }
+		},(err,data)=>{
+  		!err && this.props.updateParent('Messages');
+  	});
 		ReactDOM.findDOMNode(this.refs.message_text).value = '';
 	},
 	render(){
