@@ -66,6 +66,7 @@ Images.allow({
   remove(){return true}
 });
 
+
 ProfilePics = new FS.Collection("profilepics",{
   stores: [profileStore],
   filter: {
@@ -90,14 +91,9 @@ ProfilePics.allow({
   remove(){return true}
 });
 
-Users = Meteor.users;
-Users.allow({
-  insert(){return true},
-  update(){return true},
-  remove(){return true}
-});
-
+//client-side implementations of server-only collections
 if (Meteor.isClient){
   Trips = new Mongo.Collection('trips');
   Invites = new Mongo.Collection('invites');
+  Users = Meteor.users;
 }
