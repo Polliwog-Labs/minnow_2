@@ -13,7 +13,7 @@ NewExpense = React.createClass({
 			description: expense_details,
 			amount: expense_amount,
 			created_by: Meteor.user().username,
-			split_with: this.state.split_with
+			//split_with: this.state.split_with
 		},(err)=>{
       !err && this.props.updateParent('Expenses');
 		});
@@ -43,8 +43,8 @@ NewExpense = React.createClass({
 		this.setState({split_with:users})
 	},
 
-  submitExpense:function(){
-
+  submitExpense2:function(){
+    console.log('called submitExpense')
   },
 
   onToggle:function(value){
@@ -92,7 +92,7 @@ NewExpense = React.createClass({
 	     	user.toggled = false;
 	     	if(user._id !== id) {
 			return (
-    	  <div >
+    	  <div key={index}>
 			  <li className="item item-toggle">
 			        {user.username}
 				     <label className="toggle toggle-balanced">

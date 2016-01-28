@@ -9,7 +9,8 @@ NewTrip = React.createClass({
                   ideas: [],
                   pending: [],
                   expense_dash:[{user: {}}],
-                  expenses:[]
+                  expenses:[],
+                  dates: []
                 }, function(err, id){
       if (err) {console.log(err);}
       else {

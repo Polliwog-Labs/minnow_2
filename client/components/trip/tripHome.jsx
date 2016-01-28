@@ -114,7 +114,7 @@ TripHome = React.createClass({
               <span style={{'color':'red','display':'none'}} className="error-email">Bad Email</span>
             </form>
             <div className='row edit-row'>
-              <p className='col-50'>Est. Cost: ${params.expenses.length ? '500' : 0}</p>
+              <p className='col-50'>Est. Cost: ${cost}</p>
               <p className='col-25'></p>
               <p className='col_25'><a onClick={ this.showModal }><i id="pencil" className='ion-edit'></i></a></p>
             </div>
