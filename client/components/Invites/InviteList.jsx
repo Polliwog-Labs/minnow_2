@@ -22,13 +22,20 @@ InviteList = React.createClass({
        }
      })
   },
+  declineTrip: function(){
+    Meteor.user() && Meteor.call('inviteDeclined', Meteor.user(), this.props.trip._id, (err, data) => {
+      if(err) {
+        console.log(err);
+      }
+    })
+  },
   renderButtons(){
     if (Meteor.user()) return (
       <div>
         <button className="button button-small button-balanced" onClick={this.navToTrip}>
           Accept
         </button>
-        <button className="button button-small button-assertive">
+        <button className="button button-small button-assertive" onClick={this.declineTrip}>
           Decline
         </button>
       </div>

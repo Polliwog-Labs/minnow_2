@@ -50,6 +50,14 @@ Meteor.methods({
       return !err;
     });
   },
+  inviteDeclined: function(user, trip){
+    Meteor.users.update({_id:user._id}, {$pull:{"profile.invites": trip}});
+    Trips.update({_id:trip},{$pull:{"pending": user.emails[0].address}});
+    Invites.remove({recipient:user.emails[0].address,trip_id:trip});
+    return Trips.update({_id:trip}, {$push:{"declined": user.username}}, (err)=>{
+      return !err;
+    });
+  },
   getUserInvites: function(email){
     return Invites.find({'recipient':email}).fetch().map(invite=>{return invite.trip_id;});
   },
@@ -103,6 +111,7 @@ Meteor.methods({
       created_by: trip.user._id,
       messages: [],
       pending: [],
+      declined: [],
       expenses: [],
       expense_dash: [{user: trip.user.username}],
       ideas: [],
@@ -174,7 +183,7 @@ Meteor.methods({
       }
     })
   },
-  
+
   ideaUpVote: function (tripId, createdAt) {
     return Trips.update({_id: tripId, 'ideas.created_at': createdAt}, {$inc: {'ideas.$.upvotes': 1}}, function (error) {
       if (error) {
