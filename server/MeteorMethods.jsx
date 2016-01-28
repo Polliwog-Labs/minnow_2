@@ -50,6 +50,9 @@ Meteor.methods({
       return !err;
     });
   },
+  addUserIdToInvites: function(user){
+    return Invites.update({'recipient':user.emails[0]},{'invitee':user._id});
+  },
 
   //trip methods
   inviteUserByEmail: function(inviteeEmail,id){
@@ -58,6 +61,7 @@ Meteor.methods({
       return false;
     }
     Meteor.users.update({_id:user._id},{$push:{"profile.invites":id}});
+    Invites.insert()
     return Trips.update( {_id:id}, {$push: {"pending": user}});
   },
   sendInvitationEmail: function(inviteeEmail,trip){
@@ -140,7 +144,9 @@ Meteor.methods({
           } else {
             Trips.update({_id: tripId, 'itinerary.created_at': idea.created_at}, {$set: {
                 'itinerary.$.date' :dateTime.date,
-                'itinerary.$.time' : dateTime.time
+                'itinerary.$.time' : dateTime.time,
+                'itinerary.$.utc' : dateTime.utc,
+                'itinerary.$.unixTime' : dateTime.unixTime
               }
             }, function (error) {
               if (error) {
@@ -150,22 +156,17 @@ Meteor.methods({
           }
         })
       }
-      // } else {
-      //   Trips.update({_id: tripId}, {$pull: {'ideas': {name: idea.name}}}, function (error) {
-      //     if (error) {
-      //   Trips.update({_id: tripId, 'ideas.created_at': ideaName}, {$set: {
-      //     date: dateTime.date,
-      //     time: dateTime.time
-      //   }}, function (error) {
-      //     if (error) {
-      //       console.log('failed to set time/date after adding ', error)
-      //     } else {
-      //       console.log('failed to remove idea after adding to itinerary: ', error)
-      //     }
-      //   })
-      // }
     })
   },
+
+  addEvent: function (tripId, event) { //direct add from itinerary
+    return Trips.update({_id: tripId}, {$push: {'itinerary': event}}, function (error) {
+      if (error) {
+        console.log('error adding event to itinerary: ', error)
+      }
+    })
+  },
+
   deleteIdea: function (tripId, createdAt) {
     return Trips.update({_id: tripId}, {$pull: {'ideas': {created_at: createdAt}}}, function (error) {
       if (error) {
@@ -173,6 +174,7 @@ Meteor.methods({
       }
     })
   },
+  
   ideaUpVote: function (tripId, createdAt) {
     return Trips.update({_id: tripId, 'ideas.created_at': createdAt}, {$inc: {'ideas.$.upvotes': 1}}, function (error) {
       if (error) {
@@ -209,9 +211,9 @@ Meteor.methods({
   pushExpense: function(expense){
     return Trips.update({"_id": expense.trip_id}, {$push: {
       'expenses': {
-        'description': expense.description, 
-        'amount': Number(expense.amount),  
-        'created_at': new Date(), 
+        'description': expense.description,
+        'amount': Number(expense.amount),
+        'created_at': new Date(),
         'created_by': expense.username,
         'split_with': expense.split_with
       }

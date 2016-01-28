@@ -23,6 +23,7 @@ Signup = React.createClass({
           console.log(error)
           that.setState({signupError: error.reason})
         }else if(!error){
+          Meteor.call('addUserIdToInvites',Meteor.user());
           document.location.href = "/mytrips";
         }
     });

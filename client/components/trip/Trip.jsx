@@ -31,9 +31,9 @@ Trip = React.createClass({
     Meteor.call('getTripById',document.location.pathname.substring(6),(err,data)=>{
       if (err) console.log(err)
       else {
+            Meteor.call('getUserById',member,(err,memberData)=>{
         var members = [];
         data.members.forEach(member=>{
-          Meteor.call('getUserById',member,(err,memberData)=>{
             !err && members.push(memberData);
             this.setState({trip:data,
                            view:view,
@@ -43,6 +43,7 @@ Trip = React.createClass({
       }
     });
   },
+
   componentDidUpdate(){
     switch (this.state.view){
       case 'Messages':
@@ -71,7 +72,7 @@ Trip = React.createClass({
     // this.setState({view: 'Itinerary'});
     $('.active').removeClass('active');
     $('#itinerary').addClass('active');
-    ReactDOM.render(<Itinerary trip={this.data.trip}/>, document.getElementById('trip-module'));
+    ReactDOM.render(<Itinerary updateParent={this.setParentState} trip={this.data.trip} />, document.getElementById('trip-module'));
    // ReactDOM.render(<Itinerary trip={this.data.trip} />, document.getElementById('trip-module'));
 
   },
@@ -80,6 +81,7 @@ Trip = React.createClass({
     $('.active').removeClass('active');
     $('#chat').addClass('active');
     ReactDOM.render(<Messages updateParent={this.setParentState} trip={this.data.trip}/>, document.getElementById('trip-module'));
+    console.log(this.state)
   },
 
   // renderSettings: function () {

@@ -4,35 +4,26 @@ Ideas = React.createClass({
     return {show: false};
   },
 
-  // getIdeas() {
-  //   Meteor.call('')
-  // },
-
   submitIdea() {
     this.hideModal();
+    var that = this;
     var event_name = ReactDOM.findDOMNode(this.refs.idea_name).value;
     var event_desc = ReactDOM.findDOMNode(this.refs.idea_desc).value;
     var event_url = encodeURIComponent(ReactDOM.findDOMNode(this.refs.url).value);
-    var event_date = ReactDOM.findDOMNode(this.refs.idea_date).value;
     var cost = Math.ceil(ReactDOM.findDOMNode(this.refs.cost).value);
     var event_location = ReactDOM.findDOMNode(this.refs.idea_location).value;
     var trip = this.props.trip._id;
     var created_at = String(new Date())
-    console.log('date: ', created_at)
     HTTP.call('GET', 'http://opengraph.io/api/1.0/site/' + event_url, function(error, response) {
       if (error) {
-        console.log('API call error:', error)
+        console.log('API call error - no URL data saved:', error)
       } else {
-        console.log(JSON.parse(response.content).hybridGraph)
         var og = JSON.parse(response.content).hybridGraph;
-        console.log('og');
-        console.log(og);
         var event = {
           trip_id: trip,
           name: event_name,
           desc: event_desc,
           og: og,
-          date: event_date,
           created_by: Meteor.user().username,
           created_at: created_at,
           cost: cost,
@@ -43,7 +34,8 @@ Ideas = React.createClass({
           if (error) {
             console.log(error)
           } else {
-            console.log('working')
+            that.props.updateView('IdeasView')
+            that.props.updateParent('Itinerary')
           }
         })
       }
@@ -57,7 +49,6 @@ Ideas = React.createClass({
   hideModal() {
     this.setState({show: false});
   },
-
 
   render: function () {
     return (
@@ -76,10 +67,6 @@ Ideas = React.createClass({
               <label className="item item-input item-stacked-label">
                 <span className="input-label">Event Name</span>
                 <input type="text" ref="idea_name" placeholder="example"/>
-              </label>
-              <label className="item item-input item-stacked-label">
-                <span className="input-label">Date</span>
-                <input type="date" ref='idea_date' placeholder="example"/>
               </label>
               <label className="item item-input item-stacked-label">
                 <span className="input-label">Description</span>
@@ -106,13 +93,14 @@ Ideas = React.createClass({
         <div className="row add-idea">
           <div className='col'>
             <a onClick={ this.showModal }>
-              <i className="icon ion-plus-circled"></i>
+              <i className="icon ion-ios-plus-outline"></i>
               <span className='icon-label'>Add Idea</span>
             </a>
           </div>
+          <div className='col'></div>
         </div>
         <div >
-          <IdeaLoader trip={this.props.trip} ideas={this.props.trip.ideas || [] }/>
+          <IdeaLoader trip={this.props.trip} updateParent={this.props.updateParent} updateView={this.props.updateView} ideas={this.props.trip.ideas || [] }/>
         </div>
       </div>
 
