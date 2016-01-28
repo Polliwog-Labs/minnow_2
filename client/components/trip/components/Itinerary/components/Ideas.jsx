@@ -58,7 +58,6 @@ Ideas = React.createClass({
 
 
   render: function () {
-    console.log('ideas props', this.props)
     return (
       <div>
         <ReactBootstrap.Modal

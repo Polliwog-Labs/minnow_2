@@ -44,7 +44,6 @@ ItineraryView = React.createClass({
         console.log('API call error - no URL data saved:', error)
       } else {
         var og = JSON.parse(response.content).hybridGraph;
-        console.log(og);
         var event = {
           // trip_id: trip,
           name: event_name,
@@ -64,9 +63,13 @@ ItineraryView = React.createClass({
           if (error) {
             console.log(error)
           } else {
-            console.log('working')
+            that.props.updateView('ItineraryView')
+            that.props.updateParent('Itinerary')
           }
         })
+        // Meteor.call('addEvent', that.props.trip._id, event, (err,data)=>{
+        //   !err && that.props.updateParent('Messages');
+        // })
       }
     })
   },
@@ -199,7 +202,7 @@ ItineraryView = React.createClass({
           </ReactBootstrap.Modal.Body>
         </ReactBootstrap.Modal>
         <div className='col'>
-          <ItineraryLoader trip={this.props.trip} itinerary={this.props.trip.itinerary}/>
+          <ItineraryLoader updateParent={this.props.updateParent} updateView={this.props.updateView} trip={this.props.trip} itinerary={this.props.trip.itinerary}/>
         </div>
       </div>
     )
