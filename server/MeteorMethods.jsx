@@ -60,7 +60,7 @@ Meteor.methods({
     if (!user){
       return false;
     }
-    return Meteor.users.update({_id:user._id},{$push:{"profile.invites":id}});
+    return Users.update({_id:user._id},{$push:{"profile.invites":id}});
     // Invites.insert({invitee})
     // return Trips.update( {_id:id}, {$push: {"pending": user}});
   },
