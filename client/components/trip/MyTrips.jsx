@@ -8,7 +8,7 @@ MyTrips = React.createClass({
         !err && this.setState({trips:data});
       });
     },800);
-    
+
   },
   newTrip: function(event){
     event.preventDefault();
