@@ -1,4 +1,21 @@
 if (Meteor.isServer) {
+  //serverside trips stuff
+  Trips = new Mongo.Collection('trips');
+
+  Trips.allow({
+    insert(userId){return !!userId},
+    update(userId,doc){
+      return _.any(doc.organizers.concat(doc.members),id=>{
+        return id === userId;
+      })
+    },
+    remove(userId,doc){
+      return _.any(doc.organizers,organizer=>{
+        return organizer === userId
+      });
+    }
+  });
+
   Meteor.publish("singleTrip", function (tripId,user) {
     if (tripId && user) return Trips.find({_id: tripId},{$or:{
       $in:{"members":user._id}},
@@ -9,16 +26,17 @@ if (Meteor.isServer) {
     return Trips.find({_id:{$in:user.profile.invites}});
   });
 
-  Meteor.publish("Images",()=>{return Images.find()});
-
-  Meteor.publish("ProfilePics",()=>{return ProfilePics.find()});
-
   Meteor.publish("tripUsers",(trip)=>{
     return Users.find({_id:{$in:trip.members}});
   });
 
-  Meteor.publish("UserData",(user)=>{
-    return Users.find({_id:user._id});
+  //serverside invite stuff
+  Invites = new Mongo.Collection('invites');
+
+  Invites.allow({
+    insert(userId){return !!userId},
+    update(){return true},
+    remove(){return true}
   });
 
   Meteor.publish("Invites",(user)=>{
@@ -30,6 +48,23 @@ if (Meteor.isServer) {
     }
     return null;
   });
+
+  //serverside user stuff
+  Users = Meteor.users;
+
+  Users.allow({
+    insert(){return false},
+    update(userId,doc){return userId === doc._id},
+    remove(userId){return userId === doc._id}
+  });
+
+  Meteor.publish("UserData",(user)=>{
+    return Users.find({_id:user._id});
+  });
+
+  //subsets of profilepics and images
+  Meteor.publish("ProfilePics",()=>{return ProfilePics.find()});
+  Meteor.publish("Images",()=>{return Images.find()});
 }
 
 // { trip_id: tripid,

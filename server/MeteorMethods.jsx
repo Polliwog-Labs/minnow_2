@@ -50,21 +50,30 @@ Meteor.methods({
       return !err;
     });
   },
+  inviteDeclined: function(user, trip){
+    // remove tripId from users invites
+    // remove userId from props trips pending, as userId to declined
+    Meteor.users.update({_id:user._id}, {$pull:{"profile.invites": trip}});
+    Trips.update({_id:trip},{$pull:{"pending": user.emails[0].address}});
+    Meteor.users.update({_id:user._id}, {$push:{"profile.myTrips": trip}});
+    Invites.remove({recipient:user.emails[0].address,trip_id:trip});
+    return Trips.update({_id:trip}, {$push:{"members": user._id}},(err)=>{
+      return !err;
+    });
+  },
   getUserInvites: function(email){
     return Invites.find({'recipient':email}).fetch().map(invite=>{return invite.trip_id;});
   },
 
   //trip methods
   inviteUserByEmail: function(inviteeEmail,id){
-    var user = Accounts.findUserByEmail(inviteeEmail);
+    var user = Accounts.findUserByEmail(inviteeEmail.toLowerCase());
     if (!user){
       return false;
     }
     return Meteor.users.update({_id:user._id},{$push:{"profile.invites":id}});
-    // Invites.insert({invitee})
-    // return Trips.update( {_id:id}, {$push: {"pending": user}});
   },
-  sendInvitationEmail: function(inviteeEmail,trip){
+  sendInvitationEmail: function(inviteeEmail,trip,user){
    /* Email.send({
       from:'team.polliwog@gmail.com',
       to:inviteeEmail,
@@ -75,8 +84,8 @@ Meteor.methods({
     console.log('called sendInvitationEmail')
     return Invites.insert({
       trip_id:trip._id,
-      recipient: inviteeEmail,
-      sender: ''//not yet implemented
+      recipient: inviteeEmail.toLowerCase(),
+      sender: user.username
     });
   },
   getTripById: function(id){
@@ -174,7 +183,7 @@ Meteor.methods({
       }
     })
   },
-  
+
   ideaUpVote: function (tripId, createdAt) {
     return Trips.update({_id: tripId, 'ideas.created_at': createdAt}, {$inc: {'ideas.$.upvotes': 1}}, function (error) {
       if (error) {
