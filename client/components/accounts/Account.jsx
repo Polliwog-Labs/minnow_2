@@ -22,6 +22,24 @@ Account = React.createClass({
   	})
   },
 
+  profileEditor(e){
+  	e.preventDefault();
+  	console.log('clicked');
+  	var currentUsername = Meteor.user().username;
+  	var usernameUpdate = ReactDOM.findDOMNode(this.refs.usernameInput).value;
+  	debugger;
+  	// var emailUpdate = ReactDOM.findDOMNode(this.refs.emailUpdate).value;
+
+  	if(usernameUpdate === ''){
+  		return;
+  	}else{
+  		Meteor.users.update({_id:Meteor.user()._id}, {$set:{currentUsername: usernameUpdate}}, (err)=>{
+  			if(err) console.log('Error updating username', err)
+  			else{console.log('Success updating username')}
+  		});
+  	}
+  },
+
   renderImage(){
   	if(this.data.user_info && this.data.user_info.profile.imageId){
   		return <div className="prof_pic_wrapper"><Image ionicClass='profile_pic' image_id={this.data.user_info.profile.imageId} width="250px" height="250px" profile={true} circle/></div>
@@ -47,9 +65,9 @@ Account = React.createClass({
 				</ReactBootstrap.Row>
 			</ReactBootstrap.Grid>
 				<form className='item'>
-				  <ReactBootstrap.Input type="text" label={this.data.user_info ? this.data.user_info.username : null} placeholder="Update username" />
-	  		  <ReactBootstrap.Input type="email" label={this.data.user_info ? this.data.user_info.emails[0].address : null} placeholder="Update email" />
-				 	<ReactBootstrap.ButtonInput type="submit" value="Update Profile" />
+				  <ReactBootstrap.Input ref='usernameInput' type="text" label={this.data.user_info ? this.data.user_info.username : null} placeholder="Update username" />
+	  		  <ReactBootstrap.Input ref='emailInput' type="email" label={this.data.user_info ? this.data.user_info.emails[0].address : null} placeholder="Update email" />
+				 	<ReactBootstrap.ButtonInput type="submit" value="Update Profile" onClick={this.profileEditor} />
 				</form>
 			</div>
 		)
