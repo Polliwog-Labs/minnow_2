@@ -56,7 +56,7 @@ Meteor.methods({
 
   //trip methods
   inviteUserByEmail: function(inviteeEmail,id){
-    var user = Accounts.findUserByEmail(inviteeEmail.toLowercase());
+    var user = Accounts.findUserByEmail(inviteeEmail.toLowerCase());
     if (!user){
       return false;
     }
@@ -73,7 +73,7 @@ Meteor.methods({
     console.log('called sendInvitationEmail')
     return Invites.insert({
       trip_id:trip._id,
-      recipient: inviteeEmail.toLowercase(),
+      recipient: inviteeEmail.toLowerCase(),
       sender: user.username
     });
   },
