@@ -4,7 +4,7 @@ TripHome = React.createClass({
   },
 
   getInitialState: function(){
-    return $.extend(this.props.trip,{show:false});
+    return {show:false};
   },
 
   renderList: function() {
@@ -15,25 +15,15 @@ TripHome = React.createClass({
     this.setState(newprops);
   },
 
-  getTripData: function (view) {
-    Meteor.call('getTripById',document.location.pathname.substring(6),(err,data)=>{
-      if (err) console.log(err)
-      else {
-        this.setState({trip:data,
-                       view:view});
-      }
-    });
-  },
-
   submitInvitees: function(event) {
     event.preventDefault();
     var invitee_email = ReactDOM.findDOMNode(this.refs.input_email).value;
-    var tripId = this.state.trip._id;
+    var tripId = this.props.trip._id;
     var invite_user = undefined;
 
     if((invitee_email !== Meteor.user().emails[0].address) && invitee_email.includes('@') &&
       this.props.trip && this.props.trip.pending && this.props.trip.pending.every((invitee)=>{
-        return invitee.emails[0].address !== invitee_email;
+        return invitee !== invitee_email;
       })){
       // Make sure user isn't inviting themself, email address is an email address,
       // and is not a duplicate, also that trip is loaded into state
@@ -46,6 +36,7 @@ TripHome = React.createClass({
           }
         }
       })
+      Trips.update({_id:this.props.trip._id},{$push:{'pending':invitee_email}});
 
     } else this.flashError();
     ReactDOM.findDOMNode(this.refs.input_email).value = null;
@@ -53,8 +44,8 @@ TripHome = React.createClass({
 
   renderInvitees: function(){
     if (this.props.trip && this.props.trip.pending){
-      return this.props.trip.pending.map((user,index)=>{
-        return <li key={index}>{user.emails[0].address}</li>;
+      return this.props.trip.pending.map((email,index)=>{
+        return <li key={index}>{email}</li>;
       })
     }
   },
@@ -103,11 +94,11 @@ TripHome = React.createClass({
 
     return (
        <div className='trip list'>
-        <EditTrip updateParent={this.getTripData} onHide={this.hideModal} show={this.state.show} trip={this.props.trip}/>
-         <div className='image-div'>              
+        <EditTrip onHide={this.hideModal} show={this.state.show} trip={this.props.trip}/>
+         <div className='image-div'>
           <Image image_id={params.image_id} height="100%" />
          </div>
-         <div className='item'>   
+         <div className='item'>
           <div className='item'>
             <p className=''>Whos Coming? {this.props.members.map((member)=>{
               return member.username;
