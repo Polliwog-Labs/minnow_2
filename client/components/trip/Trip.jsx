@@ -65,7 +65,7 @@ Trip = React.createClass({
   renderHome: function () {
     $('.active').removeClass('active');
     $('#home').addClass('active');
-    ReactDOM.render(<TripHome members={this.data.memberProfiles || []} trip={this.data.trip}/>, document.getElementById('trip-module'));
+    ReactDOM.render(<TripHome members={this.data.members || []} trip={this.data.trip}/>, document.getElementById('trip-module'));
   },
 
   renderItinerary: function () {
