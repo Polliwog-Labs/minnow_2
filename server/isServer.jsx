@@ -1,4 +1,5 @@
 if (Meteor.isServer) {
+  //serverside trips stuff
   Trips = new Mongo.Collection('trips');
 
   Trips.allow({
@@ -25,18 +26,11 @@ if (Meteor.isServer) {
     return Trips.find({_id:{$in:user.profile.invites}});
   });
 
-  Meteor.publish("Images",()=>{return Images.find()});
-
-  Meteor.publish("ProfilePics",()=>{return ProfilePics.find()});
-
   Meteor.publish("tripUsers",(trip)=>{
     return Users.find({_id:{$in:trip.members}});
   });
 
-  Meteor.publish("UserData",(user)=>{
-    return Users.find({_id:user._id});
-  });
-
+  //serverside invite stuff
   Invites = new Mongo.Collection('invites');
 
   Invites.allow({
@@ -54,6 +48,23 @@ if (Meteor.isServer) {
     }
     return null;
   });
+
+  //serverside user stuff
+  Users = Meteor.users;
+
+  Users.allow({
+    insert(){return false},
+    update(userId,doc){return userId === doc._id},
+    remove(userId){return userId === doc._id}
+  });
+
+  Meteor.publish("UserData",(user)=>{
+    return Users.find({_id:user._id});
+  });
+
+  //subsets of profilepics and images
+  Meteor.publish("ProfilePics",()=>{return ProfilePics.find()});
+  Meteor.publish("Images",()=>{return Images.find()});
 }
 
 // { trip_id: tripid,

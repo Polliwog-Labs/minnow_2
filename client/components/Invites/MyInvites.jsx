@@ -2,13 +2,14 @@ MyInvites = React.createClass({
   mixins: [ReactMeteorData],
   getMeteorData(){
     var data = {};
-    var user = Meteor.user() || window.location.pathname.substring(9);
+    var user = Meteor.user() || window.location.pathname.substring(9).toLowercase();
     var invites = Meteor.subscribe('Invites',user);
     if (Meteor.user()){
         var users = Meteor.subscribe('UserData',Meteor.user());
         var trips = Meteor.subscribe('userTrips',Meteor.user());
-        if (users.ready()){
+        if (users.ready() && trips.ready()){
           data.user = Users.findOne();
+          data.trips = Trips.find().fetch();
         }
       }
     if (invites.ready()){
@@ -31,15 +32,13 @@ MyInvites = React.createClass({
 	},
 
   renderTrips: function(){
-    if (this.data.user){
-      if (this.data.user.profile.invites && this.data.user.profile.invites.length){
-        return Trips.find().fetch().map(trip=>{
-          return (
-            <InviteList key={trip._id} trip={trip}/>
-          );
-        });
-      } else return (<p>No trips found!</p>)
-    } else if (this.state.trips.length){
+    if (Trips.find().fetch().length) {
+      return Trips.find().fetch().map(trip=>{
+        return (
+          <InviteList key={trip._id} trip={trip}/>
+        );
+      });
+    } else if (this.state.trips.length) {
       return this.state.trips.map(trip=>{
         return (
           <InviteList key={trip._id} trip={trip}/>
