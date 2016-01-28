@@ -38,7 +38,7 @@ Meteor.methods({
   },
   getTripsFromInvites: function(invites){
     //takes an array of invites
-    return Trips.find({_id:{$in:invites.map(invite=>{
+    if (invites) return Trips.find({_id:{$in:invites.map(invite=>{
       return invite.trip_id;
     })}}).fetch();
   },

@@ -38,7 +38,7 @@ MyInvites = React.createClass({
             <InviteList key={trip._id} trip={trip}/>
           );
         });
-      }
+      } else return (<p>No trips found!</p>)
     } else if (this.state.trips.length){
       return this.state.trips.map(trip=>{
         return (
