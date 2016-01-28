@@ -100,7 +100,7 @@ Trip = React.createClass({
       <div>
         <div className="footer-fixed tabs tabs-icon-top">
           <a className="tab-item active" id='home'onClick={this.renderHome}>
-            <i className="icon ion-home"></i>
+            <i className="icon ion-ios-home-outline"></i>
             Home
           </a>
           <a className="tab-item" id='itinerary' onClick={this.renderItinerary}>
@@ -108,16 +108,16 @@ Trip = React.createClass({
             Itinerary
           </a>
           <a className="tab-item" id="chat" onClick={this.renderChat}>
-            <i className="icon ion-chatboxes"></i>
+            <i className="icon ion-ios-chatboxes-outline"></i>
             Chat
           </a>
           <a className="tab-item" id='cash' onClick={this.renderExpenses}>
             <i className="icon ion-cash expenses"></i>
             Expenses
           </a>
-          <a className="tab-item" id='settings' onClick={this.renderSettings}>
-            <i className="icon ion-gear-a settings"></i>
-            Settings
+          <a className="tab-item" id='Photos' onClick={this.renderSettings}>
+            <i className="icon ion-ios-camera-outline"></i>
+            Photos
           </a>
         </div>
         <div className='has-footer' id='trip-module'></div>
