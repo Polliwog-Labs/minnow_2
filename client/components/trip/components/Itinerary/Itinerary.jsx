@@ -1,7 +1,25 @@
 Itinerary = React.createClass({
 
   getInitialState: function () {
-    return {}
+    return { 
+      module: null
+    }
+  },
+
+  updateModule(view) {
+    this.setState({
+      module: view
+    })
+  },
+
+  componentDidUpdate(){
+    switch (this.state.module){
+      case 'IdeasView':
+        this.renderIdeas();
+        break;
+      default:
+        this.renderItinerary();
+    }
   },
 
   componentDidMount: function () {
@@ -11,13 +29,13 @@ Itinerary = React.createClass({
   renderItinerary: function() {
     $('#idea-toggle').removeClass('active');
     $('#itin-toggle').addClass('active');
-    ReactDOM.render(<ItineraryView trip={this.props.trip}/>, document.getElementById('itinerary-module'))
+    ReactDOM.render(<ItineraryView updateParent={this.props.updateParent} updateView={this.updateModule} trip={this.props.trip}/>, document.getElementById('itinerary-module'))
   },
 
   renderIdeas: function() {
     $('#itin-toggle').removeClass('active');
     $('#idea-toggle').addClass('active');
-    ReactDOM.render(<Ideas trip={this.props.trip}/>, document.getElementById('itinerary-module'))
+    ReactDOM.render(<Ideas updateParent={this.props.updateParent} updateView={this.updateModule} trip={this.props.trip}/>, document.getElementById('itinerary-module'))
   },
 
   render: function () {

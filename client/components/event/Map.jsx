@@ -47,6 +47,7 @@ GoogleMap = React.createClass({
 
     GoogleMaps.ready(this.props.name, function(map) {
       var marker = new google.maps.Marker({
+        optimized: false,
         position: new google.maps.LatLng(30.2932637, -97.7571322),
         map: map.instance
       });
