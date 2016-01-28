@@ -15,6 +15,19 @@ TripHome = React.createClass({
     this.setState(newprops);
   },
 
+  updateExpenseDash:function(){
+    var expense_dash = this.props.trip.expense_dash;
+    this.props.members.map(function (member){
+      expense_dash.map(function (user){
+        if(member.username !== user.user) {
+          if(!user.member) {
+            user[member.username] = 0;
+          }
+        }
+      });
+    });
+  },
+
   submitInvitees: function(event) {
     event.preventDefault();
     var invitee_email = ReactDOM.findDOMNode(this.refs.input_email).value;
@@ -91,6 +104,7 @@ TripHome = React.createClass({
       return {amount: a.amount+b.amount};
     },{amount:0}).amount
 
+    this.updateExpenseDash();
 
     return (
        <div className='trip list'>
@@ -114,7 +128,7 @@ TripHome = React.createClass({
               <span style={{'color':'red','display':'none'}} className="error-email">Bad Email</span>
             </form>
             <div className='row edit-row'>
-              <p className='col-50'>Est. Cost: ${params.expenses.length ? '500' : 0}</p>
+              <p className='col-50'>Est. Cost: ${cost}</p>
               <p className='col-25'></p>
               <p className='col_25'><a onClick={ this.showModal }><i id="pencil" className='ion-edit'></i></a></p>
             </div>

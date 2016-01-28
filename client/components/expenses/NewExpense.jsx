@@ -3,8 +3,7 @@ NewExpense = React.createClass({
 		event.preventDefault();
 		var expense_details = ReactDOM.findDOMNode(this.refs.expense_details).value;
 		var expense_amount = ReactDOM.findDOMNode(this.refs.expense_amount).value;
-		var split_with = ReactDOM.findDOMNode(this.refs.split_with).value;
-		console.log("expense details", expense_details);
+		
 		// var expense_split = ReactDOM.findDOMNode(this.refs.expense_split).value;
 		//Need to set a expenses schedma that can keep track of how much each person owes
 
@@ -43,7 +42,7 @@ NewExpense = React.createClass({
 		this.setState({split_with:users})
 	},
 
-  submitExpense:function(){
+  submitExpenseTwo:function(){
 
   },
 
@@ -91,9 +90,10 @@ NewExpense = React.createClass({
 	     	// that.setState({ [index]: false});
 	     	user.toggled = false;
 	     	if(user._id !== id) {
+	     		console.log("index", index)
 			return (
-    	  <div >
-			  <li className="item item-toggle">
+    	  <div key={index}>
+			  <li ref="split_with" className="item item-toggle">
 			        {user.username}
 				     <label className="toggle toggle-balanced">
 				       <input id={index} type="checkbox" value={user.username} onChange={this.change} onClick={that.onToggle}/>
