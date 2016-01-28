@@ -3,8 +3,11 @@ Expenses = React.createClass({
      trip: React.PropTypes.object.isRequired
    },
    getInitialState(){
-    return {trip:this.props.trip};
+    return {trip:this.props.trip
+    };
    },
+
+
 
   componentDidMount: function () {
     this.renderDash();
@@ -24,7 +27,7 @@ Expenses = React.createClass({
   renderNew: function () {
     $('#dashboard').removeClass('active');
     $('#newExpense').addClass('active');
-    ReactDOM.render(<NewExpense updateParent={this.props.updateParent} trip={this.state.trip} />, document.getElementById('expense-module'))
+    ReactDOM.render(<NewExpense updateParent={this.props.updateParent}  trip={this.props.trip} members={this.props.members} toggled={this.state.toggled}/>, document.getElementById('expense-module'))
   },
 // componentDidUpdate(){
 //   this.renderDash();

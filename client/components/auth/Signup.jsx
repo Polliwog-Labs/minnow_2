@@ -12,6 +12,7 @@ Signup = React.createClass({
     var email = ReactDOM.findDOMNode(this.refs.email_input).value
     var password = ReactDOM.findDOMNode(this.refs.password_input1).value
     var that = this;
+
     Meteor.call('getUserInvites',email,(err,invites)=>{
       !err && Accounts.createUser({
         username: username,

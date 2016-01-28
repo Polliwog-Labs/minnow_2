@@ -9,7 +9,7 @@ EditTrip = React.createClass({
   getHelperObj(image_id){
     var helperObj = {dates:[]};
     if (image_id) helperObj.image_id = image_id;
-    var name = ReactDOM.findDOMNode(this.refs.newTrip_name).value;
+    var name = ReactDOM.findDOMNode(this.refs.tripName).value;
     if (name) helperObj.name = name;
     var startDate = new Date(ReactDOM.findDOMNode(this.refs.newTrip_startDate).value).getTime();
     if (startDate && startDate !== NaN) helperObj.dates.push(startDate);
@@ -21,12 +21,16 @@ EditTrip = React.createClass({
 
   submitTrip: function(event){
     event.preventDefault();
+    var helperObj = this.getHelperObj()
     var file = $('#newTrip-file')[0].files[0] || ReactDOM.findDOMNode(this.refs.newTrip_url).value || {};
     if (typeof file === 'string'){
       Meteor.call('storeImage',file,(err,data)=>{
         if (err) console.log(err)
         else {
-          Trips.update({_id:this.props.trip._id},{$set:this.getHelperObj(data._id)});
+          Trips.update({_id:this.props.trip._id},{$set:$.extend(helperObj,{image_id:data._id})},(err,data)=>{
+            err && console.log(err);
+            data && console.log(data);
+          });
         }
       });
     } else if (file.constructor === File) {
@@ -45,6 +49,8 @@ EditTrip = React.createClass({
   },
 
   render: function(){
+    var startDate = (this.props.trip && this.props.trip.dates && this.props.trip.dates[0]) ? DateUtils.getHTMLDate(this.props.trip.dates[0]) : DateUtils.getHTMLDate(new Date().getTime());
+    var endDate = (this.props.trip && this.props.trip.dates && this.props.trip.dates[1]) ? DateUtils.getHTMLDate(this.props.trip.dates[1]) : startDate;
     return (
       <div>
         <ReactBootstrap.Modal
@@ -59,21 +65,19 @@ EditTrip = React.createClass({
               <form id='newTrip-form' className='form-group' onSubmit={this.submitTrip}>
                 <label className="item item-input item-stacked-label">
                   <span>{this.props.trip ? this.props.trip.name : 'Enter a Name'}</span>
-                  <input id="newTrip-name" type="text" ref="newTrip_name" defaultValue={this.props.trip ? this.props.trip.name : null} placeholder="Trip Name"/>
+                  <input id="newTrip-name" type="text" ref="tripName" placeholder="Trip Name"/>
                 </label>
                 <div className="row item">
                   <div className='col-50'>
                     <label className="item-stacked-label">
                       <span>Start Date</span>
-                      <input className="item-input" type="date" ref="newTrip_startDate"
-                        defaultValue={(this.props.trip && this.props.trip.dates && this.props.trip.dates[0]) ? DateUtils.getHTMLDate(this.props.trip.dates[0]) : null}/>
+                      <input className="item-input" type="date" ref="newTrip_startDate" defaultValue={startDate} />
                     </label>
                   </div>
                   <div className='col-50'>
                     <label className="item-stacked-label">
                       <span>End Date</span>
-                      <input className="item-input" type="date" ref="newTrip_endDate"
-                        defaultValue={(this.props.trip && this.props.trip.dates && this.props.trip.dates[0]) ? DateUtils.getHTMLDate(this.props.trip.dates[1]) : null}/>
+                      <input className="item-input" type="date" ref="newTrip_endDate" defaultValue={endDate} />
                     </label>
                   </div>
                 </div>

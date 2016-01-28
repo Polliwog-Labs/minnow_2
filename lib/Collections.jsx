@@ -85,15 +85,8 @@ ProfilePics = new FS.Collection("profilepics",{
 
 ProfilePics.allow({
   download(){return true},
-  insert(){return true},
-  update(){return true},
-  remove(){return true}
-});
-
-Trips = new Mongo.Collection('trips');
-Trips.allow({
-  insert(){return true},
-  update(){return true},
+  insert(userId){return !!userId},
+  update(userId){return !!userId},
   remove(){return true}
 });
 
@@ -104,9 +97,7 @@ Users.allow({
   remove(){return true}
 });
 
-Invites = new Mongo.Collection('invites');
-Invites.allow({
-  insert(){return true},
-  update(){return true},
-  remove(){return true}
-})
+if (Meteor.isClient){
+  Trips = new Mongo.Collection('trips');
+  Invites = new Mongo.Collection('invites');
+}
