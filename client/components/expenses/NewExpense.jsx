@@ -3,6 +3,8 @@ NewExpense = React.createClass({
 		event.preventDefault();
 		var expense_details = ReactDOM.findDOMNode(this.refs.expense_details).value;
 		var expense_amount = ReactDOM.findDOMNode(this.refs.expense_amount).value;
+		var user = Meteor.user();
+		var username = user.username
 		
 		// var expense_split = ReactDOM.findDOMNode(this.refs.expense_split).value;
 		//Need to set a expenses schedma that can keep track of how much each person owes
@@ -11,9 +13,8 @@ NewExpense = React.createClass({
 			trip_id: this.props.trip._id,
 			description: expense_details,
 			amount: expense_amount,
-			created_by: Meteor.user().username,
 			split_with: this.state.split_with
-		},(err)=>{
+		}, Meteor.user(),(err)=>{
       !err && this.props.updateParent('Expenses');
 		});
 	},
@@ -41,10 +42,6 @@ NewExpense = React.createClass({
 	updateSplitWith(users){
 		this.setState({split_with:users})
 	},
-
-  submitExpenseTwo:function(){
-
-  },
 
   onToggle:function(value){
   	var username = value.target.value;
