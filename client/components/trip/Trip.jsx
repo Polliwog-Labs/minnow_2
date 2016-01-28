@@ -93,7 +93,7 @@ Trip = React.createClass({
   renderExpenses: function () {
     $('.active').removeClass('active');
     $('#cash').addClass('active');
-    ReactDOM.render(<Expenses updateParent={this.setParentState} trip={this.data.trip}/>, document.getElementById('trip-module'));
+    ReactDOM.render(<Expenses updateParent={this.setParentState} trip={this.data.trip} members={this.data.members}/>, document.getElementById('trip-module'));
   },
   render: function(){
     return (
