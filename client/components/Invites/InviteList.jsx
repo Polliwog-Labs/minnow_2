@@ -41,7 +41,6 @@ InviteList = React.createClass({
       </div>
     );
   },
-
   render: function(){
     var tripStart = (this.props.trip && this.props.trip.dates) ? DateUtils.getTripDate(this.props.trip.dates) : null;
     return (
