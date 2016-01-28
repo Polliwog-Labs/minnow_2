@@ -218,6 +218,7 @@ Meteor.methods({
 
   //expenses
   pushExpense: function(expense,user){
+
     return Trips.update({"_id": expense.trip_id}, {$push: {
       'expenses': {
         'description': expense.description,
