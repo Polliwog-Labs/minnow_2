@@ -26,11 +26,15 @@ h1.list {
   height: 257px;
   width: 100%;
 }
-
-#button-selector{
+.profile_pic {
+  border-radius: 50%;
+  box-shadow: 3px 4px 7px #333;
+}
+.prof_pic_wrapper{
+  margin: 3% 20%;
+}
+.button-selector{
   float: right;
-  margin-right: 50px;
-  width: 26%;
 }
 .trip-list{
   border-bottom: none;

@@ -24,9 +24,9 @@ Account = React.createClass({
 
   renderImage(){
   	if(this.data.user_info && this.data.user_info.profile.imageId){
-  		return <div className="profile-image"><Image image_id={this.data.user_info.profile.imageId} height="250px" profile={true}/></div>
+  		return <div className="prof_pic_wrapper"><Image ionicClass='profile_pic' image_id={this.data.user_info.profile.imageId} width="250px" height="250px" profile={true} circle/></div>
   	}else{
-  		return <ReactBootstrap.Image src='/prof-placeholder.jpg' circle/>
+  		return <div className="prof_pic_wrapper"><ReactBootstrap.Image src='/prof-placeholder.jpg' circle/></div>
   	}
   },
 
@@ -35,34 +35,22 @@ Account = React.createClass({
 			<div className='list'>
 			<ReactBootstrap.Grid>
 				<ReactBootstrap.Row>
-					<ReactBootstrap.Col xs={6} md={4}>
+					<ReactBootstrap.Col>
 						{this.renderImage()}
 						<ReactBootstrap.DropdownButton title="Update Picture" id="bg-vertical-dropdown-1">
-							<div>
+							<div className=''>
 								<input type="file" id="profile_pic" />
-								<button id='button-selector' className='button button-small button-positive message-button' type="submit" onClick={this.profilePicUploader}> Submit</button>
+								<button className='button-selector button button-small button-positive message-button' type="submit" onClick={this.profilePicUploader}> Submit</button>
 							</div>
 						</ReactBootstrap.DropdownButton>
 					</ReactBootstrap.Col>
 				</ReactBootstrap.Row>
 			</ReactBootstrap.Grid>
-				<div className=''>
-					<h1 className='col'>Hello {this.data.user_info ? this.data.user_info.username : null}</h1>
-					<ReactBootstrap.DropdownButton className='col-75 button-override' title="Edit Username" id="bg-vertical-dropdown-1">
-						<input type="text" placeholder="User name"/>
-						<button type="submit" > Submit</button>
-					</ReactBootstrap.DropdownButton>
-				</div>
-				<div className=''>
-					<h2 className='col'>{this.data.user_info ? this.data.user_info.emails[0].address : null}</h2>
-					<ReactBootstrap.DropdownButton className='col-75 button-override' title="Edit Email" id="bg-vertical-dropdown-1">
-						<input type="text" />
-						<button type="submit" > Submit</button>
-					</ReactBootstrap.DropdownButton>
-				</div>
-				<div className=''>
-					<h2>Recent Trip Invites {this.data.user_info ? this.data.user_info.profile.invites.length : null}</h2>
-				</div>
+				<form className='item'>
+				  <ReactBootstrap.Input type="text" label={this.data.user_info ? this.data.user_info.username : null} placeholder="Update username" />
+	  		  <ReactBootstrap.Input type="email" label={this.data.user_info ? this.data.user_info.emails[0].address : null} placeholder="Update email" />
+				 	<ReactBootstrap.ButtonInput type="submit" value="Update Profile" />
+				</form>
 			</div>
 		)
 	}
