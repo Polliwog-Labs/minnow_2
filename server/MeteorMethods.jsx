@@ -50,6 +50,17 @@ Meteor.methods({
       return !err;
     });
   },
+  inviteDeclined: function(user, trip){
+    // remove tripId from users invites
+    // remove userId from props trips pending, as userId to declined
+    Meteor.users.update({_id:user._id}, {$pull:{"profile.invites": trip}});
+    Trips.update({_id:trip},{$pull:{"pending": user.emails[0].address}});
+    Meteor.users.update({_id:user._id}, {$push:{"profile.myTrips": trip}});
+    Invites.remove({recipient:user.emails[0].address,trip_id:trip});
+    return Trips.update({_id:trip}, {$push:{"members": user._id}},(err)=>{
+      return !err;
+    });
+  },
   getUserInvites: function(email){
     return Invites.find({'recipient':email}).fetch().map(invite=>{return invite.trip_id;});
   },
@@ -172,7 +183,7 @@ Meteor.methods({
       }
     })
   },
-  
+
   ideaUpVote: function (tripId, createdAt) {
     return Trips.update({_id: tripId, 'ideas.created_at': createdAt}, {$inc: {'ideas.$.upvotes': 1}}, function (error) {
       if (error) {
