@@ -60,9 +60,7 @@ Trip = React.createClass({
     }
   },
   setParentState(view){
-    console.log('view: ', view)
     this.setState({view:view})
-    console.log('trip.state: ', this.state)
   },
   renderHome: function () {
     $('.active').removeClass('active');
