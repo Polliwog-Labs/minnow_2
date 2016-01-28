@@ -41,9 +41,7 @@ Meteor.methods({
     })}}).fetch();
   },
   inviteAccepted: function(user, trip){
-    console.log("hit the server")
-    console.log(user);
-    console.log(trip)
+    Trips.update({_id: trip},{$push:{"expense_dash": {user: user.username}}})
     Meteor.users.update({_id:user._id}, {$pull:{"profile.invites": trip}});
     Trips.update({_id:trip},{$pull:{"pending": user.emails[0].address}});
     Meteor.users.update({_id:user._id}, {$push:{"profile.myTrips": trip}});
@@ -100,13 +98,13 @@ Meteor.methods({
   createTrip: function(trip){
     return Trips.insert({
       name: trip.name,
-      members: [trip.user],
-      organizers: [trip.user],
-      created_by: trip.user,
+      members: [trip.user._id],
+      organizers: [trip.user._id],
+      created_by: trip.user._id,
       messages: [],
       pending: [],
       expenses: [],
-      expense_dash: [],
+      expense_dash: [{user: trip.user.username}],
       ideas: [],
       itinerary: []
     },(err,result)=> {if (!err) return result});
