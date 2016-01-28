@@ -112,7 +112,7 @@ ItineraryView = React.createClass({
           dialogClassName="custom-modal"
         >
           <ReactBootstrap.Modal.Header closeButton>
-            <ReactBootstrap.Modal.Title id="contained-modal-title-lg">New Idea</ReactBootstrap.Modal.Title>
+            <ReactBootstrap.Modal.Title id="contained-modal-title-lg">New Interary Event</ReactBootstrap.Modal.Title>
           </ReactBootstrap.Modal.Header>
           <ReactBootstrap.Modal.Body>
             <div className="list">
