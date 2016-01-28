@@ -12,7 +12,7 @@ NewExpense = React.createClass({
 			description: expense_details,
 			amount: expense_amount,
 			created_by: Meteor.user().username,
-			split_with: this.state.split_with
+			//split_with: this.state.split_with
 		},(err)=>{
       !err && this.props.updateParent('Expenses');
 		});
@@ -41,10 +41,6 @@ NewExpense = React.createClass({
 	updateSplitWith(users){
 		this.setState({split_with:users})
 	},
-
-  submitExpenseTwo:function(){
-
-  },
 
   onToggle:function(value){
   	var username = value.target.value;

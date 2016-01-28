@@ -1,4 +1,20 @@
 if (Meteor.isServer) {
+  Trips = new Mongo.Collection('trips');
+
+  Trips.allow({
+    insert(userId){return !!userId},
+    update(userId,doc){
+      return _.any(doc.organizers.concat(doc.members),id=>{
+        return id === userId;
+      })
+    },
+    remove(userId,doc){
+      return _.any(doc.organizers,organizer=>{
+        return organizer === userId
+      });
+    }
+  });
+
   Meteor.publish("singleTrip", function (tripId,user) {
     if (tripId && user) return Trips.find({_id: tripId},{$or:{
       $in:{"members":user._id}},
@@ -23,6 +39,14 @@ if (Meteor.isServer) {
 
   Meteor.publish("UserData",(user)=>{
     return Users.find({_id:user._id});
+  });
+
+  Invites = new Mongo.Collection('invites');
+
+  Invites.allow({
+    insert(userId){return !!userId},
+    update(){return true},
+    remove(){return true}
   });
 
   Meteor.publish("Invites",(user)=>{
