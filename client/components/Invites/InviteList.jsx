@@ -14,11 +14,7 @@ InviteList = React.createClass({
   },
 
   navToTrip: function(){
-    var userId = Meteor.userId;
-    var tripId = this.props.trip._id;
-
-    Meteor.user() && Meteor.call('inviteAccepted', Meteor.userId(), this.props.trip._id, (err, data) => {
-
+    Meteor.user() && Meteor.call('inviteAccepted', Meteor.user(), this.props.trip._id, (err, data) => {
       if(err) {
         console.log(err);
       }  else {
@@ -40,7 +36,7 @@ InviteList = React.createClass({
   },
 
   render: function(){
-    var tripStart = this.props.trip.dates ? (this.props.trip.dates[0] || 'October 32nd') : 'October 32nd';
+    var tripStart = (this.props.trip && this.props.trip.dates) ? DateUtils.getTripDate(this.props.trip.dates) : null;
     return (
       <div className="list">
 		    <a className="item item-thumbnail-left">

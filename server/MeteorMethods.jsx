@@ -11,12 +11,12 @@ Meteor.methods({
     return fileObj ? fileObj.url({store:store}) : null;
   },
 
-  //Profile Pic methods
-  storeProfilePic: function(image){
-    return ProfilePics.insert(image,function(err,result){
-      if (!err) return result;
-    });
-  },
+  // //Profile Pic methods
+  // storeProfilePic: function(image){
+  //   return ProfilePics.insert(image,function(err,result){
+  //     if (!err) return result;
+  //   });
+  // },
 
   retrieveProfilePic: function(id){
     var fileObj = ProfilePics.findOne({_id:id});
@@ -45,14 +45,15 @@ Meteor.methods({
     console.log(user);
     console.log(trip)
     Meteor.users.update({_id:user._id}, {$pull:{"profile.invites": trip}});
-    Trips.update({_id:trip},{$pull:{"pending": {_id: user._id}}});
+    Trips.update({_id:trip},{$pull:{"pending": user.emails[0].address}});
     Meteor.users.update({_id:user._id}, {$push:{"profile.myTrips": trip}});
+    Invites.remove({recipient:user.emails[0].address,trip_id:trip});
     return Trips.update({_id:trip}, {$push:{"members": user._id}},(err)=>{
       return !err;
     });
   },
-  addUserIdToInvites: function(user){
-    return Invites.update({'recipient':user.emails[0]},{'invitee':user._id});
+  getUserInvites: function(email){
+    return Invites.find({'recipient':email}).fetch().map(invite=>{return invite.trip_id;});
   },
 
   //trip methods
@@ -61,9 +62,9 @@ Meteor.methods({
     if (!user){
       return false;
     }
-    Meteor.users.update({_id:user._id},{$push:{"profile.invites":id}});
-    Invites.insert()
-    return Trips.update( {_id:id}, {$push: {"pending": user}});
+    return Meteor.users.update({_id:user._id},{$push:{"profile.invites":id}});
+    // Invites.insert({invitee})
+    // return Trips.update( {_id:id}, {$push: {"pending": user}});
   },
   sendInvitationEmail: function(inviteeEmail,trip){
    /* Email.send({
@@ -73,7 +74,7 @@ Meteor.methods({
       text:'Welcome to Minnow! You\'ve been invited to join the trip '+trip.name+'.\nPlease check it out at http://localhost:3000/trip/'+trip._id+' to sign up!'
     });*/
     //commented out because I don't want to send lots of emails while testing
-    console.log('called sendInviationEmail')
+    console.log('called sendInvitationEmail')
     return Invites.insert({
       trip_id:trip._id,
       recipient: inviteeEmail,

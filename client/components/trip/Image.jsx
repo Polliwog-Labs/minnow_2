@@ -2,7 +2,7 @@ Image = new React.createClass({
   _isMounted:false,
   propTypes: {
     image_id: React.PropTypes.string,
-    height: React.PropTypes.string
+    height: React.PropTypes.string,
   },
   getInitialState: function(){
     return {url:'/doge.jpg'}
@@ -14,9 +14,10 @@ Image = new React.createClass({
     } 
   },
   getImageURL: function(id){
+    var meteorCall = this.props.profile ? 'retrieveProfilePic' : 'retrieveImageUrlById';
     var count = 1;
     function getThisImageUrl(context){
-      Meteor.call('retrieveImageUrlById',id,'images',(err,data)=>{
+      Meteor.call(meteorCall,id,'images',(err,data)=>{
         if (err && context._isMounted) {
           console.log(err);
           console.log('Bad Image ID');
@@ -40,7 +41,7 @@ Image = new React.createClass({
     getThisImageUrl(this);
   },
   componentWillReceiveProps(newProps) {
-    newProps && this.getImageURL(newProps.image_id);
+    newProps && newProps.image_id && this.getImageURL(newProps.image_id);
   },
   componentWillUnmount(){
     this._isMounted=false;
