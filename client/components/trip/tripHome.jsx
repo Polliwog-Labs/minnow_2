@@ -77,7 +77,6 @@ TripHome = React.createClass({
     this.setState({show: false});
   },
 
-
   render: function(){
     var params = {
       _id: null,

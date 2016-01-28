@@ -23,7 +23,7 @@ Messages = React.createClass({
 					<label className='item-input-wrapper'>
 						<input type='text' placeholder="message your group" ref='message_text'/>
 					</label>
-					<button className='button button-positive' onClick={this.submitMessage}>Submit</button>
+					<button className='button button-small button-positive message-button' onClick={this.submitMessage}> Send </button>
 				</form>
 				<div className="message-wrapper">
 					<MessageLoader messages={this.props.trip.messages} />
