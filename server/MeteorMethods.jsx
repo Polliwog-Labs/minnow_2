@@ -44,6 +44,7 @@ Meteor.methods({
     Meteor.users.update({_id:user._id}, {$pull:{"profile.invites": trip}});
     Trips.update({_id:trip},{$pull:{"pending": user.emails[0].address}});
     Meteor.users.update({_id:user._id}, {$push:{"profile.myTrips": trip}});
+    Invites.remove({recipient:user.emails[0].address,trip_id:trip});
     return Trips.update({_id:trip}, {$push:{"members": user._id}},(err)=>{
       return !err;
     });
