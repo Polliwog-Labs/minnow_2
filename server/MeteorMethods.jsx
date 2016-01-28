@@ -56,15 +56,13 @@ Meteor.methods({
 
   //trip methods
   inviteUserByEmail: function(inviteeEmail,id){
-    var user = Accounts.findUserByEmail(inviteeEmail);
+    var user = Accounts.findUserByEmail(inviteeEmail.toLowercase());
     if (!user){
       return false;
     }
     return Meteor.users.update({_id:user._id},{$push:{"profile.invites":id}});
-    // Invites.insert({invitee})
-    // return Trips.update( {_id:id}, {$push: {"pending": user}});
   },
-  sendInvitationEmail: function(inviteeEmail,trip){
+  sendInvitationEmail: function(inviteeEmail,trip,user){
    /* Email.send({
       from:'team.polliwog@gmail.com',
       to:inviteeEmail,
@@ -75,8 +73,8 @@ Meteor.methods({
     console.log('called sendInvitationEmail')
     return Invites.insert({
       trip_id:trip._id,
-      recipient: inviteeEmail,
-      sender: ''//not yet implemented
+      recipient: inviteeEmail.toLowercase(),
+      sender: user.username
     });
   },
   getTripById: function(id){

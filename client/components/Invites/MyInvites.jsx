@@ -2,7 +2,7 @@ MyInvites = React.createClass({
   mixins: [ReactMeteorData],
   getMeteorData(){
     var data = {};
-    var user = Meteor.user() || window.location.pathname.substring(9);
+    var user = Meteor.user() || window.location.pathname.substring(9).toLowercase();
     var invites = Meteor.subscribe('Invites',user);
     if (Meteor.user()){
         var users = Meteor.subscribe('UserData',Meteor.user());

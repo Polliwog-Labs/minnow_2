@@ -45,7 +45,7 @@ TripHome = React.createClass({
           console.log(err);
         } else {
           if (!data){
-            Meteor.call('sendInvitationEmail',invitee_email,this.props.trip);
+            Meteor.call('sendInvitationEmail',invitee_email,this.props.trip,Meteor.user());
           }
         }
       })
