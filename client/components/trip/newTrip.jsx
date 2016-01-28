@@ -1,12 +1,15 @@
 NewTrip = React.createClass({
   submitTrip: function(event){
     event.preventDefault();
+    var user = Meteor.userId()
     Trips.insert({name: ReactDOM.findDOMNode(this.refs.newTrip_name).value,
                   members: [Meteor.userId()],
                   organizers: [Meteor.userId()],
                   messages: [],
                   ideas: [],
-                  pending: []
+                  pending: [],
+                  expense_dash:[{user: {}}],
+                  expenses:[]
                 }, function(err, id){
       if (err) {console.log(err);}
       else {

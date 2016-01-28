@@ -3,8 +3,7 @@ Expenses = React.createClass({
      trip: React.PropTypes.object.isRequired
    },
    getInitialState(){
-    return {trip:this.props.trip,
-            toggled: false
+    return {trip:this.props.trip
     };
    },
 

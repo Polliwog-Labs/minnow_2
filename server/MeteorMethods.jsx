@@ -41,6 +41,9 @@ Meteor.methods({
     })}}).fetch();
   },
   inviteAccepted: function(user, trip){
+    console.log("hit the server")
+    console.log(user);
+    console.log(trip)
     Meteor.users.update({_id:user._id}, {$pull:{"profile.invites": trip}});
     Trips.update({_id:trip},{$pull:{"pending": {_id: user._id}}});
     Meteor.users.update({_id:user._id}, {$push:{"profile.myTrips": trip}});
