@@ -1,15 +1,12 @@
 MyTrips = React.createClass({
-  getInitialState(){
-    return {trips:[]};
+  mixins: [ReactMeteorData],
+  getMeteorData(){
+    var data = {};
+    var trips = Meteor.subscribe("myTrips",Meteor.user());
+    data.trips = Trips.find().fetch()
+    return data;
   },
-  componentDidMount(){
-    setTimeout(()=>{
-      Meteor.call('getTripsByUser',Meteor.user(),(err,data)=>{
-        !err && this.setState({trips:data});
-      });
-    },800);
 
-  },
   newTrip: function(event){
     event.preventDefault();
     var username = Meteor.user().username
@@ -28,7 +25,9 @@ MyTrips = React.createClass({
 
   },
   renderTrips: function(){
-    return this.state.trips.map(trip=>{
+    if (this.data.trips) return this.data.trips.sort((a,b)=>{
+      return a.dates[0] - b.dates[0];
+    }).map(trip=>{
       return (
         <TripList key={trip._id} trip={trip}/>
       );

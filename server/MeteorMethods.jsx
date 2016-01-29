@@ -109,6 +109,7 @@ Meteor.methods({
       members: [trip.user._id],
       organizers: [trip.user._id],
       created_by: trip.user._id,
+      dates:[0,0],
       messages: [],
       pending: [],
       declined: [],
