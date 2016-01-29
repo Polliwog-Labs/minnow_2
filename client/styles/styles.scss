@@ -6,11 +6,20 @@
 
 /*@import 'ratchet.css';*/
 /*@import 'minnow.css';*/
-.body {
+html, body {
   font-family: "Helvetica Neue", "Roboto", sans-serif;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  overflow-y: scroll;
+
 }
-html {
-  overflow: auto;
+
+.item h2{
+  margin: 0 0 10px 10px;
+  text-align: start;
+  font-size: 25px;
+  font-weight: normal;
 }
 .anchor-resize{
   height: 100%;
@@ -18,6 +27,14 @@ html {
 h1.list {
   text-align: center;
 
+}
+.list {
+  padding: 0px;
+}
+.clear-right{
+  margin-left: 20px;
+  float: right;
+  text-align: right;
 }
 .edit-row{
   margin-left: -5px;
@@ -41,7 +58,9 @@ h1.list {
   border-bottom: none;
   margin-bottom: 0;
 }
-
+.item{
+  margin: 0px;
+}
 .item-thumbnail-left:hover {
   cursor: pointer;
 }
@@ -289,6 +308,9 @@ label[for="nav-trigger"] {
     background: white;
     cursor: inherit;
     display: block;
+}
+.item, .item h1, .item h2, .item h3, .item h4, .item h5, .item h6, .item p, .item-content, .item-content h1, .item-content h2, .item-content h3, .item-content h4, .item-content h5, .item-content h6, .item-content p {
+  overflow: visible;
 }
 
 /*----------SLICK SLIDER-----------*/

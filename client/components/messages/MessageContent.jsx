@@ -18,7 +18,7 @@ MessageContent = React.createClass({
 			<div className="list message-container">
 				<a className='anchor-resize item item-avatar'>
 					{this.renderImage()}
-					<h2>{this.props.sender}</h2>
+					<h4>{this.props.sender}</h4>
 					<p>{this.props.text}</p>
 				</a>
 			</div>
