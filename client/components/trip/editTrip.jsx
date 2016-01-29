@@ -3,12 +3,15 @@ EditTrip = React.createClass({
     trip: React.PropTypes.object
   },
   getInitialState: function(){
-    return {//image_id:null, 
-      hide:false};
+    return {
+      organizers:null, 
+      hide:false
+    };
   },
   getHelperObj(image_id){
     var helperObj = {dates:[]};
     if (image_id) helperObj.image_id = image_id;
+    if (this.state.organizers) helperObj.organizers = this.state.organizers;
     var name = ReactDOM.findDOMNode(this.refs.tripName).value;
     if (name) helperObj.name = name;
     var startDate = new Date(ReactDOM.findDOMNode(this.refs.newTrip_startDate).value).getTime();
@@ -18,7 +21,9 @@ EditTrip = React.createClass({
     if (!helperObj.dates.length) delete helperObj.dates;
     return helperObj;
   },
-
+  updateOrganizers(organizers){
+    this.setState({organizers:organizers})
+  },
   submitTrip: function(event){
     event.preventDefault();
     var helperObj = this.getHelperObj()
@@ -43,9 +48,15 @@ EditTrip = React.createClass({
     } else Trips.update({_id:this.props.trip._id},{$set:this.getHelperObj()});
     $('.close').click();
   },
-
-  hideModal() {
-    this.setState({hide:true});
+  renderOrganizerChanger(){
+    if (this.props.trip && this.props.trip.organizers.includes(Meteor.userId())){
+      return <AddOrganizer trip={this.props.trip} members={this.props.members} update={this.updateOrganizers}/>
+    }
+  },
+  renderDeleteButton(){
+    if (this.props.trip && this.props.trip.organizers.includes(Meteor.userId())){
+      return <DeleteTrip trip={this.props.trip}/>
+    }
   },
 
   render: function(){
@@ -81,6 +92,7 @@ EditTrip = React.createClass({
                     </label> 
                   </div>
                 </div>
+                {this.renderOrganizerChanger()}
                 <label id="newTrip-members" className="item item-input item-stacked-label">
                   <span>Add a picture URL (optional)</span>
                   <input id="newTrip-url" className="item-input" type="text" ref="newTrip_url"/>
@@ -92,15 +104,11 @@ EditTrip = React.createClass({
                 </label>
                 <button id="btn-submit" className='button button-block button-positive'>Submit</button>
               </form>
-              <p><a href='/mytrips'>My Trips</a></p>
-              <div className='image-div'>
-                <Image image_id={this.state.image_id || this.props.trip ? this.props.trip.image_id : null} height="100%" />
-              </div>
+              {this.renderDeleteButton()}
            </div>
           </ReactBootstrap.Modal.Body>
         </ReactBootstrap.Modal>
-      </div>
-       
+      </div> 
     );
   }
 })
