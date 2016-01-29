@@ -26,6 +26,10 @@ if (Meteor.isServer) {
     return Trips.find({_id:{$in:user.profile.invites}});
   });
 
+  Meteor.publish("UserData", (user) => {
+      return Users.find({_id:user._id});
+  });
+
   Meteor.publish("tripUsers",(trip)=>{
     return Users.find({_id:{$in:trip.members}});
   });
@@ -56,10 +60,6 @@ if (Meteor.isServer) {
     insert(){return false},
     update(userId,doc){return userId === doc._id},
     remove(userId){return userId === doc._id}
-  });
-
-  Meteor.publish("UserData",(user)=>{
-    return Users.find({_id:user._id});
   });
 
   //subsets of profilepics and images
