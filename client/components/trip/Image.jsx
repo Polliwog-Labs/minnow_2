@@ -5,7 +5,7 @@ Image = new React.createClass({
     height: React.PropTypes.string,
   },
   getInitialState: function(){
-    return {url:'/doge.jpg'}
+    return {url:'/loading.gif'}
   },
   componentDidMount: function(){
     this._isMounted = true;
