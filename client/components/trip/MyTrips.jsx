@@ -28,11 +28,13 @@ MyTrips = React.createClass({
 
   },
   renderTrips: function(){
-    return this.state.trips.map(trip=>{
+    if (Trips.find().fetch().length) {
+     return this.state.trips.map(trip=>{
       return (
         <TripList key={trip._id} trip={trip}/>
       );
     })
+   }
   },
   render: function(){
     return (
