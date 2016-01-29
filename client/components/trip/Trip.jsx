@@ -80,7 +80,7 @@ Trip = React.createClass({
   renderChat: function () {
     $('.active').removeClass('active');
     $('#chat').addClass('active');
-    ReactDOM.render(<Messages updateParent={this.setParentState} trip={this.data.trip}/>, document.getElementById('trip-module'));
+    ReactDOM.render(<Messages updateParent={this.setParentState} memberProfiles={this.data.members} trip={this.data.trip}/>, document.getElementById('trip-module'));
     console.log(this.state)
   },
 
