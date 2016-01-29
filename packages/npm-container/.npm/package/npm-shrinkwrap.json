@@ -348,6 +348,44 @@
     },
     "react-dom": {
       "version": "0.14.6"
+    },
+    "react-slick": {
+      "version": "0.9.3",
+      "dependencies": {
+        "classnames": {
+          "version": "2.2.3"
+        },
+        "json2mq": {
+          "version": "0.2.0",
+          "dependencies": {
+            "string-convert": {
+              "version": "0.2.1"
+            }
+          }
+        },
+        "object-assign": {
+          "version": "2.1.1"
+        },
+        "react-responsive-mixin": {
+          "version": "0.3.5",
+          "dependencies": {
+            "can-use-dom": {
+              "version": "0.1.0"
+            },
+            "enquire.js": {
+              "version": "2.1.1"
+            }
+          }
+        },
+        "slick-carousel": {
+          "version": "1.5.9",
+          "dependencies": {
+            "jquery": {
+              "version": "2.2.0"
+            }
+          }
+        }
+      }
     }
   }
 }
