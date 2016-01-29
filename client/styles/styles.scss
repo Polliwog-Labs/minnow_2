@@ -5,11 +5,14 @@
 
 /*@import 'ratchet.css';*/
 /*@import 'minnow.css';*/
-.body {
+html, body {
   font-family: "Helvetica Neue", "Roboto", sans-serif;
-}
-html {
+  height: 100%;
+  width: 100%;
+  margin: 0;
   overflow: auto;
+  background: #226767;
+
 }
 .anchor-resize{
   height: 100%;
