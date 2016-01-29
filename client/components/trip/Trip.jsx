@@ -55,6 +55,9 @@ Trip = React.createClass({
       case 'Itinerary':
         this.renderItinerary();
         break;
+      case 'Photos':
+        this.renderPhotos();
+        break;
       default:
         this.renderHome();
     }
@@ -81,43 +84,44 @@ Trip = React.createClass({
     $('.active').removeClass('active');
     $('#chat').addClass('active');
     ReactDOM.render(<Messages updateParent={this.setParentState} memberProfiles={this.data.members} trip={this.data.trip}/>, document.getElementById('trip-module'));
-    console.log(this.state)
   },
 
-  // renderSettings: function () {
-  //   $('.active').removeClass('active');
-  //   $('#pencil').addClass('active');
-  //   ReactDOM.render(<EditTrip updateParent={this.getTripData} trip={this.state.trip}/>, document.getElementById('trip-module'));
-  // },
+  renderPhotos: function () {
+    $('.active').removeClass('active');
+    $('#photos').addClass('active');
+    ReactDOM.render(<Photos updateParent={this.setParentState} trip={this.data.trip}/>, document.getElementById('trip-module'));
+
+  },
 
   renderExpenses: function () {
     $('.active').removeClass('active');
     $('#cash').addClass('active');
     ReactDOM.render(<Expenses updateParent={this.setParentState} trip={this.data.trip} members={this.data.members}/>, document.getElementById('trip-module'));
   },
+
   render: function(){
     return (
       <div>
         <div className="footer-fixed tabs tabs-icon-top">
           <a className="tab-item active" id='home'onClick={this.renderHome}>
-            <i className="icon ion-home"></i>
+            <i className="icon ion-ios-home"></i>
             Home
           </a>
           <a className="tab-item" id='itinerary' onClick={this.renderItinerary}>
-            <i className="icon ion-ios-list-outline"></i>
+            <i className="icon ion-ios-list"></i>
             Itinerary
           </a>
           <a className="tab-item" id="chat" onClick={this.renderChat}>
-            <i className="icon ion-chatboxes"></i>
+            <i className="icon ion-ios-chatboxes"></i>
             Chat
+          </a>
+          <a className="tab-item" id='photos' onClick={this.renderPhotos}>
+            <i className="icon ion-ios-camera"></i>
+            Photos
           </a>
           <a className="tab-item" id='cash' onClick={this.renderExpenses}>
             <i className="icon ion-cash expenses"></i>
             Expenses
-          </a>
-          <a className="tab-item" id='settings' onClick={this.renderSettings}>
-            <i className="icon ion-gear-a settings"></i>
-            Settings
           </a>
         </div>
         <div className='has-footer' id='trip-module'></div>

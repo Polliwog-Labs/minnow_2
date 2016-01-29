@@ -3,7 +3,7 @@ TripList = React.createClass({
     trip: React.PropTypes.object.isRequired
   },
   getInitialState: function(){
-    return {url:'/doge.jpg'}
+    return {url:'/minnows-bg.jpg'}
   },
   getImageUrl(){
     var count = 1;
@@ -12,12 +12,12 @@ TripList = React.createClass({
         if (err) {
           console.log(err);
           console.log('err retrieving image. This shouldn\'t happen. Doge time.');
-          context.setState({url:'/doge.jpg'});
+          context.setState({url:'/minnows-bg.jpg'});
         }
         else {
           if (data) context.setState({url:data})
           else {
-            if (count >= 15) {context.setState({url:'/doge.jpg'});}
+            if (count >= 15) {context.setState({url:'/minnows-bg.jpg'});}
             else {
               setTimeout(function(){
                 count++;
@@ -35,7 +35,7 @@ TripList = React.createClass({
     if (this.props.trip.image_id) {
       this.getImageUrl()
     } else {
-      this.setState({url:'/doge.jpg'});
+      this.setState({url:'/minnows-bg.jpg'});
     }
   },
   navToTrip: function(){
@@ -46,9 +46,12 @@ TripList = React.createClass({
 
     var backgroundStyle = {'background': 'url('+this.state.url+')'};
     return (
-      <div className="tripListModule" onClick={this.navToTrip} style={backgroundStyle}>
+      <div className="tripListContainer">
+        <div className="tripListModule" onClick={this.navToTrip} style={backgroundStyle}>
           <h2 className="tripListText">{this.props.trip.name || 'Unnamed Trip'}</h2>
           <h2 className="tripListDateText" >{DateUtils.getTripDate(this.props.trip.dates)}</h2>
+        </div>
+        <RemoveTrip trip={this.props.trip}/>
       </div>
     );
   }

@@ -28,6 +28,7 @@ EditTrip = React.createClass({
     event.preventDefault();
     var helperObj = this.getHelperObj()
     var file = $('#newTrip-file')[0].files[0] || ReactDOM.findDOMNode(this.refs.newTrip_url).value || {};
+    console.log(file.constructor)
     if (typeof file === 'string'){
       Meteor.call('storeImage',file,(err,data)=>{
         if (err) console.log(err)
