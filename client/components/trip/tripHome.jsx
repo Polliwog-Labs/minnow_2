@@ -16,16 +16,16 @@ TripHome = React.createClass({
   },
 
   updateExpenseDash:function(){
-    // var expense_dash = this.props.trip.expense_dash;
-    // this.props.members.map(function (member){
-    //   expense_dash.map(function (user){
-    //     if(member.username !== user.user) {
-    //       if(!user.member) {
-    //         user[member.username] = 0;
-    //       }
-    //     }
-    //   });
-    // });
+    var expense_dash = this.props.trip.expense_dash;
+    this.props.members.map(function (member){
+      expense_dash.map(function (user){
+        if(member.username !== user.user) {
+          if(!user.member) {
+            user[member.username] = Number(0);
+          }
+        }
+      });
+    });
   },
 
   submitInvitees: function(event) {
