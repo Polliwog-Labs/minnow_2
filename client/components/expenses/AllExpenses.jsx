@@ -17,10 +17,33 @@ AllExpenses = React.createClass({
 			return <Expense key={index} {...expense} />
 		});
 	},
+
+	showBalances:function(){
+		var username = Meteor.user().username
+		return this.props.trip.expense_dash.map(function (user) {
+			if(user.user === username) {
+				for(var key in user) {
+					if(key !== "user") {
+						console.log("key", key);
+						console.log("user", user);
+						console.log("user[key]", user[key]);
+					return <ExpenseDashboard  user={key} balance={user[key]} />
+				 }
+			   }
+			}
+		})
+	},
+
+
 	render:function(){
 		return(
+			<div>
+			<div>
+				{this.showBalances()}
+			</div>
 			<div className="card">
 			  {this.expense_list()}
+			</div>
 			</div>
 
 	)
