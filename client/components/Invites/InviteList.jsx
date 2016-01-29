@@ -22,31 +22,25 @@ InviteList = React.createClass({
        }
      })
   },
-
-  // declineTrip: function(){
-  //   Meteor.user() && Meteor.call('inviteDeclined', Meteor.user(), this.props.trip._id, (err, data) => {
-  //     if(err) {
-  //       console.log(err);
-  //       //else return (<p>You have declined this.props.trip._id!</p>)
-  //     // }  else {
-  //     //    document.location.href = '/trip/' + this.props.trip._id;
-  //     //  }
-  //    })
-  // },
-
+  declineTrip: function(){
+    Meteor.user() && Meteor.call('inviteDeclined', Meteor.user(), this.props.trip._id, (err, data) => {
+      if(err) {
+        console.log(err);
+      }
+    })
+  },
   renderButtons(){
     if (Meteor.user()) return (
       <div>
         <button className="button button-small button-balanced" onClick={this.navToTrip}>
           Accept
         </button>
-        // <button className="button button-small button-assertive" onClick={this.declineTrip}>
-        //   Decline
-        // </button>
+        <button className="button button-small button-assertive" onClick={this.declineTrip}>
+          Decline
+        </button>
       </div>
     );
   },
-
   render: function(){
     var tripStart = (this.props.trip && this.props.trip.dates) ? DateUtils.getTripDate(this.props.trip.dates) : null;
     return (

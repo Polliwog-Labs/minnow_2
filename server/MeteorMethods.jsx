@@ -60,13 +60,10 @@ Meteor.methods({
     });
   },
   inviteDeclined: function(user, trip){
-    // remove tripId from users invites
-    // remove userId from props trips pending, as userId to declined
     Meteor.users.update({_id:user._id}, {$pull:{"profile.invites": trip}});
     Trips.update({_id:trip},{$pull:{"pending": user.emails[0].address}});
-    Meteor.users.update({_id:user._id}, {$push:{"profile.myTrips": trip}});
     Invites.remove({recipient:user.emails[0].address,trip_id:trip});
-    return Trips.update({_id:trip}, {$push:{"members": user._id}},(err)=>{
+    return Trips.update({_id:trip}, {$push:{"declined": user.username}}, (err)=>{
       return !err;
     });
   },
@@ -119,8 +116,10 @@ Meteor.methods({
       members: [trip.user._id],
       organizers: [trip.user._id],
       created_by: trip.user._id,
+      dates:[0,0],
       messages: [],
       pending: [],
+      declined: [],
       expenses: [],
       expense_dash: [{user: trip.user.username}],
       ideas: [],

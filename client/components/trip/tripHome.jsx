@@ -112,6 +112,8 @@ TripHome = React.createClass({
           <Image image_id={params.image_id} height="100%" />
          </div>
          <div className='item'>
+          <h1>{this.props.trip.name || 'Unnamed Trip'}</h1>
+          <h3>{DateUtils.getTripDate(this.props.trip.dates)}</h3>
           <div className='item'>
             <p className=''>Whos Coming? {this.props.members.map((member)=>{
               return member.username;
