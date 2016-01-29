@@ -15,10 +15,15 @@ Messages = React.createClass({
 		    }
 		  }
 		},(err,data)=>{
-  		!err && this.props.updateParent('Messages');
+  		// !err && this.props.updateParent('Messages');
   	});
 		ReactDOM.findDOMNode(this.refs.message_text).value = '';
 	},
+
+	componentDidMount() {
+		this.props.updateParent('Messages');
+	},
+
 	render(){
 		return(
 			<div className='list fixed-input'>
