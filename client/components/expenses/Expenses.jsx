@@ -3,9 +3,21 @@ Expenses = React.createClass({
      trip: React.PropTypes.object.isRequired
    },
    getInitialState(){
-    return {trip:this.props.trip
+    return {
+      trip:this.props.trip, 
+      expenseView: null
     };
    },
+
+   componentDidUpdate:function(){
+    switch (this.state.expenseView){
+      case 'newExpense':
+        this.renderNew();
+        break;
+      default:
+       this.renderDash();
+   }
+ },
 
 
 
