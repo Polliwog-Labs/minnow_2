@@ -64,14 +64,14 @@ EditTrip = React.createClass({
     var endDate = (this.props.trip && this.props.trip.dates && this.props.trip.dates[1]) ? DateUtils.getHTMLDate(this.props.trip.dates[1]) : startDate;
     return (
       <div>
-        <ReactBootstrap.Modal 
+        <ReactBootstrap.Modal
           {...this.props}
           onHide={this.props.onHide}
           dialogClassName="custom-modal">
           <ReactBootstrap.Modal.Header closeButton>
             <ReactBootstrap.Modal.Title id="contained-modal-title-lg">Edit Trip</ReactBootstrap.Modal.Title>
           </ReactBootstrap.Modal.Header>
-        <ReactBootstrap.Modal.Body>  
+        <ReactBootstrap.Modal.Body>
           <div className='list'>
               <form id='newTrip-form' className='form-group' onSubmit={this.submitTrip}>
                 <label className="item item-input item-stacked-label">
@@ -89,7 +89,7 @@ EditTrip = React.createClass({
                     <label className="item-stacked-label">
                       <span>End Date</span>
                       <input className="item-input" type="date" ref="newTrip_endDate" defaultValue={endDate} />
-                    </label> 
+                    </label>
                   </div>
                 </div>
                 {this.renderOrganizerChanger()}

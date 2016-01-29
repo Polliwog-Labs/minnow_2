@@ -50,6 +50,6 @@ Image = new React.createClass({
     }
   },
   render: function(){
-    return <img src={this.state.url} height={this.props.height} />;
+    return <img className={this.props.ionicClass} src={this.state.url} width={this.props.width} height={this.props.height} />;
   }
 });
