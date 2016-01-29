@@ -43,6 +43,10 @@ Meteor.methods({
     })}}).fetch();
   },
   inviteAccepted: function(user, trip){
+
+    //Update the expense_dash collection on accept 
+
+
     Trips.update({_id: trip},{$push:{"expense_dash": {user: user.username}}})
     Meteor.users.update({_id:user._id}, {$pull:{"profile.invites": trip}});
     Trips.update({_id:trip},{$pull:{"pending": user.emails[0].address}});
@@ -220,38 +224,24 @@ Meteor.methods({
 
   //expenses
   pushExpense: function(expense,user,dash){
-
-    //Map through all the objects in the array
-    //If they match split with or created by then update the right balances and push to new array 
-    //If they are neither then push them as they were to the new array 
-    //Completley remove the old expense_dash array 
-    //Add the new expense_dash array in its place 
-
-    var newExpenseDash = [];
-
-    dash.map(function (userObject){
+    
+    var newExpenseDash = dash.map(function (userObject){
       if(userObject.user === user.username) {
-        console.log("userObject", userObject);
          expense.split_with.map(function (splitUser) {
-          console.log("splitUser", splitUser);
-            var oldBalance = userObject.splitUser;
-            console.log("oldBalance", oldBalance)
-            userObject.splitUser = oldBalance + expense.amount;
-            newExpenseDash.push(userObject);
+            var oldBalance = userObject[splitUser];
+            userObject[splitUser] = oldBalance + expense.amount;
          });
       }
-      if(userObject.user === expense.split_with) {
-        var createdSplit = user.username
-        var oldBalance = userObject.createdSplit;
-        userObject.createdSplit = oldBalance - expense.amount;
-        newExpenseDash.push(userObject);
-      } else {
-        newExpenseDash.push(userObject);
-      }
+      var splitList = expense.split_with;
+      if(_.contains(splitList, userObject.user)) {
+        var createdSplit = user.username;
+        var oldBalance = userObject[createdSplit];
+        userObject[createdSplit] = oldBalance - expense.amount;
+      } 
+        return (userObject);
     });
 
-    Trips.update({_id: expense.trip_id}, {$pull: expense_dash});
-    Trips.update({_id: expense.trip_id}, {$push: {expense_dash: newExpenseDash}});
+    Trips.update({_id: expense.trip_id}, {$set: {expense_dash: newExpenseDash}});
 
 
     return Trips.update({"_id": expense.trip_id}, {$push: {
