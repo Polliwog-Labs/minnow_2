@@ -76,12 +76,12 @@ Meteor.methods({
     return Meteor.users.update({_id:user._id},{$push:{"profile.invites":id}});
   },
   sendInvitationEmail: function(inviteeEmail,trip,user){
-   /* Email.send({
-      from:'team.polliwog@gmail.com',
-      to:inviteeEmail,
-      subject:'You\'re Invited: '+trip.name,
-      text:'Welcome to Minnow! You\'ve been invited to join the trip '+trip.name+'.\nPlease check it out at http://localhost:3000/trip/'+trip._id+' to sign up!'
-    });*/
+   // Email.send({
+   //    from:'team.polliwog@gmail.com',
+   //    to:inviteeEmail,
+   //    subject:'You\'re Invited: '+trip.name,
+   //    text:'Welcome to Minnow! '+user.username+' has invited you to join the trip '+trip.name+'.\nPlease check it out at http://localhost:3000/invites/'+inviteeEmail+' to sign up!'
+   //  });
     //commented out because I don't want to send lots of emails while testing
     console.log('called sendInvitationEmail')
     return Invites.insert({
