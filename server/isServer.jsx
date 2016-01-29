@@ -26,6 +26,10 @@ if (Meteor.isServer) {
     return Trips.find({_id:{$in:user.profile.invites}});
   });
 
+  Meteor.publish("myTrips", function (user){
+    return Trips.find({members:{$in:[user._id]}});
+  });
+
   Meteor.publish("UserData", (user) => {
       return Users.find({_id:user._id});
   });
