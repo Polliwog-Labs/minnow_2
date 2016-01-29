@@ -14,7 +14,7 @@ NewExpense = React.createClass({
 			description: expense_details,
 			amount: expense_amount,
 			split_with: this.state.split_with
-		}, Meteor.user(),(err)=>{
+		}, Meteor.user(), this.props.trip.expense_dash,(err)=>{
       !err && this.props.updateParent('Expenses');
 		});
 	},
