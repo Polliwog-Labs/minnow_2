@@ -98,7 +98,9 @@ EditTrip = React.createClass({
                   <span>Add a picture URL (optional)</span>
                   <input id="newTrip-url" className="item-input" type="text" ref="newTrip_url"/>
                 </label>
-                <span className='item shrink-item'>OR</span>
+                <label className ="item item-input item-stacked-label">
+                  <span>OR</span>
+                </label>
                 <label id="newTrip-members" className="item item-input item-stacked-label">
                   <span>Upload a photo (optional)</span>
                   <input id="newTrip-file" className="item-input" type="file" ref="newTrip_file"/>
