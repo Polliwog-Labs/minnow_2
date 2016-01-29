@@ -55,6 +55,9 @@ Trip = React.createClass({
       case 'Itinerary':
         this.renderItinerary();
         break;
+      case 'Photos':
+        this.renderPhotos();
+        break;
       default:
         this.renderHome();
     }

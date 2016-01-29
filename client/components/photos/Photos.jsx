@@ -11,10 +11,8 @@ Photos = React.createClass({
   addPhoto: function(event){
     event.preventDefault();
     var photo = $('#addPhoto')[0].files[0];
-    console.log(photo)
-    console.log(photo.constructor)
     var tripId = this.props.trip._id
-
+    var that = this
     if (photo.constructor === File) {
       Images.insert(photo, (error, image) =>{
         if (error) {
@@ -25,39 +23,19 @@ Photos = React.createClass({
             if (error) {
               console.log('error adding image id to trip: ', error)
             } else {
-              console.log('imageId added to trip')
+              that.props.updateParent('Photos')
             }
           })
         }
       })
     }
-
-    // if (typeof photo === 'string'){
-    //   Meteor.call('storeImage',photo,(err,data)=>{
-    //     if (err) console.log(err)
-    //     else {
-    //       // Trips.update({_id:this.props.trip._id},{$set:this.getHelperObj(data._id)});
-    //       Meteor.call('addPhotoToTrip', this.props.trip._id, data._id)
-    //     }
-    //   });
-    // } else if (photo.constructor === File) {
-    //   Images.insert(photo,(err,data)=>{
-    //     if (err) console.log(err)
-    //     else {
-    //       Meteor.call('addPhotoToTrip', this.props.trip._id, data._id)
-    //     }
-    //   })
-    // } else Meteor.call('addPhotoToTrip', this.props.trip._id, data._id)
-    // // $('.close').click();
   },
 
-// if (file.constructor === File) {
-  // Images.insert(file,(err,data)=>{
-  //   if (err) console.log(err)
-  //   else {
-  //     Trips.update({_id:this.props.trip._id},{$set:this.getHelperObj(data._id)});
-  //   }
-  // })
+  renderPhotos: function () {
+    return this.props.trip.photos.map(function (photoId, index) {
+      return <div key={index}><Image ionicClass='photo-scroll' image_id={photoId} /></div>
+    })
+  },
 
   render: function () {
     var settings = {
@@ -72,10 +50,10 @@ Photos = React.createClass({
     return (
       <div className='photos-body'>
         <Slider {...settings}>
-          <div className='' ><img className='photo-scroll' src={'http://i.telegraph.co.uk/multimedia/archive/02480/sony-hock_2480997k.jpg'} /></div>
-          <div className='' ><img className='photo-scroll' src={'http://images.nationalgeographic.com/wpf/media-live/photos/000/284/cache/around-the-world-fountain-richardson_28445_600x450.jpg'} /></div>
-       </Slider>
-       <div className='col'>
+          <div><Image ionicClass='photo-scroll' image_id={this.props.trip.image_id} /></div>
+          {this.renderPhotos()}
+        </Slider>
+        <div className='col'>
           <span className="btn btn-sm btn-file">
             + Photo <input type="file" accept="image/*" ref='newPhoto' id='addPhoto' onChange={this.addPhoto}/>
           </span>
@@ -84,23 +62,3 @@ Photos = React.createClass({
     );
   }
 });
-
-  // render: function () {
-  //   var settings = {
-  //     dots: true,
-  //     lazyLoad: true,
-  //     infinite: true,
-  //     speed: 500,
-  //     slidesToShow: 1,
-  //     slidesToScroll: 1
-  //   };
-  //   return (
-  //     <div>
-  //       <h2> Lazy Load</h2>
-  //       <Slider {...settings}>
-  //         <div><img src={'http://i.telegraph.co.uk/multimedia/archive/02480/sony-hock_2480997k.jpg'} /></div>
-  //         <div><img src={'http://images.nationalgeographic.com/wpf/media-live/photos/000/284/cache/around-the-world-fountain-richardson_28445_600x450.jpg'} /></div>
-  //       </Slider>
-  //     </div>
-  //   );
-  // }
