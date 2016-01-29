@@ -119,7 +119,7 @@ TripHome = React.createClass({
               <ul>{this.renderInvitees()}</ul>
               <p>Invite attendees by email address:</p>
               <input type="email" placeholder = "Email address" className="item-input" ref="input_email"/>
-              <button id="btn-submit" className='btn btn-default' onClick={this.submitInvitees}>Submit</button>
+              <button id="btn-submit" className='btn btn-default' onClick={this.submitInvitees}>Invite</button>
               <span style={{'color':'red','display':'none'}} className="error-email">Bad Email</span>
             </form>
             <div className='row edit-row'>

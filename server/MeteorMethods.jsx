@@ -11,6 +11,14 @@ Meteor.methods({
     return fileObj ? fileObj.url({store:store}) : null;
   },
 
+  // addPhotoToTrip: function (tripId, imageId) {
+  //   return Trips.update({_id: tripId}, {$push: {'photos': imageId}}, function (error) {
+  //     if (error) {
+  //       console.log('error adding photo: ', error)
+  //     }
+  //   })
+  // },
+
   //Profile Pic methods
   storeProfilePic: function(image){
     return ProfilePics.insert(image,function(err,result){
@@ -104,7 +112,8 @@ Meteor.methods({
       expenses: [],
       expense_dash: [],
       ideas: [],
-      itinerary: []
+      itinerary: [],
+      photos:[]
     },(err,result)=> {if (!err) return result});
   },
   getOrganizer: function(trip){
