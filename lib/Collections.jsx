@@ -22,7 +22,7 @@ var backgroundImage = function(fileObj, readStream, writeStream) {
 };
 
 var profileImageResize = function(fileObj, readStream, writeStream) {
-  gm(readStream, fileObj.name()).resize(120,120).gravity('Center').crop(80,80).stream().pipe(writeStream);
+  gm(readStream, fileObj.name()).resize(300,300).gravity('Center').crop(250,250).stream().pipe(writeStream);
 };
 
 //Stores
@@ -66,6 +66,7 @@ Images.allow({
   remove(){return true}
 });
 
+
 ProfilePics = new FS.Collection("profilepics",{
   stores: [profileStore],
   filter: {
@@ -85,28 +86,14 @@ ProfilePics = new FS.Collection("profilepics",{
 
 ProfilePics.allow({
   download(){return true},
-  insert(){return true},
-  update(){return true},
+  insert(userId){return !!userId},
+  update(userId){return !!userId},
   remove(){return true}
 });
 
-Trips = new Mongo.Collection('trips');
-Trips.allow({
-  insert(){return true},
-  update(){return true},
-  remove(){return true}
-});
-
-Users = Meteor.users;
-Users.allow({
-  insert(){return true},
-  update(){return true},
-  remove(){return true}
-});
-
-Invites = new Mongo.Collection('invites');
-Invites.allow({
-  insert(){return true},
-  update(){return true},
-  remove(){return true}
-})
+//client-side implementations of server-only collections
+if (Meteor.isClient){
+  Trips = new Mongo.Collection('trips');
+  Invites = new Mongo.Collection('invites');
+  Users = Meteor.users;
+}

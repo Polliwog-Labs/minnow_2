@@ -11,20 +11,19 @@ Meteor.methods({
     return fileObj ? fileObj.url({store:store}) : null;
   },
 
-  // addPhotoToTrip: function (tripId, imageId) {
-  //   return Trips.update({_id: tripId}, {$push: {'photos': imageId}}, function (error) {
-  //     if (error) {
-  //       console.log('error adding photo: ', error)
-  //     }
-  //   })
-  // },
-
   //Profile Pic methods
   storeProfilePic: function(image){
     return ProfilePics.insert(image,function(err,result){
       if (!err) return result;
     });
   },
+
+  // //Profile Pic methods
+  // storeProfilePic: function(image){
+  //   return ProfilePics.insert(image,function(err,result){
+  //     if (!err) return result;
+  //   });
+  // },
 
   retrieveProfilePic: function(id){
     var fileObj = ProfilePics.findOne({_id:id});
@@ -36,6 +35,8 @@ Meteor.methods({
     return Meteor.users.findOne({_id:id});
   },
 
+
+
   //Invite methods
   getInvitesByUser: function(user){
     var trips = [];
@@ -44,45 +45,56 @@ Meteor.methods({
   },
   getTripsFromInvites: function(invites){
     //takes an array of invites
-    return Trips.find({_id:{$in:invites.map(invite=>{
+    if (invites) return Trips.find({_id:{$in:invites.map(invite=>{
       return invite.trip_id;
     })}}).fetch();
   },
   inviteAccepted: function(user, trip){
+    Trips.update({_id: trip},{$push:{"expense_dash": {user: user.username}}})
     Meteor.users.update({_id:user._id}, {$pull:{"profile.invites": trip}});
-    Trips.update({_id:trip},{$pull:{"pending": {_id: user._id}}});
+    Trips.update({_id:trip},{$pull:{"pending": user.emails[0].address}});
     Meteor.users.update({_id:user._id}, {$push:{"profile.myTrips": trip}});
+    Invites.remove({recipient:user.emails[0].address,trip_id:trip});
     return Trips.update({_id:trip}, {$push:{"members": user._id}},(err)=>{
       return !err;
     });
   },
-  addUserIdToInvites: function(user){
-    return Invites.update({'recipient':user.emails[0]},{'invitee':user._id});
+  inviteDeclined: function(user, trip){
+    // remove tripId from users invites
+    // remove userId from props trips pending, as userId to declined
+    Meteor.users.update({_id:user._id}, {$pull:{"profile.invites": trip}});
+    Trips.update({_id:trip},{$pull:{"pending": user.emails[0].address}});
+    Meteor.users.update({_id:user._id}, {$push:{"profile.myTrips": trip}});
+    Invites.remove({recipient:user.emails[0].address,trip_id:trip});
+    return Trips.update({_id:trip}, {$push:{"members": user._id}},(err)=>{
+      return !err;
+    });
+  },
+  getUserInvites: function(email){
+    return Invites.find({'recipient':email}).fetch().map(invite=>{return invite.trip_id;});
   },
 
   //trip methods
   inviteUserByEmail: function(inviteeEmail,id){
-    var user = Accounts.findUserByEmail(inviteeEmail);
+    var user = Accounts.findUserByEmail(inviteeEmail.toLowerCase());
     if (!user){
       return false;
     }
-    Meteor.users.update({_id:user._id},{$push:{"profile.invites":id}});
-    Invites.insert()
-    return Trips.update( {_id:id}, {$push: {"pending": user}});
+    return Meteor.users.update({_id:user._id},{$push:{"profile.invites":id}});
   },
-  sendInvitationEmail: function(inviteeEmail,trip){
-   /* Email.send({
-      from:'team.polliwog@gmail.com',
-      to:inviteeEmail,
-      subject:'You\'re Invited: '+trip.name,
-      text:'Welcome to Minnow! You\'ve been invited to join the trip '+trip.name+'.\nPlease check it out at http://localhost:3000/trip/'+trip._id+' to sign up!'
-    });*/
+  sendInvitationEmail: function(inviteeEmail,trip,user){
+   // Email.send({
+   //    from:'team.polliwog@gmail.com',
+   //    to:inviteeEmail,
+   //    subject:'You\'re Invited: '+trip.name,
+   //    text:'Welcome to Minnow! '+user.username+' has invited you to join the trip '+trip.name+'.\nPlease check it out at http://localhost:3000/invites/'+inviteeEmail+' to sign up!'
+   //  });
     //commented out because I don't want to send lots of emails while testing
-    console.log('called sendInviationEmail')
+    console.log('called sendInvitationEmail')
     return Invites.insert({
       trip_id:trip._id,
-      recipient: inviteeEmail,
-      sender: ''//not yet implemented
+      recipient: inviteeEmail.toLowerCase(),
+      sender: user.username
     });
   },
   getTripById: function(id){
@@ -104,13 +116,13 @@ Meteor.methods({
   createTrip: function(trip){
     return Trips.insert({
       name: trip.name,
-      members: [trip.user],
-      organizers: [trip.user],
-      created_by: trip.user,
+      members: [trip.user._id],
+      organizers: [trip.user._id],
+      created_by: trip.user._id,
       messages: [],
       pending: [],
       expenses: [],
-      expense_dash: [],
+      expense_dash: [{user: trip.user.username}],
       ideas: [],
       itinerary: [],
       photos:[]
@@ -181,7 +193,7 @@ Meteor.methods({
       }
     })
   },
-  
+
   ideaUpVote: function (tripId, createdAt) {
     return Trips.update({_id: tripId, 'ideas.created_at': createdAt}, {$inc: {'ideas.$.upvotes': 1}}, function (error) {
       if (error) {
@@ -215,13 +227,14 @@ Meteor.methods({
   },
 
   //expenses
-  pushExpense: function(expense){
+  pushExpense: function(expense,user){
+
     return Trips.update({"_id": expense.trip_id}, {$push: {
       'expenses': {
         'description': expense.description,
         'amount': Number(expense.amount),
         'created_at': new Date(),
-        'created_by': expense.username,
+        'created_by': user.username,
         'split_with': expense.split_with
       }
     }},(error)=>{
