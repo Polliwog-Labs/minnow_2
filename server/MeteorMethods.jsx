@@ -11,6 +11,13 @@ Meteor.methods({
     return fileObj ? fileObj.url({store:store}) : null;
   },
 
+  //Profile Pic methods
+  storeProfilePic: function(image){
+    return ProfilePics.insert(image,function(err,result){
+      if (!err) return result;
+    });
+  },
+
   // //Profile Pic methods
   // storeProfilePic: function(image){
   //   return ProfilePics.insert(image,function(err,result){
@@ -116,7 +123,8 @@ Meteor.methods({
       expenses: [],
       expense_dash: [{user: trip.user.username}],
       ideas: [],
-      itinerary: []
+      itinerary: [],
+      photos:[]
     },(err,result)=> {if (!err) return result});
   },
   getOrganizer: function(trip){
