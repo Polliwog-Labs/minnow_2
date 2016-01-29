@@ -62,10 +62,6 @@ if (Meteor.isServer) {
     remove(userId){return userId === doc._id}
   });
 
-  Meteor.publish("UserData",(user)=>{
-    return Users.find({_id:user._id});
-  });
-
   //subsets of profilepics and images
   Meteor.publish("ProfilePics",()=>{return ProfilePics.find()});
   Meteor.publish("Images",()=>{return Images.find()});
