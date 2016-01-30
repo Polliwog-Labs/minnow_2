@@ -62,7 +62,7 @@ AddOrganizer = React.createClass({
             <ReactBootstrap.Button onClick={this.addOrganizers}>Add Organizers</ReactBootstrap.Button>
           </ReactBootstrap.Modal.Footer>
         </ReactBootstrap.Modal>
-        <div className="row add-idea">
+        <div className="row add-organizers">
           <div className='col'>
             <a onClick={ this.showModal }>
               <i className="icon ion-plus-circled"></i>

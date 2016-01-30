@@ -68,7 +68,9 @@ EditTrip = React.createClass({
         <ReactBootstrap.Modal
           {...this.props}
           onHide={this.props.onHide}
-          dialogClassName="custom-modal">
+          dialogClassName="custom-modal"
+          bsClass='edit-trip-bg'
+          >
           <ReactBootstrap.Modal.Header closeButton>
             <ReactBootstrap.Modal.Title id="contained-modal-title-lg">Edit Trip</ReactBootstrap.Modal.Title>
           </ReactBootstrap.Modal.Header>
