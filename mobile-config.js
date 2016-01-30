@@ -5,4 +5,4 @@ App.info({
   email: 'team.polliwog@gmail.com',
   website: 'http://wildebeest.pw'
 });
-App.accessRule('http://192.168.1.191:3000/*');
+App.accessRule('*');

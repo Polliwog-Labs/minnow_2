@@ -3,7 +3,7 @@ TripList = React.createClass({
     trip: React.PropTypes.object.isRequired
   },
   getInitialState: function(){
-    return {url:'/minnows-bg.jpg'}
+    return {url:AbsUrl+'/minnows-bg.jpg'}
   },
   getImageUrl(){
     var count = 1;
@@ -12,12 +12,12 @@ TripList = React.createClass({
         if (err) {
           console.log(err);
           console.log('err retrieving image. This shouldn\'t happen. Doge time.');
-          context.setState({url:'/minnows-bg.jpg'});
+          context.setState({url:AbsUrl+'/minnows-bg.jpg'});
         }
         else {
           if (data) context.setState({url:data})
           else {
-            if (count >= 15) {context.setState({url:'/minnows-bg.jpg'});}
+            if (count >= 15) {context.setState({url:AbsUrl+'/minnows-bg.jpg'});}
             else {
               setTimeout(function(){
                 count++;
@@ -35,16 +35,16 @@ TripList = React.createClass({
     if (this.props.trip.image_id) {
       this.getImageUrl()
     } else {
-      this.setState({url:'/minnows-bg.jpg'});
+      this.setState({url:AbsUrl+'/minnows-bg.jpg'});
     }
   },
   navToTrip: function(){
-    document.location.href = '/trip/' + this.props.trip._id;
+    this.props.history.push('/trip/' + this.props.trip._id);
   },
 
   render: function(){
-
-    var backgroundStyle = {'background': 'url('+this.state.url+')'};
+    console.log(this.state.url);
+    var backgroundStyle = {'background': 'url('+AbsUrl+this.state.url+')'};
     return (
       <div className="tripListContainer">
         <div className="tripListModule" onClick={this.navToTrip} style={backgroundStyle}>
