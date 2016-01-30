@@ -15,18 +15,6 @@ TripHome = React.createClass({
     this.setState(newprops);
   },
 
-  updateExpenseDash:function(){
-    var expense_dash = this.props.trip.expense_dash;
-    this.props.members.map(function (member){
-      expense_dash.map(function (user){
-        if(member.username !== user.user) {
-          if(!user.member) {
-            user[member.username] = Number(0);
-          }
-        }
-      });
-    });
-  },
 
   submitInvitees: function(event) {
     event.preventDefault();
@@ -103,7 +91,6 @@ TripHome = React.createClass({
       return {amount: a.amount+b.amount};
     },{amount:0}).amount
 
-    this.updateExpenseDash();
 
     return (
        <div className='trip list'>
