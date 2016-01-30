@@ -4,6 +4,7 @@ App = React.createClass({
 
   logout: function() {
     Meteor.logout();
+    this.navToggle();
     this.props.history.push('/');
   },
 
@@ -16,11 +17,20 @@ App = React.createClass({
     return data;
   },
 
+  getInitialState: function () {
+    return {
+      expanded: false
+    }
+  },
+
+  navToggle: function () {
+    this.setState({expanded: !this.state.expanded})
+  },
   
   render: function(){
     return (
       <div>
-        <ReactBootstrap.Navbar>
+        <ReactBootstrap.Navbar expanded={this.state.expanded} onToggle={this.navToggle}>
           <ReactBootstrap.Navbar.Header>
             { Meteor.userId() ?
               <ReactBootstrap.Navbar.Toggle /> : ''
@@ -31,13 +41,13 @@ App = React.createClass({
           </ReactBootstrap.Navbar.Header>
           <ReactBootstrap.Navbar.Collapse>
             <ReactBootstrap.Navbar.Text>
-              <ReactBootstrap.Navbar.Link href="/mytrips">My Trips</ReactBootstrap.Navbar.Link> 
+            <ReactRouter.Link to="mytrips" className='menu-link' onClick={this.navToggle} >My Trips</ReactRouter.Link>
             </ReactBootstrap.Navbar.Text>
             <ReactBootstrap.Navbar.Text>
-              <ReactBootstrap.Navbar.Link href="/myinvites">My Invites ({this.data.notifications.length})</ReactBootstrap.Navbar.Link>
+            <ReactRouter.Link to="myinvites" className='menu-link' onClick={this.navToggle} >My Invites ({this.data.notifications.length})</ReactRouter.Link>
             </ReactBootstrap.Navbar.Text>
             <ReactBootstrap.Navbar.Text >
-              <ReactBootstrap.Navbar.Link href="/account">Account</ReactBootstrap.Navbar.Link>
+            <ReactRouter.Link to="account" className='menu-link' onClick={this.navToggle} >Account</ReactRouter.Link>
             </ReactBootstrap.Navbar.Text>
             <ReactBootstrap.Navbar.Text onClick={this.logout}>
               Logout
