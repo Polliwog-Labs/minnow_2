@@ -19,7 +19,7 @@ MyTrips = React.createClass({
       } else {
         console.log(id)
         Meteor.users.update(Meteor.userId(), {$push: {"profile.myTrips": id}});
-        document.location.href='/trip/'+id;
+        this.props.history.push('/trip/'+ id);
       }
     });
   },
@@ -32,7 +32,7 @@ MyTrips = React.createClass({
       return a.dates[0] - b.dates[0];
     }).map(trip=>{
       return (
-        <TripList key={trip._id} trip={trip}/>
+        <TripList history={this.props.history} key={trip._id} trip={trip}/>
       );
      })
     },
@@ -47,7 +47,7 @@ MyTrips = React.createClass({
           <label className='item-input-wrapper'>
             <input type='text' placeholder='Trip Name' ref="newTrip_name"/>
           </label>
-          <button className="button button-small button-positive" onClick={this.newTrip}>New Trip</button>
+          <button type="submit" className="button button-small button-positive" onClick={this.newTrip}>New Trip</button>
         </div>
         {this.renderTrips()}
       </div>

@@ -1,11 +1,9 @@
 @import url(http://fonts.googleapis.com/css?family=Roboto:400,900);
 @import 'meteoric_ionic-sass/ionic';
 @import 'meteoric_ionicons-sass/ionicons';
-
-
-
 /*@import 'ratchet.css';*/
 /*@import 'minnow.css';*/
+
 html, body {
   font-family: "Helvetica Neue", "Roboto", sans-serif;
   height: 100%;
@@ -15,6 +13,9 @@ html, body {
 }
 .header-expenses{
   text-align: center;
+}
+.edit-trip-bg-body{
+ /* background: #000;*/
 }
 .item h2{
   margin: 0 0 10px 10px;
@@ -45,7 +46,7 @@ h1.list {
   margin-top: -4px;
 }
 .image-div{
-  height: 257px;
+  height: 300px;
   width: 100%;
 }
 .profile_pic {
@@ -64,6 +65,10 @@ h1.list {
 }
 .item{
   margin: 0px;
+}
+
+.text-wrap{
+  white-space: normal!important;
 }
 .item-thumbnail-left:hover {
   cursor: pointer;
@@ -205,8 +210,12 @@ label[for="nav-trigger"] {
   position: fixed;
 }
 
+
 .map-toggle {
   float: right;
+}
+.item p {
+  white-space: normal;
 }
 
 .navbar-brand {
@@ -221,6 +230,10 @@ label[for="nav-trigger"] {
   float: left;
   margin-left: 10px;
 }
+.card{
+  text-align: center;
+  padding-top: 7px;
+}
 
 .menu-link {
   color: #777;
@@ -234,7 +247,15 @@ label[for="nav-trigger"] {
 .add-idea i {
   font-size: 24px
 }
-
+.add-expense{
+  vertical-align: -15%;
+  margin-left: 14px;
+}
+.add-organizers span {
+  vertical-align: -18%;
+  margin-left: 9px;
+  font-size: 15px;
+}
 .add-idea span {
   vertical-align: 13%;
   margin-left: 5px;
@@ -292,7 +313,7 @@ label[for="nav-trigger"] {
 
 .photos-body {
   background-color: #030303;
-  min-height: 100%;
+  margin-top: 33%;
 }
 
 /*add photo button  */
