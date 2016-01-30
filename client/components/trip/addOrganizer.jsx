@@ -10,12 +10,12 @@ AddOrganizer = React.createClass({
     this.setState({show:false});
   },
   populateMembers(){
-    return this.props.members.filter(user=>{return Meteor.userId() !== user._id}).map((user,index)=>{
-      var id = Meteor.userId();
-      user.toggled = this.state.organizers.includes(user._id);
-      return (
-        <div key={index}>
-          <li ref="split_with" className="item item-toggle">
+    if (this.props.members.length > 1){
+      return this.props.members.filter(user=>{return Meteor.userId() !== user._id}).map((user,index)=>{
+        var id = Meteor.userId();
+        user.toggled = this.state.organizers.includes(user._id);
+        return (
+          <li ref="split_with" className="item item-toggle" key={index}>
             {user.username}
             <label className="toggle toggle-balanced">
               <input id={index} type="checkbox" value={user._id} onClick={this.onToggle} defaultChecked={user.toggled} />
@@ -24,9 +24,9 @@ AddOrganizer = React.createClass({
                 </div>
             </label>
           </li>
-        </div>
-      );
-    });    
+        );
+      });    
+    } else return <li>Invite some friends first!</li>;
   },
   onToggle(event){
     var newOrganizers = this.state.organizers.slice();
@@ -44,7 +44,7 @@ AddOrganizer = React.createClass({
     this.hideModal();
   },
   render(){
-    if (this.props.trip.organizers.includes(Meteor.userId())) return (
+      return (
       <label className="item item-input item-stacked-label">
         <ReactBootstrap.Modal
           show={this.state.show}
@@ -64,7 +64,7 @@ AddOrganizer = React.createClass({
         </ReactBootstrap.Modal>
         <div className="row add-idea">
           <div className='col'>
-            <a onClick={ this.showModal }>
+            <a onClick={this.showModal}>
               <i className="icon ion-plus-circled"></i>
               <span className='icon-label'>Add Organizers</span>
             </a>
@@ -72,6 +72,7 @@ AddOrganizer = React.createClass({
           <div className='col'></div>
         </div>
       </label>
-    );
+    )
+   
   }
 });

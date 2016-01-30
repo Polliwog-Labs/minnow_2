@@ -17,7 +17,6 @@ MyTrips = React.createClass({
       if (err){
         console.error("error inserting into DB", err)
       } else {
-        console.log(id)
         Meteor.users.update(Meteor.userId(), {$push: {"profile.myTrips": id}});
         this.props.history.push('/trip/'+ id);
       }

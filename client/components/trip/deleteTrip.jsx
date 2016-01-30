@@ -34,5 +34,5 @@ DeleteTrip = React.createClass({
         <button className='button button-block button-negative' onClick={this.showModal}>Delete Trip</button>
       </div>
     );
-  }
+  } else return <div/>
 });

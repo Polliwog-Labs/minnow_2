@@ -15,7 +15,7 @@ TripList = React.createClass({
           context.setState({url:AbsUrl+'/group-beach.jpg'});
         }
         else {
-          if (data) context.setState({url:data})
+          if (data) context.setState({url:AbsUrl+data})
           else {
             if (count >= 15) {context.setState({url:AbsUrl+'/group-beach.jpg'});}
             else {
@@ -44,8 +44,7 @@ TripList = React.createClass({
   },
 
   render: function(){
-    console.log(this.state.url);
-    var backgroundStyle = {'background': 'url('+AbsUrl+this.state.url+')'};
+    var backgroundStyle = {'background': 'url('+this.state.url+')'};
     return (
       <div className="tripListContainer">
         <div className="tripListModule" onClick={this.navToTrip} style={backgroundStyle}>

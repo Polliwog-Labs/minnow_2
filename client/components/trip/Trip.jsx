@@ -4,7 +4,8 @@ Trip = React.createClass({
 
   getMeteorData() {
     var user = Meteor.user();
-    var data = {view:'Home'};
+    var data = {view:'Home',
+                members:[]};
     var tripId = document.location.pathname.substring(6);
     var handle = Meteor.subscribe('singleTrip',tripId,user);
     if (handle.ready()){
@@ -18,7 +19,6 @@ Trip = React.createClass({
   },
 
   getInitialState: function () {
-    console.log(document.location.pathname.substring(6));
     return {trip:{members:[]},
             view:null,
             members:[]}
