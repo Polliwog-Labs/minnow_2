@@ -5,9 +5,10 @@ NewExpense = React.createClass({
 		var expense_amount = ReactDOM.findDOMNode(this.refs.expense_amount).value;
 		var user = Meteor.user();
 		var username = user.username
-		var splitBy = this.state.split_with.length + 1
+		var splitBy = this.state.split_with.length + 1;
+		var setUp = expense_amount/splitBy;
+		var expensePerPerson = Number((setUp).toFixed(2));
 
-		var expensePerPerson = expense_amount/splitBy
 		
 		// var expense_split = ReactDOM.findDOMNode(this.refs.expense_split).value;
 		//Need to set a expenses schedma that can keep track of how much each person owes
@@ -49,15 +50,12 @@ NewExpense = React.createClass({
   onToggle:function(value){
   	var username = value.target.value;
   	var newSplit = this.state.split;
-  	console.log("state",newSplit);
   	newSplit[username] = !newSplit[username];
   	this.setState({split: newSplit});
-  	console.log(this.state);
   },
 
   createSplit:function(){
   	var state = this.state.split;
-  	console.log("state before", this.state);
   	for(var key in state) {
   		console.log("key",key);
   		if(state[key] === true) {
@@ -68,8 +66,6 @@ NewExpense = React.createClass({
   },
 
   showSplitWith:function(){
-  	console.log("hit funciton");
-  	console.log("this.state.split_with", this.state.split_with);
   	return this.state.split_with.map(function (member, index){
   		console.log("member", member);
   		return (

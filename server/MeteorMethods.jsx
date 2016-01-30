@@ -62,13 +62,32 @@ Meteor.methods({
 
     //Update the expense_dash collection on accept 
 
+    var expense_dash = trip.expense_dash;
+    var username = user.username
+    var updatedDash = [];
 
-    Trips.update({_id: trip},{$push:{"expense_dash": {user: user.username}}})
-    Meteor.users.update({_id:user._id}, {$pull:{"profile.invites": trip}});
-    Trips.update({_id:trip},{$pull:{"pending": user.emails[0].address}});
-    Meteor.users.update({_id:user._id}, {$push:{"profile.myTrips": trip}});
-    Invites.remove({recipient:user.emails[0].address,trip_id:trip});
-    return Trips.update({_id:trip}, {$push:{"members": user._id}},(err)=>{
+    var newMemberObject = {user: username};
+    
+    expense_dash.map(function (member){
+      member[username] = 0;
+      updatedDash.push(member);
+    });
+
+    console.log("expense dash before new member", updatedDash);
+    expense_dash.map(function (member){
+      var otherMember = member.user;
+      newMemberObject[otherMember] = 0;
+    });
+
+    console.log("newMemberObject", newMemberObject);
+    updatedDash.push(newMemberObject);
+
+    Trips.update({_id: trip._id}, {$set: {expense_dash: updatedDash}});
+    Meteor.users.update({_id:user._id}, {$pull:{"profile.invites": trip._id}});
+    Trips.update({_id:trip._id},{$pull:{"pending": user.emails[0].address}});
+    Meteor.users.update({_id:user._id}, {$push:{"profile.myTrips": trip._id}});
+    Invites.remove({recipient:user.emails[0].address,trip_id:trip._id});
+    return Trips.update({_id:trip._id}, {$push:{"members": user._id}},(err)=>{
       return !err;
     });
   },
