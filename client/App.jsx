@@ -4,7 +4,7 @@ App = React.createClass({
 
   logout: function() {
     Meteor.logout();
-    document.location.href = '/login'
+    this.props.history.push('/');
   },
 
   getMeteorData: function() {
@@ -44,7 +44,7 @@ App = React.createClass({
             </ReactBootstrap.Navbar.Text>
           </ReactBootstrap.Navbar.Collapse>
         </ReactBootstrap.Navbar>
-        <div className="content">
+        <div ref='app' className="content">
           { this.props.children }
         </div>
       </div>

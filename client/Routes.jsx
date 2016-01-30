@@ -15,7 +15,7 @@ Meteor.startup(function() {
         <IndexRoute component = {Login} />
         <Route name="login" path="login" component={Login} />
         <Route name="signup" path="signup" component={Signup} />
-        <Route path="mytrips" component = {MyTrips} />
+        <Route name="myTrips" path="mytrips" component = {MyTrips} />
         <Route path="newevent" component = {Event} />
         <Route path="myinvites" component = {MyInvites} />
         <Route path='account' component = {Account} />
