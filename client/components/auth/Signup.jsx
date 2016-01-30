@@ -12,7 +12,6 @@ Signup = React.createClass({
     var email = ReactDOM.findDOMNode(this.refs.email_input).value
     var password = ReactDOM.findDOMNode(this.refs.password_input1).value
     var that = this;
-
     Meteor.call('getUserInvites',email,(err,invites)=>{
       !err && Accounts.createUser({
         username: username,
@@ -24,7 +23,7 @@ Signup = React.createClass({
           console.log(error)
           that.setState({signupError: error.reason})
         }else if(!error){
-          document.location.href = "/mytrips";
+          that.props.history.push('/mytrips');
         }
       });
     });
@@ -43,7 +42,7 @@ Signup = React.createClass({
           <input className="login-input" type="text" placeholder="Full Name" ref="username"/>
           <input className="login-input" type="password" placeholder="Password" ref="password_input1"/>
           <input className="login-input" type="password" placeholder="Confirm Password" ref="password_input2"/>
-          <button className="login-btn button button-block button-positive" type="button" onClick={this.signup}>Create Account</button>
+          <button className="login-btn button button-block button-positive" type="submit" onClick={this.signup}>Create Account</button>
         </form>
         <ReactRouter.Link to="login">Aleady a user? Login here.</ReactRouter.Link>
       </div>
