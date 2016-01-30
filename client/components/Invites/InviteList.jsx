@@ -14,7 +14,7 @@ InviteList = React.createClass({
   },
 
   navToTrip: function(){
-    Meteor.user() && Meteor.call('inviteAccepted', Meteor.user(), this.props.trip._id, (err, data) => {
+    Meteor.user() && Meteor.call('inviteAccepted', Meteor.user(), this.props.trip, (err, data) => {
       if(err) {
         console.log(err);
       }  else {

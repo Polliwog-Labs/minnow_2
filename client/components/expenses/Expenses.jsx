@@ -33,7 +33,7 @@ Expenses = React.createClass({
   renderDash: function () {
     $('#newExpense').removeClass('active');
     $('#dashboard').addClass('active');
-    ReactDOM.render(<AllExpenses trip={this.state.trip}/>, document.getElementById('expense-module'))
+    ReactDOM.render(<AllExpenses trip={this.state.trip} members={this.props.members} />, document.getElementById('expense-module'))
   },
 
   renderNew: function () {
