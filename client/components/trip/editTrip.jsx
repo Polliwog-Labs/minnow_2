@@ -68,11 +68,12 @@ EditTrip = React.createClass({
         <ReactBootstrap.Modal
           {...this.props}
           onHide={this.props.onHide}
-          dialogClassName="custom-modal">
+          dialogClassName="custom-modal"
+          >
           <ReactBootstrap.Modal.Header closeButton>
             <ReactBootstrap.Modal.Title id="contained-modal-title-lg">Edit Trip</ReactBootstrap.Modal.Title>
           </ReactBootstrap.Modal.Header>
-        <ReactBootstrap.Modal.Body>
+        <ReactBootstrap.Modal.Body bsClass='edit-trip-bg'>
           <div className='list'>
               <form id='newTrip-form' className='form-group' onSubmit={this.submitTrip}>
                 <label className="item item-input item-stacked-label">

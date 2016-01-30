@@ -133,7 +133,7 @@ NewExpense = React.createClass({
 			            <ReactBootstrap.Button onClick={this.createSplit} >Split With Selected</ReactBootstrap.Button>
 			          </ReactBootstrap.Modal.Footer>
 			        </ReactBootstrap.Modal>
-			        <div className="row add-idea">
+			        <div className="row add-expense">
 			          <div className='col'>
 			            <a onClick={ this.showModal }>
 			              <i className="icon ion-plus-circled"></i>
