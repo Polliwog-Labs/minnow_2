@@ -14,12 +14,17 @@ html, body {
   overflow-y: scroll;
 
 }
-
+.header-expenses{
+  text-align: center;
+}
 .item h2{
   margin: 0 0 10px 10px;
   text-align: start;
   font-size: 25px;
   font-weight: normal;
+}
+.balance {
+  font-size: 16px;
 }
 .anchor-resize{
   height: 100%;

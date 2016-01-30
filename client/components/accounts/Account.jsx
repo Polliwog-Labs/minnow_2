@@ -34,7 +34,7 @@ Account = React.createClass({
   			else{console.log('Success updating username')}
   		});
   	}else if(emailUpdate !== ''){
-			Meteor.users.update({_id:Meteor.userId()}, {$set:{"emails": {"address": emailUpdate}}}, (err)=>{
+			Meteor.users.update({_id:Meteor.userId()}, {$set:{"emails": [{"address": emailUpdate}]}}, (err)=>{
 				if(err) console.log('Error updating email', err)
 				else{console.log('Success updating email')}
 			});
