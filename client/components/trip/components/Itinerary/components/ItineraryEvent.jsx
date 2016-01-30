@@ -5,13 +5,12 @@ ItineraryEvent = React.createClass({
   },
 
   deleteEvent() {
-    var that = this
-    Meteor.call('deleteEvent', this.props.trip._id, this.props.event.created_at, function (error) {
+    Meteor.call('deleteEvent', this.props.trip._id, this.props.event.created_at, error=> {
       if (error) {
         console.log('faied to delete event: ', error)
       } else {
-        that.props.updateView('ItineraryView')
-        that.props.updateParent('Itinerary')
+        this.props.updateView('ItineraryView')
+        this.props.updateParent('Itinerary')
       }
     })
   },

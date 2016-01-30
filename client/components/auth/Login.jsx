@@ -20,13 +20,13 @@ Login = React.createClass({
         console.log('ERROR: ', err)
         this.setState({authError: 'Incorrect email or password'})
       } else {
-        that.props.history.push('/mytrips');
+        this.props.history.push('/mytrips');
       }
     });
   }, 
   componentDidMount(){
     setTimeout(()=>{
-      Meteor.user() && (document.location.href = '/mytrips');
+      Meteor.user() && this.props.history.push('/mytrips');
     },1000);
   },
   render(){

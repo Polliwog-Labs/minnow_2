@@ -6,7 +6,6 @@ Ideas = React.createClass({
 
   submitIdea() {
     this.hideModal();
-    var that = this;
     var event_name = ReactDOM.findDOMNode(this.refs.idea_name).value;
     var event_desc = ReactDOM.findDOMNode(this.refs.idea_desc).value;
     var event_url = encodeURIComponent(ReactDOM.findDOMNode(this.refs.url).value);
@@ -14,7 +13,7 @@ Ideas = React.createClass({
     var event_location = ReactDOM.findDOMNode(this.refs.idea_location).value;
     var trip = this.props.trip._id;
     var created_at = String(new Date())
-    HTTP.call('GET', 'http://opengraph.io/api/1.0/site/' + event_url, function(error, response) {
+    HTTP.call('GET', 'http://opengraph.io/api/1.0/site/' + event_url, (error, response)=>{
       if (error) {
         console.log('API call error - no URL data saved:', error)
       } else {
@@ -34,8 +33,8 @@ Ideas = React.createClass({
           if (error) {
             console.log(error)
           } else {
-            that.props.updateView('IdeasView')
-            that.props.updateParent('Itinerary')
+            this.props.updateView('IdeasView')
+            this.props.updateParent('Itinerary')
           }
         })
       }
