@@ -35,6 +35,15 @@ Meteor.methods({
     return Meteor.users.findOne({_id:id});
   },
 
+  //notifcations
+  notify(recipient,clear){
+    if (clear) return Notifications.remove({
+      recipient: recipient
+    });
+    return Notifications.insert({
+      recipient: recipient
+    });
+  },
 
 
   //Invite methods
@@ -81,6 +90,7 @@ Meteor.methods({
     if (!user){
       return false;
     }
+    Meteor.call('notify',user._id);
     return Meteor.users.update({_id:user._id},{$push:{"profile.invites":id}});
   },
   sendInvitationEmail: function(inviteeEmail,trip,user){
