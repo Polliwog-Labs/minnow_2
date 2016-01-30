@@ -1,9 +1,9 @@
 MyTrips = React.createClass({
   mixins: [ReactMeteorData],
   getMeteorData(){
-    var data = {};
+    var data = {trips:[]};
     var trips = Meteor.subscribe("myTrips",Meteor.user());
-    data.trips = Trips.find().fetch()
+    trips.ready() && (data.trips = Trips.find().fetch());
     return data;
   },
 
@@ -28,6 +28,7 @@ MyTrips = React.createClass({
 
   // },
   renderTrips: function(){
+
     if (Trips.find().fetch().length) {
      return this.state.trips.map(trip=>{
       return (

@@ -96,4 +96,5 @@ if (Meteor.isClient){
   Trips = new Mongo.Collection('trips');
   Invites = new Mongo.Collection('invites');
   Users = Meteor.users;
+  Notifications = new Mongo.Collection('notifications');
 }

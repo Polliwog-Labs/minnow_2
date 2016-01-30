@@ -35,6 +35,15 @@ Meteor.methods({
     return Meteor.users.findOne({_id:id});
   },
 
+  //notifcations
+  notify(recipient,clear){
+    if (clear) return Notifications.remove({
+      recipient: recipient
+    });
+    return Notifications.insert({
+      recipient: recipient
+    });
+  },
 
 
   //Invite methods
@@ -50,6 +59,10 @@ Meteor.methods({
     })}}).fetch();
   },
   inviteAccepted: function(user, trip){
+
+    //Update the expense_dash collection on accept 
+
+
     Trips.update({_id: trip},{$push:{"expense_dash": {user: user.username}}})
     Meteor.users.update({_id:user._id}, {$pull:{"profile.invites": trip}});
     Trips.update({_id:trip},{$pull:{"pending": user.emails[0].address}});
@@ -77,6 +90,7 @@ Meteor.methods({
     if (!user){
       return false;
     }
+    Meteor.call('notify',user._id);
     return Meteor.users.update({_id:user._id},{$push:{"profile.invites":id}});
   },
   sendInvitationEmail: function(inviteeEmail,trip,user){
@@ -226,7 +240,26 @@ Meteor.methods({
   },
 
   //expenses
-  pushExpense: function(expense,user){
+  pushExpense: function(expense,user,dash){
+    
+    var newExpenseDash = dash.map(function (userObject){
+      if(userObject.user === user.username) {
+         expense.split_with.map(function (splitUser) {
+            var oldBalance = userObject[splitUser];
+            userObject[splitUser] = oldBalance + expense.amount;
+         });
+      }
+      var splitList = expense.split_with;
+      if(_.contains(splitList, userObject.user)) {
+        var createdSplit = user.username;
+        var oldBalance = userObject[createdSplit];
+        userObject[createdSplit] = oldBalance - expense.amount;
+      } 
+        return (userObject);
+    });
+
+    Trips.update({_id: expense.trip_id}, {$set: {expense_dash: newExpenseDash}});
+
 
     return Trips.update({"_id": expense.trip_id}, {$push: {
       'expenses': {

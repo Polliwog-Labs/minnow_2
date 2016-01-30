@@ -16,16 +16,16 @@ TripHome = React.createClass({
   },
 
   updateExpenseDash:function(){
-    // var expense_dash = this.props.trip.expense_dash;
-    // this.props.members.map(function (member){
-    //   expense_dash.map(function (user){
-    //     if(member.username !== user.user) {
-    //       if(!user.member) {
-    //         user[member.username] = 0;
-    //       }
-    //     }
-    //   });
-    // });
+    var expense_dash = this.props.trip.expense_dash;
+    this.props.members.map(function (member){
+      expense_dash.map(function (user){
+        if(member.username !== user.user) {
+          if(!user.member) {
+            user[member.username] = Number(0);
+          }
+        }
+      });
+    });
   },
 
   submitInvitees: function(event) {
@@ -112,8 +112,11 @@ TripHome = React.createClass({
           <Image image_id={params.image_id} height="100%" />
          </div>
          <div className='item'>
-          <h1>{this.props.trip.name || 'Unnamed Trip'}</h1>
-          <h3>{DateUtils.getTripDate(this.props.trip.dates)}</h3>
+          <h2>{this.props.trip.name || 'Unnamed Trip'}</h2>
+          <div className='item item-divider row'>
+            <h3 className='col'>{DateUtils.getTripDate(this.props.trip.dates)}</h3>
+            <p className='col clear-right'><a onClick={ this.showModal }><i id="pencil" className='ion-edit'></i></a></p>
+          </div>
           <div className='item'>
             <p className=''>Whos Coming? {this.props.members.map((member)=>{
               return member.username;
@@ -128,11 +131,6 @@ TripHome = React.createClass({
               <button id="btn-submit" className='btn btn-default' onClick={this.submitInvitees}>Invite</button>
               <span style={{'color':'red','display':'none'}} className="error-email">Bad Email</span>
             </form>
-            <div className='row edit-row'>
-              <p className='col-50'>Est. Cost: ${cost}</p>
-              <p className='col-25'></p>
-              <p className='col_25'><a onClick={ this.showModal }><i id="pencil" className='ion-edit'></i></a></p>
-            </div>
           </div>
         </div>
       </div>
