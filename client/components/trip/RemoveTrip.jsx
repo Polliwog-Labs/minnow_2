@@ -21,15 +21,14 @@ RemoveTrip = React.createClass({
               show={this.state.show}
               onHide={this.hideModal}
               dialogClassName="custom-modal">
-              <ReactBootstrap.Modal.Header closeButton>
-                <ReactBootstrap.Modal.Title id="contained-modal-title-lg">Confirm Remove</ReactBootstrap.Modal.Title>
-              </ReactBootstrap.Modal.Header>
               <ReactBootstrap.Modal.Body>
-              <h1>Really Leave This Trip?</h1>
-              <p>If you wish to rejoin this trip, another member will have to invite you again.</p>
+              <div className='col' >
+                <h4>Are you sure you want to leave {this.props.trip.name}?</h4>
+                <p>If you wish to rejoin this trip, another member will have to invite you again.</p>
+              </div>
               </ReactBootstrap.Modal.Body>
               <ReactBootstrap.Modal.Footer>
-                <ReactBootstrap.Button onClick={this.removeTrip}>Remove Me From This Trip</ReactBootstrap.Button>
+                <ReactBootstrap.Button onClick={this.removeTrip}>Leave Trip</ReactBootstrap.Button>
                 <ReactBootstrap.Button onClick={this.hideModal}>Cancel</ReactBootstrap.Button>
               </ReactBootstrap.Modal.Footer>
             </ReactBootstrap.Modal>

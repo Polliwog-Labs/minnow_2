@@ -2,7 +2,7 @@ DateUtils={
   getTripDate(array){
   //takes an array of numerical dates in Unix time
   //and returns the first date in string form
-    var tripDate = {string:'Date Not Set'};
+    var tripDate = {string:'(TBD)'};
     var months = ['January',
                   'February',
                   'March',

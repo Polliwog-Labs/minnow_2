@@ -35,11 +35,12 @@ TripList = React.createClass({
     if (this.props.trip.image_id) {
       this.getImageUrl()
     } else {
-      this.setState({url:'/minnows-bg.jpg'});
+      this.setState({url:'/group-beach.jpg'});
     }
   },
   navToTrip: function(){
-    document.location.href = '/trip/' + this.props.trip._id;
+    // document.location.href = '/trip/' + this.props.trip._id;
+    this.props.history.push('/trip/'+ this.props.trip._id);
   },
 
   render: function(){
