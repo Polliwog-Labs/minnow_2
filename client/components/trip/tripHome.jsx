@@ -16,16 +16,18 @@ TripHome = React.createClass({
   },
 
   updateExpenseDash:function(){
-    var expense_dash = this.props.trip.expense_dash;
-    this.props.members.map(function (member){
-      expense_dash.map(function (user){
-        if(member.username !== user.user) {
-          if(!user.member) {
-            user[member.username] = Number(0);
+    if (this.props.trip) {
+      var expense_dash = this.props.trip.expense_dash;
+      this.props.members.map(function (member){
+        expense_dash.map(function (user){
+          if(member.username !== user.user) {
+            if(!user.member) {
+              user[member.username] = Number(0);
+            }
           }
-        }
+        });
       });
-    });
+    }
   },
 
   submitInvitees: function(event) {
@@ -105,7 +107,8 @@ TripHome = React.createClass({
 
     this.updateExpenseDash();
 
-    return (
+    if (this.props.trip){
+      return (
        <div className='trip list'>
         <EditTrip onHide={this.hideModal} show={this.state.show} trip={this.props.trip} members={this.props.members}/>
          <div className='image-div'>
@@ -135,6 +138,7 @@ TripHome = React.createClass({
         </div>
       </div>
     )
+    } else return <div/>;
   }
 });
 

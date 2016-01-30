@@ -2,7 +2,7 @@ MyTrips = React.createClass({
   mixins: [ReactMeteorData],
   getMeteorData(){
     var data = {trips:[]};
-    var trips = Meteor.subscribe("myTrips",Meteor.user());
+    if (Meteor.user()) var trips = Meteor.subscribe("myTrips",Meteor.user());
     trips.ready() && (data.trips = Trips.find().fetch());
     return data;
   },
