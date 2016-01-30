@@ -3,7 +3,7 @@ TripList = React.createClass({
     trip: React.PropTypes.object.isRequired
   },
   getInitialState: function(){
-    return {url:AbsUrl+'/minnows-bg.jpg'}
+    return {url:AbsUrl+'/group-beach.jpg'}
   },
   getImageUrl(){
     var count = 1;
@@ -12,12 +12,12 @@ TripList = React.createClass({
         if (err) {
           console.log(err);
           console.log('err retrieving image. This shouldn\'t happen. Doge time.');
-          context.setState({url:AbsUrl+'/minnows-bg.jpg'});
+          context.setState({url:AbsUrl+'/group-beach.jpg'});
         }
         else {
           if (data) context.setState({url:data})
           else {
-            if (count >= 15) {context.setState({url:AbsUrl+'/minnows-bg.jpg'});}
+            if (count >= 15) {context.setState({url:AbsUrl+'/group-beach.jpg'});}
             else {
               setTimeout(function(){
                 count++;
@@ -35,11 +35,12 @@ TripList = React.createClass({
     if (this.props.trip.image_id) {
       this.getImageUrl()
     } else {
-      this.setState({url:AbsUrl+'/minnows-bg.jpg'});
+      this.setState({url:'/group-beach.jpg'});
     }
   },
   navToTrip: function(){
-    this.props.history.push('/trip/' + this.props.trip._id);
+    // document.location.href = '/trip/' + this.props.trip._id;
+    this.props.history.push('/trip/'+ this.props.trip._id);
   },
 
   render: function(){
