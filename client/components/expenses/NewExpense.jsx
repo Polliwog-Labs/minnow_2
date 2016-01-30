@@ -67,7 +67,6 @@ NewExpense = React.createClass({
 
   showSplitWith:function(){
   	return this.state.split_with.map(function (member, index){
-  		console.log("member", member);
   		return (
   			<ul>
   				<li ref={index} >{member}</li>
@@ -86,7 +85,6 @@ NewExpense = React.createClass({
 	     	// that.setState({ [index]: false});
 	     	user.toggled = false;
 	     	if(user._id !== id) {
-	     		console.log("index", index)
 			return (
     	  <div key={index}>
 			  <li ref="split_with" className="item item-toggle">
