@@ -15,21 +15,6 @@ TripHome = React.createClass({
     this.setState(newprops);
   },
 
-  updateExpenseDash:function(){
-    if (this.props.trip) {
-      var expense_dash = this.props.trip.expense_dash;
-      this.props.members.map(function (member){
-        expense_dash.map(function (user){
-          if(member.username !== user.user) {
-            if(!user.member) {
-              user[member.username] = Number(0);
-            }
-          }
-        });
-      });
-    }
-  },
-
   submitInvitees: function(event) {
     event.preventDefault();
     var invitee_email = ReactDOM.findDOMNode(this.refs.input_email).value;
