@@ -28,16 +28,17 @@ MyTrips = React.createClass({
 
   // },
   renderTrips: function(){
-
-    if (Trips.find().fetch().length) {
-     return this.state.trips.map(trip=>{
+    return this.data.trips.sort((a,b)=>{
+      return a.dates[0] - b.dates[0];
+    }).map(trip=>{
       return (
         <TripList key={trip._id} trip={trip}/>
       );
      })
-    } else if (invites) {
-   } else return (<p>Create a trip above!</p>);
-  },
+    },
+   //  else if (invites) {
+   // } else return (<p>Create a trip above!</p>);
+  // },
   render: function(){
     return (
       <div className='list'>
