@@ -66,9 +66,17 @@ if (Meteor.isServer) {
     remove(userId){return userId === doc._id}
   });
 
+  //serverside notifications
+  Notifications = new Mongo.Collection('notifications');
+
+  Notifications.allow({
+    remove(){return true}
+  });
+
   //subsets of profilepics and images
   Meteor.publish("ProfilePics",()=>{return ProfilePics.find()});
   Meteor.publish("Images",()=>{return Images.find()});
+  Meteor.publish("Notifications",()=>{return Notifications.find()});
 }
 
 // { trip_id: tripid,

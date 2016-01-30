@@ -8,9 +8,12 @@ App = React.createClass({
   },
 
   getMeteorData: function() {
+    var data = {notifications:[]};
     var images = Meteor.subscribe('Images');
     var profiles = Meteor.subscribe('ProfilePics');
-    return {};
+    var notifications = Meteor.subscribe('Notifications');
+    notifications.ready() && (data.notifications = Notifications.find({recipient:Meteor.userId()}).fetch())
+    return data;
   },
 
   
@@ -31,7 +34,7 @@ App = React.createClass({
               <ReactBootstrap.Navbar.Link href="/mytrips">My Trips</ReactBootstrap.Navbar.Link> 
             </ReactBootstrap.Navbar.Text>
             <ReactBootstrap.Navbar.Text>
-              <ReactBootstrap.Navbar.Link href="/myinvites">My Invites</ReactBootstrap.Navbar.Link>
+              <ReactBootstrap.Navbar.Link href="/myinvites">My Invites ({this.data.notifications.length})</ReactBootstrap.Navbar.Link>
             </ReactBootstrap.Navbar.Text>
             <ReactBootstrap.Navbar.Text >
               <ReactBootstrap.Navbar.Link href="/account">Account</ReactBootstrap.Navbar.Link>
