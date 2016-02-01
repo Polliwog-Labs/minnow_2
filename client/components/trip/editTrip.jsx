@@ -27,7 +27,6 @@ EditTrip = React.createClass({
     event.preventDefault();
     var helperObj = this.getHelperObj()
     var file = $('#newTrip-file')[0].files[0] || ReactDOM.findDOMNode(this.refs.newTrip_url).value || {};
-    console.log(file.constructor)
     if (typeof file === 'string'){
       Meteor.call('storeImage',file,(err,data)=>{
         if (err) console.log(err)
@@ -89,7 +88,7 @@ EditTrip = React.createClass({
                   </label>
                   <label id="newTrip-members" className="item item-input item-stacked-label">
                     <span>Upload a photo (optional)</span>
-                    <input id="newTrip-file" className="item-input" type="file" ref="newTrip_file"/>
+                    <input id="newTrip-file" className="item-input" type="file" capture={true} ref="newTrip_file"/>
                   </label>
                   <button id="btn-submit" className='button button-block button-positive'>Submit</button>
                 </form>
