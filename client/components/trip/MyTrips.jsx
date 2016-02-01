@@ -28,6 +28,7 @@ MyTrips = React.createClass({
 
   // },
   renderTrips: function(){
+   if(this.data.trips){
     return this.data.trips.sort((a,b)=>{
       return a.dates[0] - b.dates[0];
     }).map(trip=>{
@@ -35,6 +36,7 @@ MyTrips = React.createClass({
         <TripList history={this.props.history} key={trip._id} trip={trip}/>
       );
      })
+   }
     },
    //  else if (invites) {
    // } else return (<p>Create a trip above!</p>);
