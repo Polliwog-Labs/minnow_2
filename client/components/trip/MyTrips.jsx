@@ -1,9 +1,10 @@
 MyTrips = React.createClass({
   mixins: [ReactMeteorData],
   getMeteorData(){
+    console.log('getting meteor data');
     var data = {trips:[]};
     var trips = Meteor.subscribe("myTrips",Meteor.user());
-    trips.ready() && (data.trips = Trips.find().fetch());
+    if (trips.ready()) data.trips = Trips.find().fetch();
     return data;
   },
 
@@ -17,7 +18,6 @@ MyTrips = React.createClass({
       if (err){
         console.error("error inserting into DB", err)
       } else {
-        console.log(id)
         Meteor.users.update(Meteor.userId(), {$push: {"profile.myTrips": id}});
         this.props.history.push('/trip/'+ id);
       }
