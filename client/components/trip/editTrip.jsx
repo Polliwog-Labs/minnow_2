@@ -107,7 +107,7 @@ EditTrip = React.createClass({
                   <button id="btn-submit" className='button button-block button-positive'>Submit</button>
                 </form>
                 {/*this.renderDeleteButton()*/}
-                <DeleteTrip trip={this.props.trip}/>
+                {/*<DeleteTrip trip={this.props.trip}/>*/}
              </div>
             </ReactBootstrap.Modal.Body>
           </ReactBootstrap.Modal>

@@ -91,7 +91,7 @@ TripHome = React.createClass({
         return {amount: a.amount+b.amount};
       },{amount:0}).amount
 
-      this.updateExpenseDash();
+      //this.updateExpenseDash();
 
       return (
       <div className='trip list'>
