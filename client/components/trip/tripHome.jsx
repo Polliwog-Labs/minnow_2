@@ -15,7 +15,6 @@ TripHome = React.createClass({
     this.setState(newprops);
   },
 
-
   submitInvitees: function(event) {
     event.preventDefault();
     var invitee_email = ReactDOM.findDOMNode(this.refs.input_email).value;
@@ -69,34 +68,36 @@ TripHome = React.createClass({
     this.setState({show: false});
   },
   render: function(){
-    var params = {
-      _id: null,
-      name: 'Unnamed Trip',
-      dates: [0,0],
-      members: [],
-      ideas: [],
-      itinerary: [],
-      messages: [],
-      expenses: [],
-      todo: [],
-      organizers: [],
-      expenses: [],
-      expense_dash:{}
-    };
+    if (this.props.trip){
+        var params = {
+        _id: null,
+        name: 'Unnamed Trip',
+        dates: [0,0],
+        members: [],
+        ideas: [],
+        itinerary: [],
+        messages: [],
+        expenses: [],
+        todo: [],
+        organizers: [],
+        expenses: [],
+        expense_dash:{}
+      };
 
-    for (var key in this.props.trip){
-      params[key] = this.props.trip[key];
-    };
-    var cost = params.expenses.reduce((a,b)=>{
-      return {amount: a.amount+b.amount};
-    },{amount:0}).amount
+      for (var key in this.props.trip){
+        params[key] = this.props.trip[key];
+      };
+      var cost = params.expenses.reduce((a,b)=>{
+        return {amount: a.amount+b.amount};
+      },{amount:0}).amount
 
+      //this.updateExpenseDash();
 
-    return (
-       <div className='trip list'>
+      return (
+      <div className='trip list'>
         <EditTrip onHide={this.hideModal} show={this.state.show} trip={this.props.trip} members={this.props.members}/>
          <div className='image-div'>
-          <Image image_id={params.image_id} height="100%" />
+          <Image image_id={params.image_id} height="300px" />
          </div>
          <div className='item'>
           <h2>{this.props.trip.name || 'Unnamed Trip'}</h2>
@@ -108,8 +109,6 @@ TripHome = React.createClass({
             <p className=''>Whos Coming? {this.props.members.map((member)=>{
               return member.username;
             }).join(', ')} </p>
-            {/*<p className=''>Action Items {params.todo.length}</p>*/}
-            {/*<p className='tripParams'>Est. Cost Per Person: ${cost / (params.members.length || 1)}</p>*/}
             <form className='form-group' >
               <p>Invitees:</p>
               <ul>{this.renderInvitees()}</ul>
@@ -120,8 +119,8 @@ TripHome = React.createClass({
             </form>
           </div>
         </div>
-      </div>
-    )
+      </div> )
+    } else return <div/>;
   }
 });
 
