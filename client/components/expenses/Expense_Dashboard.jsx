@@ -54,23 +54,21 @@ showModal(){
   },
 
 	render:function(){
-		console.log(this.props)
 		var member = this.props;
 		var key = Object.keys(member);
 		var setUp = this.props[key];
 		var balance = Number((setUp).toFixed(2));
 
+
+
 		return (
-			<a className="item item-thumbnail-left">
-		      {this.renderImage()}
-		      { balance === 0 ? <h2>You are even with {key}</h2>:
+			<div className='item item-divider header-expenses'>
+				{ balance === 0 ? <p className='balance'>You are even with {key}</p>:
 				    balance > 0 ? 
-					<h2>{key} owes you ${balance}</h2> : 
-					<h2>You owe {key} ${(balance) * -1}</h2>
+					<p className='balance'>{key} owes you ${balance}</p> : 
+					<p className='balance'>You owe {key} ${(balance) * -1}</p>
 				}
-			   <i onClick= {this.showExpenses} className="icon ion-plus-circled"></i>
-			   	<span className='icon-label'>View charges with {key}</span>        
-		    </a>
+			</div>
 
 		)
 	}
