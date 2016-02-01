@@ -294,7 +294,7 @@ Meteor.methods({
   },
 
   findUserByName:function(usernameToFind){
-    var user = Meteor.users.findOne({username: usernameToFind});
+    var user = Users.findOne({username: usernameToFind});
     return user;
   }
 

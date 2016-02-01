@@ -18,13 +18,18 @@ showModal(){
  	var member = this.props;
 	var key = Object.keys(member);
 	var image = undefined;
-	Meteor.call('findUserByName', key, function (err, data){
+	console.log("key",key[0]);
+	Meteor.call('findUserByName', key[0], function (err, data){
 		if(err) {
 			console.log("error",err);
 		} else {
-			image = Meteor.call('retrieveProfilePic', data._id);
+			console.log("data", data);
+			console.log("data._id", data._id);
+			Meteor.call('retrieveProfilePic', data._id, function);
 		}
 	});
+
+	console.log("image", image);
 
   	if(this.props && image){
   		return <Image ionicClass='avatar-image' image_id={image} height="80px" profile={true}/>
