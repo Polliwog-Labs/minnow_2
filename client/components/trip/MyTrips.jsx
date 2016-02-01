@@ -25,18 +25,22 @@ MyTrips = React.createClass({
 
   },
   renderTrips: function(){
-    return this.data.trips.sort((a,b)=>{
-      return a.dates[0] - b.dates[0];
-    }).map(trip=>{
-      return (
-        <TripList history={this.props.history} key={trip._id} trip={trip}/>
-      );
-    })
+    if(this.data.trips.length > 0){
+      return this.data.trips.sort((a,b)=>{
+        return a.dates[0] - b.dates[0];
+      }).map(trip=>{
+        return (
+          <TripList history={this.props.history} key={trip._id} trip={trip}/>
+        );
+      })
+    }else return(<p className='card card-fix'>You currently have no trips. Create a trip and invite your friend!</p>)
   },
   render: function(){
     return (
       <div className='list'>
-        <h2>My Trips</h2>
+        <div className="header-center">
+          <h2 className="header-override">My Trips</h2>
+        </div>
         <div className='item item-input-inset row'>
           <label className='item-input-wrapper'>
             <input type='text' placeholder='Trip Name' ref="newTrip_name"/>

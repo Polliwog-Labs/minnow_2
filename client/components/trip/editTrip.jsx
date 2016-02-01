@@ -80,29 +80,29 @@ EditTrip = React.createClass({
                   <span>{this.props.trip ? this.props.trip.name : 'Enter a Name'}</span>
                   <input id="newTrip-name" type="text" ref="tripName" placeholder="Trip Name"/>
                 </label>
-                <div className="row item">
-                  <div className='col-50'>
-                    <label className="item-stacked-label">
-                      <span>Start Date</span>
-                      <input className="item-input" type="date" ref="newTrip_startDate" defaultValue={startDate} />
+                <div className="row item bg-ice">
+                  <div className='col-50 bg-ice'>
+                    <label className="item-stacked-label bg-ice">
+                      <span className="bg-ice">Start Date</span>
+                      <input className="bg-ice item-input" type="date" ref="newTrip_startDate" defaultValue={startDate} />
                     </label>
                   </div>
                   <div className='col-50'>
-                    <label className="item-stacked-label">
-                      <span>End Date</span>
-                      <input className="item-input" type="date" ref="newTrip_endDate" defaultValue={endDate} />
+                    <label className="item-stacked-label bg-ice">
+                      <span className="bg-ice">End Date</span>
+                      <input className="bg-ice item-input" type="date" ref="newTrip_endDate" defaultValue={endDate} />
                     </label>
                   </div>
                 </div>
                 {this.renderOrganizerChanger()}
-                <label id="newTrip-members" className="item item-input item-stacked-label">
+                <label id="newTrip-members" className="item item-input item-stacked-label bg-ice">
                   <span>Add a picture URL (optional)</span>
                   <input id="newTrip-url" className="item-input" type="text" ref="newTrip_url"/>
                 </label>
                 <label className ="item item-input item-stacked-label">
                   <span>OR</span>
                 </label>
-                <label id="newTrip-members" className="item item-input item-stacked-label">
+                <label id="newTrip-members" className="item item-input item-stacked-label bg-ice">
                   <span>Upload a photo (optional)</span>
                   <input id="newTrip-file" className="item-input" type="file" ref="newTrip_file"/>
                 </label>

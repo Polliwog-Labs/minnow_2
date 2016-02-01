@@ -32,10 +32,7 @@ RemoveTrip = React.createClass({
                 <ReactBootstrap.Button onClick={this.hideModal}>Cancel</ReactBootstrap.Button>
               </ReactBootstrap.Modal.Footer>
             </ReactBootstrap.Modal>
-        <button style={{
-          'float':'right',
-          'marginTop':'2px',
-          'marginRight':'10px'}} className='button button-negative' onClick={this.showModal}>Remove Me From This Trip</button>
+        <button className='button button-negative' onClick={this.showModal}>Remove Me From This Trip</button>
       </div>
     );
   }

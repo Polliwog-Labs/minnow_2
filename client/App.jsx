@@ -30,26 +30,26 @@ App = React.createClass({
   render: function(){
     return (
       <div>
-        <ReactBootstrap.Navbar expanded={this.state.expanded} onToggle={this.navToggle}>
+        <ReactBootstrap.Navbar className="nav-override" expanded={this.state.expanded} onToggle={this.navToggle}>
           <ReactBootstrap.Navbar.Header>
             { Meteor.userId() ?
               <ReactBootstrap.Navbar.Toggle /> : ''
             }
-            <ReactBootstrap.Navbar.Brand >
+            <ReactBootstrap.Navbar.Brand className="nav-override">
               minnow
             </ReactBootstrap.Navbar.Brand>
           </ReactBootstrap.Navbar.Header>
-          <ReactBootstrap.Navbar.Collapse>
+          <ReactBootstrap.Navbar.Collapse >
             <ReactBootstrap.Navbar.Text>
-            <ReactRouter.Link to="mytrips" className='menu-link' onClick={this.navToggle} >My Trips</ReactRouter.Link>
+            <ReactRouter.Link to="mytrips" className='nav-override menu-link' onClick={this.navToggle} >My Trips</ReactRouter.Link>
             </ReactBootstrap.Navbar.Text>
             <ReactBootstrap.Navbar.Text>
-            <ReactRouter.Link to="myinvites" className='menu-link' onClick={this.navToggle} >My Invites ({this.data.notifications.length})</ReactRouter.Link>
+            <ReactRouter.Link to="myinvites" className='nav-override menu-link' onClick={this.navToggle} >My Invites ({this.data.notifications.length})</ReactRouter.Link>
             </ReactBootstrap.Navbar.Text>
-            <ReactBootstrap.Navbar.Text >
-            <ReactRouter.Link to="account" className='menu-link' onClick={this.navToggle} >Account</ReactRouter.Link>
+            <ReactBootstrap.Navbar.Text>
+            <ReactRouter.Link to="account" className='nav-override menu-link' onClick={this.navToggle} >Account</ReactRouter.Link>
             </ReactBootstrap.Navbar.Text>
-            <ReactBootstrap.Navbar.Text onClick={this.logout}>
+            <ReactBootstrap.Navbar.Text className="nav-override" onClick={this.logout}>
               Logout
             </ReactBootstrap.Navbar.Text>
           </ReactBootstrap.Navbar.Collapse>
