@@ -1,7 +1,13 @@
 AllExpenses = React.createClass({
 	getInitialState(){
-		return {trip:{expenses:[]}}
+		return {
+			trip:{expenses:[]
+			},
+			show:false
+		}
 	},
+
+
 	componentWillReceieveProps(newProps){
 		this.setState({trip:newProps});
 	},
@@ -44,15 +50,9 @@ AllExpenses = React.createClass({
 
 	render:function(){
 		return(
-			<div>
-			<div>
+			<div className='list'>
 				{this.showBalances()}
 			</div>
-			<div className="card">
-			  {this.expense_list()}
-			</div>
-			</div>
-
 	)
    }
 })
