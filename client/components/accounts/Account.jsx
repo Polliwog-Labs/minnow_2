@@ -14,7 +14,6 @@ Account = React.createClass({
 
   profilePicUploader(){
   	var file = $('#profile_pic')[0].files[0];
-    console.log(file);
   	if (file) ProfilePics.insert(file, (err, data)=>{
   		if (err) console.log("did not upload photo: ", err)
   		else {
