@@ -14,8 +14,9 @@ Account = React.createClass({
 
   profilePicUploader(){
   	var file = $('#profile_pic')[0].files[0];
-  	ProfilePics.insert(file, (err, data)=>{
-  		if(err) console.log("did not upload photo: ", err)
+    console.log(file);
+  	if (file) ProfilePics.insert(file, (err, data)=>{
+  		if (err) console.log("did not upload photo: ", err)
   		else {
   				Users.update({_id:Meteor.user()._id}, {$set: {"profile.imageId":data._id}})	
   			}

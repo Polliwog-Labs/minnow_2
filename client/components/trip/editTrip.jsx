@@ -25,23 +25,13 @@ EditTrip = React.createClass({
   },
   submitTrip: function(event){
     event.preventDefault();
-    var helperObj = this.getHelperObj()
-    var file = $('#newTrip-file')[0].files[0] || ReactDOM.findDOMNode(this.refs.newTrip_url).value || {};
-    if (typeof file === 'string'){
-      Meteor.call('storeImage',file,(err,data)=>{
-        if (err) console.log(err)
-        else {
-          Trips.update({_id:this.props.trip._id},{$set:$.extend(helperObj,{image_id:data._id})},(err,data)=>{
-            err && console.log(err);
-            data && console.log(data);
-          });
-        }
-      });
-    } else if (file.constructor === File) {
+    var helperObj = this.getHelperObj();
+    var file = $('#newTrip-file')[0].files[0] || null;
+    if (file) {
       Images.insert(file,(err,data)=>{
         if (err) console.log(err)
         else {
-          Trips.update({_id:this.props.trip._id},{$set:this.getHelperObj(data._id)});
+          Trips.update({_id:this.props.trip._id},{$set:$.extend(helperObj,{image_id:data._id})});
         }
       })
     } else Trips.update({_id:this.props.trip._id},{$set:this.getHelperObj()});
@@ -79,13 +69,6 @@ EditTrip = React.createClass({
                     </div>
                   </div>
                   <AddOrganizer trip={this.props.trip} members={this.props.members} update={this.updateOrganizers}/>
-                  <label id="newTrip-members" className="item item-input item-stacked-label">
-                    <span>Add a picture URL (optional)</span>
-                    <input id="newTrip-url" className="item-input" type="text" ref="newTrip_url"/>
-                  </label>
-                  <label className ="item item-input item-stacked-label">
-                    <span>OR</span>
-                  </label>
                   <label id="newTrip-members" className="item item-input item-stacked-label">
                     <span>Upload a photo (optional)</span>
                     <input id="newTrip-file" className="item-input" type="file" capture={true} ref="newTrip_file"/>

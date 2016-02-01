@@ -72,7 +72,7 @@ if (Meteor.isServer) {
   Notifications.allow({
     remove(){return true}
   });
-  
+
   //Methods
   var resizeImage = function(fileObj, readStream, writeStream) {
     gm(readStream, fileObj.name()).resize(800,600).stream().pipe(writeStream);
