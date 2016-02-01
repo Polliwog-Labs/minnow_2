@@ -291,5 +291,11 @@ Meteor.methods({
     }},(error)=>{
       return !error;
     });
+  },
+
+  findUserByName:function(usernameToFind){
+    var user = Users.findOne({username: usernameToFind});
+    return user;
   }
+
 });
