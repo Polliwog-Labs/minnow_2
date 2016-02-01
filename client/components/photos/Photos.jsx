@@ -12,7 +12,6 @@ Photos = React.createClass({
     event.preventDefault();
     var photo = $('#addPhoto')[0].files[0];
     var tripId = this.props.trip._id
-    var that = this
     if (photo.constructor === File) {
       Images.insert(photo, (error, image) =>{
         if (error) {

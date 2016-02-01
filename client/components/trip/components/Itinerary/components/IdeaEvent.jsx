@@ -24,48 +24,45 @@ IdeaEvent = React.createClass({
       utc: utc,
       unixTime: unixTime
     }
-    Meteor.call('addIdeaToItin', this.props.trip._id, this.props.idea, dateTime, function (error) {
+    Meteor.call('addIdeaToItin', this.props.trip._id, this.props.idea, dateTime, err=> {
       if (error) {
         console.log('failed to add to itinerary: ', error)
       } else {
-        that.props.updateView('IdeasView')
-        that.props.updateParent('Itinerary')
+        this.props.updateView('IdeasView')
+        this.props.updateParent('Itinerary')
       }
     })
   },
 
   deleteIdea() {
-    var that = this;
-    Meteor.call('deleteIdea', this.props.trip._id, this.props.idea.created_at, function (error) {
+    Meteor.call('deleteIdea', this.props.trip._id, this.props.idea.created_at, err=> {
       if (error) {
         console.log('failed delete idea: ', error)
       } else {
-        that.props.updateView('IdeasView')
-        that.props.updateParent('Itinerary')
+        this.props.updateView('IdeasView')
+        this.props.updateParent('Itinerary')
       }
     })
   },
 
   upvote() {
-    var that = this;
-    Meteor.call('ideaUpVote', this.props.trip._id, this.props.idea.created_at, function (error) {
+    Meteor.call('ideaUpVote', this.props.trip._id, this.props.idea.created_at, err=> {
       if (error) {
         console.log('failed to upvote: ', error)
       } else {
-        that.props.updateView('IdeasView')
-        that.props.updateParent('Itinerary')
+        this.props.updateView('IdeasView')
+        this.props.updateParent('Itinerary')
       }
     })
   },
 
   downVote() {
-    var that = this;
-    Meteor.call('ideaDownVote', this.props.trip._id, this.props.idea.created_at, function (error) {
+    Meteor.call('ideaDownVote', this.props.trip._id, this.props.idea.created_at, err=> {
       if (error) {
         console.log('failed to downvote: ', error)
       } else {
-        that.props.updateView('IdeasView')
-        that.props.updateParent('Itinerary')
+        this.props.updateView('IdeasView')
+        this.props.updateParent('Itinerary')
       }
     })
   },

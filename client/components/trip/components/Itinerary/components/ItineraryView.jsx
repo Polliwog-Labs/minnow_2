@@ -23,7 +23,6 @@ ItineraryView = React.createClass({
 
   submitEvent() {
     this.hideModal();
-    var that = this;
     var event_name = ReactDOM.findDOMNode(this.refs.idea_name).value;
     var event_desc = ReactDOM.findDOMNode(this.refs.idea_desc).value;
     var event_url = encodeURIComponent(ReactDOM.findDOMNode(this.refs.url).value);
@@ -39,7 +38,7 @@ ItineraryView = React.createClass({
     var date = ReactDOM.findDOMNode(this.refs.date).value;
     var time = hour + ':' + min + amPm;
 
-    HTTP.call('GET', 'http://opengraph.io/api/1.0/site/' + event_url, function(error, response) {
+    HTTP.call('GET', 'http://opengraph.io/api/1.0/site/' + event_url, (error, response)=> {
       if (error) {
         console.log('API call error - no URL data saved:', error)
       } else {
@@ -59,12 +58,12 @@ ItineraryView = React.createClass({
           location: event_location,
           upvotes: 0
         }
-        Meteor.call('addEvent', that.props.trip._id, event, (error) => {
+        Meteor.call('addEvent', this.props.trip._id, event, (error) => {
           if (error) {
             console.log(error)
           } else {
-            that.props.updateView('ItineraryView')
-            that.props.updateParent('Itinerary')
+            this.props.updateView('ItineraryView')
+            this.props.updateParent('Itinerary')
           }
         })
         // Meteor.call('addEvent', that.props.trip._id, event, (err,data)=>{
