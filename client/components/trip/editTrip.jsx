@@ -48,20 +48,8 @@ EditTrip = React.createClass({
     } else Trips.update({_id:this.props.trip._id},{$set:this.getHelperObj()});
     $('.close').click();
   },
-  renderOrganizerChanger(){
-    if (this.props.trip && this.props.members && this.props.trip.organizers.includes(Meteor.userId())){
-      return <AddOrganizer trip={this.props.trip} members={this.props.members} update={this.updateOrganizers}/>
-    } else return <div/>
-  },
-  renderDeleteButton(){
-    if (this.props.trip && this.props.trip.organizers.includes(Meteor.userId())){
-      return <DeleteTrip trip={this.props.trip}/>
-    } else return <div/>
-  },
-
   render: function(){
-    if (this.props.trip){
-      console.log('editTrip rendered')
+    if (this.props.trip && this.props.members){
       var startDate = (this.props.trip && this.props.trip.dates && this.props.trip.dates[0]) ? DateUtils.getHTMLDate(this.props.trip.dates[0]) : DateUtils.getHTMLDate(new Date().getTime());
       var endDate = (this.props.trip && this.props.trip.dates && this.props.trip.dates[1]) ? DateUtils.getHTMLDate(this.props.trip.dates[1]) : startDate;
       return (
@@ -91,7 +79,6 @@ EditTrip = React.createClass({
                       </label>
                     </div>
                   </div>
-                  {/*this.renderOrganizerChanger()*/}
                   <AddOrganizer trip={this.props.trip} members={this.props.members} update={this.updateOrganizers}/>
                   <label id="newTrip-members" className="item item-input item-stacked-label">
                     <span>Add a picture URL (optional)</span>
@@ -106,8 +93,7 @@ EditTrip = React.createClass({
                   </label>
                   <button id="btn-submit" className='button button-block button-positive'>Submit</button>
                 </form>
-                {/*this.renderDeleteButton()*/}
-                {/*<DeleteTrip trip={this.props.trip}/>*/}
+                <DeleteTrip trip={this.props.trip} history={this.props.history}/>
              </div>
             </ReactBootstrap.Modal.Body>
           </ReactBootstrap.Modal>

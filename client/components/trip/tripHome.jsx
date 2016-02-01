@@ -95,7 +95,7 @@ TripHome = React.createClass({
 
       return (
       <div className='trip list'>
-        <EditTrip onHide={this.hideModal} show={this.state.show} trip={this.props.trip} members={this.props.members}/>
+        <EditTrip onHide={this.hideModal} show={this.state.show} trip={this.props.trip} members={this.props.members} history={this.props.history}/>
          <div className='image-div'>
           <Image image_id={params.image_id} height="300px" />
          </div>
