@@ -7,11 +7,11 @@ Trip = React.createClass({
     var data = {view:'Home',
                 members:[]};
     var tripId = document.location.pathname.substring(6);
-    var handle = Meteor.subscribe('singleTrip',tripId,user);
-    if (handle.ready()){
+    var singleTrip = Meteor.subscribe('singleTrip',tripId,user);
+    if (singleTrip.ready()){
       data.trip = Trips.findOne({_id: tripId});
-      var handle0 = Meteor.subscribe('tripUsers',data.trip);
-      if (handle0.ready()){
+      var tripUsers = Meteor.subscribe('tripUsers',data.trip);
+      if (tripUsers.ready()){
         data.members = Users.find({_id:{$in:data.trip.members}}).fetch();
       }
     }
@@ -22,10 +22,6 @@ Trip = React.createClass({
     return {trip:{members:[]},
             view:null,
             members:[]}
-  },
-
-  componentDidMount(){
-    !this.state.view && this.renderHome();
   },
 
   componentDidUpdate(){
