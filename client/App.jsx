@@ -3,9 +3,9 @@ App = React.createClass({
 
 
   logout: function() {
-    Meteor.logout();
     this.navToggle();
-    this.props.history.push('/');
+    Meteor.logout();
+    document.location.href = '/';
   },
 
   getMeteorData: function() {

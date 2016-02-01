@@ -23,19 +23,19 @@ if (Meteor.isServer) {
   });
 
   Meteor.publish("userTrips", function (user){
-    return Trips.find({_id:{$in:user.profile.invites}});
+    if (user) return Trips.find({_id:{$in:user.profile.invites}});
   });
 
   Meteor.publish("myTrips", function (user){
-    return Trips.find({members:{$in:[user._id]}});
+    if (user) return Trips.find({members:{$in:[user._id]}});
   });
 
   Meteor.publish("UserData", (user) => {
-      return Users.find({_id:user._id});
+    if (user) return Users.find({_id:user._id});
   });
 
   Meteor.publish("tripUsers",(trip)=>{
-    return Users.find({_id:{$in:trip.members}});
+    if (trip) return Users.find({_id:{$in:trip.members}});
   });
 
   //serverside invite stuff

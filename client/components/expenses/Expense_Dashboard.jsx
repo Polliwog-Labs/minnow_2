@@ -25,7 +25,7 @@ showModal(){
 		} else {
 			console.log("data", data);
 			console.log("data._id", data._id);
-			Meteor.call('retrieveProfilePic', data._id, function);
+			Meteor.call('retrieveProfilePic', data._id);
 		}
 	});
 
