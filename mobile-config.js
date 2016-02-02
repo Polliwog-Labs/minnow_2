@@ -6,3 +6,5 @@ App.info({
   website: 'http://wildebeest.pw'
 });
 App.accessRule('*');
+App.accessRule("blob:*");
+

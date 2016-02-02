@@ -88,12 +88,16 @@ renderImage:function(){
   },
 
 	render:function(){
+
 		var member = this.props.member;
 		var key = Object.keys(member);
 		var setUp = member[key];
 		var balance = Number((setUp).toFixed(2));
 
+
+
 		return (
+
 			<a className="item item-thumbnail-left">
 		      {this.renderImage()}
 		      { balance === 0 ? <h3>You are even with {key}</h3>:
@@ -123,5 +127,5 @@ renderImage:function(){
 
 		)
 	}
-
 })
+

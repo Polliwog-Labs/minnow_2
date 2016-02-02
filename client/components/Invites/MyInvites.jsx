@@ -36,13 +36,13 @@ MyInvites = React.createClass({
     if (Trips.find().fetch().length) {
       return Trips.find().fetch().map(trip=>{
         return (
-          <InviteList key={trip._id} trip={trip}/>
+          <InviteList key={trip._id} trip={trip} history={this.props.history}/>
         );
       });
     } else if (this.state.trips.length) {
       return this.state.trips.map(trip=>{
         return (
-          <InviteList key={trip._id} trip={trip}/>
+          <InviteList key={trip._id} trip={trip} history={this.props.history}/>
         );
       })
     } else return (<p className='item text-wrap'>You currently have no trips! Create a trip and invite friends</p>);
