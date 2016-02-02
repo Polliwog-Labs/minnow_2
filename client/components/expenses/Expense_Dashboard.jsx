@@ -21,11 +21,11 @@ renderImage:function(){
 	console.log("key",key[0]);
 	Meteor.call('findUserByName', key[0], function (err, data){
 		if(err) {
-			console.log("error",err);
+			// console.log("error",err);
 		} else {
 			Meteor.call('retrieveProfilePic', data._id, function (err, imageId) {
 				if(err) {
-					console.log(err);
+					// console.log(err);
 				}else {
 					console.log("imageId", imageId);
 					image=imageId;
@@ -52,8 +52,6 @@ renderImage:function(){
 	function expenseFilter(expense){
 		var splitArray = expense.split_with;
 		var created_by = expense.created_by;
-		console.log(created_by);
-		console.log(splitArray)
 
 		if(created_by === user){
 			if(splitArray.indexOf(key[0]) !== -1) {
@@ -72,15 +70,17 @@ renderImage:function(){
    console.log("filtered",filtered)
 
 
-   return filtered.forEach(function (expense, index){
+   return filtered.map(function (expense, index){
    	console.log("expense", expense)
    	var people = expense.split_with.length + 1;
 	var total = (expense.amount * people).toFixed(2);
    	  return (
    		<div className="item item-text-wrap">
+   		  <li className ="item" >
 			<p>{expense.description}</p>
 			<p>$ {total}</p>
 			<p>Paid for by {expense.created_by}</p>
+		  </li>
 		</div>
    		)
    })

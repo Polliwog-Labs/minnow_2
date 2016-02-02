@@ -1,5 +1,5 @@
 Expense = React.createClass({
-
+	
 	render:function(){
 		var people = this.props.expense.split_with.length + 1;
 		var total = (this.props.expense.amount * people).toFixed(2);

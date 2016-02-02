@@ -46,13 +46,9 @@ AllExpenses = React.createClass({
 	render:function(){
 		return(
 			<div>
-			<div>
 				{this.showBalances()}
 			</div>
-			<div className="card">
-			  {this.expense_list()}
-			</div>
-			</div>
+			
 
 	)
    }
