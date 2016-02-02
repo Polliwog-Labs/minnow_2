@@ -38,9 +38,13 @@ Signup = React.createClass({
         <p className="auth-error">{this.state.signupError}</p>
         <form>
           <input className="login-input" type="email" placeholder="Email" ref="email_input"/>
+          <div className="clear"></div>
           <input className="login-input" type="text" placeholder="Full Name" ref="username"/>
+          <div className="clear"></div>
           <input className="login-input" type="password" placeholder="Password" ref="password_input1"/>
+          <div className="clear"></div>
           <input className="login-input" type="password" placeholder="Confirm Password" ref="password_input2"/>
+          <div className="clear"></div>
           <button className="login-btn button button-block button-positive" type="submit" onClick={this.signup}>Create Account</button>
         </form>
         <ReactRouter.Link to="login">Aleady a user? Login here.</ReactRouter.Link>

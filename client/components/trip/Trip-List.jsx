@@ -53,10 +53,10 @@ TripList = React.createClass({
     return (
       <div className="tripListContainer">
         <div className="tripListModule" onClick={this.navToTrip} style={backgroundStyle}>
-          <h2 className="tripListText">{this.props.trip.name || 'Unnamed Trip'}</h2>
-          <h2 className="tripListDateText" >{DateUtils.getTripDate(this.props.trip.dates)}</h2>
+          <h2 className="tripListText">{this.props.trip.name || 'Untitled Trip'}</h2>
+          <h2 className="tripListDateText">{DateUtils.getTripDate(this.props.trip.dates)}</h2>
+          <RemoveTrip trip={this.props.trip}/>
         </div>
-        <RemoveTrip trip={this.props.trip}/>
       </div>
     );
   }

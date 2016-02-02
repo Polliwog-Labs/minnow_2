@@ -39,6 +39,7 @@ MyTrips = React.createClass({
   render: function(){
     return (
        <div className='list'>
+
         <div className="header-center">
           <h2 className="header-override">My Trips</h2>
         </div>
