@@ -46,8 +46,6 @@ renderImage:function(){
   	var user = Meteor.user().username;
   	var member = this.props.member;
 	var key = Object.keys(member);
-	this.showModal()
-
 
 	function expenseFilter(expense){
 		var splitArray = expense.split_with;
@@ -67,22 +65,19 @@ renderImage:function(){
 	}
 
    var filtered = this.props.expenses.filter(expenseFilter);
-   console.log("filtered",filtered)
-
 
    return filtered.map(function (expense, index){
-   	console.log("expense", expense)
-   	var people = expense.split_with.length + 1;
-	var total = (expense.amount * people).toFixed(2);
-   	  return (
-   		<div className="item item-text-wrap">
-   		  <li className ="item" >
-			<p>{expense.description}</p>
-			<p>$ {total}</p>
-			<p>Paid for by {expense.created_by}</p>
-		  </li>
-		</div>
-   		)
+	   	var people = expense.split_with.length + 1;
+		var total = (expense.amount * people).toFixed(2);
+	   	  return (
+	   		<div className="item item-text-wrap">
+	   		  <li className ="item" >
+				<p>{expense.description}</p>
+				<p>$ {total}</p>
+				<p>Paid for by {expense.created_by}</p>
+			  </li>
+			</div>
+	   		)
    })
 
   },
@@ -115,11 +110,11 @@ renderImage:function(){
 			      </ReactBootstrap.Modal.Header>
 			      <ReactBootstrap.Modal.Body>
 			      <ul className="list">
-			      	{this.showTransactions}
+			      	{this.state.show && this.showTransactions()}
 			      </ul>
 			      </ReactBootstrap.Modal.Body>
 			    </ReactBootstrap.Modal>
-			  <p onClick={this.showTransactions}>
+			  <p onClick={this.showModal}>
 			   <i className="icon ion-plus-circled"></i>
 			   	<span className='icon-label'>View charges with {key}</span>     
 			  </p> 
