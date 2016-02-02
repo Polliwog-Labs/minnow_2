@@ -68,7 +68,15 @@ h1.list {
 }
 
 .text-wrap{
-  white-space: normal!important;
+    color: #014771!important;
+    height: 50px;
+    width: 95%;
+    border-radius: 4px;
+    font-size: 16px;
+    line-height: 1.1;
+    word-wrap: normal;
+    text-align: center;
+    padding-top: 7px;
 }
 .item-thumbnail-left:hover {
   cursor: pointer;

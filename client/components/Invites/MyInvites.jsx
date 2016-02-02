@@ -45,13 +45,13 @@ MyInvites = React.createClass({
           <InviteList key={trip._id} trip={trip}/>
         );
       })
-    } else return (<p className='item text-wrap'>You currently have no trips! Create a trip and invite friends</p>);
+    } else return (<p className='card card-fix'>You currently have no trips! Create a trip and invite friends</p>);
   },
 
   renderSignupLink(){
     if (!Meteor.user()){
       return (
-        <div className='item text-wrap'>
+        <div className='card card-fix'>
           <a href="/signup">Sign up for Minnow to join these trips!</a>
         </div>
       );
