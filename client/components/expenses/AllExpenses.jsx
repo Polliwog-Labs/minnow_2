@@ -27,6 +27,7 @@ AllExpenses = React.createClass({
 		var showMembers = this.props.members;
 		var username = Meteor.user().username
 		var userExpenseDash = [];
+		var expenses = this.props.trip.expenses
 
 		this.props.trip.expense_dash.map(function (user){
 			if(user.user === username) {
@@ -42,7 +43,7 @@ AllExpenses = React.createClass({
 		});
 
 		return userExpenseDash.map(function (member, index) {
-			return <ExpenseDashboard key={index} {...member} />
+			return <ExpenseDashboard  key={index} member={member} expenses={expenses} />
 		});
 
 	},
