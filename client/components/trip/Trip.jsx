@@ -43,12 +43,12 @@ Trip = React.createClass({
     }
   },
   setParentState(view){
-    this.setState({view:view})
+    this.setState({view:view || null})
   },
   renderHome: function () {
     $('.active').removeClass('active');
     $('#home').addClass('active');
-    ReactDOM.render(<TripHome members={this.data.members || []} trip={this.data.trip} history={this.props.history}/>, document.getElementById('trip-module'));
+    ReactDOM.render(<TripHome updateParent={this.setParentState} members={this.data.members || []} trip={this.data.trip} history={this.props.history}/>, document.getElementById('trip-module'));
   },
 
   renderItinerary: function () {

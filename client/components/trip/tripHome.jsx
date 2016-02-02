@@ -10,10 +10,13 @@ TripHome = React.createClass({
   componentWillReceiveProps: function(newprops) {
     this.setState(newprops);
   },
+  componentDidMount(){
+    this.props.updateParent(null);
+  },
   shouldComponentUpdate(newprops,newstate){
     if (newstate) return !!(newstate.trip && newstate.members)
     else if (newprops) return !!(newprops.trip && newprops.members);
-    return false;
+    return true;
   },
 
   submitInvitees: function(event) {
