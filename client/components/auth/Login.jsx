@@ -15,20 +15,17 @@ Login = React.createClass({
     var email = ReactDOM.findDOMNode(this.refs.email_input).value
     var password = ReactDOM.findDOMNode(this.refs.password_input).value
     //LoginWithPassword is a BUILT in function that comes with the "Accounts library we are using"
-    var that = this;
-    Meteor.loginWithPassword(email, password, function(err){
+    Meteor.loginWithPassword(email, password, err=>{
       if (err) {
         console.log('ERROR: ', err)
-        that.setState({authError: 'Incorrect email or password'})
+        this.setState({authError: 'Incorrect email or password'})
       } else {
-        that.props.history.push('/mytrips');
+        this.props.history.push('/mytrips');
       }
     });
   }, 
   componentDidMount(){
-    setTimeout(()=>{
-      Meteor.user() && (document.location.href = '/mytrips');
-    },1000);
+    Meteor.user() && this.props.history.push('/mytrips');
   },
   render(){
     return (
@@ -39,7 +36,7 @@ Login = React.createClass({
           <div className="clear"></div>
           <input className="login-input" type="password" placeholder="Password" ref="password_input"/>
           <button type="submit" className="login-btn button button-block button-positive">
-            Sign In
+            Signin
           </button>
         </form>
         <ReactRouter.Link to="signup">Don't have an account? Sign up!</ReactRouter.Link>

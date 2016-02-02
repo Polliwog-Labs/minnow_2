@@ -3,7 +3,7 @@ TripList = React.createClass({
     trip: React.PropTypes.object.isRequired
   },
   getInitialState: function(){
-    return {url:'/minnows-bg.jpg'}
+    return {url:AbsUrl+'/group-beach.jpg'}
   },
   getImageUrl(){
     var count = 1;
@@ -12,12 +12,12 @@ TripList = React.createClass({
         if (err) {
           console.log(err);
           console.log('err retrieving image. This shouldn\'t happen. Doge time.');
-          context.setState({url:'/minnows-bg.jpg'});
+          context.setState({url:AbsUrl+'/group-beach.jpg'});
         }
         else {
-          if (data) context.setState({url:data})
+          if (data) context.setState({url:AbsUrl+data})
           else {
-            if (count >= 15) {context.setState({url:'/minnows-bg.jpg'});}
+            if (count >= 15) {context.setState({url:AbsUrl+'/group-beach.jpg'});}
             else {
               setTimeout(function(){
                 count++;
@@ -44,7 +44,6 @@ TripList = React.createClass({
   },
 
   render: function(){
-
     var backgroundStyle = {'background': 'url('+this.state.url+')'};
     return (
       <div className="tripListContainer">

@@ -2,13 +2,12 @@ IdeaLoader = React.createClass({
 
   ideasList(){
     var trip = this.props.trip;
-    var that = this
-    return this.props.ideas.map(function (idea, index) {
+    return this.props.ideas.map((idea, index)=>{
       return <IdeaEvent trip={trip} 
                         key={index} 
                         idea={idea} 
-                        updateParent={that.props.updateParent} 
-                        updateView={that.props.updateView}/>
+                        updateParent={this.props.updateParent} 
+                        updateView={this.props.updateView}/>
     })
   },
 

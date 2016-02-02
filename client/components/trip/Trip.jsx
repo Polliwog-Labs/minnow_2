@@ -4,13 +4,14 @@ Trip = React.createClass({
 
   getMeteorData() {
     var user = Meteor.user();
-    var data = {view:'Home'};
+    var data = {view:'Home',
+                members:[]};
     var tripId = document.location.pathname.substring(6);
-    var handle = Meteor.subscribe('singleTrip',tripId,user);
-    if (handle.ready()){
+    var singleTrip = Meteor.subscribe('singleTrip',tripId,user);
+    if (singleTrip.ready()){
       data.trip = Trips.findOne({_id: tripId});
-      var handle0 = Meteor.subscribe('tripUsers',data.trip);
-      if (handle0.ready()){
+      var tripUsers = Meteor.subscribe('tripUsers',data.trip);
+      if (tripUsers.ready()){
         data.members = Users.find({_id:{$in:data.trip.members}}).fetch();
       }
     }
@@ -21,27 +22,6 @@ Trip = React.createClass({
     return {trip:{members:[]},
             view:null,
             members:[]}
-  },
-
-  componentDidMount(){
-    !this.state.view && this.renderHome();
-  },
-
-  getTripData: function (view) {
-    Meteor.call('getTripById',document.location.pathname.substring(6),(err,data)=>{
-      if (err) console.log(err)
-      else {
-            Meteor.call('getUserById',member,(err,memberData)=>{
-        var members = [];
-        data.members.forEach(member=>{
-            !err && members.push(memberData);
-            this.setState({trip:data,
-                           view:view,
-                           members:members});
-          });
-        });
-      }
-    });
   },
 
   componentDidUpdate(){
@@ -68,7 +48,7 @@ Trip = React.createClass({
   renderHome: function () {
     $('.active').removeClass('active');
     $('#home').addClass('active');
-    ReactDOM.render(<TripHome members={this.data.members || []} trip={this.data.trip}/>, document.getElementById('trip-module'));
+    ReactDOM.render(<TripHome members={this.data.members || []} trip={this.data.trip} history={this.props.history}/>, document.getElementById('trip-module'));
   },
 
   renderItinerary: function () {

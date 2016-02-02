@@ -11,19 +11,18 @@ Signup = React.createClass({
     var username = ReactDOM.findDOMNode(this.refs.username).value
     var email = ReactDOM.findDOMNode(this.refs.email_input).value
     var password = ReactDOM.findDOMNode(this.refs.password_input1).value
-    var that = this;
     Meteor.call('getUserInvites',email,(err,invites)=>{
       !err && Accounts.createUser({
         username: username,
         email: email,
         password: password,
         profile: { myTrips: [], invites:invites } ,
-      }, function(error,data) {
+      }, (error,data)=>{
         if (error) {
           console.log(error)
-          that.setState({signupError: error.reason})
+          this.setState({signupError: error.reason})
         }else if(!error){
-          that.props.history.push('/mytrips');
+          this.props.history.push('/mytrips');
         }
       });
     });

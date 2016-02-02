@@ -7,14 +7,14 @@ TripHome = React.createClass({
     return {show:false};
   },
 
-  renderList: function() {
-    document.location.href = '/mytrips';
-  },
-
   componentWillReceiveProps: function(newprops) {
     this.setState(newprops);
   },
-
+  shouldComponentUpdate(newprops,newstate){
+    if (newstate) return !!(newstate.trip && newstate.members)
+    else if (newprops) return !!(newprops.trip && newprops.members);
+    return false;
+  },
 
   submitInvitees: function(event) {
     event.preventDefault();
@@ -57,9 +57,6 @@ TripHome = React.createClass({
       $('.error-email').hide()
     },1000);
   },
-  componentWillReceiveProps(newProps){
-    this.setState(newProps)
-  },
 
   showModal() {
     this.setState({show: true});
@@ -69,6 +66,8 @@ TripHome = React.createClass({
     this.setState({show: false});
   },
   render: function(){
+    var trip = this.props.trip || {};
+    var members = this.props.members || [];
     var params = {
       _id: null,
       name: 'Unnamed Trip',
@@ -84,19 +83,20 @@ TripHome = React.createClass({
       expense_dash:{}
     };
 
-    for (var key in this.props.trip){
+    for (var key in trip){
       params[key] = this.props.trip[key];
     };
     var cost = params.expenses.reduce((a,b)=>{
       return {amount: a.amount+b.amount};
     },{amount:0}).amount
 
+    //this.updateExpenseDash();
 
     return (
        <div className='trip list'>
-        <EditTrip onHide={this.hideModal} show={this.state.show} trip={this.props.trip} members={this.props.members}/>
+        <EditTrip onHide={this.hideModal} show={this.state.show} trip={trip} members={members} history={this.props.history}/>
          <div className='image-div'>
-          <Image image_id={params.image_id} height="100%" />
+          <Image image_id={params.image_id} height="300px" />
          </div>
          <div className='item trip-layout'>
           <h2 className="dark-blue-text">{this.props.trip.name || 'Unnamed Trip'}</h2>
@@ -113,15 +113,14 @@ TripHome = React.createClass({
             <form className='form-group' >
               <p className="dark-blue-text">Invitees:</p>
               <ul>{this.renderInvitees()}</ul>
-              <p className="dark-blue-text">Invite attendees by email address:</p>
+              <p className="dark-blue-text">Send your friends an invite:</p>
               <input type="email" placeholder = "Email address" className="item-input" ref="input_email"/>
               <button id="btn-submit" className='button button-positive ' onClick={this.submitInvitees}>Invite</button>
               <span style={{'color':'red','display':'none'}} className="error-email">Bad Email</span>
             </form>
           </div>
         </div>
-      </div>
-    )
+      </div> )
   }
 });
 

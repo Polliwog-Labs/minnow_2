@@ -4,8 +4,7 @@ EditTrip = React.createClass({
   },
   getInitialState: function(){
     return {
-      organizers:null, 
-      hide:false
+      organizers:null
     };
   },
   getHelperObj(image_id){
@@ -26,40 +25,18 @@ EditTrip = React.createClass({
   },
   submitTrip: function(event){
     event.preventDefault();
-    var helperObj = this.getHelperObj()
-    var file = $('#newTrip-file')[0].files[0] || ReactDOM.findDOMNode(this.refs.newTrip_url).value || {};
-    console.log(file.constructor)
-    if (typeof file === 'string'){
-      Meteor.call('storeImage',file,(err,data)=>{
-        if (err) console.log(err)
-        else {
-          Trips.update({_id:this.props.trip._id},{$set:$.extend(helperObj,{image_id:data._id})},(err,data)=>{
-            err && console.log(err);
-            data && console.log(data);
-          });
-        }
-      });
-    } else if (file.constructor === File) {
+    var helperObj = this.getHelperObj();
+    var file = $('#newTrip-file')[0].files[0] || null;
+    if (file) {
       Images.insert(file,(err,data)=>{
         if (err) console.log(err)
         else {
-          Trips.update({_id:this.props.trip._id},{$set:this.getHelperObj(data._id)});
+          Trips.update({_id:this.props.trip._id},{$set:$.extend(helperObj,{image_id:data._id})});
         }
       })
     } else Trips.update({_id:this.props.trip._id},{$set:this.getHelperObj()});
     $('.close').click();
   },
-  renderOrganizerChanger(){
-    if (this.props.trip && this.props.trip.organizers.includes(Meteor.userId())){
-      return <AddOrganizer trip={this.props.trip} members={this.props.members} update={this.updateOrganizers}/>
-    }
-  },
-  renderDeleteButton(){
-    if (this.props.trip && this.props.trip.organizers.includes(Meteor.userId())){
-      return <DeleteTrip trip={this.props.trip}/>
-    }
-  },
-
   render: function(){
     var startDate = (this.props.trip && this.props.trip.dates && this.props.trip.dates[0]) ? DateUtils.getHTMLDate(this.props.trip.dates[0]) : DateUtils.getHTMLDate(new Date().getTime());
     var endDate = (this.props.trip && this.props.trip.dates && this.props.trip.dates[1]) ? DateUtils.getHTMLDate(this.props.trip.dates[1]) : startDate;
@@ -94,21 +71,14 @@ EditTrip = React.createClass({
                     </label>
                   </div>
                 </div>
-                {this.renderOrganizerChanger()}
+                <AddOrganizer trip={this.props.trip} members={this.props.members} update={this.updateOrganizers}/>
                 <label id="newTrip-members" className="dark-blue-text item item-input item-stacked-label bg-ice">
-                  <span>Add a picture URL (optional)</span>
-                  <input id="newTrip-url" className="dark-blue-text item-input bg-ice" type="text" placeholder="Image url" ref="newTrip_url"/>
-                </label>
-                <label className="dark-blue-text item item-input item-stacked-label bg-ice">
-                  <span>OR</span>
-                </label>
-                <label id="newTrip-members" className="dark-blue-text item item-input item-stacked-label bg-ice">
-                  <span>Upload a photo (optional)</span>
-                  <input id="newTrip-file" className="dark-blue-text item-input bg-ice" type="file" ref="newTrip_file"/>
+                  <span>Upload a photo</span>
+                  <input id="newTrip-file" className="dark-blue-text item-input bg-ice" type="file" capture={true} ref="newTrip_file"/>
                 </label>
                 <button id="btn-submit" className='button button-block button-positive'>Submit</button>
               </form>
-              {this.renderDeleteButton()}
+              <DeleteTrip trip={this.props.trip} history={this.props.history}/>
            </div>
           </ReactBootstrap.Modal.Body>
         </ReactBootstrap.Modal>
