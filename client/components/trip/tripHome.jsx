@@ -14,9 +14,10 @@ TripHome = React.createClass({
     this.props.updateParent(null);
   },
   shouldComponentUpdate(newprops,newstate){
-    if (newstate) return !!(newstate.trip && newstate.members)
+    console.log('update attempt');
+    if (newstate && newstate.view) return true;
     else if (newprops) return !!(newprops.trip && newprops.members);
-    return true;
+    return false;
   },
 
   submitInvitees: function(event) {
@@ -26,7 +27,7 @@ TripHome = React.createClass({
     var invite_user = undefined;
 
     if((invitee_email !== Meteor.user().emails[0].address) && invitee_email.includes('@') &&
-      this.props.trip && this.props.trip.pending && this.props.trip.pending.every((invitee)=>{
+      this.props.trip && this.rops.trip.pending && this.props.trip.pending.every((invitee)=>{
         return invitee !== invitee_email;
       })){
       // Make sure user isn't inviting themself, email address is an email address,

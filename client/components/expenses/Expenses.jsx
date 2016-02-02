@@ -5,7 +5,7 @@ Expenses = React.createClass({
    getInitialState(){
     return {
       trip:this.props.trip, 
-      expenseView: null
+      expenseView: null,
     };
    },
 
