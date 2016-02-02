@@ -90,32 +90,34 @@ TripHome = React.createClass({
     },{amount:0}).amount
 
     return (
-    <div className='trip list'>
-      <EditTrip onHide={this.hideModal} show={this.state.show} trip={trip} members={members} history={this.props.history}/>
-       <div className='image-div'>
-        <Image image_id={params.image_id} height="300px" />
-       </div>
-       <div className='item'>
-        <h2>{params.name}</h2>
-        <div className='item item-divider row'>
-          <h3 className='col'>{DateUtils.getTripDate(params.dates)}</h3>
-          <p className='col clear-right'><a onClick={ this.showModal }><i id="pencil" className='ion-edit'></i></a></p>
+       <div className='trip list'>
+        <EditTrip onHide={this.hideModal} show={this.state.show} trip={trip} members={members} history={this.props.history}/>
+         <div className='image-div'>
+          <Image image_id={params.image_id} height="300px" />
+         </div>
+         <div className='item trip-layout'>
+          <h2 className="dark-blue-text">{this.props.trip.name || 'Unnamed Trip'}</h2>
+          <div className='item item-divider row'>
+            <h3 className='col dark-blue-text'>{DateUtils.getTripDate(this.props.trip.dates)}</h3>
+            <p className='col clear-right'><a onClick={ this.showModal }><i id="pencil" className='ion-edit'></i></a></p>
+          </div>
+          <div className='item dark-blue-text'>
+            <p className="dark-blue-text">Whos Coming? {this.props.members.map((member)=>{
+              return member.username;
+            }).join(', ')} </p>
+            {/*<p className=''>Action Items {params.todo.length}</p>*/}
+            {/*<p className='tripParams'>Est. Cost Per Person: ${cost / (params.members.length || 1)}</p>*/}
+            <form className='form-group' >
+              <p className="dark-blue-text">Invitees:</p>
+              <ul>{this.renderInvitees()}</ul>
+              <p className="dark-blue-text">Send your friends an invite:</p>
+              <input type="email" placeholder = "Email address" className="item-input" ref="input_email"/>
+              <button id="btn-submit" className='button button-positive ' onClick={this.submitInvitees}>Invite</button>
+              <span style={{'color':'red','display':'none'}} className="error-email">Bad Email</span>
+            </form>
+          </div>
         </div>
-        <div className='item'>
-          <p className=''>Whos Coming? {members.map((member)=>{
-            return member.username;
-          }).join(', ')} </p>
-          <form className='form-group' >
-            <p>Invitees:</p>
-            <ul>{this.renderInvitees()}</ul>
-            <p>Invite attendees by email address:</p>
-            <input type="email" placeholder = "Email address" className="item-input" ref="input_email"/>
-            <button id="btn-submit" className='btn btn-default' onClick={this.submitInvitees}>Invite</button>
-            <span style={{'color':'red','display':'none'}} className="error-email">Bad Email</span>
-          </form>
-        </div>
-      </div>
-    </div> )
+      </div> )
   }
 });
 

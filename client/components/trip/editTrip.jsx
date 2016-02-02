@@ -38,49 +38,51 @@ EditTrip = React.createClass({
     $('.close').click();
   },
   render: function(){
-    if (this.props.trip && this.props.members){
-      var startDate = (this.props.trip && this.props.trip.dates && this.props.trip.dates[0]) ? DateUtils.getHTMLDate(this.props.trip.dates[0]) : DateUtils.getHTMLDate(new Date().getTime());
-      var endDate = (this.props.trip && this.props.trip.dates && this.props.trip.dates[1]) ? DateUtils.getHTMLDate(this.props.trip.dates[1]) : startDate;
-      return (
-        <div>
-          <ReactBootstrap.Modal {...this.props} onHide={this.props.onHide} dialogClassName="custom-modal">
-            <ReactBootstrap.Modal.Header closeButton>
-              <ReactBootstrap.Modal.Title id="contained-modal-title-lg">Edit Trip</ReactBootstrap.Modal.Title>
-            </ReactBootstrap.Modal.Header>
-          <ReactBootstrap.Modal.Body>
-            <div className='list'>
-                <form id='newTrip-form' className='form-group' onSubmit={this.submitTrip}>
-                  <label className="item item-input item-stacked-label">
-                    <span>{this.props.trip ? this.props.trip.name : 'Enter a Name'}</span>
-                    <input id="newTrip-name" type="text" ref="tripName" placeholder="Trip Name"/>
-                  </label>
-                  <div className="row item">
-                    <div className='col-50'>
-                      <label className="item-stacked-label">
-                        <span>Start Date</span>
-                        <input className="item-input" type="date" ref="newTrip_startDate" defaultValue={startDate} />
-                      </label>
-                    </div>
-                    <div className='col-50'>
-                      <label className="item-stacked-label">
-                        <span>End Date</span>
-                        <input className="item-input" type="date" ref="newTrip_endDate" defaultValue={endDate} />
-                      </label>
-                    </div>
+    var startDate = (this.props.trip && this.props.trip.dates && this.props.trip.dates[0]) ? DateUtils.getHTMLDate(this.props.trip.dates[0]) : DateUtils.getHTMLDate(new Date().getTime());
+    var endDate = (this.props.trip && this.props.trip.dates && this.props.trip.dates[1]) ? DateUtils.getHTMLDate(this.props.trip.dates[1]) : startDate;
+    return (
+      <div>
+        <ReactBootstrap.Modal
+          {...this.props}
+          onHide={this.props.onHide}
+          dialogClassName="custom-modal"
+          >
+          <ReactBootstrap.Modal.Header closeButton>
+            <ReactBootstrap.Modal.Title id="contained-modal-title-lg dark-blue-text">Edit Trip</ReactBootstrap.Modal.Title>
+          </ReactBootstrap.Modal.Header>
+        <ReactBootstrap.Modal.Body>
+          <div className='list'>
+              <form id='newTrip-form' className='form-group' onSubmit={this.submitTrip}>
+                <label className="item dark-blue-text item-input item-stacked-label">
+                  <span>{this.props.trip ? this.props.trip.name : 'Enter a Name'}</span>
+                  <input className="bg-ice" id="newTrip-name" type="text" ref="tripName" placeholder="Trip Name"/>
+                </label>
+                <div className="row item bg-ice">
+                  <div className='col-50 bg-ice'>
+                    <label className="dark-blue-text item-stacked-label bg-ice">
+                      <span className="dark-blue-text bg-ice">Start Date</span>
+                      <input className="dark-blue-text bg-ice item-input" type="date" ref="newTrip_startDate" defaultValue={startDate} />
+                    </label>
                   </div>
-                  <AddOrganizer trip={this.props.trip} members={this.props.members} update={this.updateOrganizers}/>
-                  <label id="newTrip-members" className="item item-input item-stacked-label">
-                    <span>Upload a photo (optional)</span>
-                    <input id="newTrip-file" className="item-input" type="file" capture={true} ref="newTrip_file"/>
-                  </label>
-                  <button id="btn-submit" className='button button-block button-positive'>Submit</button>
-                </form>
-                <DeleteTrip trip={this.props.trip} history={this.props.history}/>
-             </div>
-            </ReactBootstrap.Modal.Body>
-          </ReactBootstrap.Modal>
-        </div> 
-      )
-    }else return <div/>
+                  <div className='col-50'>
+                    <label className="dark-blue-text item-stacked-label bg-ice">
+                      <span className="dark-blue-text bg-ice">End Date</span>
+                      <input className="dark-blue-text bg-ice item-input" type="date" ref="newTrip_endDate" defaultValue={endDate} />
+                    </label>
+                  </div>
+                </div>
+                <AddOrganizer trip={this.props.trip} members={this.props.members} update={this.updateOrganizers}/>
+                <label id="newTrip-members" className="dark-blue-text item item-input item-stacked-label bg-ice">
+                  <span>Upload a photo</span>
+                  <input id="newTrip-file" className="dark-blue-text item-input bg-ice" type="file" capture={true} ref="newTrip_file"/>
+                </label>
+                <button id="btn-submit" className='button button-block button-positive'>Submit</button>
+              </form>
+              <DeleteTrip trip={this.props.trip} history={this.props.history}/>
+           </div>
+          </ReactBootstrap.Modal.Body>
+        </ReactBootstrap.Modal>
+      </div> 
+    );
   }
 })

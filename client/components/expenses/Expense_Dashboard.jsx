@@ -97,9 +97,9 @@ renderImage:function(){
 		      {this.renderImage()}
 		      { balance === 0 ? <h3>You are even with {key}</h3>:
 				    balance > 0 ? 
-					<h3>{key} owes you ${balance}</h3> : 
-					<h3>You owe {key} ${(balance) * -1}</h3>
-			  }
+					<p className='dark-blue-text balance'>{key} owes you ${balance}</p> : 
+					<p className='dark-blue-text balance'>You owe {key} ${(balance) * -1}</p>
+				}
 			  <ReactBootstrap.Modal
 			      {...this.props}
 			      show={this.state.show}
@@ -119,8 +119,7 @@ renderImage:function(){
 			   	<span className='icon-label'>View charges with {key}</span>     
 			  </p> 
 		    </a>
-
 		)
 	}
-})
+});
 
