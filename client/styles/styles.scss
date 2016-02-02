@@ -10,6 +10,18 @@ html, body {
   width: 100%;
   margin: 0;
   overflow-y: scroll;
+  background: url(/travelling-alone.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: fixed;
+  vertical-align: center;
+}
+.clear {
+  margin-top: 10px;
+}
+
+.clean{
+  margin-top: 25px;
 }
 .header-expenses{
   text-align: center;
@@ -88,21 +100,133 @@ h1.list {
   height: 257px;
   width: 100%;
 }
-.login-signup {
+.login-signup{
   text-align: center;
-  padding-top: 200px;
+  padding-top: 150px;
   padding-right: 80px;
   padding-left: 80px;
-  background: url(login-background.jpg) no-repeat center center fixed;
+  background: transparent;
 }
-
+.login-input {
+  padding-left: 10px!important;
+  border-radius: 4px;
+  box-shadow: 3px 7px 22px #666;
+}
 input {
   padding-left: 10px;
 }
-
+/*############################## Bootstrap and Ionic Overrides ##############################*/
+.nav-override {
+  color: #EFF2F1!important;
+  background: #014771;
+  border: none;
+}
+.navbar-default .navbar-toggle .icon-bar {
+  background-color: #EFF2F1;
+}
+.navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
+  background-color: #4F738E;
+}
+.navbar-default .navbar-toggle {
+  border-color: #4F738E;
+}
 .login-link {
   margin-top: 35px;
 }
+.trip-layout {
+  background: #EFF2F1;
+}
+.card{
+  text-align: center;
+  padding-top: 7px;
+  border: none;
+  background: #014771;
+}
+.h-three-override {
+  font-weight: 400;
+  color: #EFF2F1;
+}
+.modal-title {
+  color: #014771;
+}
+.item p.dark-blue-text {
+  font-weight: 400;
+  color: #014771;
+}
+.dark-blue-text {
+  font-weight: 400;
+  color: #014771!important;
+}
+.button.button-positive {
+  border-color: #4F738E;
+  background-color: #014771;
+  color: #EFF2F1;
+  border-radius: 4px;
+}
+.button.button-block.button-negative{
+  float: none;
+  border-color: #ff3d00;
+  background-color: #ff3d00;
+  opacity: 0.89999;
+}
+.button.button-negative {
+  border-color: #ff3d00;
+  background-color: #ff3d00;
+  color: #EFF2F1;
+  opacity: 0.89999;
+  border-radius: 4px;
+  margin-top: 10px;
+  float: right;
+  margin-right: 15px;
+}
+.segmented-control{
+  border: none;
+}
+.segmented-control .control-item.active {
+  color: #EFF2F1;
+  background-color: #4F738E;
+  font-size: 15px;
+  font-weight: 600;
+}
+.segmented-control .control-item {
+  color: #EFF2F1;
+  border: none;
+  font-size: 14px;
+  font-weight: 500;
+}
+.bg-ice{
+  background: #EFF2F1!important;
+}
+.modal-content {
+  background: #EFF2F1;
+  color: #014771!important;
+}
+a {
+  color: #014771;
+}
+.footer-fixed {
+  position: fixed!important;
+  padding-top: 8px!important;
+  height: 60px!important;
+  color: #FFFFFF!important;
+  background: #014771;
+}
+
+.tab-item.tab-item-active, .tab-item.active, .tab-item.activated {
+  color: #EFF2F1!important;
+}
+
+.header-center {
+  text-align: center;
+  background: #EFF2F1;
+  height: 100%;
+}
+.header-override{
+  color: #014771;
+  padding-left: 10px;
+  font-weight: 400; 
+}
+/*############################## End Overrides ##############################*/
 
 .menu {
     list-style: none;
@@ -180,7 +304,7 @@ label[for="nav-trigger"] {
   margin: 0;
   padding: 20px;
   font-size:22px;
-  margin-top:40px !important;
+  margin-top:20px !important;
   width: 50% !important;
 }
 
@@ -194,13 +318,9 @@ label[for="nav-trigger"] {
 }
 
 .auth-error {
-  color: red;
-}
-
-.footer-fixed {
-  position: fixed!important;
-  padding-top: 8px!important;
-  height: 60px!important;
+  color: #ff3d00;
+  font-weight: 600;
+  font-size: 16px;
 }
 
 .image-fixed{
@@ -238,6 +358,7 @@ label[for="nav-trigger"] {
   float: left;
   margin-left: 10px;
 }
+
 .card{
   text-align: center;
   padding-top: 7px;

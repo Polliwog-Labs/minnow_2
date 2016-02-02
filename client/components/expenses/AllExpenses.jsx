@@ -9,7 +9,7 @@ AllExpenses = React.createClass({
 		if(this.props.trip.expenses.length === 0) {
 			console.log("hit if statment")
 			return (
-				<h3>No charges yet</h3>
+				<h3 className="dark-blue-text h-three-override">No charges yet</h3>
 			)
 		}
 		return this.props.trip.expenses.map(function(expense,index){
@@ -45,11 +45,9 @@ AllExpenses = React.createClass({
 
 	render:function(){
 		return(
-			<div>
+			<div className="bg-ice dark-blue-text">
 				{this.showBalances()}
 			</div>
-			
-
-	)
+		)
    }
 })

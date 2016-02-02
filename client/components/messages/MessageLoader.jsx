@@ -21,7 +21,7 @@ MessageLoader = React.createClass({
     });
   },
 	render(){
-		return (<div>{this.message_list()}</div>);
+		return (<div className="message-wrapper">{this.message_list()}</div>);
 	}
 });
 
