@@ -11,10 +11,10 @@ DeleteTrip = React.createClass({
   deleteTrip(){
     Trips.remove({_id:this.props.trip._id});
     $('.close').click();
-    window.location.href='/mytrips';
+    this.props.history.push('/mytrips');
   },
   render(){
-    if (this.props.trip.organizers.includes(Meteor.userId())){
+    if (this.props.trip && _.contains(this.props.trip.organizers,Meteor.userId())){
      return (
         <div className='deletebutton'>
             <ReactBootstrap.Modal

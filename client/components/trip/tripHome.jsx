@@ -7,12 +7,13 @@ TripHome = React.createClass({
     return {show:false};
   },
 
-  renderList: function() {
-    document.location.href = '/mytrips';
-  },
-
   componentWillReceiveProps: function(newprops) {
     this.setState(newprops);
+  },
+  shouldComponentUpdate(newprops,newstate){
+    if (newstate) return !!(newstate.trip && newstate.members)
+    else if (newprops) return !!(newprops.trip && newprops.members);
+    return false;
   },
 
   submitInvitees: function(event) {
@@ -56,9 +57,6 @@ TripHome = React.createClass({
       $('.error-email').hide()
     },1000);
   },
-  componentWillReceiveProps(newProps){
-    this.setState(newProps)
-  },
 
   showModal() {
     this.setState({show: true});
@@ -68,59 +66,59 @@ TripHome = React.createClass({
     this.setState({show: false});
   },
   render: function(){
-    if (this.props.trip){
-        var params = {
-        _id: null,
-        name: 'Unnamed Trip',
-        dates: [0,0],
-        members: [],
-        ideas: [],
-        itinerary: [],
-        messages: [],
-        expenses: [],
-        todo: [],
-        organizers: [],
-        expenses: [],
-        expense_dash:{}
-      };
+    var trip = this.props.trip || {};
+    var members = this.props.members || [];
+    var params = {
+      _id: null,
+      name: 'Unnamed Trip',
+      dates: [0,0],
+      members: [],
+      ideas: [],
+      itinerary: [],
+      messages: [],
+      expenses: [],
+      todo: [],
+      organizers: [],
+      expenses: [],
+      expense_dash:{}
+    };
 
-      for (var key in this.props.trip){
-        params[key] = this.props.trip[key];
-      };
-      var cost = params.expenses.reduce((a,b)=>{
-        return {amount: a.amount+b.amount};
-      },{amount:0}).amount
+    for (var key in trip){
+      params[key] = this.props.trip[key];
+    };
+    var cost = params.expenses.reduce((a,b)=>{
+      return {amount: a.amount+b.amount};
+    },{amount:0}).amount
 
-      //this.updateExpenseDash();
+    //this.updateExpenseDash();
 
-      return (
-      <div className='trip list'>
-        <EditTrip onHide={this.hideModal} show={this.state.show} trip={this.props.trip} members={this.props.members}/>
-         <div className='image-div'>
-          <Image image_id={params.image_id} height="300px" />
-         </div>
-         <div className='item'>
-          <h2>{this.props.trip.name || 'Unnamed Trip'}</h2>
-          <div className='item item-divider row'>
-            <h3 className='col'>{DateUtils.getTripDate(this.props.trip.dates)}</h3>
-            <p className='col clear-right'><a onClick={ this.showModal }><i id="pencil" className='ion-edit'></i></a></p>
-          </div>
-          <div className='item'>
-            <p className=''>Whos Coming? {this.props.members.map((member)=>{
-              return member.username;
-            }).join(', ')} </p>
-            <form className='form-group' >
-              <p>Invitees:</p>
-              <ul>{this.renderInvitees()}</ul>
-              <p>Invite attendees by email address:</p>
-              <input type="email" placeholder = "Email address" className="item-input" ref="input_email"/>
-              <button id="btn-submit" className='btn btn-default' onClick={this.submitInvitees}>Invite</button>
-              <span style={{'color':'red','display':'none'}} className="error-email">Bad Email</span>
-            </form>
-          </div>
+    return (
+    <div className='trip list'>
+      <EditTrip onHide={this.hideModal} show={this.state.show} trip={trip} members={members} history={this.props.history}/>
+       <div className='image-div'>
+        <Image image_id={params.image_id} height="300px" />
+       </div>
+       <div className='item'>
+        <h2>{params.name}</h2>
+        <div className='item item-divider row'>
+          <h3 className='col'>{DateUtils.getTripDate(params.dates)}</h3>
+          <p className='col clear-right'><a onClick={ this.showModal }><i id="pencil" className='ion-edit'></i></a></p>
         </div>
-      </div> )
-    } else return <div/>;
+        <div className='item'>
+          <p className=''>Whos Coming? {members.map((member)=>{
+            return member.username;
+          }).join(', ')} </p>
+          <form className='form-group' >
+            <p>Invitees:</p>
+            <ul>{this.renderInvitees()}</ul>
+            <p>Invite attendees by email address:</p>
+            <input type="email" placeholder = "Email address" className="item-input" ref="input_email"/>
+            <button id="btn-submit" className='btn btn-default' onClick={this.submitInvitees}>Invite</button>
+            <span style={{'color':'red','display':'none'}} className="error-email">Bad Email</span>
+          </form>
+        </div>
+      </div>
+    </div> )
   }
 });
 
