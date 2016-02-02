@@ -23,6 +23,7 @@ Expenses = React.createClass({
 
   componentDidMount: function () {
     this.renderDash();
+    this.props.updateParent('Expenses');
     // this.getExpenses();
   },
 // getExpenses(){
