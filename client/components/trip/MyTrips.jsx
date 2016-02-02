@@ -1,7 +1,6 @@
 MyTrips = React.createClass({
   mixins: [ReactMeteorData],
   getMeteorData(){
-    console.log('getting meteor data');
     var data = {trips:[]};
     var trips = Meteor.subscribe("myTrips",Meteor.user());
     if (trips.ready()) data.trips = Trips.find().fetch();

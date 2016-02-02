@@ -3,8 +3,8 @@ App = React.createClass({
 
 
   logout: function() {
-    Meteor.logout();
     this.navToggle();
+    Meteor.logout();
     this.props.history.push('/');
   },
 

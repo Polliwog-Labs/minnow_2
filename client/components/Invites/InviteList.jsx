@@ -18,8 +18,7 @@ InviteList = React.createClass({
       if(err) {
         console.log(err);
       }  else {
-         document.location.href = '/trip/' + this.props.trip._id;
-         // this.props.history.push('/trip/'+ this.props.trip._id);
+         this.props.history.push('/trip/' + this.props.trip._id);
        }
      })
   },

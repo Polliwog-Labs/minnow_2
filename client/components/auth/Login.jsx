@@ -25,9 +25,7 @@ Login = React.createClass({
     });
   }, 
   componentDidMount(){
-    setTimeout(()=>{
-      Meteor.user() && this.props.history.push('/mytrips');
-    },1000);
+    Meteor.user() && this.props.history.push('/mytrips');
   },
   render(){
     return (

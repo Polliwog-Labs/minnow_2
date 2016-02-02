@@ -1,4 +1,5 @@
 TripList = React.createClass({
+  _isMounted: false,
   propTypes: {
     trip: React.PropTypes.object.isRequired
   },
@@ -12,12 +13,12 @@ TripList = React.createClass({
         if (err) {
           console.log(err);
           console.log('err retrieving image. This shouldn\'t happen. Doge time.');
-          context.setState({url:AbsUrl+'/group-beach.jpg'});
+          context._isMounted && context.setState({url:AbsUrl+'/group-beach.jpg'});
         }
         else {
-          if (data) context.setState({url:AbsUrl+data})
+          if (data && context._isMounted) context.setState({url:AbsUrl+data})
           else {
-            if (count >= 15) {context.setState({url:AbsUrl+'/group-beach.jpg'});}
+            if (count >= 15) {context._isMounted && context.setState({url:AbsUrl+'/group-beach.jpg'});}
             else {
               setTimeout(function(){
                 count++;
@@ -32,15 +33,19 @@ TripList = React.createClass({
     getThisImageUrl(this);
   },
   componentDidMount: function(){
+    this._isMounted = true;
     if (this.props.trip.image_id) {
       this.getImageUrl()
     } else {
-      this.setState({url:'/group-beach.jpg'});
+      this.setState({url:AbsUrl+'/group-beach.jpg'});
     }
   },
   navToTrip: function(){
     // document.location.href = '/trip/' + this.props.trip._id;
     this.props.history.push('/trip/'+ this.props.trip._id);
+  },
+  componentWillUnmount(){
+    this._isMounted = false;
   },
 
   render: function(){
