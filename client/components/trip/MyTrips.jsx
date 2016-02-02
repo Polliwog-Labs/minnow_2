@@ -21,22 +21,25 @@ MyTrips = React.createClass({
         this.props.history.push('/trip/'+ id);
       }
     });
-
   },
   renderTrips: function(){
-    if(this.data.trips.length > 0){
-      return this.data.trips.sort((a,b)=>{
-        return a.dates[0] - b.dates[0];
-      }).map(trip=>{
-        return (
-          <TripList history={this.props.history} key={trip._id} trip={trip}/>
-        );
-      })
-    }else return(<p className='card card-fix'>You currently have no trips. Create a trip and invite your friend!</p>)
-  },
+   if(this.data.trips.length > 0){
+    return this.data.trips.sort((a,b)=>{
+      return a.dates[0] - b.dates[0];
+    }).map(trip=>{
+      return (
+        <TripList history={this.props.history} key={trip._id} trip={trip}/>
+      );
+    })
+   }
+    if (this.data.trips.length === 0) {
+     return (<p className="card card-fix">You currently have no trips! Create one above.</p>);
+    }
+    },
   render: function(){
     return (
-      <div className='list'>
+       <div className='list'>
+
         <div className="header-center">
           <h2 className="header-override">My Trips</h2>
         </div>
