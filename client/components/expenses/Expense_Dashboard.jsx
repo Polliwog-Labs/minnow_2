@@ -18,7 +18,7 @@ renderImage:function(){
  	var member = this.props.member;
 	var key = Object.keys(member);
 	var image = undefined;
-	console.log("key",key[0]);
+	// console.log("key",key[0]);
 	Meteor.call('findUserByName', key[0], function (err, data){
 		if(err) {
 			// console.log("error",err);
@@ -70,10 +70,10 @@ renderImage:function(){
 	   	var people = expense.split_with.length + 1;
 		var total = (expense.amount * people).toFixed(2);
 	   	  return (
-	   		<div className="item item-text-wrap">
+	   		<div key={index} className="item item-text-wrap">
 	   		  <li className ="item" >
 				<p>{expense.description}</p>
-				<p>$ {total}</p>
+				<p>$ {expense.amount} per person</p>
 				<p>Paid for by {expense.created_by}</p>
 			  </li>
 			</div>
