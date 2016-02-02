@@ -68,7 +68,15 @@ h1.list {
 }
 
 .text-wrap{
-  white-space: normal!important;
+    color: #014771!important;
+    height: 50px;
+    width: 95%;
+    border-radius: 4px;
+    font-size: 16px;
+    line-height: 1.1;
+    word-wrap: normal;
+    text-align: center;
+    padding-top: 7px;
 }
 .item-thumbnail-left:hover {
   cursor: pointer;
@@ -197,7 +205,7 @@ label[for="nav-trigger"] {
 
 .image-fixed{
   height: 240px!important;
-}   
+}
 
 .message-container{
   margin-bottom: 0px!important;
@@ -233,6 +241,17 @@ label[for="nav-trigger"] {
 .card{
   text-align: center;
   padding-top: 7px;
+
+}
+
+.card-fix {
+    color: #014771;
+    height: 50px;
+    width: 95%;
+    border-radius: 4px;
+    font-size: 16px;
+    line-height: 1.1;
+    word-wrap: normal;
 }
 
 .menu-link {
@@ -274,8 +293,8 @@ label[for="nav-trigger"] {
   padding-right: 0;
 }
 
-.position-relative { 
-  position: relative; 
+.position-relative {
+  position: relative;
 }
 
 .map-container {
