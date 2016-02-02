@@ -45,6 +45,12 @@ Trip = React.createClass({
   setParentState(view){
     this.setState({view:view || null})
   },
+
+  shouldComponentUpdate(newProps,newState){
+    if (newState && newState.view) return newState.view !== this.state.view;
+    return true;
+  },
+
   renderHome: function () {
     $('.active').removeClass('active');
     $('#home').addClass('active');
