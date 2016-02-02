@@ -67,6 +67,11 @@ IdeaEvent = React.createClass({
     })
   },
 
+  navToLink() {
+    window.open(this.props.idea.og.url, '_system')
+  },
+
+        // <a  href={this.props.idea.og.url}  target="_system"><h3 className='event-link'>{this.props.idea.og.title}</h3></a>          
   render() {
     this.props.idea.og = this.props.idea.og || {image:"http://static1.squarespace.com/static/5542dcefe4b0f37cdc4d6e60/5542e8dae4b0b79fc2fc8dfd/5542e9a0e4b0b79fc2fc9a9e/1430448712022/Virginia-Group-Travel1.jpeg",
     title:'',description:''}
@@ -75,7 +80,8 @@ IdeaEvent = React.createClass({
         <img src={this.props.idea.og.image}/>
         <h2>{this.props.idea.name}</h2>
         <p>{this.props.idea.desc}</p>
-        <a href={this.props.idea.og.url} target="_blank"><h3 className='event-link'>{this.props.idea.og.title}</h3></a>          
+        <a  onClick={this.navToLink}><h3 className='event-link'>{this.props.idea.og.title}</h3></a>          
+
         <p>{this.props.idea.og.description}</p>
         <div className='row'>
           <div className="col-xs-1" onClick={ this.upvote } >
