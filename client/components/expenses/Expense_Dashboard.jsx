@@ -11,8 +11,8 @@ ExpenseDashboard = React.createClass({
 			<div className='item item-divider header-expenses'>
 				{ balance === 0 ? <p className='balance'>You are even with {key}</p>:
 				    balance > 0 ? 
-					<p className='balance'>{key} owes you ${balance}</p> : 
-					<p className='balance'>You owe {key} ${(balance) * -1}</p>
+					<p className='dark-blue-text balance'>{key} owes you ${balance}</p> : 
+					<p className='dark-blue-text balance'>You owe {key} ${(balance) * -1}</p>
 				}
 			</div>
 

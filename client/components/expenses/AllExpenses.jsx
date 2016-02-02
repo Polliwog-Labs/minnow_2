@@ -44,13 +44,13 @@ AllExpenses = React.createClass({
 
 	render:function(){
 		return(
-			<div>
-			<div>
-				{this.showBalances()}
-			</div>
-			<div className="card">
-			  {this.expense_list()}
-			</div>
+			<div className="bg-ice dark-blue-text">
+				<div className="bg-ice dark-blue-text" >
+					{this.showBalances()}
+				</div>
+				<div className="dark-blue-text bg-ice card">
+				  {this.expense_list()}
+				</div>
 			</div>
 
 	)

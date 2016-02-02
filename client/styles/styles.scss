@@ -138,13 +138,16 @@ input {
   font-weight: 400;
   color: #EFF2F1;
 }
+.modal-title {
+  color: #014771;
+}
 .item p.dark-blue-text {
   font-weight: 400;
   color: #014771;
 }
 .dark-blue-text {
   font-weight: 400;
-  color: #014771;
+  color: #014771!important;
 }
 .button.button-positive {
   border-color: #4F738E;
@@ -156,11 +159,13 @@ input {
   float: none;
   border-color: #ff3d00;
   background-color: #ff3d00;
+  opacity: 0.89999;
 }
 .button.button-negative {
   border-color: #ff3d00;
   background-color: #ff3d00;
   color: #EFF2F1;
+  opacity: 0.89999;
   border-radius: 4px;
   margin-top: 10px;
   float: right;
@@ -182,7 +187,7 @@ input {
   font-weight: 500;
 }
 .bg-ice{
-  background: #EFF2F1;
+  background: #EFF2F1!important;
 }
 .modal-content {
   background: #EFF2F1;
@@ -205,12 +210,13 @@ a {
 
 .header-center {
   text-align: center;
+  background: #EFF2F1;
+  height: 100%;
 }
 .header-override{
   color: #014771;
   padding-left: 10px;
-  font-weight: 450;
-  
+  font-weight: 400; 
 }
 /*############################## End Overrides ##############################*/
 
