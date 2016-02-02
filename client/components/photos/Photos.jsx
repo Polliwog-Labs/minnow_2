@@ -30,8 +30,8 @@ Photos = React.createClass({
     }
   },
 
-  componentDidMount() {
-    this.props.updateParent('Photos')
+  componentWillMount() {
+    this.props.updateParent('Photos');
   },
 
   renderPhotos: function () {

@@ -7,17 +7,12 @@ TripHome = React.createClass({
     return {show:false};
   },
 
-  componentWillReceiveProps: function(newprops) {
-    this.setState(newprops);
-  },
   componentDidMount(){
     this.props.updateParent(null);
   },
-  shouldComponentUpdate(newprops,newstate){
-    console.log('update attempt');
-    if (newstate && newstate.view) return true;
-    else if (newprops) return !!(newprops.trip && newprops.members);
-    return false;
+
+  shouldComponentUpdate(newprops){
+    return !!(newprops.trip && newprops.members) 
   },
 
   submitInvitees: function(event) {
@@ -93,8 +88,6 @@ TripHome = React.createClass({
     var cost = params.expenses.reduce((a,b)=>{
       return {amount: a.amount+b.amount};
     },{amount:0}).amount
-
-    //this.updateExpenseDash();
 
     return (
     <div className='trip list'>

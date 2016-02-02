@@ -9,21 +9,22 @@ Expenses = React.createClass({
     };
    },
 
-   componentDidUpdate:function(){
+  componentDidUpdate:function(){
     switch (this.state.expenseView){
       case 'newExpense':
         this.renderNew();
         break;
       default:
        this.renderDash();
-   }
- },
+     }
+   },
 
-
+  componentWillMount(){
+    this.props.updateParent('Expenses');
+  },
 
   componentDidMount: function () {
     this.renderDash();
-    this.props.updateParent('Expenses');
     // this.getExpenses();
   },
 // getExpenses(){
