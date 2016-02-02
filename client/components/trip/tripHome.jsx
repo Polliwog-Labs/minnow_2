@@ -22,7 +22,7 @@ TripHome = React.createClass({
     var invite_user = undefined;
 
     if((invitee_email !== Meteor.user().emails[0].address) && invitee_email.includes('@') &&
-      this.props.trip && this.rops.trip.pending && this.props.trip.pending.every((invitee)=>{
+      this.props.trip && this.props.trip.pending && this.props.trip.pending.every((invitee)=>{
         return invitee !== invitee_email;
       })){
       // Make sure user isn't inviting themself, email address is an email address,
