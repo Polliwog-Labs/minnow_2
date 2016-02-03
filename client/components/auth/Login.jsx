@@ -40,7 +40,7 @@ Login = React.createClass({
             Signin
           </button>
         </form>
-        <ReactRouter.Link className="ice-text" to="signup">Don't have an account? Sign up!</ReactRouter.Link>
+        <ReactRouter.Link className="login-signup-text" to="signup">Don't have an account? Sign up!</ReactRouter.Link>
       </div>
     )
   }

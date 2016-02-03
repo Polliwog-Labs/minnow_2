@@ -10,11 +10,13 @@ html, body {
   width: 100%;
   margin: 0;
   overflow-y: scroll;
-  background: url(/travelling-alone.jpg);
-  background-repeat: no-repeat;
-  background-size: cover;
   position: fixed;
   vertical-align: center;
+}
+body {
+  background: url(/travelling-alone.jpeg);
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 .clear {
   margin-top: 10px;
@@ -106,9 +108,9 @@ h1.list {
     height: 100%;
     width: 80%;
     border-radius: 4px;
-    background: rgba(0,0,0,0.25);
+    background: rgba(0,0,0,0.47);
     padding: 30px 31px;
-    margin: 22% auto;
+    margin: 40% auto;
 }
 .login-input {
   padding-left: 10px!important;
@@ -123,6 +125,9 @@ input {
   color: #EFF2F1!important;
   background: #014771;
   border: none;
+}
+.modal{
+  background: url(/travelling-alone.jpeg)!important;
 }
 .navbar-default .navbar-toggle .icon-bar {
   background-color: #EFF2F1;
@@ -174,6 +179,11 @@ input {
 .dark-blue-text {
   font-weight: 400;
   color: #014771!important;
+}
+.login-signup-text {
+  font-weight:700;
+  font-size:1em;
+  color:#EFF2F1;
 }
 .ice-text {
   font-weight: 400;
