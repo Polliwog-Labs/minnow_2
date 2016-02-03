@@ -95,6 +95,9 @@ renderImage:function(){
   	var username = user.target.value;
   	var checkedUsername = user.target.checked;
   	console.log("checkedUsername",checkedUsername)
+  	var newCheck = this.state.checked;
+  	newCheck[username] =!newCheck[username];
+  	this.setState({split:newCheck});
 
 	
   	console.log("username", username)
@@ -134,7 +137,9 @@ renderImage:function(){
 			   <i className="icon ion-plus-circled"></i>
 			   	<span className='icon-label'>View charges with {key}</span>     
 			  </p>
+			  	<div id="payment">
 				 { balance < 0 ? <input ref={key} value={key} type="checkbox" readOnly onClick={this.confirmationRequest}> Mark As Paid </input>: ""}
+				</div>
 		    </a>
 		)
 	}

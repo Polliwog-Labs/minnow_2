@@ -1,6 +1,14 @@
 AllExpenses = React.createClass({
 	getInitialState(){
-		return {trip:{expenses:[]}}
+		var membersObj = {};
+			this.props.members.forEach(function (member){
+				membersObj[member.username] = false;
+			});
+
+		return {
+			trip:{expenses:[]},
+			checked: membersObj
+		}
 	},
 	componentWillReceieveProps(newProps){
 		this.setState({trip:newProps});
