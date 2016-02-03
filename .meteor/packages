@@ -19,7 +19,7 @@ ecmascript              # Enable ECMAScript2015+ syntax in app code
 accounts-password
 accounts-ui-unstyled
 reactrouter:react-router
-react
+react@0.14.3
 cfs:standard-packages
 cfs:gridfs
 cfs:graphicsmagick
