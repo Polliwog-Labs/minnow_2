@@ -1,2 +1,2 @@
-AbsUrl = 'http://minnow.pw';
+AbsUrl = 'http://www.minnow.pw';
 
