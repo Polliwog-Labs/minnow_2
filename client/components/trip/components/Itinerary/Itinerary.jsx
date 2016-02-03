@@ -22,9 +22,12 @@ Itinerary = React.createClass({
     }
   },
 
+  componentWillMount() {
+    this.props.updateParent('Itinerary');
+  },
+
   componentDidMount: function () {
     this.renderItinerary();
-    this.props.updateParent('Itinerary');
   },
 
   renderItinerary: function() {
