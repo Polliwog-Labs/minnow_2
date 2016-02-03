@@ -1,3 +1,3 @@
 
-AbsUrl='http://192.168.1.223:3000'
+AbsUrl= ROOT_URL || 'http://minnow.pw';
 
