@@ -69,7 +69,7 @@ NewExpense = React.createClass({
   	return this.state.split_with.map(function (member, index){
   		return (
   			<ul>
-  				<li ref={index} >{member}</li>
+  				<li ref={index} key={index}>{member}</li>
   			</ul>
   		)
   	})
