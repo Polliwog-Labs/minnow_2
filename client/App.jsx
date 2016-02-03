@@ -8,7 +8,7 @@ App = React.createClass({
     var history = this.props.history
     setTimeout(function() {
       history.push('/login');
-    }, 400)
+    }, 200)
   },
 
   getMeteorData: function() {
