@@ -236,7 +236,7 @@ input {
   float: right;
   margin-right: 15px;
 }
-.segmented-control{
+/*.segmented-control{
   border: none;
 }
 .segmented-control .control-item.active {
@@ -244,15 +244,39 @@ input {
   background-color: #4F738E;
   font-size: 15px;
   font-weight: 600;
-}
-.item-stacked-label input, .item-stacked-label textarea{
-  background: #EFF2F1;
-}
-.segmented-control .control-item {
+}*/
+/*.segmented-control .control-item {
   color: #EFF2F1;
   border: none;
   font-size: 14px;
   font-weight: 500;
+}*/
+
+.segmented-control {
+  padding: 0px;
+  width: 94% !important;
+  text-align: center !important;
+  margin-top: 10px;
+  margin-left: 3%;
+  border-color: #014771 !important;
+}
+
+.segmented-control .control-item.active {
+  background-color: #014771;
+  text-decoration: none;
+}
+
+.segmented-control .control-item {
+  color: #014771;
+  background: rgba(240,248,255,0.50);
+}
+
+.expense-control {
+  margin-bottom: 15px;
+}
+
+.item-stacked-label input, .item-stacked-label textarea{
+  background: #EFF2F1;
 }
 .bg-ice{
   background: #EFF2F1!important;
@@ -469,7 +493,7 @@ label[for="nav-trigger"] {
 
 .delete-event {
   text-align: right;
-  padding-right: 0;
+  padding-right: 2px;
 }
 
 .position-relative {

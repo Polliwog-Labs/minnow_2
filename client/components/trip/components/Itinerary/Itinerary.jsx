@@ -45,16 +45,34 @@ Itinerary = React.createClass({
   render: function () {
     return (
       <div>
-        <div className="segmented-control col">
-          <a id="itin-toggle" className="control-item" onClick={this.renderItinerary} >
+        <div className="segmented-control row">
+          <div className='col seg-item control-item' id="itin-toggle" onClick={this.renderItinerary}>
             Itinerary
-          </a>
-          <a id="idea-toggle" className="control-item" onClick={this.renderIdeas} >
+          </div>
+          <div className='col seg-item control-item' id="idea-toggle" onClick={this.renderIdeas}>
             Ideas
-          </a>
+          </div>
         </div>
         <div id="itinerary-module"></div>
       </div>
     )
   }
 })
+
+// <div>
+//   <div className="segmented-control col row">
+//     <div className='col seg-item control-item'>
+//     <a id="itin-toggle" className="control-item" onClick={this.renderItinerary} >
+//       Itinerary
+//     </a>
+//     </div>
+//     <span>
+//     <div className='col seg-item control-item'>
+//     <a id="idea-toggle" className="control-item" onClick={this.renderIdeas} >
+//       Ideas
+//     </a>
+//     </div>
+//     </span>
+//   </div>
+//   <div id="itinerary-module"></div>
+// </div>
