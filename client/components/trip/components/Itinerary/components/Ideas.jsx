@@ -67,23 +67,23 @@ Ideas = React.createClass({
           <ReactBootstrap.Modal.Body>
             <div className="list">
               <label className="item item-input item-stacked-label">
-                <span className="input-label">Event Name</span>
+                <span className="dark-blue-text input-label">Event Name</span>
                 <input type="text" ref="idea_name" placeholder=""/>
               </label>
               <label className="item item-input item-stacked-label">
-                <span className="input-label">Description</span>
+                <span className="dark-blue-text input-label">Description</span>
                 <input type="text" ref="idea_desc" placeholder=""/>
               </label>
               <label className="item item-input item-stacked-label">
-                <span className="input-label">Location</span>
+                <span className="dark-blue-text input-label">Location</span>
                 <input type="text" ref="idea_location" placeholder=""/>
               </label>
               <label className="item item-input item-stacked-label">
-                <span className="input-label">URL</span>
+                <span className="dark-blue-text input-label">URL</span>
                 <input type="text" ref="url" placeholder=""/>
               </label>
               <label className="item item-input item-stacked-label">
-                <span className="input-label">Est. Group Cost</span>
+                <span className="dark-blue-text input-label">Est. Group Cost</span>
                 <input type="number" ref="cost" placeholder="$"/>
               </label>
             </div>

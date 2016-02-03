@@ -116,42 +116,42 @@ ItineraryView = React.createClass({
           <ReactBootstrap.Modal.Body>
             <div className="list">
               <label className="item item-input item-stacked-label">
-                <span className="input-label">Event Name</span>
+                <span className="dark-blue-text input-label">Event Name</span>
                 <input type="text" ref="idea_name" placeholder="example"/>
               </label>
               <label className="item item-input item-stacked-label">
-                <span className="input-label">Description</span>
+                <span className="dark-blue-text input-label">Description</span>
                 <input type="text" ref="idea_desc" placeholder="optional"/>
               </label>
               <label className="item item-input item-stacked-label">
-                <span className="input-label">Location</span>
+                <span className="dark-blue-text input-label">Location</span>
                 <input type="text" ref="idea_location" placeholder=""/>
               </label>
               <label className="item item-input item-stacked-label">
-                <span className="input-label">URL</span>
+                <span className="dark-blue-text input-label">URL</span>
                 <input type="text" ref="url" placeholder="example"/>
               </label>
               <label className="item item-input item-stacked-label">
-                <span className="input-label">Est. Group Cost</span>
+                <span className="dark-blue-text input-label">Est. Group Cost</span>
                 <input type="number" ref="cost" placeholder="$"/>
               </label>
-              <div className="row item" > 
+              <div className="row item bg-ice" > 
                 <div className="col" >
-                  <label className="item item-input item-select">
-                    <div className="input-label">
+                  <label className="item item-input item-select bg-ice">
+                    <div className="dark-blue-text input-label">
                       Date
                     </div>
-                    <input className="item-input" id="newTrip-name" type="date" ref="date"/> 
+                    <input className="dark-blue-text item-input" id="newTrip-name" type="date" ref="date"/> 
                   </label>
                 </div>
               </div>
-              <div className="row item" > 
-                <div className="col" >
-                  <label className="item item-input item-select">
-                    <div className="input-label">
+              <div className="row item bg-ice" > 
+                <div className="col bg-ice" >
+                  <label className="item item-input bg-ice item-select">
+                    <div className="dark-blue-text input-label bg-ice">
                       Hour
                     </div>
-                    <select defaultValue='12' ref='hour'>
+                    <select className="dark-blue-text bg-ice" defaultValue='12' ref='hour'>
                       <option>1</option>
                       <option>2</option>
                       <option>3</option>
@@ -167,12 +167,12 @@ ItineraryView = React.createClass({
                     </select>
                   </label>
                 </div>
-                <div className="col" >
-                  <label className="item item-input item-select">
-                    <div className="input-label">
+                <div className="dark-blue-text col bg-ice" >
+                  <label className="item item-input bg-ice item-select">
+                    <div className="dark-blue-text input-label bg-ice">
                       Min
                     </div>
-                    <select defaultValue='00' ref="min">
+                    <select className="dark-blue-text bg-ice" defaultValue='00' ref="min">
                       <option>00</option>
                       <option>15</option>
                       <option>30</option>
@@ -181,13 +181,13 @@ ItineraryView = React.createClass({
                   </label>
                 </div>
               </div>
-              <div className="row item" > 
-                <div className="col" >
-                  <label className="item item-input item-select">
-                    <div className="input-label">
+              <div className="dark-blue-text row item bg-ice" > 
+                <div className="dark-blue-text col bg-ice" >
+                  <label className="item item-input bg-ice item-select">
+                    <div className="dark-blue-text input-label bg-ice">
                       AM/PM
                     </div>
-                    <select defaultValue="AM" ref='am_pm'>
+                    <select className="dark-blue-text bg-ice" defaultValue="AM" ref='am_pm'>
                       <option>AM</option>
                       <option>PM</option>
                     </select>
