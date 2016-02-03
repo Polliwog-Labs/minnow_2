@@ -83,15 +83,15 @@ h1.list {
 }
 
 .text-wrap{
-    color: #014771!important;
-    height: 50px;
-    width: 95%;
-    border-radius: 4px;
-    font-size: 16px;
-    line-height: 1.1;
-    word-wrap: normal;
-    text-align: center;
-    padding-top: 7px;
+  color: #014771!important;
+  height: 50px;
+  width: 95%;
+  border-radius: 4px;
+  font-size: 16px;
+  line-height: 1.1;
+  word-wrap: normal;
+  text-align: center;
+  padding-top: 7px;
 }
 .item-thumbnail-left:hover {
   cursor: pointer;
@@ -104,13 +104,13 @@ h1.list {
   width: 100%;
 }
 .login-signup{
-    text-align: center;
-    height: 100%;
-    width: 80%;
-    border-radius: 4px;
-    background: rgba(0,0,0,0.47);
-    padding: 30px 31px;
-    margin: 40% auto;
+  text-align: center;
+  height: 100%;
+  width: 80%;
+  border-radius: 4px;
+  background: rgba(0,0,0,0.47);
+  padding: 30px 31px;
+  margin: 40% auto;
 }
 .login-input {
   padding-left: 10px!important;
@@ -125,6 +125,7 @@ input {
   color: #EFF2F1!important;
   background: #014771;
   border: none;
+  font-weight: 200;
 }
 .modal{
   background: url(/travelling-alone.jpeg)!important;
@@ -155,10 +156,10 @@ input {
   border: none;
   background: #EFF2F1;
   padding-bottom: 1px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 }
 .h-override {
   margin-left: 30%;
+  color: #EFF2F1!important;
 }
 .h-three-override {
   font-weight: 400;
@@ -171,6 +172,24 @@ input {
 }
 .modal-title {
   color: #014771;
+}
+.no-invites {
+  font-weight: 100!important;
+  margin-top: 120px;
+  font-size: 46px!important;
+  line-height: 1.3em;
+}
+.opaque-bg{
+  color: #EFF2F1;
+  border: none;
+  background-color: #000;
+  text-align: center;
+  height: 900px;
+  background: rgba(0,0,0,0.47);
+}
+.no-trips{
+  margin-top: -20px;
+  padding-top: 10px;
 }
 .item p.dark-blue-text {
   font-weight: 400;
