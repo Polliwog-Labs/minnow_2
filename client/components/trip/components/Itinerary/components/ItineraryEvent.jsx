@@ -27,9 +27,8 @@ ItineraryEvent = React.createClass({
           <img src={this.props.event.og.image}/>
           <h3>{this.displayTime().toString()} </h3>
           <h3>{this.props.event.name}</h3>
-          <p>{this.props.event.desc}</p>
           <a  onClick={this.navToLink} ><h3 className='event-link'>{this.props.event.og.title}</h3></a>         
-          <p>{this.props.event.og.description}</p>
+          <p>{this.props.event.desc}</p>
           <div className='row'>
             <div className='col-xs-2'>
               {this.props.event.upvotes}

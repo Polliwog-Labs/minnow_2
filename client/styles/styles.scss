@@ -282,7 +282,12 @@ label[for="nav-trigger"] {
     color: #0066ff;
 }
 
-
+.item-thumbnail-left {
+  min-height: 70px !important;
+  padding-bottom: 0px !important;
+  /*margin-bottom: 3px !important;
+  border-radius: 5px !important;*/
+}
 
 .tripListModule {
  background:

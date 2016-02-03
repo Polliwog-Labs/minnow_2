@@ -108,7 +108,7 @@ IdeaEvent = React.createClass({
                   <i className="icon ion-trash-b"></i>
                 </div> : ''
           }
-          <ReactBootstrap.Modal {...this.props} bsSize="small" show={this.state.showModal} onHide={this.hideModal} aria-labelledby="contained-modal-title-sm">
+          <ReactBootstrap.Modal {...this.props} bsSize="small" show={this.state.showModal} onHide={this.hideModal} backdrop='static' aria-labelledby="contained-modal-title-sm">
             <ReactBootstrap.Modal.Header closeButton>
               <ReactBootstrap.Modal.Title id="contained-modal-title-sm">Date & Time</ReactBootstrap.Modal.Title>
             </ReactBootstrap.Modal.Header>
