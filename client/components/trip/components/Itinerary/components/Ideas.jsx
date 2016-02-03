@@ -102,7 +102,7 @@ Ideas = React.createClass({
           <div className='col'></div>
         </div>
         <div >
-          <IdeaLoader trip={this.props.trip} updateParent={this.props.updateParent} updateView={this.props.updateView} ideas={this.props.trip.ideas || [] }/>
+          <IdeaLoader trip={this.props.trip} updateParent={this.props.updateParent} updateView={this.props.updateView} />
         </div>
       </div>
 
