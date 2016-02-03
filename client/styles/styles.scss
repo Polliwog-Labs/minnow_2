@@ -285,8 +285,13 @@ label[for="nav-trigger"] {
 .item-thumbnail-left {
   min-height: 70px !important;
   padding-bottom: 0px !important;
+  padding-right: 0px;
   /*margin-bottom: 3px !important;
   border-radius: 5px !important;*/
+}
+
+.item-thumbnail-left h3 {
+  overflow: auto !important;
 }
 
 .tripListModule {
