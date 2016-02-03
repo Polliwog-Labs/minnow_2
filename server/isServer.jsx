@@ -75,7 +75,7 @@ if (Meteor.isServer) {
 
   //Methods
   var resizeImage = function(fileObj, readStream, writeStream) {
-    gm(readStream, fileObj.name()).resize(800,600).stream().pipe(writeStream);
+    gm(readStream, fileObj.name()).resize(800,null).gravity('Center').crop(800,600).stream().pipe(writeStream);
   };
 
   var renameImage = function(fileObj){

@@ -155,7 +155,7 @@
       }
     },
     "react": {
-      "version": "0.14.7",
+      "version": "0.14.6",
       "dependencies": {
         "envify": {
           "version": "3.4.0",
@@ -350,7 +350,7 @@
       "version": "0.14.6"
     },
     "react-slick": {
-      "version": "0.9.3",
+      "version": "0.9.2",
       "dependencies": {
         "classnames": {
           "version": "2.2.3"

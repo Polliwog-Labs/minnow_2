@@ -51,6 +51,10 @@ Ideas = React.createClass({
   componentWillMount() {
     this.props.updateView('IdeasView');
   },
+  shouldComponentUpdate(newprops){
+    if (newprops) return !!newprops.trip;
+    return true;
+  },
 
   render: function () {
     return (
@@ -102,7 +106,7 @@ Ideas = React.createClass({
           <div className='col'></div>
         </div>
         <div >
-          <IdeaLoader trip={this.props.trip} updateParent={this.props.updateParent} updateView={this.props.updateView} ideas={this.props.trip.ideas || [] }/>
+          <IdeaLoader trip={this.props.trip} updateParent={this.props.updateParent} updateView={this.props.updateView} />
         </div>
       </div>
 
