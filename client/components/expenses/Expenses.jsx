@@ -52,13 +52,13 @@ Expenses = React.createClass({
 render: function () {
     return (
       <div>
-        <div className="segmented-control col">
-          <a className="control-item modualactive" id="dashboard" onClick={this.renderDash}>
+        <div className="segmented-control expense-control row">
+          <div className='col seg-item control-item modualactive' id="dashboard" onClick={this.renderDash}>
             All Expenses
-          </a>
-          <a className="control-item" id="newExpense" onClick={this.renderNew}>
+          </div>
+          <div className='col seg-item control-item modualactive' id="newExpense" onClick={this.renderNew}>
             New Expense
-          </a>
+          </div>
         </div>
         <div id='expense-module'></div>
       </div>
