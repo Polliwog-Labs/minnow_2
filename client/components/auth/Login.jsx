@@ -31,7 +31,6 @@ Login = React.createClass({
     return (
       <div className="list col login-signup">
         <form onSubmit={this.userLogin}>
-          <h3 className="dark-blue-text">Login</h3>
           <p className="auth-error">{this.state.authError}</p>
           <div className="clean"></div>
           <input className="login-input" type="email" placeholder='Email' ref='email_input'/>
@@ -41,7 +40,7 @@ Login = React.createClass({
             Signin
           </button>
         </form>
-        <ReactRouter.Link to="signup">Don't have an account? Sign up!</ReactRouter.Link>
+        <ReactRouter.Link className="ice-text" to="signup">Don't have an account? Sign up!</ReactRouter.Link>
       </div>
     )
   }
