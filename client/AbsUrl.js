@@ -1,3 +1,2 @@
-
-AbsUrl= ROOT_URL || 'http://minnow.pw';
+AbsUrl = 'http://minnow.pw';
 
