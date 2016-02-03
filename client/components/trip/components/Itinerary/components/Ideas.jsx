@@ -51,6 +51,10 @@ Ideas = React.createClass({
   componentWillMount() {
     this.props.updateView('IdeasView');
   },
+  shouldComponentUpdate(newprops){
+    if (newprops) return !!newprops.trip;
+    return true;
+  },
 
   render: function () {
     return (
