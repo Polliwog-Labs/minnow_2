@@ -25,7 +25,7 @@ ItineraryEvent = React.createClass({
     return (
       <div className="item item-thumbnail-left event-list-item">
           <img src={this.props.event.og.image}/>
-          <h2>{this.displayTime().toString()} </h2>
+          <h3>{this.displayTime().toString()} </h3>
           <h3>{this.props.event.name}</h3>
           <p>{this.props.event.desc}</p>
           <a  onClick={this.navToLink} ><h3 className='event-link'>{this.props.event.og.title}</h3></a>         
