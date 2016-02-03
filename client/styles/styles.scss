@@ -314,7 +314,17 @@ label[for="nav-trigger"] {
     color: #0066ff;
 }
 
+.item-thumbnail-left {
+  min-height: 70px !important;
+  padding-bottom: 0px !important;
+  padding-right: 0px;
+  /*margin-bottom: 3px !important;
+  border-radius: 5px !important;*/
+}
 
+.item-thumbnail-left h3 {
+  overflow: auto !important;
+}
 
 .tripListModule {
   width: 94%;
@@ -499,6 +509,14 @@ label[for="nav-trigger"] {
 }
 .item, .item h1, .item h2, .item h3, .item h4, .item h5, .item h6, .item p, .item-content, .item-content h1, .item-content h2, .item-content h3, .item-content h4, .item-content h5, .item-content h6, .item-content p {
   overflow: visible;
+}
+
+.time-select {
+  padding-bottom: 10px !important;
+}
+
+.date-form {
+  padding-left: 10px;
 }
 
 /*----------SLICK SLIDER-----------*/

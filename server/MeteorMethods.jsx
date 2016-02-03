@@ -45,19 +45,20 @@ Meteor.methods({
     });
   },
 
-
   //Invite methods
   getInvitesByUser: function(user){
     var trips = [];
     user && user.profile && user.profile.invites && (trips = user.profile.invites);
     return Trips.find({_id: { $in: trips}}).fetch();
   },
+
   getTripsFromInvites: function(invites){
     //takes an array of invites
     if (invites) return Trips.find({_id:{$in:invites.map(invite=>{
       return invite.trip_id;
     })}}).fetch();
   },
+
   inviteAccepted: function(user, trip){
 
     //Update the expense_dash collection on accept 
@@ -91,6 +92,7 @@ Meteor.methods({
       return !err;
     });
   },
+
   inviteDeclined: function(user, trip){
     Meteor.users.update({_id:user._id}, {$pull:{"profile.invites": trip}});
     Trips.update({_id:trip},{$pull:{"pending": user.emails[0].address}});
@@ -99,6 +101,7 @@ Meteor.methods({
       return !err;
     });
   },
+
   getUserInvites: function(email){
     return Invites.find({'recipient':email}).fetch().map(invite=>{return invite.trip_id;});
   },
@@ -112,6 +115,7 @@ Meteor.methods({
     Meteor.call('notify',user._id);
     return Meteor.users.update({_id:user._id},{$push:{"profile.invites":id}});
   },
+
   sendInvitationEmail: function(inviteeEmail,trip,user){
    // Email.send({
    //    from:'team.polliwog@gmail.com',
@@ -127,14 +131,17 @@ Meteor.methods({
       sender: user.username
     });
   },
+
   getTripById: function(id){
     return Trips.findOne({_id:id});
   },
+
   getTripsByUser: function(user){
     var trips = [];
     user && user.profile && user.profile.myTrips && (trips = user.profile.myTrips);
     return Trips.find({_id: { $in: trips}}).fetch();
   },
+
   updateTrip: function(update){
     return Trips.update({_id:update.trip_id},{$set: {
                   name: update.name,
@@ -143,6 +150,7 @@ Meteor.methods({
                   image_id: update.image_id
                 }});
   },
+
   createTrip: function(trip){
     return Trips.insert({
       name: trip.name,
@@ -160,10 +168,12 @@ Meteor.methods({
       photos:[]
     },(err,result)=> {if (!err) return result});
   },
+
   getOrganizer: function(trip){
     var organizer = Meteor.users.findOne({_id:trip.organizers[0]});
     return organizer;
   },
+
   //idea methods
   addIdea: function (event) {
     return Trips.update({_id: event.trip_id}, {$push: {"ideas": {
@@ -182,6 +192,7 @@ Meteor.methods({
               }
           })
   },
+
   addIdeaToItin: function (tripId, idea, dateTime) {
     console.log('dateTime: ', dateTime)
     return Trips.update({_id: tripId}, {$push: {'itinerary': idea}}, function (error) {
@@ -233,6 +244,7 @@ Meteor.methods({
       }
     })
   },
+
   ideaDownVote: function (tripId, createdAt) {
     return Trips.update({_id: tripId, 'ideas.created_at': createdAt}, {$inc: {'ideas.$.upvotes': -1}}, function (error) {
       if (error) {
@@ -278,7 +290,6 @@ Meteor.methods({
     });
 
     Trips.update({_id: expense.trip_id}, {$set: {expense_dash: newExpenseDash}});
-
 
     return Trips.update({"_id": expense.trip_id}, {$push: {
       'expenses': {
