@@ -22,7 +22,7 @@ TripList = React.createClass({
             else {
               setTimeout(function(){
                 count++;
-                getImageUrl(context);
+                getThisImageUrl(context);
               },1000);
             }
             //No more than 15 tries. If someone puts in a stupid big image, they can wait/refresh the page.
