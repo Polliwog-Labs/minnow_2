@@ -37,7 +37,7 @@ AllExpenses = React.createClass({
 		});
 
 		return userExpenseDash.map(function (member, index) {
-			return <ExpenseDashboard  key={index} member={member} expenses={expenses} />
+			return <ExpenseDashboard  key={index} members={showMembers} member={member} expenses={expenses} />
 		});
 
 	},

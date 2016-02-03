@@ -1,8 +1,15 @@
 ExpenseDashboard = React.createClass({
 
 getInitialState(){
+
+	var membersObj = {};
+	this.props.members.forEach(function (member){
+		membersObj[member.username] = false;
+	});
+	console.log("props",this.props)
 	return {
-		show:false
+		show:false,
+		checked: membersObj
 	}
 },
 
@@ -21,11 +28,12 @@ renderImage:function(){
 	// console.log("key",key[0]);
 	Meteor.call('findUserByName', key[0], function (err, data){
 		if(err) {
-			// console.log("error",err);
+			console.log("error",err);
 		} else {
+			console.log("data", data)
 			Meteor.call('retrieveProfilePic', data._id, function (err, imageId) {
 				if(err) {
-					// console.log(err);
+					console.log(err);
 				}else {
 					console.log("imageId", imageId);
 					image=imageId;
@@ -82,14 +90,22 @@ renderImage:function(){
 
   },
 
+  confirmationRequest:function(user){
+
+  	var username = user.target.value;
+  	var checkedUsername = user.target.checked;
+  	console.log("checkedUsername",checkedUsername)
+
+	
+  	console.log("username", username)
+  },
+
 	render:function(){
 
 		var member = this.props.member;
 		var key = Object.keys(member);
 		var setUp = member[key];
 		var balance = Number((setUp).toFixed(2));
-
-
 
 		return (
 
@@ -117,7 +133,8 @@ renderImage:function(){
 			  <p onClick={this.showModal}>
 			   <i className="icon ion-plus-circled"></i>
 			   	<span className='icon-label'>View charges with {key}</span>     
-			  </p> 
+			  </p>
+				 { balance < 0 ? <input ref={key} value={key} type="checkbox" readOnly onClick={this.confirmationRequest}> Mark As Paid </input>: ""}
 		    </a>
 
 		)

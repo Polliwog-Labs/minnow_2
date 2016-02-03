@@ -26,6 +26,7 @@ Meteor.methods({
   // },
 
   retrieveProfilePic: function(id){
+    console.log("server function id",id)
     var fileObj = ProfilePics.findOne({_id:id});
     return fileObj ? fileObj.url() : null;
   },
@@ -35,7 +36,7 @@ Meteor.methods({
     return Meteor.users.findOne({_id:id});
   },
 
-  //notifcations
+  //notifcatio
   notify(recipient,clear){
     if (clear) return Notifications.remove({
       recipient: recipient
@@ -259,6 +260,13 @@ Meteor.methods({
   },
 
   //expenses
+
+  findUserByName:function(username){
+    var user = Users.findOne({username:username});
+    return user
+  },
+
+
   pushExpense: function(expense,user,dash){
     
     var newExpenseDash = dash.map(function (userObject){
