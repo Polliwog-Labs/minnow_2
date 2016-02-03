@@ -10,7 +10,8 @@ Messages = React.createClass({
 		var message = ReactDOM.findDOMNode(this.refs.message_text).value;
     Trips.update({_id:this.props.trip._id},{$push:{'messages':{
 		    	'text': message, 
-		    	'created_at': new Date(), 
+		    	'created_at': new Date(),
+		    	'senderId': Meteor.userId(),
 		    	'sender': Meteor.user().username
 		    }
 		  }
@@ -27,8 +28,8 @@ Messages = React.createClass({
 	render(){
 		return(
 			<div className='list fixed-input'>
-				<form className='item item-input-inset'>
-					<label className='item-input-wrapper'>
+				<form className='bg-ice dark-blue-text item item-input-inset'>
+					<label className='bg-ice item-input-wrapper'>
 						<input type='text' placeholder="message your group" ref='message_text'/>
 					</label>
 					<button className='button button-small button-positive message-button' onClick={this.submitMessage}> Send </button>

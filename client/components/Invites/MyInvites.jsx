@@ -60,11 +60,14 @@ MyInvites = React.createClass({
 
   render: function(){
     return (
-      <div className='list'>
-        <div className='item'>
-          <h2>My Invites</h2>
+      <div className='list bg-ice'>
+        <div className='item bg-ice'>
+          <div className="h-override">
+            <h2 className='dark-blue-text header-override'>My Invites</h2>
+          </div>
           {this.renderTrips()}
           {this.renderSignupLink()}
+        
         </div>
       </div>
     );

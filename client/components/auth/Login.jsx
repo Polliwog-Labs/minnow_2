@@ -30,8 +30,10 @@ Login = React.createClass({
   render(){
     return (
       <div className="list col login-signup">
+        <form onSubmit={this.userLogin}>
+          <h3 className="dark-blue-text">Login</h3>
           <p className="auth-error">{this.state.authError}</p>
-          <form onSubmit={this.userLogin}>
+          <div className="clean"></div>
           <input className="login-input" type="email" placeholder='Email' ref='email_input'/>
           <div className="clear"></div>
           <input className="login-input" type="password" placeholder="Password" ref="password_input"/>

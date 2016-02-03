@@ -35,8 +35,10 @@ Signup = React.createClass({
 
     return(
       <div className="list col login-signup">
-        <p className="auth-error">{this.state.signupError}</p>
         <form>
+          <h3 className="dark-blue-text">Signup</h3>
+          <p className="auth-error">{this.state.signupError}</p>
+          <div className="clean"></div>
           <input className="login-input" type="email" placeholder="Email" ref="email_input"/>
           <div className="clear"></div>
           <input className="login-input" type="text" placeholder="Full Name" ref="username"/>
