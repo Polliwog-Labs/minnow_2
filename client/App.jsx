@@ -5,7 +5,10 @@ App = React.createClass({
   logout: function() {
     this.navToggle();
     Meteor.logout();
-    this.props.history.push('/');
+    var history = this.props.history
+    setTimeout(function() {
+      history.push('/login');
+    }, 40)
   },
 
   getMeteorData: function() {
@@ -30,30 +33,30 @@ App = React.createClass({
   render: function(){
     return (
       <div>
-        <ReactBootstrap.Navbar className="nav-override" expanded={this.state.expanded} onToggle={this.navToggle}>
-          <ReactBootstrap.Navbar.Header>
-            { Meteor.userId() ?
-              <ReactBootstrap.Navbar.Toggle /> : ''
-            }
-            <ReactBootstrap.Navbar.Brand className="nav-override">
-              minnow
-            </ReactBootstrap.Navbar.Brand>
-          </ReactBootstrap.Navbar.Header>
-          <ReactBootstrap.Navbar.Collapse >
-            <ReactBootstrap.Navbar.Text>
-            <ReactRouter.Link to="mytrips" className='nav-override menu-link' onClick={this.navToggle} >My Trips</ReactRouter.Link>
-            </ReactBootstrap.Navbar.Text>
-            <ReactBootstrap.Navbar.Text>
-            <ReactRouter.Link to="myinvites" className='nav-override menu-link' onClick={this.navToggle} >My Invites ({this.data.notifications.length})</ReactRouter.Link>
-            </ReactBootstrap.Navbar.Text>
-            <ReactBootstrap.Navbar.Text>
-            <ReactRouter.Link to="account" className='nav-override menu-link' onClick={this.navToggle} >Account</ReactRouter.Link>
-            </ReactBootstrap.Navbar.Text>
-            <ReactBootstrap.Navbar.Text className="nav-override" onClick={this.logout}>
-              Logout
-            </ReactBootstrap.Navbar.Text>
-          </ReactBootstrap.Navbar.Collapse>
-        </ReactBootstrap.Navbar>
+        { Meteor.userId() ?
+          <ReactBootstrap.Navbar className="nav-override" expanded={this.state.expanded} onToggle={this.navToggle}>
+            <ReactBootstrap.Navbar.Header>
+                <ReactBootstrap.Navbar.Toggle /> 
+              <ReactBootstrap.Navbar.Brand className="nav-override">
+                minnow
+              </ReactBootstrap.Navbar.Brand>
+            </ReactBootstrap.Navbar.Header>
+            <ReactBootstrap.Navbar.Collapse >
+              <ReactBootstrap.Navbar.Text>
+              <ReactRouter.Link to="mytrips" className='nav-override menu-link' onClick={this.navToggle} >My Trips</ReactRouter.Link>
+              </ReactBootstrap.Navbar.Text>
+              <ReactBootstrap.Navbar.Text>
+              <ReactRouter.Link to="myinvites" className='nav-override menu-link' onClick={this.navToggle} >My Invites ({this.data.notifications.length})</ReactRouter.Link>
+              </ReactBootstrap.Navbar.Text>
+              <ReactBootstrap.Navbar.Text>
+              <ReactRouter.Link to="account" className='nav-override menu-link' onClick={this.navToggle} >Account</ReactRouter.Link>
+              </ReactBootstrap.Navbar.Text>
+              <ReactBootstrap.Navbar.Text className="nav-override" onClick={this.logout}>
+                Logout
+              </ReactBootstrap.Navbar.Text>
+            </ReactBootstrap.Navbar.Collapse>
+          </ReactBootstrap.Navbar> : ''
+        }
         <div ref='app' className="content">
           { this.props.children }
         </div>
