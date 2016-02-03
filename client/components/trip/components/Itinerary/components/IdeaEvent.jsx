@@ -28,14 +28,14 @@ IdeaEvent = React.createClass({
       if (error) {
         console.log('failed to add to itinerary: ', error)
       } else {
-        this.props.updateView('IdeasView')
-        this.props.updateParent('Itinerary')
+        // this.props.updateView('IdeasView')
+        // this.props.updateParent('Itinerary')
       }
     })
   },
 
   deleteIdea() {
-    Meteor.call('deleteIdea', this.props.trip._id, this.props.idea.created_at, err=> {
+    Meteor.call('deleteIdea', this.props.trip._id, this.props.idea.created_at, err => {
       if (error) {
         console.log('failed delete idea: ', error)
       } else {
@@ -46,23 +46,23 @@ IdeaEvent = React.createClass({
   },
 
   upvote() {
-    Meteor.call('ideaUpVote', this.props.trip._id, this.props.idea.created_at, err=> {
+    Meteor.call('ideaUpVote', this.props.trip._id, this.props.idea.created_at, err => {
       if (error) {
         console.log('failed to upvote: ', error)
       } else {
-        this.props.updateView('IdeasView')
-        this.props.updateParent('Itinerary')
+        // this.props.updateView('IdeasView')
+        // this.props.updateParent('Itinerary')
       }
     })
   },
 
   downVote() {
-    Meteor.call('ideaDownVote', this.props.trip._id, this.props.idea.created_at, err=> {
+    Meteor.call('ideaDownVote', this.props.trip._id, this.props.idea.created_at, err => {
       if (error) {
         console.log('failed to downvote: ', error)
       } else {
-        this.props.updateView('IdeasView')
-        this.props.updateParent('Itinerary')
+        // this.props.updateView('IdeasView')
+        // this.props.updateParent('Itinerary')
       }
     })
   },
@@ -108,7 +108,7 @@ IdeaEvent = React.createClass({
                   <i className="icon ion-trash-b"></i>
                 </div> : ''
           }
-          <ReactBootstrap.Modal {...this.props} bsSize="small" show={this.state.showModal} onHide={this.hideModal} aria-labelledby="contained-modal-title-sm">
+          <ReactBootstrap.Modal {...this.props} bsSize="small" show={this.state.showModal} onHide={this.hideModal} backdrop='static' aria-labelledby="contained-modal-title-sm">
             <ReactBootstrap.Modal.Header closeButton>
               <ReactBootstrap.Modal.Title id="contained-modal-title-sm">Date & Time</ReactBootstrap.Modal.Title>
             </ReactBootstrap.Modal.Header>
@@ -116,7 +116,7 @@ IdeaEvent = React.createClass({
               <div className="list">
                 <div className="row item" > 
                   <div className="col" >
-                    <label className="item item-input item-select">
+                    <label className="item item-input item-select date-form">
                       <div className="input-label">
                         Date
                       </div>
@@ -126,11 +126,11 @@ IdeaEvent = React.createClass({
                 </div>
                 <div className="row item" > 
                   <div className="col" >
-                    <label className="item item-input item-select">
+                    <label className="item item-input item-select date-form">
                       <div className="input-label">
                         Hour
                       </div>
-                      <select defaultValue='12' ref='hour'>
+                      <select defaultValue='12' ref='hour' className='time-select'>
                         <option>1</option>
                         <option>2</option>
                         <option>3</option>
@@ -147,11 +147,11 @@ IdeaEvent = React.createClass({
                     </label>
                   </div>
                   <div className="col" >
-                    <label className="item item-input item-select">
+                    <label className="item item-input item-select date-form">
                       <div className="input-label">
                         Min
                       </div>
-                      <select defaultValue='00' ref="min">
+                      <select defaultValue='00' ref="min" className='time-select'>
                         <option>00</option>
                         <option>15</option>
                         <option>30</option>
@@ -162,11 +162,11 @@ IdeaEvent = React.createClass({
                 </div>
                 <div className="row item" > 
                   <div className="col" >
-                    <label className="item item-input item-select">
+                    <label className="item item-input item-select date-form">
                       <div className="input-label">
                         AM/PM
                       </div>
-                      <select defaultValue="AM" ref='am_pm'>
+                      <select defaultValue="AM" ref='am_pm' className='time-select'>
                         <option>AM</option>
                         <option>PM</option>
                       </select>

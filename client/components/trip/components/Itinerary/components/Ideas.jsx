@@ -33,8 +33,8 @@ Ideas = React.createClass({
           if (error) {
             console.log(error)
           } else {
-            this.props.updateView('IdeasView')
-            this.props.updateParent('Itinerary')
+            // this.props.updateView('IdeasView')
+            // this.props.updateParent('Itinerary')
           }
         })
       }
@@ -47,6 +47,9 @@ Ideas = React.createClass({
 
   hideModal() {
     this.setState({show: false});
+  },
+  componentWillMount() {
+    this.props.updateView('IdeasView');
   },
 
   render: function () {
@@ -65,11 +68,11 @@ Ideas = React.createClass({
             <div className="list">
               <label className="item item-input item-stacked-label">
                 <span className="dark-blue-text input-label">Event Name</span>
-                <input type="text" ref="idea_name" placeholder="example"/>
+                <input type="text" ref="idea_name" placeholder=""/>
               </label>
               <label className="item item-input item-stacked-label">
                 <span className="dark-blue-text input-label">Description</span>
-                <input type="text" ref="idea_desc" placeholder="optional"/>
+                <input type="text" ref="idea_desc" placeholder=""/>
               </label>
               <label className="item item-input item-stacked-label">
                 <span className="dark-blue-text input-label">Location</span>
@@ -77,7 +80,7 @@ Ideas = React.createClass({
               </label>
               <label className="item item-input item-stacked-label">
                 <span className="dark-blue-text input-label">URL</span>
-                <input type="text" ref="url" placeholder="example"/>
+                <input type="text" ref="url" placeholder=""/>
               </label>
               <label className="item item-input item-stacked-label">
                 <span className="dark-blue-text input-label">Est. Group Cost</span>
@@ -99,7 +102,7 @@ Ideas = React.createClass({
           <div className='col'></div>
         </div>
         <div >
-          <IdeaLoader trip={this.props.trip} updateParent={this.props.updateParent} updateView={this.props.updateView} ideas={this.props.trip.ideas || [] }/>
+          <IdeaLoader trip={this.props.trip} updateParent={this.props.updateParent} updateView={this.props.updateView} />
         </div>
       </div>
 

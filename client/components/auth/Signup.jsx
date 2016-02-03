@@ -48,7 +48,7 @@ Signup = React.createClass({
           <div className="clear"></div>
           <button className="login-btn button button-block button-positive" type="submit" onClick={this.signup}>Create Account</button>
         </form>
-        <ReactRouter.Link to="login" className="login-signup-text">Aleady a user? Login here.</ReactRouter.Link>
+        <ReactRouter.Link to="login" className="ice-text login-signup-text">Aleady a user? Login here.</ReactRouter.Link>
       </div>
     )
   }

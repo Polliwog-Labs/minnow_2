@@ -90,7 +90,7 @@ ItineraryView = React.createClass({
           </div>
           <div className='col'>
             {
-              _.contains(this.props.trip.organizers, Meteor.userId()) ?
+              this.props.trip && _.contains(this.props.trip.organizers, Meteor.userId()) ?
                 <a onClick={ this.showModal }>
                   <i className="icon ion-ios-plus-outline"></i>
                   <span className='icon-label'>Add Event</span>
@@ -201,7 +201,7 @@ ItineraryView = React.createClass({
           </ReactBootstrap.Modal.Body>
         </ReactBootstrap.Modal>
         <div className='col'>
-          <ItineraryLoader updateParent={this.props.updateParent} updateView={this.props.updateView} trip={this.props.trip} itinerary={this.props.trip.itinerary}/>
+          <ItineraryLoader updateParent={this.props.updateParent} updateView={this.props.updateView} trip={this.props.trip} />
         </div>
       </div>
     )

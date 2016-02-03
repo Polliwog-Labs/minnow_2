@@ -37,7 +37,7 @@ Login = React.createClass({
           <div className="clear"></div>
           <input className="login-input" type="password" placeholder="Password" ref="password_input"/>
           <button type="submit" className="login-btn button button-block button-positive">
-            Signin
+            Sign In
           </button>
         </form>
         <ReactRouter.Link className="login-signup-text" to="signup">Don't have an account? Sign up!</ReactRouter.Link>
