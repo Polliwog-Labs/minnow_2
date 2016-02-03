@@ -68,7 +68,7 @@ IdeaEvent = React.createClass({
   },
 
   navToLink() {
-    window.open(this.props.idea.og.url, '_system')
+    window.open(this.props.idea.og.url, '_system');
   },
 
         // <a  href={this.props.idea.og.url}  target="_system"><h3 className='event-link'>{this.props.idea.og.title}</h3></a>          

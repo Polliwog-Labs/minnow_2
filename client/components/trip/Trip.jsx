@@ -45,6 +45,12 @@ Trip = React.createClass({
   setParentState(view){
     this.setState({view:view || null})
   },
+
+  shouldComponentUpdate(newProps,newState){
+    if (newState && newState.view) return newState.view !== this.state.view;
+    return true;
+  },
+
   renderHome: function () {
     $('.active').removeClass('active');
     $('#home').addClass('active');
@@ -52,11 +58,9 @@ Trip = React.createClass({
   },
 
   renderItinerary: function () {
-    // this.setState({view: 'Itinerary'});
     $('.active').removeClass('active');
     $('#itinerary').addClass('active');
     ReactDOM.render(<Itinerary updateParent={this.setParentState} trip={this.data.trip} />, document.getElementById('trip-module'));
-   // ReactDOM.render(<Itinerary trip={this.data.trip} />, document.getElementById('trip-module'));
 
   },
 
