@@ -20,7 +20,7 @@ Messages = React.createClass({
 		ReactDOM.findDOMNode(this.refs.message_text).value = '';
 	},
 
-	componentDidMount() {
+	componentWillMount() {
 		this.props.updateParent('Messages');
 	},
 
