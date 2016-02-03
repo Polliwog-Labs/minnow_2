@@ -6,6 +6,9 @@ ItineraryView = React.createClass({
       show: false
     }
   },
+  componentWillMount(){
+    this.props.updateView(null);
+  },
 
   toggleMap: function () {
     this.setState({
@@ -19,6 +22,10 @@ ItineraryView = React.createClass({
 
   hideModal() {
     this.setState({show: false});
+  },
+  shouldComponentUpdate(newprops){
+    if (newprops) return !!newprops.trip;
+    return true;
   },
 
   submitEvent() {
