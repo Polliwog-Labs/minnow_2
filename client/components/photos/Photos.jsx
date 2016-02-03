@@ -12,7 +12,7 @@ Photos = React.createClass({
     event.preventDefault();
     var photo = $('#addPhoto')[0].files[0];
     var tripId = this.props.trip._id
-    if (photo.constructor === File) {
+    if (photo) {
       Images.insert(photo, (error, image) =>{
         if (error) {
           console.log('image failed to add: ', error)
@@ -30,13 +30,13 @@ Photos = React.createClass({
     }
   },
 
-  componentDidMount() {
-    this.props.updateParent('Photos')
+  componentWillMount() {
+    this.props.updateParent('Photos');
   },
 
   renderPhotos: function () {
     return this.props.trip.photos.map(function (photoId, index) {
-      return <div className='col' key={index}><Image ionicClass='photo-scroll' image_id={photoId} /></div>
+      return <div className='col' key={index}><Image ionicClass='photo-scroll' image_id={photoId} height="300px"/></div>
     })
   },
 
@@ -54,7 +54,7 @@ Photos = React.createClass({
       <div className='photos-body'>
         <div className='col'></div>
         <Slider {...settings}>
-          <div><Image ionicClass='photo-scroll' image_id={this.props.trip.image_id} /></div>
+          <div><Image ionicClass='photo-scroll' image_id={this.props.trip.image_id} height="300px" /></div>
           {this.renderPhotos()}
         </Slider>
         <div className='col'></div>

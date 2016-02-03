@@ -104,17 +104,17 @@ NewExpense = React.createClass({
 
 	render(){
 		return(
-		  <div className="list">
-			  <label className="item item-input item-stacked-label">
-			    <span className="input-label">Add a new expense</span>
-			    <input type="text" placeholder="Description" ref='expense_details'/>
+		  <div className="list bg-ice">
+			  <label className="bg-ice dark-blue-text item item-input item-stacked-label">
+			    <span className="input-label dark-blue-text">Add a new expense</span>
+			    <input className="bg-ice dark-blue-text" type="text" placeholder="Description" ref='expense_details'/>
 			  </label>
-			  <label className="item item-input item-stacked-label">
-			    <span className="input-label">Amount</span>
-			    <input type="number" placeholder="$" ref='expense_amount'/>
+			  <label className="bg-ice dark-blue-text item item-input item-stacked-label">
+			    <span className="input-label dark-blue-text">Amount</span>
+			    <input className="bg-ice dark-blue-text" type="number" placeholder="$" ref='expense_amount'/>
 			  </label>
-			  <label className="item item-input item-stacked-label">
-				  <div className="input-label">Split With:</div>
+			  <label className="bg-ice dark-blue-text item item-input item-stacked-label">
+				  <div className="dark-blue-text input-label">Split With:</div>
 				    <ReactBootstrap.Modal
 			          {...this.props}
 			          show={this.state.show}
@@ -133,11 +133,11 @@ NewExpense = React.createClass({
 			            <ReactBootstrap.Button onClick={this.createSplit} >Split With Selected</ReactBootstrap.Button>
 			          </ReactBootstrap.Modal.Footer>
 			        </ReactBootstrap.Modal>
-			        <div className="row add-expense">
+			        <div className="row dark-blue-text add-expense">
 			          <div className='col'>
 			            <a onClick={ this.showModal }>
 			              <i className="icon ion-plus-circled"></i>
-			              <span className='icon-label'>Click to split</span>
+			              <span className='icon-label dark-blue-text'>Click to split</span>
 			            </a>
 			            	{
 			          		this.state.split_with ? 

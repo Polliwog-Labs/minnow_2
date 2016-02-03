@@ -33,6 +33,7 @@ Login = React.createClass({
           <p className="auth-error">{this.state.authError}</p>
           <form onSubmit={this.userLogin}>
           <input className="login-input" type="email" placeholder='Email' ref='email_input'/>
+          <div className="clear"></div>
           <input className="login-input" type="password" placeholder="Password" ref="password_input"/>
           <button type="submit" className="login-btn button button-block button-positive">
             Signin
