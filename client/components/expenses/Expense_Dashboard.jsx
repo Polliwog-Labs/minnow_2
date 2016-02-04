@@ -54,6 +54,8 @@ renderImage:function(){
   	var member = this.props.member;
 	var key = Object.keys(member);
 
+
+
 	function expenseFilter(expense){
 		var splitArray = expense.split_with;
 		var created_by = expense.created_by;
@@ -109,8 +111,7 @@ renderImage:function(){
   	var user = Meteor.user().username;
   	var dash = this.props.trip.expense_dash
   	var trip = this.props.trip
-
-
+  	
   	var changeChecked = this.state.checked;
   	changeChecked[member] = !changeChecked[member];
   	this.setState({checked: changeChecked});

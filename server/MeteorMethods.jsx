@@ -280,7 +280,6 @@ Meteor.methods({
     var oldBalance = undefined;
     var newExpenseDash = dash.map(function (userObject) {
       if(userObject.user === payingUser) {
-        console.log("member inside for", member)
         oldBalance = userObject[member];
         userObject[member] = 0;
       } else if(userObject.user === member) {
@@ -288,11 +287,7 @@ Meteor.methods({
       }
       return userObject;
     });
-    console.log("user" ,payingUser);
-    console.log("member", member);
-    console.log("dash",dash);
-    console.log("trip", trip)
-    console.log("newExpenseDash", newExpenseDash);
+
 
     var description = payingUser+" paid "+member+"$"+(oldBalance * -1);
     console.log("description", description)
