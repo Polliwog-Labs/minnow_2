@@ -1,8 +1,5 @@
 MemberLoader = React.createClass({
   
-
- 
-
   render() {
   	console.log("member loader level", this.props)
 
