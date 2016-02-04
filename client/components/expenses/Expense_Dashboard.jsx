@@ -6,9 +6,10 @@ getInitialState(){
 	this.props.members.forEach(function (member){
 		membersObj[member.username] = false;
 	});
+
 	return {
 		show:false,
-		checked: membersObj
+		checked: membersObj,
 	}
 },
 
