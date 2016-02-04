@@ -24,24 +24,33 @@ hideModal:function(){
 renderImage:function(){
  	var thisMember = this.props.member;
 	var key = Object.keys(thisMember);
+	var userImage = "";
 
-	return this.props.members.forEach(function (member, index){
-		if(member.username === key[0]){
-			if(member.profile.imageId !== undefined) {
-				var image = member.profile.imageId;
-				console.log("imageid", image);
-				return (
-				 <Image key={index} image_id={member.profile.imageId} height="80px" profile={true}/>
-				)
-			} else {
-				console.log("hit else")
-				return (
-				 <img src='https://facebook.github.io/react/img/logo.svg'/>
-				)
-			}
+	this.props.members.forEach(function(members, index){
+		console.log("members", members);
+		userImage = members.profile.userId;
+		if(!userImage){
+			return (<img src='https://facebook.github.io/react/img/logo.svg'/>)
+		}else{
+			return (<Image image_id={userImage} height="80px" profile={true}/>)
 		}
-	 })
-
+	});
+// this.props.members.forEach(function (member, index){
+// 		if(member.username === key[0]){
+// 			if(member.profile.imageId !== undefined) {
+// 				var image = member.profile.imageId;
+// 				console.log("imageid", image);
+// 				return (
+				 
+// 				)
+// 			} else {
+// 				// console.log("hit else")
+// 				return (
+				 
+// 				)
+// 			}
+// 		}
+// 	 })
 		// return this.props.members.forEach(function (member, index){
 	 //   return (
 		// 	  { member.username === key[0] ?
@@ -141,14 +150,32 @@ renderImage:function(){
 
 		var member = this.props.member;
 		var key = Object.keys(member);
-		var setUp = member[key];
-		var balance = Number((setUp).toFixed(2));
+		var setUp = member[key].toString();
+		// var balanceStart = Number((setUp).toFixed(2));
 		var checkedState = this.state.checked;
 		var user = Meteor.user().username
+		console.log("setUp", setUp)
+
+		function addZeroes( num ) {
+		    var value = Number(num);
+		    var res = num.split(".");
+		    if(num.indexOf('.') === -1) {
+		        value = value.toFixed(2);
+		        num = value.toString();
+		    } else if (res[1].length < 3) {
+		        value = value.toFixed(2);
+		        num = value.toString();
+		    }
+		return num
+		}
+
+		var balance = addZeroes(setUp);
+		console.log("balance", balance);
+
 
 		return (
 			<a className="item item-thumbnail-left">
-		      {this.renderImage()}
+			      {this.renderImage()}
 		      {checkedState[key] ? "" :
 		      	 balance === 0 ? <p className='dark-blue-text balance'>You are even with {key}</p>:
 				    balance > 0 ? 
