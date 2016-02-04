@@ -38,6 +38,10 @@ if (Meteor.isServer) {
     if (trip) return Users.find({_id:{$in:trip.members}});
   });
 
+  Meteor.publish("tripDeclined",(trip)=>{
+    if (trip) return Users.find({_id:{$in:trip.declined}});
+  });
+
   //serverside invite stuff
   Invites = new Mongo.Collection('invites');
 
