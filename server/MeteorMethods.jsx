@@ -26,7 +26,6 @@ Meteor.methods({
   // },
 
   retrieveProfilePic: function(id){
-    console.log("server function id",id)
     var fileObj = ProfilePics.findOne({_id:id});
     return fileObj ? fileObj.url() : null;
   },
@@ -264,6 +263,34 @@ Meteor.methods({
   findUserByName:function(username){
     var user = Users.findOne({username:username});
     return user
+  },
+
+  payExpense:function(user, member, dash, trip){
+    var oldBalance = undefined;
+    var newExpenseDash = dash.map(function (userObject) {
+      if(userObject.user === user) {
+        oldBalance = userObject[member];
+        userObject[member] = 0;
+      } else if(userObject.user === member) {
+        userObject[user] = 0;
+      }
+    });
+    console.log("user" ,user);
+    console.log("member", member);
+    console.log("dash",dash);
+    console.log("trip", trip)
+    console.log("newExpenseDash", newExpenseDash)
+
+    var description = user+"paid"+member+"$"+(oldBalance * -1);
+    console.log("description", description)
+    Trips.update({_id: trip._id}, {$set: {expense_dash: newExpenseDash}});
+
+    return Trips.update({_id: trip._id}, {$push: {
+      expenses:{
+        'description': description,
+        'created_at': new Date()
+      }
+    }});
   },
 
 

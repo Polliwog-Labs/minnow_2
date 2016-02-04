@@ -6,7 +6,6 @@ getInitialState(){
 	this.props.members.forEach(function (member){
 		membersObj[member.username] = false;
 	});
-	console.log("props",this.props)
 	return {
 		show:false,
 		checked: membersObj
@@ -30,12 +29,12 @@ renderImage:function(){
 		if(err) {
 			console.log("error",err);
 		} else {
-			console.log("data", data)
+			// console.log("data", data)
 			Meteor.call('retrieveProfilePic', data._id, function (err, imageId) {
 				if(err) {
 					console.log(err);
 				}else {
-					console.log("imageId", imageId);
+					// console.log("imageId", imageId);
 					image=imageId;
 				}
 			});
@@ -77,6 +76,7 @@ renderImage:function(){
    return filtered.map(function (expense, index){
 	   	var people = expense.split_with.length + 1;
 		var total = (expense.amount * people).toFixed(2);
+		if(expense.amount !== undefined){
 	   	  return (
 	   		<div key={index} className="item item-text-wrap">
 	   		  <li className ="item" >
@@ -85,22 +85,41 @@ renderImage:function(){
 				<p>Paid for by {expense.created_by}</p>
 			  </li>
 			</div>
+
 	   		)
+	   	} else {
+	   		return (
+	   			<div key={index} className="item item-text-wrap">
+	   				<li className="item">
+	   					<p>{expense.description}</p>
+	   				</li>
+	   			</div>
+	   			)
+	   	}
    })
 
   },
 
-  confirmationRequest:function(user){
+  payedBalance:function(value){
+  	//Get rid of button and replace with "You just paid user this balance"
+  	//Update the balances 
+  	var member = value.target.innerText;
+  	var user = Meteor.user().username;
+  	var dash = this.props.trip.expense_dash
+  	var trip = this.props.trip
 
-  	var username = user.target.value;
-  	var checkedUsername = user.target.checked;
-  	console.log("checkedUsername",checkedUsername)
-  	var newCheck = this.state.checked;
-  	newCheck[username] =!newCheck[username];
-  	this.setState({split:newCheck});
 
-	
-  	console.log("username", username)
+  	var changeChecked = this.state.checked;
+  	changeChecked[member] = !changeChecked[member];
+  	this.setState({checked: changeChecked});
+
+  	setTimeout(()=>{
+  		changeChecked[member] = !changeChecked[member];
+  		this.setState({checked: changeChecked});
+  		Meteor.call("payExpense", user, member, dash, trip)
+  	},6000)
+
+
   },
 
 	render:function(){
@@ -109,6 +128,8 @@ renderImage:function(){
 		var key = Object.keys(member);
 		var setUp = member[key];
 		var balance = Number((setUp).toFixed(2));
+		var checkedState = this.state.checked;
+		var user = Meteor.user().username
 
 		return (
 
@@ -137,9 +158,13 @@ renderImage:function(){
 			   <i className="icon ion-plus-circled"></i>
 			   	<span className='icon-label'>View charges with {key}</span>     
 			  </p>
-			  	<div id="payment">
-				 { balance < 0 ? <input ref={key} value={key} type="checkbox" readOnly onClick={this.confirmationRequest}> Mark As Paid </input>: ""}
-				</div>
+			  <div>
+			  { balance !== 0 ? <VenmoButton />: ""}
+			  </div>
+			  { balance < 0 && !checkedState[key] ? 
+			  		<div id={key}><ReactBootstrap.Button onClick={this.payedBalance}  bsStyle="primary" bsSize="large" active>Click to pay {key} ${balance * -1}</ReactBootstrap.Button></div>: 
+			  			balance < 0 && checkedState[key] ? 
+			  				<p> Thank you for paying {user} your balance of ${balance * -1} </p> : ""}
 		    </a>
 		)
 	}
