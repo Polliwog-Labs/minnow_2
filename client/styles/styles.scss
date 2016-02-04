@@ -214,6 +214,35 @@ input {
   display: block;
   margin-top: 23%;
 }
+
+.member-btn {
+  width: 70px;
+}
+
+.invite {
+  border: 0px;
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.member-btn-container {
+  text-align: center !important;
+  margin-left: 0px;
+  margin-right: 0px;
+  padding:0px;
+}
+
+.add-email {
+  padding-left: 0px;
+  margin-left: 8px;
+}
+
+.attend-count {
+  text-align: center;
+  font-size: 22px !important;
+  font-weight: bold !important;
+}
+
 .button.button-positive {
   border-color: #4F738E;
   background-color: #014771;
@@ -268,6 +297,7 @@ input {
 
 .segmented-control .control-item {
   color: #014771;
+  border-color: #014771;
   background: rgba(240,248,255,0.50);
 }
 
@@ -365,14 +395,6 @@ label[for="nav-trigger"] {
 
 .tab-item.tab-item-active, .tab-item.active, .tab-item.activated {
     color: #0066ff;
-}
-
-.item-thumbnail-left {
-  min-height: 70px !important;
-  padding-bottom: 0px !important;
-  padding-right: 0px;
-  /*margin-bottom: 3px !important;
-  border-radius: 5px !important;*/
 }
 
 .item-thumbnail-left h3 {
@@ -493,7 +515,8 @@ label[for="nav-trigger"] {
 
 .delete-event {
   text-align: right;
-  padding-right: 2px;
+  padding-right: 0px;
+  padding-left: 10px;
 }
 
 .position-relative {
@@ -507,7 +530,9 @@ label[for="nav-trigger"] {
 }
 
 .event-list-item {
-  padding-bottom: 5px;
+  min-height: 70px !important;
+  padding-bottom: 0px !important;
+  padding-right: 0px;
 }
 
 .event-link {
