@@ -74,7 +74,7 @@ EditTrip = React.createClass({
                 <AddOrganizer trip={this.props.trip} members={this.props.members} update={this.updateOrganizers}/>
                 <label id="newTrip-members" className="dark-blue-text item item-input item-stacked-label bg-ice">
                   <span>Upload a photo</span>
-                  <input id="newTrip-file" className="dark-blue-text item-input bg-ice" type="file" capture={true} ref="newTrip_file"/>
+                  <input id="newTrip-file" className="dark-blue-text item-input bg-ice" type="file" accept="image/*" capture="camera" ref="newTrip_file"/>
                 </label>
                 <button id="btn-submit" className='button button-block button-positive'>Submit</button>
               </form>
