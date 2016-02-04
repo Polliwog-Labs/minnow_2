@@ -11,7 +11,6 @@ Messages = React.createClass({
     Trips.update({_id:this.props.trip._id},{$push:{'messages':{
 		    	'text': message, 
 		    	'created_at': new Date(),
-		    	'senderId': Meteor.userId(),
 		    	'sender': Meteor.user().username
 		    }
 		  }

@@ -45,7 +45,7 @@ MyInvites = React.createClass({
           <InviteList key={trip._id} trip={trip} history={this.props.history}/>
         );
       })
-    } else return (<p className='card card-fix'>You currently have no trips! Create a trip and invite friends</p>);
+    } else return (<p className='ice-text no-invites'>You don't have any invites! Create a trip and invite friends.</p>);
   },
 
   renderSignupLink(){
@@ -60,14 +60,10 @@ MyInvites = React.createClass({
 
   render: function(){
     return (
-      <div className='list bg-ice'>
-        <div className='item bg-ice'>
-          <div className="h-override">
-            <h2 className='dark-blue-text header-override'>My Invites</h2>
-          </div>
+      <div className='list'>
+        <div className='item opaque-bg'>
           {this.renderTrips()}
           {this.renderSignupLink()}
-        
         </div>
       </div>
     );
