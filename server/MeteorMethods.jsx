@@ -295,7 +295,7 @@ Meteor.methods({
     });
 
 
-    var description = payingUser+" paid "+member+"$"+(oldBalance * -1);
+    var description = payingUser+" paid "+member+" $"+(oldBalance * -1);
     console.log("description", description)
     Trips.update({_id: trip._id}, {$set: {expense_dash: newExpenseDash}});
 

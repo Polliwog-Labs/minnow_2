@@ -22,32 +22,25 @@ hideModal:function(){
 	  },
 
 renderImage:function(){
- 	var member = this.props.member;
-	var key = Object.keys(member);
-	
-	// console.log("key",key[0]);
-	var userImage = Meteor.call('findUserByName', key[0], function (err, data){
-		if(err) {
-			console.log("error",err);
-		} else {
-			return data.profile.imageId;
-		}
-	});
+ 	var thisMember = this.props.member;
+	var key = Object.keys(thisMember);
 
-	setTimeout(function(){
-		console.log("userImage", userImage)
-	  },3000);
-
-	if(userImage === undefined) {
-		return (
-			 <img src='https://facebook.github.io/react/img/logo.svg'/>
-			)
-		} else {
-			return (
-				 <Image image_id={image} height="80px" profile={true}/>
-					)
+	return this.props.members.forEach(function (member, index){
+		if(member.username === key[0]){
+			if(member.profile.imageId !== undefined) {
+				var image = member.profile.imageId;
+				console.log("imageid", image);
+				return (
+				 <Image key={index} image_id={member.profile.imageId} height="80px" profile={true}/>
+				)
+			} else {
+				console.log("hit else")
+				return (
+				 <img src='https://facebook.github.io/react/img/logo.svg'/>
+				)
 			}
-
+		}
+	 })
   },
 
 
@@ -146,7 +139,7 @@ renderImage:function(){
 			<a className="item item-thumbnail-left">
 		      {this.renderImage()}
 		      {checkedState[key] ? "" :
-		      	 balance === 0 ? <p className= 'dark-blue-text'>You are even with {key}</p>:
+		      	 balance === 0 ? <p className='dark-blue-text balance'>You are even with {key}</p>:
 				    balance > 0 ? 
 					<p className='dark-blue-text balance'>{key} owes you ${balance}</p> : 
 					<p className='dark-blue-text balance'>You owe {key} ${(balance) * -1}</p>
@@ -157,7 +150,7 @@ renderImage:function(){
 			      onHide={this.hideModal}
 			      dialogClassName="custom-modal">
 			      <ReactBootstrap.Modal.Header closeButton>
-			        <ReactBootstrap.Modal.Title id="contained-modal-title-lg">All transactions between you and {key}</ReactBootstrap.Modal.Title>
+			        <ReactBootstrap.Modal.Title id="contained-modal-title-lg">Transactions with {key}</ReactBootstrap.Modal.Title>
 			      </ReactBootstrap.Modal.Header>
 			      <ReactBootstrap.Modal.Body>
 			      <ul className="list">
