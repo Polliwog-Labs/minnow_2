@@ -37,13 +37,9 @@ ItineraryView = React.createClass({
     var event_location = ReactDOM.findDOMNode(this.refs.idea_location).value;
     var trip = this.props.trip._id;
     var created_at = String(new Date())
-    var hour = ReactDOM.findDOMNode(this.refs.hour).value;
-    var min = ReactDOM.findDOMNode(this.refs.min).value;
-    var amPm = ReactDOM.findDOMNode(this.refs.am_pm).value;
-    var utc = DateUtils.dateConvert(ReactDOM.findDOMNode(this.refs.date).value, hour + ':' + min + amPm);
+    var utc = DateUtils.dateConvert(ReactDOM.findDOMNode(this.refs.date).value, ReactDOM.findDOMNode(this.refs.time).value);
     var unixTime = new Date(utc).getTime();
     var date = ReactDOM.findDOMNode(this.refs.date).value;
-    var time = hour + ':' + min + amPm;
 
     HTTP.call('GET', 'http://opengraph.io/api/1.0/site/' + event_url, (error, response)=> {
       if (error) {
@@ -56,7 +52,7 @@ ItineraryView = React.createClass({
           desc: event_desc,
           og: og,
           date: date,
-          time: time,
+          time: null,
           utc: utc,
           unixTime:unixTime,
           created_by: Meteor.user().username,
@@ -155,49 +151,10 @@ ItineraryView = React.createClass({
               <div className="row item bg-ice" > 
                 <div className="col bg-ice" >
                   <label className="item item-input bg-ice item-select">
-                    <div className="dark-blue-text input-label bg-ice">
-                      Hour
+                    <div className="input-label dark-blue-text">
+                      Time
                     </div>
-                    <select className="dark-blue-text bg-ice" defaultValue='12' ref='hour'>
-                      <option>1</option>
-                      <option>2</option>
-                      <option>3</option>
-                      <option>4</option>
-                      <option>5</option>
-                      <option>6</option>
-                      <option>7</option>
-                      <option>8</option>
-                      <option>9</option>
-                      <option>10</option>
-                      <option>11</option>
-                      <option>12</option>
-                    </select>
-                  </label>
-                </div>
-                <div className="dark-blue-text col bg-ice" >
-                  <label className="item item-input bg-ice item-select">
-                    <div className="dark-blue-text input-label bg-ice">
-                      Min
-                    </div>
-                    <select className="dark-blue-text bg-ice" defaultValue='00' ref="min">
-                      <option>00</option>
-                      <option>15</option>
-                      <option>30</option>
-                      <option>45</option>
-                    </select>
-                  </label>
-                </div>
-              </div>
-              <div className="dark-blue-text row item bg-ice" > 
-                <div className="dark-blue-text col bg-ice" >
-                  <label className="item item-input bg-ice item-select">
-                    <div className="dark-blue-text input-label bg-ice">
-                      AM/PM
-                    </div>
-                    <select className="dark-blue-text bg-ice" defaultValue="AM" ref='am_pm'>
-                      <option>AM</option>
-                      <option>PM</option>
-                    </select>
+                    <input className="item-input dark-blue-text" id="newTrip-name" type="time" ref="time"/>
                   </label>
                 </div>
               </div>
