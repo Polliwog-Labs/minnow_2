@@ -10,6 +10,7 @@ Login = React.createClass({
 
   userLogin(event){
     //wont trigger page refresh?
+
     event.preventDefault();
     //this function will grab the user's email and password from the "LOGIN input"
     var email = ReactDOM.findDOMNode(this.refs.email_input).value
@@ -20,6 +21,7 @@ Login = React.createClass({
         console.log('ERROR: ', err)
         this.setState({authError: 'Incorrect email or password'})
       } else {
+        $('body').css('background-image', 'url("/blurred_background.jpg")');
         this.props.history.push('/mytrips');
       }
     });
