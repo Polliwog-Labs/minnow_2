@@ -5,7 +5,7 @@ Image = new React.createClass({
     height: React.PropTypes.string,
   },
   getInitialState: function(){
-    return {url:AbsUrl+'/salmon.jpg'}
+    return {url:AbsUrl+'/placeholder.png'}
   },
   componentDidMount: function(){
     this._isMounted = true;
@@ -21,12 +21,12 @@ Image = new React.createClass({
         if (err && context._isMounted) {
           console.log(err);
           console.log('Bad Image ID');
-          context.setState({url:AbsUrl+'/salmon.jpg'});
+          context.setState({url:AbsUrl+'/placeholder.png'});
         }
         else {
           if (data && context._isMounted) context.setState({url:AbsUrl+data})
           else {
-            if (count >= 15 && context._isMounted) {context.setState({url:AbsUrl+'/salmon.jpg'});}
+            if (count >= 15 && context._isMounted) {context.setState({url:AbsUrl+'/placeholder.png'});}
             else {
               window['timeout'+count] = setTimeout(function(){
                 count++;

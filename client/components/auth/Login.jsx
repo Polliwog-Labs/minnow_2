@@ -30,16 +30,17 @@ Login = React.createClass({
   render(){
     return (
       <div className="list col login-signup">
+        <form onSubmit={this.userLogin}>
           <p className="auth-error">{this.state.authError}</p>
-          <form onSubmit={this.userLogin}>
+          <div className="clean"></div>
           <input className="login-input" type="email" placeholder='Email' ref='email_input'/>
           <div className="clear"></div>
           <input className="login-input" type="password" placeholder="Password" ref="password_input"/>
           <button type="submit" className="login-btn button button-block button-positive">
-            Signin
+            Sign In
           </button>
         </form>
-        <ReactRouter.Link to="signup">Don't have an account? Sign up!</ReactRouter.Link>
+        <ReactRouter.Link className="ice-text" to="signup">Don't have an account? Sign up!</ReactRouter.Link>
       </div>
     )
   }

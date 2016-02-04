@@ -15,10 +15,10 @@ MessageContent = React.createClass({
 
 	render(){
 		return(
-			<div className="list message-container">
-				<a className='anchor-resize item item-avatar'>
+			<div className="list message-container bg-ice">
+				<a className='anchor-resize item item-avatar bg-ice'>
 					{this.renderImage()}
-					<h4>{this.props.sender}</h4>
+					<h4 className="h-four-override">{this.props.sender}</h4>
 					<p>{this.props.text}</p>
 				</a>
 			</div>

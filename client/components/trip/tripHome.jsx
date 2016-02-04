@@ -92,13 +92,13 @@ TripHome = React.createClass({
     return (
        <div className='trip list'>
         <EditTrip onHide={this.hideModal} show={this.state.show} trip={trip} members={members} history={this.props.history}/>
-         <div className='image-div'>
-          <Image image_id={params.image_id} height="300px" />
-         </div>
-         <div className='item trip-layout'>
-          <h2 className="dark-blue-text">{this.props.trip.name || 'Unnamed Trip'}</h2>
-          <div className='item item-divider row'>
-            <h3 className='col dark-blue-text'>{DateUtils.getTripDate(this.props.trip.dates)}</h3>
+          <div className='image-div'>
+            <Image image_id={params.image_id} height="300px" />
+          </div>
+          <div className='item trip-layout'>
+            <h2 className="dark-blue-text">{params.name}</h2>
+            <div className='item item-divider row'>
+            <h3 className='col dark-blue-text'>{DateUtils.getTripDate(params.dates)}</h3>
             <p className='col clear-right'><a onClick={ this.showModal }><i id="pencil" className='ion-edit'></i></a></p>
           </div>
           <div className='item dark-blue-text'>

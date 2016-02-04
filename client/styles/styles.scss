@@ -23,8 +23,9 @@ html, body {
 .clean{
   margin-top: 25px;
 }
+
 .header-expenses{
-  text-align: center;
+  text-align: center!important;
 }
 .edit-trip-bg-body{
  /* background: #000;*/
@@ -63,10 +64,10 @@ h1.list {
 }
 .profile_pic {
   border-radius: 50%;
-  box-shadow: 3px 4px 7px #333;
+  box-shadow: 1px 1px 4px #333;
 }
 .prof_pic_wrapper{
-  margin: 3% 20%;
+  margin: 3% 27%;
 }
 .button-selector{
   float: right;
@@ -101,11 +102,13 @@ h1.list {
   width: 100%;
 }
 .login-signup{
-  text-align: center;
-  padding-top: 150px;
-  padding-right: 80px;
-  padding-left: 80px;
-  background: transparent;
+    text-align: center;
+    height: 100%;
+    width: 80%;
+    border-radius: 4px;
+    background: rgba(0,0,0,0.25);
+    padding: 30px 31px;
+    margin: 22% auto;
 }
 .login-input {
   padding-left: 10px!important;
@@ -130,6 +133,11 @@ input {
 .navbar-default .navbar-toggle {
   border-color: #4F738E;
 }
+.btn-default{
+  color: #EFF2F1;
+  background-color: #014771;
+  border-color: #014771;
+}
 .login-link {
   margin-top: 35px;
 }
@@ -140,11 +148,21 @@ input {
   text-align: center;
   padding-top: 7px;
   border: none;
-  background: #014771;
+  background: #EFF2F1;
+  padding-bottom: 1px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+.h-override {
+  margin-left: 30%;
 }
 .h-three-override {
   font-weight: 400;
   color: #EFF2F1;
+}
+.h-four-override {
+  font-weight: 500;
+  color: #014771;
+  font-size: 14px!important;
 }
 .modal-title {
   color: #014771;
@@ -156,6 +174,16 @@ input {
 .dark-blue-text {
   font-weight: 400;
   color: #014771!important;
+}
+.ice-text {
+  font-weight: 400;
+  color: #EFF2F1!important;
+}
+.delete-trip-button {
+  margin-top: 58px;
+  font-size: 24px;
+  margin-left: 10px;
+  display: block;
 }
 .button.button-positive {
   border-color: #4F738E;
@@ -179,7 +207,7 @@ input {
   float: right;
   margin-right: 15px;
 }
-.segmented-control{
+/*.segmented-control{
   border: none;
 }
 .segmented-control .control-item.active {
@@ -187,12 +215,39 @@ input {
   background-color: #4F738E;
   font-size: 15px;
   font-weight: 600;
-}
-.segmented-control .control-item {
+}*/
+/*.segmented-control .control-item {
   color: #EFF2F1;
   border: none;
   font-size: 14px;
   font-weight: 500;
+}*/
+
+.segmented-control {
+  padding: 0px;
+  width: 94% !important;
+  text-align: center !important;
+  margin-top: 10px;
+  margin-left: 3%;
+  border-color: #014771 !important;
+}
+
+.segmented-control .control-item.active {
+  background-color: #014771;
+  text-decoration: none;
+}
+
+.segmented-control .control-item {
+  color: #014771;
+  background: rgba(240,248,255,0.50);
+}
+
+.expense-control {
+  margin-bottom: 15px;
+}
+
+.item-stacked-label input, .item-stacked-label textarea{
+  background: #EFF2F1;
 }
 .bg-ice{
   background: #EFF2F1!important;
@@ -223,9 +278,10 @@ a {
 }
 .header-override{
   color: #014771;
-  padding-left: 10px;
-  font-weight: 400; 
+  font-weight: 300!important;
+  font-size: 27px!important; 
 }
+
 /*############################## End Overrides ##############################*/
 
 .menu {
@@ -282,16 +338,19 @@ label[for="nav-trigger"] {
     color: #0066ff;
 }
 
+.item-thumbnail-left {
+  min-height: 70px !important;
+  padding-bottom: 0px !important;
+  padding-right: 0px;
+  /*margin-bottom: 3px !important;
+  border-radius: 5px !important;*/
+}
 
+.item-thumbnail-left h3 {
+  overflow: auto !important;
+}
 
 .tripListModule {
- background:
-    linear-gradient(
-      rgba(0, 0, 0, 0.6),
-      rgba(0, 0, 0, 0.6)
-    ),
-  url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/3/skyscrapers.jpg);
-  backgroundSize: 100% 100%;
   width: 94%;
   height: 200px;
   margin: 10px 0 0 10px;
@@ -359,20 +418,14 @@ label[for="nav-trigger"] {
   margin-left: 10px;
 }
 
-.card{
-  text-align: center;
-  padding-top: 7px;
-
-}
-
 .card-fix {
-    color: #014771;
-    height: 50px;
-    width: 95%;
-    border-radius: 4px;
-    font-size: 16px;
-    line-height: 1.1;
-    word-wrap: normal;
+  color: #014771;
+  height: 50px;
+  width: 95%;
+  border-radius: 4px;
+  font-size: 16px;
+  line-height: 1.1;
+  word-wrap: normal;
 }
 
 .menu-link {
@@ -411,7 +464,7 @@ label[for="nav-trigger"] {
 
 .delete-event {
   text-align: right;
-  padding-right: 0;
+  padding-right: 2px;
 }
 
 .position-relative {
@@ -480,6 +533,14 @@ label[for="nav-trigger"] {
 }
 .item, .item h1, .item h2, .item h3, .item h4, .item h5, .item h6, .item p, .item-content, .item-content h1, .item-content h2, .item-content h3, .item-content h4, .item-content h5, .item-content h6, .item-content p {
   overflow: visible;
+}
+
+.time-select {
+  padding-bottom: 10px !important;
+}
+
+.date-form {
+  padding-left: 10px;
 }
 
 /*----------SLICK SLIDER-----------*/

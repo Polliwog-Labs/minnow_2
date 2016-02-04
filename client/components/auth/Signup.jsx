@@ -35,8 +35,9 @@ Signup = React.createClass({
 
     return(
       <div className="list col login-signup">
-        <p className="auth-error">{this.state.signupError}</p>
         <form>
+          <p className="auth-error">{this.state.signupError}</p>
+          <div className="clean"></div>
           <input className="login-input" type="email" placeholder="Email" ref="email_input"/>
           <div className="clear"></div>
           <input className="login-input" type="text" placeholder="Full Name" ref="username"/>
@@ -47,7 +48,7 @@ Signup = React.createClass({
           <div className="clear"></div>
           <button className="login-btn button button-block button-positive" type="submit" onClick={this.signup}>Create Account</button>
         </form>
-        <ReactRouter.Link to="login">Aleady a user? Login here.</ReactRouter.Link>
+        <ReactRouter.Link to="login" className="ice-text">Aleady a user? Sign in here.</ReactRouter.Link>
       </div>
     )
   }
