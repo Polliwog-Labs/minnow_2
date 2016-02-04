@@ -74,7 +74,6 @@ Meteor.methods({
       updatedDash.push(member);
     });
 
-    console.log("expense dash before new member", updatedDash);
     expense_dash.map(function (member){
       var otherMember = member.user;
       newMemberObject[otherMember] = 0;
@@ -277,23 +276,23 @@ Meteor.methods({
     return user
   },
 
-  payExpense:function(user, member, dash, trip){
+  payExpense:function(payingUser, member, dash, trip){
     var oldBalance = undefined;
     var newExpenseDash = dash.map(function (userObject) {
-      if(userObject.user === user) {
+      if(userObject.user === payingUser) {
         oldBalance = userObject[member];
         userObject[member] = 0;
       } else if(userObject.user === member) {
-        userObject[user] = 0;
+        userObject[payingUser] = 0;
       }
     });
-    console.log("user" ,user);
+    console.log("user" ,payingUser);
     console.log("member", member);
     console.log("dash",dash);
     console.log("trip", trip)
-    console.log("newExpenseDash", newExpenseDash)
+    console.log("newExpenseDash", newExpenseDash);
 
-    var description = user+"paid"+member+"$"+(oldBalance * -1);
+    var description = payingUser+" paid "+member+"$"+(oldBalance * -1);
     console.log("description", description)
     Trips.update({_id: trip._id}, {$set: {expense_dash: newExpenseDash}});
 

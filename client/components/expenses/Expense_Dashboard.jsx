@@ -103,7 +103,9 @@ renderImage:function(){
   payedBalance:function(value){
   	//Get rid of button and replace with "You just paid user this balance"
   	//Update the balances 
-  	var member = value.target.innerText;
+  	var name = this.props.member
+  	var user = Object.keys(name);
+  	var member = user[0];
   	var user = Meteor.user().username;
   	var dash = this.props.trip.expense_dash
   	var trip = this.props.trip
@@ -162,7 +164,7 @@ renderImage:function(){
 			  { balance !== 0 ? <VenmoButton />: ""}
 			  </div>
 			  { balance < 0 && !checkedState[key] ? 
-			  		<div id={key}><ReactBootstrap.Button onClick={this.payedBalance}  bsStyle="primary" bsSize="large" active>Click to pay {key} ${balance * -1}</ReactBootstrap.Button></div>: 
+			  		<div id={key}><ReactBootstrap.Button value={key} onClick={this.payedBalance}  bsStyle="primary" bsSize="large" active>Click to pay {key} ${balance * -1}</ReactBootstrap.Button></div>: 
 			  			balance < 0 && checkedState[key] ? 
 			  				<p> Thank you for paying {user} your balance of ${balance * -1} </p> : ""}
 		    </a>
