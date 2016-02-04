@@ -35,7 +35,7 @@ Meteor.methods({
     return Meteor.users.findOne({_id:id});
   },
 
-  //notifcations
+  //notifcatio
   notify(recipient,clear){
     if (clear) return Notifications.remove({
       recipient: recipient
@@ -74,7 +74,6 @@ Meteor.methods({
       updatedDash.push(member);
     });
 
-    console.log("expense dash before new member", updatedDash);
     expense_dash.map(function (member){
       var otherMember = member.user;
       newMemberObject[otherMember] = 0;
@@ -82,7 +81,7 @@ Meteor.methods({
 
     console.log("newMemberObject", newMemberObject);
     updatedDash.push(newMemberObject);
-
+    Meteor.call('notify',user._id,'clear');
     Trips.update({_id: trip._id}, {$set: {expense_dash: updatedDash}});
     Meteor.users.update({_id:user._id}, {$pull:{"profile.invites": trip._id}});
     Trips.update({_id:trip._id},{$pull:{"pending": user.emails[0].address}});
@@ -97,7 +96,8 @@ Meteor.methods({
     Meteor.users.update({_id:user._id}, {$pull:{"profile.invites": trip}});
     Trips.update({_id:trip},{$pull:{"pending": user.emails[0].address}});
     Invites.remove({recipient:user.emails[0].address,trip_id:trip});
-    return Trips.update({_id:trip}, {$push:{"declined": user._id}}, (err)=>{
+    Meteor.call('notify',user._id,'clear');
+    return Trips.update({_id:trip}, {$push:{"declined": user.username}}, (err)=>{
       return !err;
     });
   },
@@ -106,10 +106,15 @@ Meteor.methods({
     return Invites.find({'recipient':email}).fetch().map(invite=>{return invite.trip_id;});
   },
 
+  convertNotifications: function(user){
+    return Notifications.update({'recipient':user.emails[0].address},{$set:{recipient:user._id}});
+  },
+
   //trip methods
   inviteUserByEmail: function(inviteeEmail,id){
     var user = Accounts.findUserByEmail(inviteeEmail.toLowerCase());
     if (!user){
+      Meteor.call('notify',inviteeEmail);
       return false;
     }
     Meteor.call('notify',user._id);
@@ -271,6 +276,40 @@ Meteor.methods({
   },
 
   //expenses
+
+  findUserByName:function(username){
+    var user = Users.findOne({username:username});
+    return user
+  },
+
+  payExpense:function(payingUser, member, dash, trip){
+    var oldBalance = undefined;
+    var newExpenseDash = dash.map(function (userObject) {
+      if(userObject.user === payingUser) {
+        oldBalance = userObject[member];
+        userObject[member] = 0;
+      } else if(userObject.user === member) {
+        userObject[payingUser] = 0;
+      }
+      return userObject;
+    });
+
+
+    var description = payingUser+" paid "+member+"$"+(oldBalance * -1);
+    console.log("description", description)
+    Trips.update({_id: trip._id}, {$set: {expense_dash: newExpenseDash}});
+
+    return Trips.update({_id: trip._id}, {$push: {
+      expenses:{
+        'description': description,
+        'created_at': new Date(),
+        'created_by': payingUser,
+        'split_with': [member]
+      }
+    }});
+  },
+
+
   pushExpense: function(expense,user,dash){
     
     var newExpenseDash = dash.map(function (userObject){

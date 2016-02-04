@@ -48,6 +48,7 @@ NewExpense = React.createClass({
 	},
 
   onToggle:function(value){
+  	console.log(value)
   	var username = value.target.value;
   	var newSplit = this.state.split;
   	newSplit[username] = !newSplit[username];
@@ -69,7 +70,7 @@ NewExpense = React.createClass({
   	return this.state.split_with.map(function (member, index){
   		return (
   			<ul>
-  				<li ref={index} >{member}</li>
+  				<li ref={index} key={index}>{member}</li>
   			</ul>
   		)
   	})

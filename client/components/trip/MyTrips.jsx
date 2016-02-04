@@ -33,7 +33,7 @@ MyTrips = React.createClass({
     })
    }
     if (this.data.trips.length === 0) {
-     return (<p className="card card-fix">You currently have no trips! Create one above.</p>);
+     return (<div className="opaque-bg no-trips"><p className="no-invites">You currently have no trips! Create one above.</p></div>);
     }
     },
   render: function(){

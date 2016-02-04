@@ -22,7 +22,10 @@ Signup = React.createClass({
           console.log(error)
           this.setState({signupError: error.reason})
         }else if(!error){
-          this.props.history.push('/mytrips');
+          Meteor.call('convertNotifications',Meteor.user(),(err,data)=>{
+            if (err || !data) this.props.history.push('/mytrips')
+            else this.props.history.push('/myinvites');
+          });
         }
       });
     });
@@ -48,7 +51,7 @@ Signup = React.createClass({
           <div className="clear"></div>
           <button className="login-btn button button-block button-positive" type="submit" onClick={this.signup}>Create Account</button>
         </form>
-        <ReactRouter.Link to="login" className="ice-text">Aleady a user? Sign in here.</ReactRouter.Link>
+        <ReactRouter.Link to="login" className="ice-text login-signup-text">Aleady a user? Login here.</ReactRouter.Link>
       </div>
     )
   }
