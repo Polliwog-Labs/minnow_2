@@ -4,7 +4,11 @@ TripHome = React.createClass({
   },
 
   getInitialState: function(){
-    return {show:false};
+    return {
+      show:false,
+      showGoing: false,
+      showInvited: false
+    };
   },
 
   componentDidMount(){
@@ -64,6 +68,23 @@ TripHome = React.createClass({
   hideModal() {
     this.setState({show: false});
   },
+
+  showGoing() {
+    this.setState({ showGoing: true})
+  },
+
+  hideGoing() {
+    this.setState({ showGoing: false})
+  },
+
+  showInvited() {
+
+  },
+
+  hideInvited() {
+
+  },
+
   render: function(){
     var trip = this.props.trip || {};
     var members = this.props.members || [];
@@ -92,6 +113,7 @@ TripHome = React.createClass({
     return (
        <div className='trip list'>
         <EditTrip onHide={this.hideModal} show={this.state.show} trip={trip} members={members} history={this.props.history}/>
+        <GoingModal onHide={this.hideGoing} show={this.state.showGoing} members={this.props.members} history={this.props.history} />
           <div className='image-div'>
             <Image image_id={params.image_id} height="300px" />
           </div>
@@ -102,6 +124,17 @@ TripHome = React.createClass({
             <p className='col clear-right'><a onClick={ this.showModal }><i id="pencil" className='ion-edit'></i></a></p>
           </div>
           <div className='item dark-blue-text'>
+            <div className="row member-btn-container">
+              <div className='col'>
+                <button className="button button-small button-positive button-outline member-btn" onClick={this.showGoing} >Going</button>
+              </div>
+              <div className='col'>
+                <button className="button button-small button-positive button-outline member-btn">Invited</button>
+              </div>
+              <div className='col'>
+                <button className="button button-small button-positive button-outline member-btn">Organizers</button>
+              </div>
+            </div>
             <p className="dark-blue-text">Whos Coming? {this.props.members.map((member)=>{
               return member.username;
             }).join(', ')} </p>

@@ -1,0 +1,3 @@
+DeclinedModal = React.createClass({
+  
+})

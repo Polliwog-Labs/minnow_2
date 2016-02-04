@@ -1,0 +1,3 @@
+InvitedModal = React.createClass({
+  
+})
