@@ -1,6 +1,14 @@
 AllExpenses = React.createClass({
 	getInitialState(){
-		return {trip:{expenses:[]}}
+		var membersObj = {};
+			this.props.members.forEach(function (member){
+				membersObj[member.username] = false;
+			});
+
+		return {
+			trip:{expenses:[]},
+			checked: membersObj
+		}
 	},
 	componentWillReceieveProps(newProps){
 		this.setState({trip:newProps});
@@ -22,6 +30,7 @@ AllExpenses = React.createClass({
 		var username = Meteor.user().username
 		var userExpenseDash = [];
 		var expenses = this.props.trip.expenses
+		var trip = this.props.trip
 
 		this.props.trip.expense_dash.map(function (user){
 			if(user.user === username) {
@@ -37,7 +46,7 @@ AllExpenses = React.createClass({
 		});
 
 		return userExpenseDash.map(function (member, index) {
-			return <ExpenseDashboard  key={index} member={member} expenses={expenses} />
+			return <ExpenseDashboard key={index} trip={trip} members={showMembers} member={member} expenses={expenses} />
 		});
 
 	},

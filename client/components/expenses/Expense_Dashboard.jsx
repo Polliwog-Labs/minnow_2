@@ -1,8 +1,14 @@
 ExpenseDashboard = React.createClass({
 
 getInitialState(){
+
+	var membersObj = {};
+	this.props.members.forEach(function (member){
+		membersObj[member.username] = false;
+	});
 	return {
-		show:false
+		show:false,
+		checked: membersObj
 	}
 },
 
@@ -18,16 +24,17 @@ renderImage:function(){
  	var member = this.props.member;
 	var key = Object.keys(member);
 	var image = undefined;
-	console.log("key",key[0]);
+	// console.log("key",key[0]);
 	Meteor.call('findUserByName', key[0], function (err, data){
 		if(err) {
-			// console.log("error",err);
+			console.log("error",err);
 		} else {
+			// console.log("data", data)
 			Meteor.call('retrieveProfilePic', data._id, function (err, imageId) {
 				if(err) {
-					// console.log(err);
+					console.log(err);
 				}else {
-					console.log("imageId", imageId);
+					// console.log("imageId", imageId);
 					image=imageId;
 				}
 			});
@@ -46,6 +53,8 @@ renderImage:function(){
   	var user = Meteor.user().username;
   	var member = this.props.member;
 	var key = Object.keys(member);
+
+
 
 	function expenseFilter(expense){
 		var splitArray = expense.split_with;
@@ -69,16 +78,50 @@ renderImage:function(){
    return filtered.map(function (expense, index){
 	   	var people = expense.split_with.length + 1;
 		var total = (expense.amount * people).toFixed(2);
+		if(expense.amount !== undefined){
 	   	  return (
-	   		<div className="item item-text-wrap">
+	   		<div key={index} className="item item-text-wrap">
 	   		  <li className ="item" >
 				<p>{expense.description}</p>
-				<p>$ {total}</p>
+				<p>$ {expense.amount} per person</p>
 				<p>Paid for by {expense.created_by}</p>
 			  </li>
 			</div>
+
 	   		)
+	   	} else {
+	   		return (
+	   			<div key={index} className="item item-text-wrap">
+	   				<li className="item">
+	   					<p>{expense.description}</p>
+	   				</li>
+	   			</div>
+	   			)
+	   	}
    })
+
+  },
+
+  payedBalance:function(value){
+  	//Get rid of button and replace with "You just paid user this balance"
+  	//Update the balances 
+  	var name = this.props.member
+  	var user = Object.keys(name);
+  	var member = user[0];
+  	var user = Meteor.user().username;
+  	var dash = this.props.trip.expense_dash
+  	var trip = this.props.trip
+  	
+  	var changeChecked = this.state.checked;
+  	changeChecked[member] = !changeChecked[member];
+  	this.setState({checked: changeChecked});
+
+  	setTimeout(()=>{
+  		changeChecked[member] = !changeChecked[member];
+  		this.setState({checked: changeChecked});
+  		Meteor.call("payExpense", user, member, dash, trip)
+  	},5000)
+
 
   },
 
@@ -88,8 +131,8 @@ renderImage:function(){
 		var key = Object.keys(member);
 		var setUp = member[key];
 		var balance = Number((setUp).toFixed(2));
-
-
+		var checkedState = this.state.checked;
+		var user = Meteor.user().username
 
 		return (
 
@@ -117,7 +160,14 @@ renderImage:function(){
 			  <p onClick={this.showModal}>
 			   <i className="icon ion-plus-circled"></i>
 			   	<span className='icon-label'>View charges with {key}</span>     
-			  </p> 
+			  </p>
+			  <div>
+			  { balance !== 0 ? <VenmoButton />: ""}
+			  </div>
+			  { balance < 0 && !checkedState[key] ? 
+			  		<div id={key}><ReactBootstrap.Button value={key} onClick={this.payedBalance}  bsStyle="primary" bsSize="large" active>Click to pay {key} ${balance * -1}</ReactBootstrap.Button></div>: 
+			  			balance < 0 && checkedState[key] ? 
+			  				<p> Thank you for paying {user} your balance of ${balance * -1} </p> : ""}
 		    </a>
 		)
 	}
