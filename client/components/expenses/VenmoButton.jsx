@@ -15,7 +15,7 @@ VenmoButton = React.createClass({
 
   render() {
     return (
-      <img className='venmo-button' onClick={this.launchVenmo} src={AbsUrl + '/venmo-icon.png'} width='20' height='20' />
+      <img className='venmo-button' onClick={this.launchVenmo} src={AbsUrl + '/venmo-icon.png'} width='25' height='25' />
     )
   }
 })
