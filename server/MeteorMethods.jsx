@@ -280,11 +280,13 @@ Meteor.methods({
     var oldBalance = undefined;
     var newExpenseDash = dash.map(function (userObject) {
       if(userObject.user === payingUser) {
+        console.log("member inside for", member)
         oldBalance = userObject[member];
         userObject[member] = 0;
       } else if(userObject.user === member) {
         userObject[payingUser] = 0;
       }
+      return userObject;
     });
     console.log("user" ,payingUser);
     console.log("member", member);
@@ -299,7 +301,9 @@ Meteor.methods({
     return Trips.update({_id: trip._id}, {$push: {
       expenses:{
         'description': description,
-        'created_at': new Date()
+        'created_at': new Date(),
+        'created_by': payingUser,
+        'split_with': [member]
       }
     }});
   },

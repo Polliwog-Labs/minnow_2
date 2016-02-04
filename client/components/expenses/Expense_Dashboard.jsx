@@ -119,7 +119,7 @@ renderImage:function(){
   		changeChecked[member] = !changeChecked[member];
   		this.setState({checked: changeChecked});
   		Meteor.call("payExpense", user, member, dash, trip)
-  	},6000)
+  	},5000)
 
 
   },
