@@ -22,6 +22,7 @@ Signup = React.createClass({
           console.log(error)
           this.setState({signupError: error.reason})
         }else if(!error){
+          Meteor.call('convertInvites',Meteor.user());
           this.props.history.push('/mytrips');
         }
       });

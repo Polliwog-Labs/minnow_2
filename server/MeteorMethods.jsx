@@ -106,10 +106,15 @@ Meteor.methods({
     return Invites.find({'recipient':email}).fetch().map(invite=>{return invite.trip_id;});
   },
 
+  convertInvites: function(user){
+    Invites.update({'recipient':user.emails[0].address},{$set:{recipient:user._id}});
+  },
+
   //trip methods
   inviteUserByEmail: function(inviteeEmail,id){
     var user = Accounts.findUserByEmail(inviteeEmail.toLowerCase());
     if (!user){
+      Meteor.call('notify',inviteeEmail);
       return false;
     }
     Meteor.call('notify',user._id);
