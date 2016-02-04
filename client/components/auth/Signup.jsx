@@ -35,6 +35,10 @@ Signup = React.createClass({
 
     return(
       <div className="list col login-signup">
+        <div className="flexy">
+          <span className="logo-image"><img className="actual-logo-image"src="/minnow_fly_white.png"/></span>
+          <h3 className="ice-text f-w-200">minnow</h3>
+        </div>
         <form>
           <p className="auth-error">{this.state.signupError}</p>
           <div className="clean"></div>
