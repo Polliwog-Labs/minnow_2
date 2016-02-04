@@ -23,25 +23,29 @@ hideModal:function(){
 renderImage:function(){
  	var member = this.props.member;
 	var key = Object.keys(member);
-	var image = undefined;
+	
 	// console.log("key",key[0]);
-	Meteor.call('findUserByName', key[0], function (err, data){
+	var userImage = Meteor.call('findUserByName', key[0], function (err, data){
 		if(err) {
 			console.log("error",err);
 		} else {
-			image =  data.profile.imageId;
-			console.log("image",image);
-			if(image === undefined) {
-				return (
-					 <img src='https://facebook.github.io/react/img/logo.svg'/>
-					)
-			} else {
-				return (
-					 <Image image_id={image} height="80px" profile={true}/>
-					)
-			}
+			return data.profile.imageId;
 		}
 	});
+
+	setTimeout(function(){
+		console.log("userImage", userImage)
+	  },3000);
+
+	if(userImage === undefined) {
+		return (
+			 <img src='https://facebook.github.io/react/img/logo.svg'/>
+			)
+		} else {
+			return (
+				 <Image image_id={image} height="80px" profile={true}/>
+					)
+			}
 
   },
 
