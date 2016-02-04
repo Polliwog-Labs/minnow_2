@@ -48,6 +48,7 @@ NewExpense = React.createClass({
 	},
 
   onToggle:function(value){
+  	console.log(value)
   	var username = value.target.value;
   	var newSplit = this.state.split;
   	newSplit[username] = !newSplit[username];
