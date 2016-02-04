@@ -29,23 +29,20 @@ renderImage:function(){
 		if(err) {
 			console.log("error",err);
 		} else {
-			// console.log("data", data)
-			Meteor.call('retrieveProfilePic', data._id, function (err, imageId) {
-				if(err) {
-					console.log(err);
-				}else {
-					// console.log("imageId", imageId);
-					image=imageId;
-				}
-			});
+			var image =  data.profile.imageId;
+
+			if(image !== undefined) {
+				return (
+					 <Image ionicClass='avatar-image' image_id={image} height="80px" profile={true}/>
+					)
+			} else {
+				return (
+					 <img className="avatar-image" src='https://facebook.github.io/react/img/logo.svg' />
+					)
+			}
 		}
 	});
 
-  	if(this.props && image){
-  		return <Image ionicClass='avatar-image' image_id={image} height="80px" profile={true}/>
-  	}else{
-  		return <img className="avatar-image" src='https://facebook.github.io/react/img/logo.svg' />
-  	}
   },
 
 
