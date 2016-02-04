@@ -97,6 +97,7 @@ Meteor.methods({
     Meteor.users.update({_id:user._id}, {$pull:{"profile.invites": trip}});
     Trips.update({_id:trip},{$pull:{"pending": user.emails[0].address}});
     Invites.remove({recipient:user.emails[0].address,trip_id:trip});
+    // Notifications.remove({recipient:})
     return Trips.update({_id:trip}, {$push:{"declined": user.username}}, (err)=>{
       return !err;
     });
@@ -106,8 +107,8 @@ Meteor.methods({
     return Invites.find({'recipient':email}).fetch().map(invite=>{return invite.trip_id;});
   },
 
-  convertInvites: function(user){
-    Invites.update({'recipient':user.emails[0].address},{$set:{recipient:user._id}});
+  convertNotifications: function(user){
+    return Notifications.update({'recipient':user.emails[0].address},{$set:{recipient:user._id}});
   },
 
   //trip methods
