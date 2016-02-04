@@ -81,7 +81,7 @@ Meteor.methods({
 
     console.log("newMemberObject", newMemberObject);
     updatedDash.push(newMemberObject);
-
+    Meteor.call('notify',user._id,'clear');
     Trips.update({_id: trip._id}, {$set: {expense_dash: updatedDash}});
     Meteor.users.update({_id:user._id}, {$pull:{"profile.invites": trip._id}});
     Trips.update({_id:trip._id},{$pull:{"pending": user.emails[0].address}});
@@ -96,6 +96,7 @@ Meteor.methods({
     Meteor.users.update({_id:user._id}, {$pull:{"profile.invites": trip}});
     Trips.update({_id:trip},{$pull:{"pending": user.emails[0].address}});
     Invites.remove({recipient:user.emails[0].address,trip_id:trip});
+    Meteor.call('notify',user._id,'clear');
     return Trips.update({_id:trip}, {$push:{"declined": user.username}}, (err)=>{
       return !err;
     });
@@ -105,10 +106,15 @@ Meteor.methods({
     return Invites.find({'recipient':email}).fetch().map(invite=>{return invite.trip_id;});
   },
 
+  convertNotifications: function(user){
+    return Notifications.update({'recipient':user.emails[0].address},{$set:{recipient:user._id}});
+  },
+
   //trip methods
   inviteUserByEmail: function(inviteeEmail,id){
     var user = Accounts.findUserByEmail(inviteeEmail.toLowerCase());
     if (!user){
+      Meteor.call('notify',inviteeEmail);
       return false;
     }
     Meteor.call('notify',user._id);

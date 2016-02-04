@@ -1,6 +1,7 @@
 // AbsUrl = 'http://www.minnow.pw';
 
-AbsUrl='http://192.168.1.18:3000'
+
+AbsUrl='http://192.168.1.18:3000';
 
 
 
