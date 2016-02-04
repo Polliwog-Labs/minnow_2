@@ -135,25 +135,35 @@ TripHome = React.createClass({
                 <button className="button button-small button-positive button-outline member-btn">Organizers</button>
               </div>
             </div>
+            <div className='col' >
+              <div className="item item-input-inset invite">
+                  {/*<a className="button button-icon icon ion-ios-personadd"></a>*/}
+                  <label className="item-input-wrapper">
+                    <input type="email" placeholder="Invite by Email"/>
+                  </label>
+                  <button ref="input_email" id="btn-submit" 
+                    className="button button-small button-positive button-outline icon-left ion-ios-personadd" 
+                    onClick={this.submitInvitees}>Invite
+                  </button>
+                </div>
+            </div>
+          </div>
+        </div>
+        {/*<p style={{'color':'red','display':'none'}} className="error-email">Bad Email</p>
             <p className="dark-blue-text">Whos Coming? {this.props.members.map((member)=>{
               return member.username;
             }).join(', ')} </p>
             {/*<p className=''>Action Items {params.todo.length}</p>*/}
             {/*<p className='tripParams'>Est. Cost Per Person: ${cost / (params.members.length || 1)}</p>*/}
-            <form className='form-group' >
+            {/*<form className='form-group' >
               <p className="dark-blue-text">Invitees:</p>
               <ul>{this.renderInvitees()}</ul>
               <p className="dark-blue-text">Send your friends an invite:</p>
               <input type="email" placeholder = "Email address" className="item-input" ref="input_email"/>
               <button id="btn-submit" className='button button-positive ' onClick={this.submitInvitees}>Invite</button>
-              <span style={{'color':'red','display':'none'}} className="error-email">Bad Email</span>
-            </form>
-          </div>
-        </div>
+            </form>*/}
+
       </div> )
   }
 });
-
-
-
 
