@@ -268,6 +268,7 @@ input {
 
 .segmented-control .control-item {
   color: #014771;
+  border-color: #014771;
   background: rgba(240,248,255,0.50);
 }
 
@@ -493,7 +494,8 @@ label[for="nav-trigger"] {
 
 .delete-event {
   text-align: right;
-  padding-right: 2px;
+  padding-right: 0px;
+  padding-left: 10px;
 }
 
 .position-relative {
