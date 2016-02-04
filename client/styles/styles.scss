@@ -368,14 +368,6 @@ label[for="nav-trigger"] {
     color: #0066ff;
 }
 
-.item-thumbnail-left {
-  min-height: 70px !important;
-  padding-bottom: 0px !important;
-  padding-right: 0px;
-  /*margin-bottom: 3px !important;
-  border-radius: 5px !important;*/
-}
-
 .item-thumbnail-left h3 {
   overflow: auto !important;
 }
@@ -509,7 +501,9 @@ label[for="nav-trigger"] {
 }
 
 .event-list-item {
-  padding-bottom: 5px;
+  min-height: 70px !important;
+  padding-bottom: 0px !important;
+  padding-right: 0px;
 }
 
 .event-link {
