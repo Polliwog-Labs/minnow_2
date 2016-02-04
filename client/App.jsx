@@ -1,7 +1,6 @@
 App = React.createClass({
   mixins: [ReactMeteorData],
 
-
   logout: function() {
     this.navToggle();
     Meteor.logout();
@@ -10,6 +9,9 @@ App = React.createClass({
     setTimeout(function() {
       history.push('/login');
     }, 200)
+    return Meteor.logout( () => {
+      this.props.history.push('/login');
+    });
   },
 
   getMeteorData: function() {

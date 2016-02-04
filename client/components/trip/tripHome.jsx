@@ -4,7 +4,12 @@ TripHome = React.createClass({
   },
 
   getInitialState: function(){
-    return {show:false};
+    return {
+      show:false,
+      showGoing: false,
+      showInvited: false,
+      showDeclined: false
+    };
   },
 
   componentDidMount(){
@@ -18,7 +23,6 @@ TripHome = React.createClass({
   submitInvitees: function(event) {
     event.preventDefault();
     var invitee_email = ReactDOM.findDOMNode(this.refs.input_email).value;
-    var tripId = this.props.trip._id;
     var invite_user = undefined;
 
     if((invitee_email !== Meteor.user().emails[0].address) && invitee_email.includes('@') &&
@@ -27,7 +31,7 @@ TripHome = React.createClass({
       })){
       // Make sure user isn't inviting themself, email address is an email address,
       // and is not a duplicate, also that trip is loaded into state
-      Meteor.call('inviteUserByEmail', invitee_email,tripId,(err,data)=>{
+      Meteor.call('inviteUserByEmail', invitee_email,this.props.trip._id,(err,data)=>{
         if(err){
           console.log(err);
         } else {
@@ -54,7 +58,7 @@ TripHome = React.createClass({
     $('.error-email').show();
     setTimeout(()=>{
       $('.error-email').hide()
-    },1000);
+    },2000);
   },
 
   showModal() {
@@ -64,6 +68,31 @@ TripHome = React.createClass({
   hideModal() {
     this.setState({show: false});
   },
+
+  showGoing() {
+    this.setState({ showGoing: true})
+  },
+
+  hideGoing() {
+    this.setState({ showGoing: false})
+  },
+
+  showInvited() {
+    this.setState({ showInvited: true})
+  },
+
+  hideInvited() {
+    this.setState({ showInvited: false})
+  },
+
+  showDeclined() {
+    this.setState({ showDeclined: true})
+  },
+
+  hideDeclined() {
+    this.setState({ showDeclined: false})
+  },
+
   render: function(){
     var trip = this.props.trip || {};
     var members = this.props.members || [];
@@ -92,6 +121,9 @@ TripHome = React.createClass({
     return (
        <div className='trip list'>
         <EditTrip onHide={this.hideModal} show={this.state.show} trip={trip} members={members} history={this.props.history}/>
+        <GoingModal onHide={this.hideGoing} show={this.state.showGoing} members={this.props.members} history={this.props.history} />
+        <InvitedModal onHide={this.hideInvited} show={this.state.showInvited} invites={this.props.trip.pending} history={this.props.history} />
+        <DeclinedModal onHide={this.hideDeclined} show={this.state.showDeclined} declined={this.props.declined} history={this.props.history} />
           <div className='image-div'>
             <Image image_id={params.image_id} height="300px" />
           </div>
@@ -102,25 +134,58 @@ TripHome = React.createClass({
             <p className='col clear-right'><a onClick={ this.showModal }><i id="pencil" className='ion-edit'></i></a></p>
           </div>
           <div className='item dark-blue-text'>
+            <div className="row member-btn-container">
+              <div className='col'>
+                <button className="button button-small button-positive button-outline member-btn" onClick={this.showGoing} >Going</button>
+              </div>
+              <div className='col'>
+                <button onClick={this.showInvited} className="button button-small button-positive button-outline member-btn">Invited</button>
+              </div>
+              <div className='col'>
+                <button onClick={this.showDeclined} className="button button-small button-positive button-outline member-btn">Declined</button>
+              </div>
+            </div>
+            <div className="row member-btn-container">
+              <div className='col'>
+                <p className='dark-blue-text attend-count'>{this.props.trip.members.length}</p>
+              </div>
+              <div className='col'>
+                <p className='dark-blue-text attend-count'>{this.props.trip.pending.length}</p>
+              </div>
+              <div className='col'>
+                <p className='dark-blue-text attend-count'>{this.props.trip.declined.length}</p>
+              </div>
+            </div>
+            <div className='col' >
+              <div className="item item-input-inset invite">
+                {/*<a className="button button-icon icon ion-ios-personadd"></a>*/}
+                <button id="btn-submit" 
+                  className="button button-small button-positive button-outline icon-left ion-ios-personadd" 
+                  onClick={this.submitInvitees}>Invite
+                </button>
+                <label className="item-input-wrapper add-email">
+                  <input ref="input_email" type="email" placeholder="Invite by Email"/>
+                </label>
+              </div>
+              <p style={{'color':'red','display':'none'}} className="error-email">Not a valid email address</p>
+            </div>
+          </div>
+        </div>
+        {/*<p style={{'color':'red','display':'none'}} className="error-email">Bad Email</p>
             <p className="dark-blue-text">Whos Coming? {this.props.members.map((member)=>{
               return member.username;
             }).join(', ')} </p>
             {/*<p className=''>Action Items {params.todo.length}</p>*/}
             {/*<p className='tripParams'>Est. Cost Per Person: ${cost / (params.members.length || 1)}</p>*/}
-            <form className='form-group' >
+            {/*<form className='form-group' >
               <p className="dark-blue-text">Invitees:</p>
               <ul>{this.renderInvitees()}</ul>
               <p className="dark-blue-text">Send your friends an invite:</p>
               <input type="email" placeholder = "Email address" className="item-input" ref="input_email"/>
               <button id="btn-submit" className='button button-positive ' onClick={this.submitInvitees}>Invite</button>
-              <span style={{'color':'red','display':'none'}} className="error-email">Bad Email</span>
-            </form>
-          </div>
-        </div>
+            </form>*/}
+
       </div> )
   }
 });
-
-
-
 

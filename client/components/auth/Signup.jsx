@@ -22,7 +22,10 @@ Signup = React.createClass({
           console.log(error)
           this.setState({signupError: error.reason})
         }else if(!error){
-          this.props.history.push('/mytrips');
+          Meteor.call('convertNotifications',Meteor.user(),(err,data)=>{
+            if (err || !data) this.props.history.push('/mytrips')
+            else this.props.history.push('/myinvites');
+          });
         }
       });
     });

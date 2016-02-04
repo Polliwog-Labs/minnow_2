@@ -30,6 +30,7 @@ Login = React.createClass({
     Meteor.user() && this.props.history.push('/mytrips');
   },
   render(){
+    console.log(Meteor.user())
     return (
         <div className="list col login-signup">
           <div className="flexy">
