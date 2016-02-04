@@ -16,7 +16,7 @@ IdeaEvent = React.createClass({
     var hour = ReactDOM.findDOMNode(this.refs.hour).value;
     var min = ReactDOM.findDOMNode(this.refs.min).value;
     var amPm = ReactDOM.findDOMNode(this.refs.am_pm).value;
-    var utc = DateUtils.dateConvert(ReactDOM.findDOMNode(this.refs.date).value, hour + ':' + min + amPm)
+    var utc = DateUtils.dateConvert(ReactDOM.findDOMNode(this.refs.date).value, ReactDOM.findDOMNode(this.refs.time).value)
     var unixTime = new Date(utc).getTime();
     var dateTime = {
       date: ReactDOM.findDOMNode(this.refs.date).value,
@@ -128,48 +128,9 @@ IdeaEvent = React.createClass({
                   <div className="col" >
                     <label className="item item-input item-select date-form">
                       <div className="input-label">
-                        Hour
+                        Time
                       </div>
-                      <select defaultValue='12' ref='hour' className='time-select'>
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                        <option>6</option>
-                        <option>7</option>
-                        <option>8</option>
-                        <option>9</option>
-                        <option>10</option>
-                        <option>11</option>
-                        <option>12</option>
-                      </select>
-                    </label>
-                  </div>
-                  <div className="col" >
-                    <label className="item item-input item-select date-form">
-                      <div className="input-label">
-                        Min
-                      </div>
-                      <select defaultValue='00' ref="min" className='time-select'>
-                        <option>00</option>
-                        <option>15</option>
-                        <option>30</option>
-                        <option>45</option>
-                      </select>
-                    </label>
-                  </div>
-                </div>
-                <div className="row item" > 
-                  <div className="col" >
-                    <label className="item item-input item-select date-form">
-                      <div className="input-label">
-                        AM/PM
-                      </div>
-                      <select defaultValue="AM" ref='am_pm' className='time-select'>
-                        <option>AM</option>
-                        <option>PM</option>
-                      </select>
+                      <input className="item-input" id="newTrip-name" type="time" ref="time"/> 
                     </label>
                   </div>
                 </div>
