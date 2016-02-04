@@ -41,6 +41,17 @@ renderImage:function(){
 			}
 		}
 	 })
+
+		// return this.props.members.forEach(function (member, index){
+	 //   return (
+		// 	  { member.username === key[0] ?
+		// 	     member.profile.imageId !== undefined ?
+		// 			  <Image key={index} image_id={member.profile.imageId} height="80px" profile={true}/> :
+		// 			   <img src='https://facebook.github.io/react/img/logo.svg'/>
+		// 	  }
+		//      )
+		// })
+	// },
   },
 
 
