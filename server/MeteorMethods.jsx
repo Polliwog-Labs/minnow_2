@@ -81,7 +81,7 @@ Meteor.methods({
 
     console.log("newMemberObject", newMemberObject);
     updatedDash.push(newMemberObject);
-
+    Meteor.call('notify',user._id,'clear');
     Trips.update({_id: trip._id}, {$set: {expense_dash: updatedDash}});
     Meteor.users.update({_id:user._id}, {$pull:{"profile.invites": trip._id}});
     Trips.update({_id:trip._id},{$pull:{"pending": user.emails[0].address}});
@@ -96,7 +96,7 @@ Meteor.methods({
     Meteor.users.update({_id:user._id}, {$pull:{"profile.invites": trip}});
     Trips.update({_id:trip},{$pull:{"pending": user.emails[0].address}});
     Invites.remove({recipient:user.emails[0].address,trip_id:trip});
-    // Notifications.remove({recipient:})
+    Meteor.call('notify',user._id,'clear');
     return Trips.update({_id:trip}, {$push:{"declined": user.username}}, (err)=>{
       return !err;
     });
