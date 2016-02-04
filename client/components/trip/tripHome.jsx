@@ -7,7 +7,8 @@ TripHome = React.createClass({
     return {
       show:false,
       showGoing: false,
-      showInvited: false
+      showInvited: false,
+      showDeclined: false
     };
   },
 
@@ -58,7 +59,7 @@ TripHome = React.createClass({
     $('.error-email').show();
     setTimeout(()=>{
       $('.error-email').hide()
-    },1000);
+    },2000);
   },
 
   showModal() {
@@ -78,11 +79,19 @@ TripHome = React.createClass({
   },
 
   showInvited() {
-
+    this.setState({ showInvited: true})
   },
 
   hideInvited() {
+    this.setState({ showInvited: false})
+  },
 
+  showDeclined() {
+    this.setState({ showDeclined: true})
+  },
+
+  hideDeclined() {
+    this.setState({ showDeclined: false})
   },
 
   render: function(){
@@ -114,6 +123,8 @@ TripHome = React.createClass({
        <div className='trip list'>
         <EditTrip onHide={this.hideModal} show={this.state.show} trip={trip} members={members} history={this.props.history}/>
         <GoingModal onHide={this.hideGoing} show={this.state.showGoing} members={this.props.members} history={this.props.history} />
+        <InvitedModal onHide={this.hideInvited} show={this.state.showInvited} invites={this.props.trip.pending} history={this.props.history} />
+        <DeclinedModal onHide={this.hideDeclined} show={this.state.showDeclined} declined={this.props.declined} history={this.props.history} />
           <div className='image-div'>
             <Image image_id={params.image_id} height="300px" />
           </div>
@@ -129,23 +140,35 @@ TripHome = React.createClass({
                 <button className="button button-small button-positive button-outline member-btn" onClick={this.showGoing} >Going</button>
               </div>
               <div className='col'>
-                <button className="button button-small button-positive button-outline member-btn">Invited</button>
+                <button onClick={this.showInvited} className="button button-small button-positive button-outline member-btn">Invited</button>
               </div>
               <div className='col'>
-                <button className="button button-small button-positive button-outline member-btn">Organizers</button>
+                <button onClick={this.showDeclined} className="button button-small button-positive button-outline member-btn">Declined</button>
+              </div>
+            </div>
+            <div className="row member-btn-container">
+              <div className='col'>
+                <p className='dark-blue-text attend-count'>{this.props.trip.members.length}</p>
+              </div>
+              <div className='col'>
+                <p className='dark-blue-text attend-count'>{this.props.trip.pending.length}</p>
+              </div>
+              <div className='col'>
+                <p className='dark-blue-text attend-count'>{this.props.trip.declined.length}</p>
               </div>
             </div>
             <div className='col' >
               <div className="item item-input-inset invite">
-                  {/*<a className="button button-icon icon ion-ios-personadd"></a>*/}
-                  <label className="item-input-wrapper">
-                    <input type="email" placeholder="Invite by Email"/>
-                  </label>
-                  <button ref="input_email" id="btn-submit" 
-                    className="button button-small button-positive button-outline icon-left ion-ios-personadd" 
-                    onClick={this.submitInvitees}>Invite
-                  </button>
-                </div>
+                {/*<a className="button button-icon icon ion-ios-personadd"></a>*/}
+                <button id="btn-submit" 
+                  className="button button-small button-positive button-outline icon-left ion-ios-personadd" 
+                  onClick={this.submitInvitees}>Invite
+                </button>
+                <label className="item-input-wrapper add-email">
+                  <input ref="input_email" type="email" placeholder="Invite by Email"/>
+                </label>
+              </div>
+              <p style={{'color':'red','display':'none'}} className="error-email">Not a valid email address</p>
             </div>
           </div>
         </div>

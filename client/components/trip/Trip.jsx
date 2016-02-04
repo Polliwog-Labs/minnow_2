@@ -13,6 +13,10 @@ Trip = React.createClass({
       var tripUsers = Meteor.subscribe('tripUsers',data.trip);
       if (tripUsers.ready()){
         data.members = Users.find({_id:{$in:data.trip.members}}).fetch();
+        var tripDeclined = Meteor.subscribe('tripDeclined', data.trip);
+        if (tripDeclined.ready()){
+          data.declined = Users.find({_id: {$in: data.trip.declined}}).fetch();
+        }
       }
     }
     return data;
@@ -54,7 +58,7 @@ Trip = React.createClass({
   renderHome: function () {
     $('.active').removeClass('active');
     $('#home').addClass('active');
-    ReactDOM.render(<TripHome updateParent={this.setParentState} members={this.data.members || []} trip={this.data.trip} history={this.props.history}/>, document.getElementById('trip-module'));
+    ReactDOM.render(<TripHome updateParent={this.setParentState} members={this.data.members || []} declined={this.data.declined || []} trip={this.data.trip} history={this.props.history}/>, document.getElementById('trip-module'));
   },
 
   renderItinerary: function () {

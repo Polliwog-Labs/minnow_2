@@ -1,11 +1,11 @@
-GoingModal = React.createClass({
+InvitedModal = React.createClass({
   
-  renderMembers() {
-    return this.props.members.map(function(member, index) {
+  renderInvites() {
+    return this.props.invites.map(function(invite, index) {
       return (
         <a key={index} className="item item-avatar" href="">
-          <Image ionicClass='avatar-image' image_id={member.profile.imageId} height="80px" profile={true}/>
-          <p>{member.username}</p>
+          <img className="avatar-image" src='http://rlv.zcache.co.nz/ocean_sunset_with_palm_tree_round_sticker-r64bf665d3c4c4a799c7e9fc5c748b5c5_v9wth_8byvr_324.jpg' />
+          <p>{invite}</p>
         </a>
       )
     })
@@ -13,17 +13,16 @@ GoingModal = React.createClass({
 
   render () {
     return (
-
       <ReactBootstrap.Modal
         {...this.props}
         onHide={this.props.onHide}
         dialogClassName="custom-modal">
         <ReactBootstrap.Modal.Header closeButton>
-          <ReactBootstrap.Modal.Title id="contained-modal-title-lg">Who's going... </ReactBootstrap.Modal.Title>
+          <ReactBootstrap.Modal.Title id="contained-modal-title-lg">Pending invites... </ReactBootstrap.Modal.Title>
         </ReactBootstrap.Modal.Header>
         <ReactBootstrap.Modal.Body>
           <div className="list">
-            {this.renderMembers()}
+            {this.renderInvites()}
           </div>
         </ReactBootstrap.Modal.Body>
       </ReactBootstrap.Modal>

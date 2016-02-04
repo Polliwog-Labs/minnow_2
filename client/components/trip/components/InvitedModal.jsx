@@ -1,3 +1,0 @@
-InvitedModal = React.createClass({
-  
-})
