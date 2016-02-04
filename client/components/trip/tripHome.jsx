@@ -18,7 +18,6 @@ TripHome = React.createClass({
   submitInvitees: function(event) {
     event.preventDefault();
     var invitee_email = ReactDOM.findDOMNode(this.refs.input_email).value;
-    var tripId = this.props.trip._id;
     var invite_user = undefined;
 
     if((invitee_email !== Meteor.user().emails[0].address) && invitee_email.includes('@') &&
@@ -27,7 +26,7 @@ TripHome = React.createClass({
       })){
       // Make sure user isn't inviting themself, email address is an email address,
       // and is not a duplicate, also that trip is loaded into state
-      Meteor.call('inviteUserByEmail', invitee_email,tripId,(err,data)=>{
+      Meteor.call('inviteUserByEmail', invitee_email,this.props.trip._id,(err,data)=>{
         if(err){
           console.log(err);
         } else {
