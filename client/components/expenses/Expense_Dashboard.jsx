@@ -127,6 +127,7 @@ renderImage:function(){
 		var key = Object.keys(member);
 		var setUp = member[key];
 		var checkedState = this.state.checked;
+		var balance = Number(setUp).toFixed(2);
 
 		// function addZeroes( num ) {
 		//     var value = Number(num);
@@ -140,8 +141,7 @@ renderImage:function(){
 		//     }
 		// return value
 		// }
-
-		var balance = Number(setUp).toFixed(2);
+	console.log("balance", balance);
 
 
 
@@ -150,7 +150,7 @@ renderImage:function(){
 			  {this.renderImage()}
 		      {checkedState[key] ? "" : ""}
 		      {balance > 0 ?  <p className='dark-blue-text balance'>{key} owes you ${balance.toString()}</p>: 
-		       balance < 0	? <p className='dark-blue-text balance'>You owe {key} ${(balance.toString()) * -1}</p>:
+		       balance < 0	? <p className='dark-blue-text balance'>You owe {key} ${balance.toString().substring(1)}</p>:
 		      				  <p className='dark-blue-text balance'>You are even with {key}</p>
 			}
 			  <ReactBootstrap.Modal
