@@ -12,20 +12,22 @@ html, body {
   overflow-y: scroll;
   position: fixed;
   vertical-align: center;
-}
-body {
   background: url(/travelling-alone.jpeg);
+  -webkit-background-repeat: no-repeat;
+  -moz-background-repeat: no-repeat;
+  -o-background-repeat: no-repeat;
   background-repeat: no-repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
   background-size: cover;
 }
 .clear {
   margin-top: 10px;
 }
-
 .clean{
   margin-top: 25px;
 }
-
 .header-expenses{
   text-align: center!important;
 }
@@ -45,8 +47,7 @@ body {
   height: 100%;
 }
 h1.list {
-  text-align: center;
-
+ text-align: center;
 }
 .list {
   padding: 0px;
@@ -81,7 +82,6 @@ h1.list {
 .item{
   margin: 0px;
 }
-
 .text-wrap{
   color: #014771!important;
   height: 50px;
@@ -203,6 +203,7 @@ input {
   text-align: center;
   height: 900px;
   background: rgba(0,0,0,0.47);
+
 }
 .no-trips{
   margin-top: -20px;
@@ -302,7 +303,6 @@ input {
   font-size: 14px;
   font-weight: 500;
 }*/
-
 .segmented-control {
   padding: 0px;
   width: 94% !important;
@@ -311,22 +311,18 @@ input {
   margin-left: 3%;
   border-color: #014771 !important;
 }
-
 .segmented-control .control-item.active {
   background-color: #014771;
   text-decoration: none;
 }
-
 .segmented-control .control-item {
   color: #014771;
   border-color: #014771;
   background: rgba(240,248,255,0.50);
 }
-
 .expense-control {
   margin-bottom: 15px;
 }
-
 .item-stacked-label input, .item-stacked-label textarea{
   background: #EFF2F1;
 }
@@ -347,11 +343,9 @@ a {
   color: #FFFFFF!important;
   background: #014771;
 }
-
 .tab-item.tab-item-active, .tab-item.active, .tab-item.activated {
   color: #EFF2F1!important;
 }
-
 .header-center {
   text-align: center;
   background: #EFF2F1;
@@ -362,9 +356,7 @@ a {
   font-weight: 300!important;
   font-size: 27px!important; 
 }
-
 /*############################## End Overrides ##############################*/
-
 .menu {
     list-style: none;
     background: #111;
@@ -377,7 +369,6 @@ a {
     left: 0;
     z-index: 0;
 }
-
 .site-wrap {
     min-width: 100%;
     min-height: 100%;
@@ -394,35 +385,28 @@ a {
                       rgb(160,216,239) 100%);
     background-size: 200%;
 }
-
 label[for="nav-trigger"] {
     position: fixed;
     top: 15px;
     left: 15px;
     z-index: 2;
 }
-
 .nav-trigger:checked + label {
     left: 215px;
 }
-
 .nav-trigger:checked ~ .site-wrap {
     left: 200px;
     box-shadow: 0 0 5px 5px rgba(0,0,0,0.5);
 }
-
 .nav-trigger + label, .site-wrap {
     transition: left 0.2s;
 }
-
 .tab-item.tab-item-active, .tab-item.active, .tab-item.activated {
     color: #0066ff;
 }
-
 .item-thumbnail-left h3 {
   overflow: auto !important;
 }
-
 .tripListModule {
   width: 94%;
   height: 200px;
@@ -441,7 +425,6 @@ label[for="nav-trigger"] {
   margin-top:20px !important;
   width: 50% !important;
 }
-
 .tripListDateText {
   color: white;
   margin: 0;
@@ -450,49 +433,39 @@ label[for="nav-trigger"] {
   margin-top:40px !important;
   float:right !important;
 }
-
 .auth-error {
   color: #ff3d00;
   font-weight: 600;
   font-size: 16px;
 }
-
 .image-fixed{
   height: 240px!important;
 }
-
 .message-container{
   margin-bottom: 0px!important;
 }
-
 .expensesNav{
   height:350px;
   width:96%;
   padding:10px;
   position: fixed;
 }
-
-
 .map-toggle {
   float: right;
 }
 .item p {
   white-space: normal;
 }
-
 .navbar-brand {
   float: right;
 }
-
 .navbar {
   margin-bottom: 0px;
 }
-
 .navbar-toggle {
   float: left;
   margin-left: 10px;
 }
-
 .card-fix {
   color: #014771;
   height: 50px;
@@ -502,11 +475,9 @@ label[for="nav-trigger"] {
   line-height: 1.1;
   word-wrap: normal;
 }
-
 .menu-link {
   color: #777;
 }
-
 .add-idea {
   text-align: center;
   margin-left: 0px;
@@ -528,50 +499,40 @@ label[for="nav-trigger"] {
   vertical-align: 13%;
   margin-left: 5px;
 }
-
 .icon-label {
   margin-left: 15px;
 }
-
 .modal-body {
   padding:0px;
 }
-
 .delete-event {
   text-align: right;
   padding-right: 0px;
   padding-left: 10px;
 }
-
 .position-relative {
   position: relative;
 }
-
 .map-container {
   width: 100%;
   max-width: 100%;
   height: 225px;
 }
-
 .event-list-item {
   min-height: 70px !important;
   padding-bottom: 0px !important;
   padding-right: 0px;
 }
-
 .event-link {
   color: #173d9c;
   text-decoration: underline;
 }
-
 .message-button {
   width: 60px;
 }
-
 .navbar-toggle {
   border: 0px;
 }
-
 .photo-scroll {
   max-height: 70%;
   width: 100%;
@@ -583,31 +544,36 @@ label[for="nav-trigger"] {
 }
 
 .photos-body {
-  background-color: #030303;
-  margin-top: 33%;
+  background: rgba(0,0,0,0.7);
+  
 }
 
 /*add photo button  */
 .btn-file {
-    position: relative;
-    overflow: hidden;
-    border-color: gray;
-    color: gray;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid #EFF2F1;
+  color: #EFF2F1;
+}
+.btn-container{
+  margin-top: -200px;
+  margin-right: auto;
+  margin-left: auto;
 }
 .btn-file input[type=file] {
-    position: absolute;
-    top: 0;
-    right: 0;
-    min-width: 100%;
-    min-height: 100%;
-    font-size: 100px;
-    text-align: right;
-    filter: alpha(opacity=0);
-    opacity: 0;
-    outline: none;
-    background: white;
-    cursor: inherit;
-    display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  min-width: 100%;
+  min-height: 100%;
+  font-size: 100px;
+  text-align: right;
+  filter: alpha(opacity=0);
+  opacity: 0;
+  outline: none;
+  background: white;
+  cursor: inherit;
+  display: block;
 }
 .item, .item h1, .item h2, .item h3, .item h4, .item h5, .item h6, .item p, .item-content, .item-content h1, .item-content h2, .item-content h3, .item-content h4, .item-content h5, .item-content h6, .item-content p {
   overflow: visible;
@@ -624,135 +590,102 @@ label[for="nav-trigger"] {
 /*----------SLICK SLIDER-----------*/
 
 /* Slider */
-.slick-slider
-{
+.slick-slider {
     position: relative;
-
+    height: 510px;
     display: block;
-
     -moz-box-sizing: border-box;
          box-sizing: border-box;
-
     -webkit-user-select: none;
        -moz-user-select: none;
         -ms-user-select: none;
             user-select: none;
-
     -webkit-touch-callout: none;
     -khtml-user-select: none;
     -ms-touch-action: pan-y;
         touch-action: pan-y;
     -webkit-tap-highlight-color: transparent;
 }
-
-.slick-list
-{
+.slick-list {
     position: relative;
-
     display: block;
     overflow: hidden;
-
+    margin-top: 23%!important;
     margin: 0;
     padding: 0;
 }
-.slick-list:focus
-{
+.slick-list:focus {
     outline: none;
 }
-.slick-list.dragging
-{
+.slick-list.dragging {
     cursor: pointer;
     cursor: hand;
 }
-
 .slick-slider .slick-track,
-.slick-slider .slick-list
-{
+.slick-slider .slick-list {
     -webkit-transform: translate3d(0, 0, 0);
        -moz-transform: translate3d(0, 0, 0);
         -ms-transform: translate3d(0, 0, 0);
          -o-transform: translate3d(0, 0, 0);
             transform: translate3d(0, 0, 0);
 }
-
-.slick-track
-{
+.slick-track{
     position: relative;
     top: 0;
     left: 0;
-
     display: block;
 }
 .slick-track:before,
-.slick-track:after
-{
+.slick-track:after{
     display: table;
-
     content: '';
 }
-.slick-track:after
-{
+.slick-track:after{
     clear: both;
 }
-.slick-loading .slick-track
-{
+.slick-loading .slick-track{
     visibility: hidden;
 }
-
-.slick-slide
-{
+.slick-slide {
     display: none;
     float: left;
-
     height: 100%;
     min-height: 1px;
 }
-[dir='rtl'] .slick-slide
-{
+[dir='rtl'] .slick-slide {
     float: right;
 }
-.slick-slide img
-{
+.slick-slide img {
     display: block;
 }
-.slick-slide.slick-loading img
-{
+.slick-slide.slick-loading img {
     display: none;
 }
-.slick-slide.dragging img
-{
+.slick-slide.dragging img {
     pointer-events: none;
 }
-.slick-initialized .slick-slide
-{
+.slick-initialized .slick-slide {
     display: block;
 }
-.slick-loading .slick-slide
-{
+.slick-loading .slick-slide {
     visibility: hidden;
 }
-.slick-vertical .slick-slide
-{
+.slick-vertical .slick-slide{
     display: block;
-
     height: auto;
-
     border: 1px solid transparent;
 }
 .slick-arrow.slick-hidden {
     display: none;
 }
-
 .expenseDashButtons {
   margin-left: 24px
 }
-
 .venmo-button {
   float:left;
   margin-left: 28px;
   margin-top: 3px;
 }
-
 .showTransactions{
   margin-bottom: 10px;
 }

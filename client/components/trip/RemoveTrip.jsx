@@ -12,7 +12,7 @@ RemoveTrip = React.createClass({
     Trips.update({_id:this.props.trip._id},{
       $pull: {'members':Meteor.userId()}
     });
-    $('.close').click();
+    this.hideModal(); 
   },
   render(){
     return (

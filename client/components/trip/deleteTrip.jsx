@@ -10,7 +10,8 @@ DeleteTrip = React.createClass({
   },
   deleteTrip(){
     Trips.remove({_id:this.props.trip._id});
-    $('.close').click();
+    this.hideModal();
+    this.props.keepOpen('close');
     this.props.history.push('/mytrips');
   },
   render(){

@@ -37,7 +37,7 @@ EditTrip = React.createClass({
         }
       })
     } else Trips.update({_id:this.props.trip._id},{$set:this.getHelperObj()});
-    $('.close').click();
+    this.props.keepOpen('close');
   },
   takePic(){
     MeteorCamera.getPicture({
@@ -92,7 +92,7 @@ EditTrip = React.createClass({
                 </label>
                 <button id="btn-submit" className='button button-block button-positive'>Submit</button>
               </form>
-              <DeleteTrip trip={this.props.trip} history={this.props.history}/>
+              <DeleteTrip trip={this.props.trip} history={this.props.history} keepOpen={this.props.keepOpen}/>
            </div>
           </ReactBootstrap.Modal.Body>
         </ReactBootstrap.Modal>
