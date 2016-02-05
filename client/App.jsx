@@ -5,10 +5,6 @@ App = React.createClass({
     this.navToggle();
     Meteor.logout();
     $('body').css({'background': 'url("/travelling-alone.jpg")', "background-size": "cover", "background-repeat": "no-repeat"});
-    var history = this.props.history
-    setTimeout(function() {
-      history.push('/login');
-    }, 200)
     return Meteor.logout( () => {
       this.props.history.push('/login');
     });
