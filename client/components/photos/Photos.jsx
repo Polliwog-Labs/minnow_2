@@ -50,6 +50,9 @@ Photos = React.createClass({
       return <div className='col' key={index}><Image ionicClass='photo-scroll' image_id={photoId} /></div>
     })
   },
+  getCameraButton(){
+    return ShowCamera ? <span className="btn btn-sm btn-file" onClick={this.takePic}>Take Picture</span> : <div/>;
+  },
 
   render: function () {
     var settings = {
@@ -72,7 +75,7 @@ Photos = React.createClass({
           <span className="col btn btn-sm btn-file">
             + Photo <input type="file" accept="image/*" ref='newPhoto' id='addPhoto' onChange={this.addPhoto}/>
           </span>
-          <span className="col btn btn-sm btn-file" onClick={this.takePic}>Take Picture</span>
+          {this.getCameraButton()}
           <span>{this.state.photo ? 'Camera Photo' : ''}</span>
         </div>
       </div>
