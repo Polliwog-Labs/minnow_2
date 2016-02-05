@@ -72,7 +72,7 @@ Photos = React.createClass({
           {this.renderPhotos()}
         </Slider>
         <div className='row btn-container photo-btn'>
-          <span className="col btn btn-sm btn-file">
+          <span className="col-20 btn btn-sm btn-file">
             + Photo <input type="file" accept="image/*" ref='newPhoto' id='addPhoto' onChange={this.addPhoto}/>
           </span>
           {this.getCameraButton()}
