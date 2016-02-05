@@ -31,11 +31,11 @@ InviteList = React.createClass({
   },
   renderButtons(){
     if (Meteor.user()) return (
-      <div>
-        <button className="button button-small button-balanced" onClick={this.navToTrip}>
+      <div className="right-float">
+        <button className="button button-positive button-small" onClick={this.navToTrip}>
           Accept
         </button>
-        <button className="button button-small button-assertive" onClick={this.declineTrip}>
+        <button className="button button-decline button-small" onClick={this.declineTrip}>
           Decline
         </button>
       </div>
@@ -44,14 +44,14 @@ InviteList = React.createClass({
   render: function(){
     var tripStart = (this.props.trip && this.props.trip.dates) ? DateUtils.getTripDate(this.props.trip.dates) : null;
     return (
-      <div className="list">
-		    <a className="item item-thumbnail-left">
+      <div className="list align-left">
+		    <a className="item item-thumbnail-left height-fix bg-ice">
           <Image image_id={this.props.trip.image_id} />
-		      <h2>{this.props.trip.name}</h2>
+		      <h2 className="h-invite-override">{this.props.trip.name}</h2>
 		      <p>{this.state.organizer}</p>
 		      <p>{tripStart}</p>
           {this.renderButtons()}
-		    </a>
+        </a>
 		  </div>
     );
 	}

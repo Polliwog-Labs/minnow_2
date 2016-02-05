@@ -34,7 +34,7 @@ Messages = React.createClass({
 					<button className='button button-small button-positive message-button' onClick={this.submitMessage}> Send </button>
 				</form>
 				<div className="message-wrapper">
-					<MessageLoader members={this.props.memberProfiles} messages={this.props.trip.messages} />
+					<MessageLoader members={this.props.memberProfiles} trip={this.props.trip} />
 				</div>
 		</div>
 		)

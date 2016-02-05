@@ -1,10 +1,11 @@
 const {Router, Route, Link, IndexRoute} = ReactRouter;
 
-const history = ReactRouter.history.useQueries(ReactRouter.history.createHistory)()
+const history = ReactRouter.history.useQueries(ReactRouter.history.createHistory)();
 
 // const Navigation = ReactRouter.Navigation; 
 
 Meteor.startup(function() {
+  Meteor.call("debug",ShowCamera);
   const root = document.createElement('div');
   root.setAttribute('id', 'root');
   document.body.appendChild(root);
