@@ -21,8 +21,9 @@ TripHome = React.createClass({
     return true;
   },
 
-  keepOpen(){
-    this.setState({show:true})
+  keepOpen(close){
+    if (close) this.setState({show:false})
+    else this.setState({show:true});
   },
 
   submitInvitees: function(event) {
