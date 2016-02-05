@@ -40,9 +40,6 @@ Photos = React.createClass({
       }
     });
   },
-  shouldComponentUpdate(newprops,newstate){
-    return !newstate
-  },
 
   componentWillMount() {
     this.props.updateParent('Photos');
