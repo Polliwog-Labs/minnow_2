@@ -2,8 +2,8 @@
 
 
 
-AbsUrl='http://192.168.1.191:3000'
-
+AbsUrl='http://192.168.1.191:3000';
+ShowCamera = (window.navigator.platform === 'iPhone' || window.navigator.platfrom === 'iPad') ? false : true;
 
 
 

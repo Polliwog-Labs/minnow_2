@@ -49,6 +49,9 @@ EditTrip = React.createClass({
       !err && this.setState({photo:data});
     })
   },
+  getCameraButton(){
+    return ShowCamera ? <button className="dark-blue-text bg-ice" onClick={this.takePic}>Take Picture</button> : <div/>
+  },
   render: function(){
     var startDate = (this.props.trip && this.props.trip.dates && this.props.trip.dates[0]) ? DateUtils.getHTMLDate(this.props.trip.dates[0]) : DateUtils.getHTMLDate(new Date().getTime());
     var endDate = (this.props.trip && this.props.trip.dates && this.props.trip.dates[1]) ? DateUtils.getHTMLDate(this.props.trip.dates[1]) : startDate;
@@ -87,7 +90,7 @@ EditTrip = React.createClass({
                 <label id="newTrip-members" className="dark-blue-text item item-input item-stacked-label bg-ice">
                   <span>Upload a photo</span>
                   <input id="newTrip-file" className="dark-blue-text item-input bg-ice" type="file" accept="image/*" capture="camera" ref="newTrip_file"/>
-                  <button className="dark-blue-text bg-ice" onClick={this.takePic}>Take Picture</button>
+                  {this.getCameraButton()}
                   <span>{this.state.photo ? 'Camera Photo' : ''}</span>
                 </label>
                 <button id="btn-submit" className='button button-block button-positive'>Submit</button>
