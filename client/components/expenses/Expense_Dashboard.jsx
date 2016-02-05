@@ -6,9 +6,10 @@ getInitialState(){
 	this.props.members.forEach(function (member){
 		membersObj[member.username] = false;
 	});
+
 	return {
 		show:false,
-		checked: membersObj
+		checked: membersObj,
 	}
 },
 
@@ -21,31 +22,18 @@ hideModal:function(){
 	  },
 
 renderImage:function(){
- 	var member = this.props.member;
-	var key = Object.keys(member);
-	var image = undefined;
-	// console.log("key",key[0]);
-	Meteor.call('findUserByName', key[0], function (err, data){
-		if(err) {
-			console.log("error",err);
-		} else {
-			// console.log("data", data)
-			Meteor.call('retrieveProfilePic', data._id, function (err, imageId) {
-				if(err) {
-					console.log(err);
-				}else {
-					// console.log("imageId", imageId);
-					image=imageId;
-				}
-			});
-		}
-	});
+ 	var thisMember = this.props.member;
+	var key = Object.keys(thisMember);
 
-  	if(this.props && image){
-  		return <Image ionicClass='avatar-image' image_id={image} height="80px" profile={true}/>
-  	}else{
-  		return <img className="avatar-image" src='https://facebook.github.io/react/img/logo.svg' />
-  	}
+	var member = this.props.members.filter(function (member, index){
+		return member.username === key[0];
+	 })[0];
+
+	if(member.profile.imageId !== undefined) {
+		return (<Image image_id={member.profile.imageId} height="80px" profile={true}/>)
+	} else {
+		return (<img src='https://facebook.github.io/react/img/logo.svg'/>)
+	}
   },
 
 
@@ -74,6 +62,12 @@ renderImage:function(){
 	}
 
    var filtered = this.props.expenses.filter(expenseFilter);
+
+   if(filtered.length === 0){
+   	return (
+   		<div className="opaque-bg no-trips"><p className="no-invites">No charges between you and {key} yet!</p></div>
+   		)
+   }
 
    return filtered.map(function (expense, index){
 	   	var people = expense.split_with.length + 1;
@@ -129,16 +123,31 @@ renderImage:function(){
 
 		var member = this.props.member;
 		var key = Object.keys(member);
-		var setUp = member[key];
-		var balance = Number((setUp).toFixed(2));
+		var setUp = member[key].toString();
 		var checkedState = this.state.checked;
-		var user = Meteor.user().username
+
+		function addZeroes( num ) {
+		    var value = Number(num);
+		    var res = num.split(".");
+		    if(num.indexOf('.') === -1) {
+		        value = value.toFixed(2);
+		        num = value.toString();
+		    } else if (res[1].length < 3) {
+		        value = value.toFixed(2);
+		        num = value.toString();
+		    }
+		return num
+		}
+
+		var balance = addZeroes(setUp);
+
+
 
 		return (
-
 			<a className="item item-thumbnail-left">
-		      {this.renderImage()}
-		      { balance === 0 ? <h3>You are even with {key}</h3>:
+			  {this.renderImage()}
+		      {checkedState[key] ? "" :
+		      	 balance === 0 ? <p className='dark-blue-text balance'>You are even with {key}</p>:
 				    balance > 0 ? 
 					<p className='dark-blue-text balance'>{key} owes you ${balance}</p> : 
 					<p className='dark-blue-text balance'>You owe {key} ${(balance) * -1}</p>
@@ -149,7 +158,7 @@ renderImage:function(){
 			      onHide={this.hideModal}
 			      dialogClassName="custom-modal">
 			      <ReactBootstrap.Modal.Header closeButton>
-			        <ReactBootstrap.Modal.Title id="contained-modal-title-lg">All transactions between you and {key}</ReactBootstrap.Modal.Title>
+			        <ReactBootstrap.Modal.Title id="contained-modal-title-lg">Transactions with {key}</ReactBootstrap.Modal.Title>
 			      </ReactBootstrap.Modal.Header>
 			      <ReactBootstrap.Modal.Body>
 			      <ul className="list">
@@ -157,17 +166,20 @@ renderImage:function(){
 			      </ul>
 			      </ReactBootstrap.Modal.Body>
 			    </ReactBootstrap.Modal>
+			  { checkedState[key] ? "":
 			  <p onClick={this.showModal}>
 			   <i className="icon ion-plus-circled"></i>
-			   	<span className='icon-label'>View charges with {key}</span>     
+			   	<span className='showTransactions'className='icon-label'>View charges with {key}</span>     
 			  </p>
-			  <div>
-			  { balance !== 0 ? <VenmoButton />: ""}
-			  </div>
+			   }
+			<div>
+			 
+			
 			  { balance < 0 && !checkedState[key] ? 
-			  		<div id={key}><ReactBootstrap.Button value={key} onClick={this.payedBalance}  bsStyle="primary" bsSize="large" active>Click to pay {key} ${balance * -1}</ReactBootstrap.Button></div>: 
+			  		<div id={key}><VenmoButton /><ReactBootstrap.Button value={key} className='expenseDashButtons' onClick={this.payedBalance}  bsStyle="primary" bsSize="small" active>Pay {key} ${balance * -1}</ReactBootstrap.Button></div>: 
 			  			balance < 0 && checkedState[key] ? 
-			  				<p> Thank you for paying {user} your balance of ${balance * -1} </p> : ""}
+			  				<p> Thank you for paying {key} your balance of ${balance * -1} </p> : ""}
+			 </div>
 		    </a>
 		)
 	}
