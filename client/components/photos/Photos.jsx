@@ -68,12 +68,11 @@ Photos = React.createClass({
           <div><Image ionicClass='photo-scroll' image_id={this.props.trip.image_id} height="300px" /></div>
           {this.renderPhotos()}
         </Slider>
-        <div className='col'></div>
-        <div className='col'>
-          <span className="btn btn-sm btn-file">
+        <div className='row btn-container'>
+          <span className="col btn btn-sm btn-file">
             + Photo <input type="file" accept="image/*" ref='newPhoto' id='addPhoto' onChange={this.addPhoto}/>
           </span>
-          <span className="btn btn-sm btn-file" onClick={this.takePic}>Take Picture</span>
+          <span className="col btn btn-sm btn-file" onClick={this.takePic}>Take Picture</span>
           <span>{this.state.photo ? 'Camera Photo' : ''}</span>
         </div>
       </div>
