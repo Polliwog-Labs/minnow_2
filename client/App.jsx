@@ -3,6 +3,8 @@ App = React.createClass({
 
   logout: function() {
     this.navToggle();
+    Meteor.logout();
+    $('body').css({'background': 'url("/travelling-alone.jpg")', "background-size": "cover", "background-repeat": "no-repeat"});
     return Meteor.logout( () => {
       this.props.history.push('/login');
     });

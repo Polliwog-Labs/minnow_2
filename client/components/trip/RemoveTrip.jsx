@@ -32,10 +32,12 @@ RemoveTrip = React.createClass({
               <ReactBootstrap.Button onClick={this.hideModal}>Cancel</ReactBootstrap.Button>
             </ReactBootstrap.Modal.Footer>
           </ReactBootstrap.Modal>
-        <a onClick={this.showModal}>
-          <i className="ion-close ice-text delete-trip-button"></i>
-          <span className='icon-label'></span>
-        </a>
+          <a onClick={this.showModal}>
+            <div className="trip-remove">
+             <i className="ion-close ice-text delete-trip-button"></i>
+             <span className='icon-label'></span>
+            </div>
+          </a>
       </div>
     );
   }
