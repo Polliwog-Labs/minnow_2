@@ -123,35 +123,35 @@ renderImage:function(){
 
 		var member = this.props.member;
 		var key = Object.keys(member);
-		var setUp = member[key].toString();
+		var setUp = member[key];
 		var checkedState = this.state.checked;
 
-		function addZeroes( num ) {
-		    var value = Number(num);
-		    var res = num.split(".");
-		    if(num.indexOf('.') === -1) {
-		        value = value.toFixed(2);
-		        num = value.toString();
-		    } else if (res[1].length < 3) {
-		        value = value.toFixed(2);
-		        num = value.toString();
-		    }
-		return num
-		}
+		// function addZeroes( num ) {
+		//     var value = Number(num);
+		//     var res = num.split(".");
+		//     if(num.indexOf('.') === -1) {
+		//         value = value.toFixed(2);
+		//         num = value.toString();
+		//     } else if (res[1].length < 3) {
+		//         value = value.toFixed(2);
+		//         num = value.toString();
+		//     }
+		// return value
+		// }
 
-		var balance = addZeroes(setUp);
+		var balance = Number(setUp).toFixed(2);
+		console.log("balance", balance)
 
 
 
 		return (
 			<a className="item item-thumbnail-left">
 			  {this.renderImage()}
-		      {checkedState[key] ? "" :
-		      	 balance === 0 ? <p className='dark-blue-text balance'>You are even with {key}</p>:
-				    balance > 0 ? 
-					<p className='dark-blue-text balance'>{key} owes you ${balance}</p> : 
-					<p className='dark-blue-text balance'>You owe {key} ${(balance) * -1}</p>
-				}
+		      {checkedState[key] ? "" : ""}
+		      {balance > 0 ?  <p className='dark-blue-text balance'>{key} owes you ${balance.toString()}</p>: 
+		       balance < 0	? <p className='dark-blue-text balance'>You owe {key} ${(balance.toString()) * -1}</p>:
+		      				  <p className='dark-blue-text balance'>You are even with {key}</p>
+			}
 			  <ReactBootstrap.Modal
 			      {...this.props}
 			      show={this.state.show}
@@ -178,7 +178,7 @@ renderImage:function(){
 			  { balance < 0 && !checkedState[key] ? 
 			  		<div id={key}><VenmoButton /><ReactBootstrap.Button value={key} className='expenseDashButtons' onClick={this.payedBalance}  bsStyle="primary" bsSize="small" active>Pay {key} ${balance * -1}</ReactBootstrap.Button></div>: 
 			  			balance < 0 && checkedState[key] ? 
-			  				<p> Thank you for paying {key} your balance of ${balance * -1} </p> : ""}
+			  				<p> Thank you for paying {key} your balance of ${(balance * -1).toString()} </p> : ""}
 			 </div>
 		    </a>
 		)
