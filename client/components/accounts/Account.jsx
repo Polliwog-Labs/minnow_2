@@ -12,9 +12,31 @@ Account = React.createClass({
    return user_data;
   },
 
+  getInitialState(){
+    return {photo:null};
+  },
+
+  takePic(){
+    MeteorCamera.getPicture({
+       height: 600,
+       width: 800,
+       correctOrientation: true
+    },(err,data)=>{
+      //this.props.keepOpen();
+      if (!err){
+        this.setState({photo:data});
+        this.profilePicUploader();
+      } 
+    });
+  },
+  shouldComponentUpdate(newprops,newstate){
+    return !newstate;
+  },
+
   profilePicUploader(){
-  	var file = $('#profile_pic')[0].files[0];
+  	var file = this.state.photo || $('#profile_pic')[0].files[0];
   	if (file) ProfilePics.insert(file, (err, data)=>{
+      this.setState({photo:null});
   		if (err) console.log("did not upload photo: ", err)
   		else {
   				Users.update({_id:Meteor.user()._id}, {$set: {"profile.imageId":data._id}})	
@@ -48,7 +70,7 @@ Account = React.createClass({
 
   renderImage(){
   	if(this.data.user_info && this.data.user_info.profile.imageId){
-  		return <div className="prof_pic_wrapper"><Image ionicClass='profile_pic' image_id={this.data.user_info.profile.imageId} width="250px" height="250px" profile={true} circle/></div>
+  		return <div className="prof_pic_wrapper"><Image ionicClass='profile_pic' image_id={this.data.user_info.profile.imageId} height='250px' width='250px' profile={true} circle/></div>
   	}else{
   		return <div className="prof_pic_wrapper"><ReactBootstrap.Image src='/prof-placeholder.jpg' circle/></div>
   	}
@@ -64,7 +86,9 @@ Account = React.createClass({
 						<ReactBootstrap.DropdownButton title="Update Picture" id="bg-vertical-dropdown-1">
 							<div className=''>
 								<input type="file" id="profile_pic" />
+                <button className="dark-blue-text bg-ice account-pic-button" onClick={this.takePic}>Take Picture</button>
 								<button className='button-selector button button-small button-positive message-button' type="submit" onClick={this.profilePicUploader}> Submit</button>
+                <span>{this.state.photo ? 'Camera Photo' : ''}</span>
 							</div>
 						</ReactBootstrap.DropdownButton>
 					</ReactBootstrap.Col>

@@ -101,7 +101,7 @@ if (Meteor.isServer) {
   };
 
   var profileImageResize = function(fileObj, readStream, writeStream) {
-    gm(readStream, fileObj.name()).resize(300,300).gravity('Center').crop(250,250).stream().pipe(writeStream);
+    gm(readStream, fileObj.name()).resize(400,null).gravity('Center').crop(250,250).stream().pipe(writeStream);
   };
 
   //Stores

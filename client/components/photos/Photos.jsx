@@ -1,16 +1,16 @@
 Photos = React.createClass({
   getInitialState: function () {
     return {
-      slickGoTo: 0
+      slickGoTo: 0,
     };
   },
   changeHandler: function(e) {
     this.setState({slickGoTo: e.target.value});
   },
 
-  addPhoto: function(event){
-    event.preventDefault();
-    var photo = $('#addPhoto')[0].files[0];
+  addPhoto: function(event,photo){
+    event && event.preventDefault();
+    var photo = photo || $('#addPhoto')[0].files[0];
     var tripId = this.props.trip._id
     if (photo) {
       Images.insert(photo, (error, image) =>{
@@ -28,6 +28,17 @@ Photos = React.createClass({
         }
       })
     }
+  },
+  takePic(){
+    MeteorCamera.getPicture({
+      width:800,
+      height:600,
+      correctOrientation: true
+    },(err,data)=>{
+      if (!err){
+        this.addPhoto(null,data);
+      }
+    });
   },
 
   componentWillMount() {
@@ -62,6 +73,8 @@ Photos = React.createClass({
           <span className="btn btn-sm btn-file">
             + Photo <input type="file" accept="image/*" ref='newPhoto' id='addPhoto' onChange={this.addPhoto}/>
           </span>
+          <span className="btn btn-sm btn-file" onClick={this.takePic}>Take Picture</span>
+          <span>{this.state.photo ? 'Camera Photo' : ''}</span>
         </div>
       </div>
     );
