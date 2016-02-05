@@ -22,19 +22,21 @@ hideModal:function(){
 	  },
 
 renderImage:function(){
- 	var thisMember = this.props.member;
-	var key = Object.keys(thisMember);
+  if (this.props.member){
+   	var thisMember = this.props.member;
+  	var key = Object.keys(thisMember);
 
-	var member = this.props.members.filter(function (member, index){
-		return member.username === key[0];
-	 })[0];
+  	var member = this.props.members.filter(function (member, index){
+  		return member.username === key[0];
+  	 })[0];
 
-	if(member && member.profile && member.profile.imageId) {
-		return (<Image image_id={member.profile.imageId} height="80px" profile={true}/>)
-	} else {
-		return (<img src='https://facebook.github.io/react/img/logo.svg'/>)
-	}
-  },
+  	if(member.profile.imageId !== undefined) {
+  		return (<Image image_id={member.profile.imageId} height="80px" profile={true}/>)
+  	} else {
+  		return (<img src='https://facebook.github.io/react/img/logo.svg'/>)
+  	}
+  } else return <div/>;
+},
 
 
   showTransactions:function(){
