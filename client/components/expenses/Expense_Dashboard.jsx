@@ -142,7 +142,6 @@ renderImage:function(){
 		// }
 
 		var balance = Number(setUp).toFixed(2);
-		console.log("balance", balance)
 
 
 
