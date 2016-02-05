@@ -544,7 +544,7 @@ label[for="nav-trigger"] {
 }
 
 .photos-body {
-  background: rgba(0,0,0,0.7);
+  background: #000;
   
 }
 
@@ -552,10 +552,12 @@ label[for="nav-trigger"] {
 .btn-file {
   position: relative;
   overflow: hidden;
-  border: 1px solid #EFF2F1;
-  color: #EFF2F1;
+  border: 1.5px solid grey;
+  color: grey;
 }
 .btn-container{
+  position: fixed;
+  bottom:60px;
   margin-top: -200px;
   margin-right: auto;
   margin-left: auto;
