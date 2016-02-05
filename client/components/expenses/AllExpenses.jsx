@@ -14,15 +14,17 @@ AllExpenses = React.createClass({
 		this.setState({trip:newProps});
 	},
 	expense_list(){
-		if(this.props.trip.expenses.length === 0) {
-			console.log("hit if statment")
-			return (
-				<h3 className="dark-blue-text h-three-override">No charges yet</h3>
-			)
-		}
-		return this.props.trip.expenses.map(function(expense,index){
-			return <Expense key={index} {...expense} />
-		});
+		if (this.props.trip){
+			if(this.props.trip.expenses.length === 0) {
+				console.log("hit if statment")
+				return (
+					<h3 className="dark-blue-text h-three-override">No charges yet</h3>
+				)
+			}
+			return this.props.trip.expenses.map(function(expense,index){
+				return <Expense key={index} {...expense} />
+			});
+		} else return <div/>;
 	},
 
 	showBalances:function(){
