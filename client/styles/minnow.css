@@ -9,3 +9,14 @@
   width: 640px;
   height: 480px;
 }
+.photo-preview {
+  max-width: 100%;
+}
+
+.btn-file {
+  margin-right: 4px;
+}
+
+.account-pic-button {
+  margin-left: 10px;
+}
