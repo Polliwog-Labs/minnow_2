@@ -29,7 +29,7 @@ renderImage:function(){
 		return member.username === key[0];
 	 })[0];
 
-	if(member.profile.imageId !== undefined) {
+	if(member && member.profile && member.profile.imageId) {
 		return (<Image image_id={member.profile.imageId} height="80px" profile={true}/>)
 	} else {
 		return (<img src='https://facebook.github.io/react/img/logo.svg'/>)
