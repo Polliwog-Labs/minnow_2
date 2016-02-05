@@ -1,4 +1,7 @@
 Meteor.methods({
+  debug(value){
+    console.log(value)
+  },
   //Images methods
   storeImage: function(image){
     return Images.insert(image,function(err,result){

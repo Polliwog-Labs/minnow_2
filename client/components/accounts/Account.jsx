@@ -75,6 +75,9 @@ Account = React.createClass({
   		return <div className="prof_pic_wrapper"><ReactBootstrap.Image src='/prof-placeholder.jpg' circle/></div>
   	}
   },
+  getCameraButton(){
+    return ShowCamera ? <button className="dark-blue-text bg-ice account-pic-button" onClick={this.takePic}>Take Picture</button> : <div/>
+  },
 
 	render(){
 		return(
@@ -86,7 +89,7 @@ Account = React.createClass({
 						<ReactBootstrap.DropdownButton title="Update Picture" id="bg-vertical-dropdown-1">
 							<div className=''>
 								<input type="file" id="profile_pic" />
-                <button className="dark-blue-text bg-ice account-pic-button" onClick={this.takePic}>Take Picture</button>
+                {this.getCameraButton()}
 								<button className='button-selector button button-small button-positive message-button' type="submit" onClick={this.profilePicUploader}> Submit</button>
                 <span>{this.state.photo ? 'Camera Photo' : ''}</span>
 							</div>

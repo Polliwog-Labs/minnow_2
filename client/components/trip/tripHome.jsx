@@ -114,7 +114,9 @@ TripHome = React.createClass({
       todo: [],
       organizers: [],
       expenses: [],
-      expense_dash:{}
+      expense_dash:{},
+      pending: [],
+      declined: []
     };
 
     for (var key in trip){
@@ -128,7 +130,7 @@ TripHome = React.createClass({
        <div className='trip list'>
         <EditTrip onHide={this.hideModal} show={this.state.show} trip={trip} members={members} history={this.props.history} keepOpen={this.keepOpen}/>
         <GoingModal onHide={this.hideGoing} show={this.state.showGoing} members={this.props.members} history={this.props.history} />
-        <InvitedModal onHide={this.hideInvited} show={this.state.showInvited} invites={this.props.trip.pending} history={this.props.history} />
+        <InvitedModal onHide={this.hideInvited} show={this.state.showInvited} invites={params.pending} history={this.props.history} />
         <DeclinedModal onHide={this.hideDeclined} show={this.state.showDeclined} declined={this.props.declined} history={this.props.history} />
           <div className='image-div'>
             <Image image_id={params.image_id} height="300px" />
@@ -153,13 +155,13 @@ TripHome = React.createClass({
             </div>
             <div className="row member-btn-container">
               <div className='col'>
-                <p className='dark-blue-text attend-count'>{this.props.trip.members.length}</p>
+                <p className='dark-blue-text attend-count'>{params.members.length}</p>
               </div>
               <div className='col'>
-                <p className='dark-blue-text attend-count'>{this.props.trip.pending.length}</p>
+                <p className='dark-blue-text attend-count'>{params.pending.length}</p>
               </div>
               <div className='col'>
-                <p className='dark-blue-text attend-count'>{this.props.trip.declined.length}</p>
+                <p className='dark-blue-text attend-count'>{params.declined.length}</p>
               </div>
             </div>
             <div className='col' >
