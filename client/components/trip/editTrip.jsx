@@ -4,7 +4,8 @@ EditTrip = React.createClass({
   },
   getInitialState: function(){
     return {
-      organizers:null
+      organizers:null,
+      photo:null
     };
   },
   getHelperObj(image_id){
@@ -26,9 +27,10 @@ EditTrip = React.createClass({
   submitTrip: function(event){
     event.preventDefault();
     var helperObj = this.getHelperObj();
-    var file = $('#newTrip-file')[0].files[0] || null;
+    var file = this.state.photo || $('#newTrip-file')[0].files[0] || null;
     if (file) {
       Images.insert(file,(err,data)=>{
+        this.setState({photo:null});
         if (err) console.log(err)
         else {
           Trips.update({_id:this.props.trip._id},{$set:$.extend(helperObj,{image_id:data._id})});
@@ -36,6 +38,16 @@ EditTrip = React.createClass({
       })
     } else Trips.update({_id:this.props.trip._id},{$set:this.getHelperObj()});
     $('.close').click();
+  },
+  takePic(){
+    MeteorCamera.getPicture({
+       height: 600,
+       width: 800,
+       correctOrientation: true
+    },(err,data)=>{
+      this.props.keepOpen();
+      !err && this.setState({photo:data});
+    })
   },
   render: function(){
     var startDate = (this.props.trip && this.props.trip.dates && this.props.trip.dates[0]) ? DateUtils.getHTMLDate(this.props.trip.dates[0]) : DateUtils.getHTMLDate(new Date().getTime());
@@ -75,6 +87,8 @@ EditTrip = React.createClass({
                 <label id="newTrip-members" className="dark-blue-text item item-input item-stacked-label bg-ice">
                   <span>Upload a photo</span>
                   <input id="newTrip-file" className="dark-blue-text item-input bg-ice" type="file" accept="image/*" capture="camera" ref="newTrip_file"/>
+                  <button className="dark-blue-text bg-ice" onClick={this.takePic}>Take Picture</button>
+                  <span>{this.state.photo ? 'Camera Photo' : ''}</span>
                 </label>
                 <button id="btn-submit" className='button button-block button-positive'>Submit</button>
               </form>

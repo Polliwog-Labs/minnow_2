@@ -16,8 +16,13 @@ TripHome = React.createClass({
     this.props.updateParent(null);
   },
 
-  shouldComponentUpdate(newprops){
-    return !!(newprops.trip && newprops.members) 
+  shouldComponentUpdate(newprops,newstate){
+    if (newprops) return !!(newprops.trip && newprops.members);
+    return true;
+  },
+
+  keepOpen(){
+    this.setState({show:true})
   },
 
   submitInvitees: function(event) {
@@ -120,7 +125,7 @@ TripHome = React.createClass({
 
     return (
        <div className='trip list'>
-        <EditTrip onHide={this.hideModal} show={this.state.show} trip={trip} members={members} history={this.props.history}/>
+        <EditTrip onHide={this.hideModal} show={this.state.show} trip={trip} members={members} history={this.props.history} keepOpen={this.keepOpen}/>
         <GoingModal onHide={this.hideGoing} show={this.state.showGoing} members={this.props.members} history={this.props.history} />
         <InvitedModal onHide={this.hideInvited} show={this.state.showInvited} invites={this.props.trip.pending} history={this.props.history} />
         <DeclinedModal onHide={this.hideDeclined} show={this.state.showDeclined} declined={this.props.declined} history={this.props.history} />
