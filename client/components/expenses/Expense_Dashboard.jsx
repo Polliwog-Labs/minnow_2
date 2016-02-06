@@ -147,7 +147,7 @@ renderImage:function(){
 		//     }
 		// return value
 		// }
-	console.log("balance", balance);
+	// console.log("balance", balance);
 
 
 
