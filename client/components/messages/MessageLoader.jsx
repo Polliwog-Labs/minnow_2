@@ -3,7 +3,7 @@ MessageLoader = React.createClass({
     trip: React.PropTypes.object.isRequired
   },
   message_list(){
-    if (this.props.trip) {
+    if (this.props.trip && this.props.trip.messages && this.props.members) {
       var messages = this.props.trip.messages;
       var members = this.props.members;
       return messages.sort(function(x,y){

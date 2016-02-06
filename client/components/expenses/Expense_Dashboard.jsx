@@ -150,7 +150,6 @@ renderImage:function(){
 
 
 
-
 		return (
 			<a className="item item-thumbnail-left">
 			  {this.renderImage()}
