@@ -1,7 +1,7 @@
 AllExpenses = React.createClass({
-	shouldComponentUpdate(newprops){
-    return !!(newprops.trip && newprops.members);
-	},
+	// shouldComponentUpdate(newprops){
+ //    return !!(newprops.trip && newprops.members);
+	// },
 	expense_list(){
 		if (this.props.trip){
 			if(this.props.trip.expenses.length === 0) {
