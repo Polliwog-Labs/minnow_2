@@ -128,7 +128,7 @@ TripHome = React.createClass({
 
     return (
        <div className='trip list'>
-        <EditTrip onHide={this.hideModal} show={this.state.show} trip={trip} members={members} history={this.props.history} keepOpen={this.keepOpen}/>
+        <EditTrip onHide={this.hideModal} show={this.state.show} trip={trip} members={this.props.members} history={this.props.history} keepOpen={this.keepOpen}/>
         <GoingModal onHide={this.hideGoing} show={this.state.showGoing} members={this.props.members} history={this.props.history} />
         <InvitedModal onHide={this.hideInvited} show={this.state.showInvited} invites={params.pending} history={this.props.history} />
         <DeclinedModal onHide={this.hideDeclined} show={this.state.showDeclined} declined={this.props.declined} history={this.props.history} />

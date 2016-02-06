@@ -1,18 +1,7 @@
 AllExpenses = React.createClass({
-	getInitialState(){
-		var membersObj = {};
-			this.props.members.forEach(function (member){
-				membersObj[member.username] = false;
-			});
-
-		return {
-			trip:{expenses:[]},
-			checked: membersObj
-		}
-	},
-	componentWillReceieveProps(newProps){
-		this.setState({trip:newProps});
-	},
+	// shouldComponentUpdate(newprops){
+ //    return !!(newprops.trip && newprops.members);
+	// },
 	expense_list(){
 		if (this.props.trip){
 			if(this.props.trip.expenses.length === 0) {
@@ -31,27 +20,28 @@ AllExpenses = React.createClass({
 		var showMembers = this.props.members;
 		var username = Meteor.user().username
 		var userExpenseDash = [];
-		var expenses = this.props.trip.expenses;
+		var expenses = this.props.trip ? this.props.trip.expenses : [];
 		var trip = this.props.trip;
 
-		if(this.props.trip.expense_dash.length === 1){
-			return (
-				<div className="opaque-bg no-trips"><p className="no-invites">Invite others to see expenses!</p></div>
-				);
-		} else {
-
-		this.props.trip.expense_dash.map(function (user){
-			if(user.user === username) {
-				for(var key in user) {
-					if(key !== "user") {
-						var memberObject = {};
-						var balance = user[key]
-						memberObject[key] = balance;
-						userExpenseDash.push(memberObject);
+		// if(this.props.trip && this.props.trip.expense_dash && (this.props.trip.expense_dash.length === 1)){
+		// 	return (
+		// 		<div className="opaque-bg no-trips"><p className="no-invites">Invite others to see expenses!</p></div>
+		// 		);
+		// } else {
+    if (this.props.trip && this.props.trip.expense_dash){
+			this.props.trip.expense_dash.map(function (user){
+				if(user.user === username) {
+					for(var key in user) {
+						if(key !== "user") {
+							var memberObject = {};
+							var balance = user[key]
+							memberObject[key] = balance;
+							userExpenseDash.push(memberObject);
+						}
 					}
 				}
-			}
-		});
+			});
+		// }
 	}
 
 	return userExpenseDash.map(function (member, index) {
@@ -59,13 +49,18 @@ AllExpenses = React.createClass({
 	});
 		
 	},
+	componentDidMount(){
+    this.props.setExpenseView(null);
+	},
 
 
 	render:function(){
-		return(
-			<div className="bg-ice dark-blue-text">
-				{this.showBalances()}
-			</div>
-		)
-   }
+		if (this.props.trip && this.props.trip.members && this.props.trip.members.length > 1){
+			return(
+				<div className="bg-ice dark-blue-text">
+					{this.showBalances()}
+				</div>
+			)
+   } else return (<div className="opaque-bg no-trips"><p className="no-invites">Invite others to see expenses!</p></div>);
+ }
 })

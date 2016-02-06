@@ -20,3 +20,20 @@
 .account-pic-button {
   margin-left: 10px;
 }
+
+.image-div {
+  text-align: center;
+}
+
+.no-invites {
+  margin-top: 20px !important;
+}
+
+.opaque-bg {
+  padding-top: 0 !important;
+  margin-top: 4px !important;
+}
+
+.photos-body {
+  height: 1920px;
+}

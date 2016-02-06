@@ -25,8 +25,8 @@ IdeaEvent = React.createClass({
       unixTime: unixTime
     }
     Meteor.call('addIdeaToItin', this.props.trip._id, this.props.idea, dateTime, err=> {
-      if (error) {
-        console.log('failed to add to itinerary: ', error)
+      if (err) {
+        console.log('failed to add to itinerary: ', err)
       } else {
         // this.props.updateView('IdeasView')
         // this.props.updateParent('Itinerary')
@@ -36,8 +36,8 @@ IdeaEvent = React.createClass({
 
   deleteIdea() {
     Meteor.call('deleteIdea', this.props.trip._id, this.props.idea.created_at, err => {
-      if (error) {
-        console.log('failed delete idea: ', error)
+      if (err) {
+        console.log('failed delete idea: ', err)
       } else {
         this.props.updateView('IdeasView')
         this.props.updateParent('Itinerary')
@@ -47,8 +47,8 @@ IdeaEvent = React.createClass({
 
   upvote() {
     Meteor.call('ideaUpVote', this.props.trip._id, this.props.idea.created_at, err => {
-      if (error) {
-        console.log('failed to upvote: ', error)
+      if (err) {
+        console.log('failed to upvote: ', err)
       } else {
         // this.props.updateView('IdeasView')
         // this.props.updateParent('Itinerary')
@@ -58,8 +58,8 @@ IdeaEvent = React.createClass({
 
   downVote() {
     Meteor.call('ideaDownVote', this.props.trip._id, this.props.idea.created_at, err => {
-      if (error) {
-        console.log('failed to downvote: ', error)
+      if (err) {
+        console.log('failed to downvote: ', err)
       } else {
         // this.props.updateView('IdeasView')
         // this.props.updateParent('Itinerary')

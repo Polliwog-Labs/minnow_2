@@ -18,8 +18,9 @@ NewExpense = React.createClass({
 			description: expense_details,
 			amount: expensePerPerson,
 			split_with: this.state.split_with
-		}, Meteor.user(), this.props.trip.expense_dash,(err)=>{
-      !err && this.props.updateParent('Expenses');
+	 	}, Meteor.user(), this.props.trip.expense_dash,(err)=>{
+      err && console.log(err)
+      !err && this.props.setExpenseView(null);
 		});
 	},
 
@@ -46,6 +47,9 @@ NewExpense = React.createClass({
 	updateSplitWith(users){
 		this.setState({split_with:users})
 	},
+  componentDidMount(){
+    this.props.setExpenseView('newExpense');
+  },
 
   onToggle:function(value){
   	console.log(value)
@@ -69,8 +73,8 @@ NewExpense = React.createClass({
   showSplitWith:function(){
   	return this.state.split_with.map(function (member, index){
   		return (
-  			<ul>
-  				<li ref={index} key={index}>{member}</li>
+  			<ul key={'split'+index}>
+  				<li ref={index} key={'split'+index}>{member}</li>
   			</ul>
   		)
   	})
@@ -87,7 +91,7 @@ NewExpense = React.createClass({
 	     	if(user._id !== id) {
 			return (
     	  <div key={index}>
-			  <li ref="split_with" className="item item-toggle">
+			  <li ref="split_with" key={'member'+index} className="item item-toggle">
 			        {user.username}
 				     <label className="toggle toggle-balanced">
 				       <input id={index} type="checkbox" value={user.username} onChange={this.change} onClick={this.onToggle}/>
@@ -103,55 +107,57 @@ NewExpense = React.createClass({
 },
 
 	render(){
-		return(
-		  <div className="list bg-ice">
-			  <label className="bg-ice dark-blue-text item item-input item-stacked-label">
-			    <span className="input-label dark-blue-text">Add a new expense</span>
-			    <input className="bg-ice dark-blue-text" type="text" placeholder="Description" ref='expense_details'/>
-			  </label>
-			  <label className="bg-ice dark-blue-text item item-input item-stacked-label">
-			    <span className="input-label dark-blue-text">Amount</span>
-			    <input className="bg-ice dark-blue-text" type="number" placeholder="$" ref='expense_amount'/>
-			  </label>
-			  <label className="bg-ice dark-blue-text item item-input item-stacked-label">
-				  <div className="dark-blue-text input-label">Split With:</div>
-				    <ReactBootstrap.Modal
-			          {...this.props}
-			          show={this.state.show}
-			          onHide={this.hideModal}
-			          dialogClassName="custom-modal">
+    if (this.props.trip && this.props.trip.members && this.props.trip.members.length > 1){
+  		return(
+  		  <div className="list bg-ice">
+  			  <label className="bg-ice dark-blue-text item item-input item-stacked-label">
+  			    <span className="input-label dark-blue-text">Add a new expense</span>
+  			    <input className="bg-ice dark-blue-text" type="text" placeholder="Description" ref='expense_details'/>
+  			  </label>
+  			  <label className="bg-ice dark-blue-text item item-input item-stacked-label">
+  			    <span className="input-label dark-blue-text">Amount</span>
+  			    <input className="bg-ice dark-blue-text" type="number" placeholder="$" ref='expense_amount'/>
+  			  </label>
+  			  <label className="bg-ice dark-blue-text item item-input item-stacked-label">
+  				  <div className="dark-blue-text input-label">Split With:</div>
+  				    <ReactBootstrap.Modal
+  			          {...this.props}
+  			          show={this.state.show}
+  			          onHide={this.hideModal}
+  			          dialogClassName="custom-modal">
 
-			          <ReactBootstrap.Modal.Header closeButton>
-			            <ReactBootstrap.Modal.Title id="contained-modal-title-lg">Toggle to split</ReactBootstrap.Modal.Title>
-			          </ReactBootstrap.Modal.Header>
-			          <ReactBootstrap.Modal.Body>
-			          <ul className="list">
-			          	{this.state.show && this.populateMembers()}
-			          </ul>
-			          </ReactBootstrap.Modal.Body>
-			          <ReactBootstrap.Modal.Footer>
-			            <ReactBootstrap.Button onClick={this.createSplit} >Split With Selected</ReactBootstrap.Button>
-			          </ReactBootstrap.Modal.Footer>
-			        </ReactBootstrap.Modal>
-			        <div className="row dark-blue-text add-expense">
-			          <div className='col'>
-			            <a onClick={ this.showModal }>
-			              <i className="icon ion-plus-circled"></i>
-			              <span className='icon-label dark-blue-text'>Click to split</span>
-			            </a>
-			            	{
-			          		this.state.split_with ? 
-			          		<div>
-			          			{this.showSplitWith()}
-			          		</div> : ''
-			          	}
-			          </div>
-			          <div className='col'></div>
-			        </div>
-			  </label>
-			  <button className="button button-block button-positive" onClick={this.submitExpense}>Submit</button>
-		</div>
-		)
-	}
+  			          <ReactBootstrap.Modal.Header closeButton>
+  			            <ReactBootstrap.Modal.Title id="contained-modal-title-lg">Toggle to split</ReactBootstrap.Modal.Title>
+  			          </ReactBootstrap.Modal.Header>
+  			          <ReactBootstrap.Modal.Body>
+  			          <ul className="list">
+  			          	{this.state.show && this.populateMembers()}
+  			          </ul>
+  			          </ReactBootstrap.Modal.Body>
+  			          <ReactBootstrap.Modal.Footer>
+  			            <ReactBootstrap.Button onClick={this.createSplit} >Split With Selected</ReactBootstrap.Button>
+  			          </ReactBootstrap.Modal.Footer>
+  			        </ReactBootstrap.Modal>
+  			        <div className="row dark-blue-text add-expense">
+  			          <div className='col'>
+  			            <a onClick={ this.showModal }>
+  			              <i className="icon ion-plus-circled"></i>
+  			              <span className='icon-label dark-blue-text'>Click to split</span>
+  			            </a>
+  			            	{
+  			          		this.state.split_with ? 
+  			          		<div>
+  			          			{this.showSplitWith()}
+  			          		</div> : ''
+  			          	}
+  			          </div>
+  			          <div className='col'></div>
+  			        </div>
+  			  </label>
+  			  <button className="button button-block button-positive" onClick={this.submitExpense}>Submit</button>
+  		</div>
+  		)
+    } else return (<div className="opaque-bg no-trips"><p className="no-invites">Invite others to add expenses!</p></div>);
+	``}
 });
 

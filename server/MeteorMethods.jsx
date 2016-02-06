@@ -342,6 +342,7 @@ Meteor.methods({
         'split_with': expense.split_with
       }
     }},(error)=>{
+      console.log(error);
       return !error;
     });
   }

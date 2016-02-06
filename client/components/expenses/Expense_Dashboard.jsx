@@ -12,6 +12,10 @@ getInitialState(){
 		checked: membersObj,
 	}
 },
+shouldComponentUpdate(newprops,newstate){
+  if (newstate) return JSON.stringify(newstate) !== JSON.stringify(this.state);
+  return true;
+},
 
 showModal:function(){
 	    this.setState({show: true});
@@ -22,7 +26,7 @@ hideModal:function(){
 	  },
 
 renderImage:function(){
-  if (this.props.member){
+  if (this.props.member && this.props.members){
    	var thisMember = this.props.member;
   	var key = Object.keys(thisMember);
 
@@ -30,7 +34,7 @@ renderImage:function(){
   		return member.username === key[0];
   	 })[0];
 
-  	if(member.profile.imageId !== undefined) {
+  	if(member && member.profile && (member.profile.imageId !== undefined)) {
   		return (<Image image_id={member.profile.imageId} height="80px" profile={true}/>)
   	} else {
   		return (<img src='https://facebook.github.io/react/img/logo.svg'/>)
@@ -40,61 +44,63 @@ renderImage:function(){
 
 
   showTransactions:function(){
-  	var user = Meteor.user().username;
-  	var member = this.props.member;
-	var key = Object.keys(member);
+    if (this.props.member){
+    	var user = Meteor.user().username;
+    	var member = this.props.member;
+    	var key = Object.keys(member);
 
 
 
-	function expenseFilter(expense){
-		var splitArray = expense.split_with;
-		var created_by = expense.created_by;
+    	function expenseFilter(expense){
+    		var splitArray = expense.split_with;
+    		var created_by = expense.created_by;
 
-		if(created_by === user){
-			if(splitArray.indexOf(key[0]) !== -1) {
-				return true;
-			}
-		} else if(created_by === key[0]){
-			if(splitArray.indexOf(user) !== -1){
-				return true 
-			}
-		} else {
-			return false
-		}
-	}
+    		if(created_by === user){
+    			if(splitArray.indexOf(key[0]) !== -1) {
+    				return true;
+    			}
+    		} else if(created_by === key[0]){
+    			if(splitArray.indexOf(user) !== -1){
+    				return true 
+    			}
+    		} else {
+    			return false
+    		}
+    	}
 
-   var filtered = this.props.expenses.filter(expenseFilter);
+      var filtered = this.props.expenses.filter(expenseFilter);
 
-   if(filtered.length === 0){
-   	return (
-   		<div className="opaque-bg no-trips"><p className="no-invites">No charges between you and {key} yet!</p></div>
-   		)
-   }
+      if(filtered.length === 0){
+       	return (
+       		<div className="opaque-bg no-trips"><p className="no-invites">No charges between you and {key} yet!</p></div>
+       		)
+       }
 
-   return filtered.map(function (expense, index){
-	   	var people = expense.split_with.length + 1;
-		var total = (expense.amount * people).toFixed(2);
-		if(expense.amount !== undefined){
-	   	  return (
-	   		<div key={index} className="item item-text-wrap">
-	   		  <li className ="item" >
-				<p>{expense.description}</p>
-				<p>$ {expense.amount} per person</p>
-				<p>Paid for by {expense.created_by}</p>
-			  </li>
-			</div>
+      return filtered.map(function (expense, index){
+    	 	var people = expense.split_with.length + 1;
+    		var total = (expense.amount * people).toFixed(2);
+    		if(expense.amount !== undefined){
+    	   	  return (
+    	   		<div key={index} className="item item-text-wrap">
+    	   		  <li className ="item" >
+    				<p>{expense.description}</p>
+    				<p>$ {expense.amount} per person</p>
+    				<p>Paid for by {expense.created_by}</p>
+    			  </li>
+    			</div>
 
-	   		)
-	   	} else {
-	   		return (
-	   			<div key={index} className="item item-text-wrap">
-	   				<li className="item">
-	   					<p>{expense.description}</p>
-	   				</li>
-	   			</div>
-	   			)
-	   	}
-   })
+    	   		)
+       	} else {
+  	   		return (
+  	   			<div key={index} className="item item-text-wrap">
+  	   				<li className="item">
+  	   					<p>{expense.description}</p>
+  	   				</li>
+  	   			</div>
+  	   		)
+  	   	}
+      });
+    } else return <div/>;
 
   },
 
@@ -141,7 +147,6 @@ renderImage:function(){
 		//     }
 		// return value
 		// }
-	console.log("balance", balance);
 
 
 
@@ -163,7 +168,7 @@ renderImage:function(){
 			      </ReactBootstrap.Modal.Header>
 			      <ReactBootstrap.Modal.Body>
 			      <ul className="list">
-			      	{this.state.show && this.showTransactions()}
+			      	{this.showTransactions()}
 			      </ul>
 			      </ReactBootstrap.Modal.Body>
 			    </ReactBootstrap.Modal>
@@ -177,9 +182,9 @@ renderImage:function(){
 			 
 			
 			  { balance < 0 && !checkedState[key] ? 
-			  		<div id={key}><VenmoButton /><ReactBootstrap.Button value={key} className='expenseDashButtons' onClick={this.payedBalance}  bsStyle="primary" bsSize="small" active>Pay {key} ${balance * -1}</ReactBootstrap.Button></div>: 
+			  		<div id={key}><VenmoButton /><ReactBootstrap.Button value={key} className='expenseDashButtons' onClick={this.payedBalance}  bsStyle="primary" bsSize="small" active>Pay {key} ${balance.toString().substring(1)}</ReactBootstrap.Button></div>: 
 			  			balance < 0 && checkedState[key] ? 
-			  				<p> Thank you for paying {key} your balance of ${(balance * -1).toString()} </p> : ""}
+			  				<p> Thank you for paying {key} your balance of ${balance.toString().substring(1)} </p> : ""}
 			 </div>
 		    </a>
 		)
