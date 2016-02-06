@@ -185,11 +185,11 @@ renderImage:function(){
 			  		<div id={key} className='row exp-btn'>
               <div className='col'>
                 <VenmoButton />
-                <button onClick={this.showInvited} className="button button-small button-positive button-outline">Pay Balance</button>
+                <button onClick={this.payedBalance} className="button button-small button-positive button-outline">Pay Balance</button>
               </div>
             </div> : 
 			  			balance < 0 && checkedState[key] ? 
-			  				<p> Thank you for paying {key} your balance of ${balance.toString().substring(1)} </p> : ""}
+			  				<p> You paid {key} ${balance.toString().substring(1)} </p> : ""}
 			 </div>
 		    </a>
 		)
