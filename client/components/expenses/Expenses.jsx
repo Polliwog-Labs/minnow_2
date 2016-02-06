@@ -1,10 +1,10 @@
 Expenses = React.createClass({
-   propTypes:{
-     trip: React.PropTypes.object.isRequired
-   },
+   // propTypes:{
+   //   trip: React.PropTypes.object.isRequired
+   // },
    getInitialState(){
     return {
-      trip:this.props.trip, 
+      trip:this.props.trip || {}, 
       expenseView: null,
     };
    },
