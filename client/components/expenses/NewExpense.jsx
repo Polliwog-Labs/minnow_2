@@ -46,6 +46,9 @@ NewExpense = React.createClass({
 	updateSplitWith(users){
 		this.setState({split_with:users})
 	},
+  componentDidMount(){
+    this.props.setExpenseView('newExpense');
+  },
 
   onToggle:function(value){
   	console.log(value)

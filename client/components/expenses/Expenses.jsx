@@ -22,6 +22,9 @@ Expenses = React.createClass({
   componentWillMount(){
     this.props.updateParent('Expenses');
   },
+  setExpenseView(view){
+    this.setState({expenseView:view})
+  },
 
   componentDidMount: function () {
     this.renderDash();
@@ -35,13 +38,13 @@ Expenses = React.createClass({
   renderDash: function () {
     $('#newExpense').removeClass('active');
     $('#dashboard').addClass('active');
-    ReactDOM.render(<AllExpenses trip={this.state.trip} members={this.props.members} />, document.getElementById('expense-module'))
+    ReactDOM.render(<AllExpenses trip={this.state.trip} members={this.props.members} setExpenseView={this.setExpenseView}/>, document.getElementById('expense-module'))
   },
 
   renderNew: function () {
     $('#dashboard').removeClass('active');
     $('#newExpense').addClass('active');
-    ReactDOM.render(<NewExpense updateParent={this.props.updateParent}  trip={this.props.trip} members={this.props.members} toggled={this.state.toggled}/>, document.getElementById('expense-module'))
+    ReactDOM.render(<NewExpense updateParent={this.props.updateParent}  trip={this.props.trip} members={this.props.members} setExpenseView={this.setExpenseView}/>, document.getElementById('expense-module'))
   },
 // componentDidUpdate(){
 //   this.renderDash();

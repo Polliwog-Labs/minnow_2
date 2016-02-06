@@ -49,6 +49,9 @@ AllExpenses = React.createClass({
 	});
 		
 	},
+	componentDidMount(){
+    this.props.setExpenseView(null);
+	},
 
 
 	render:function(){
