@@ -30,6 +30,7 @@ ItineraryEvent = React.createClass({
           <a  onClick={this.navToLink} ><h3 className='event-link'>{this.props.event.og.title}</h3></a>         
           <p>{this.props.event.desc}</p>
           <div className='row'>
+            <div className='col'/>
             <div className='col-xs-2'>
               {this.props.event.upvotes}
             </div>
