@@ -8,7 +8,7 @@ Trip = React.createClass({
                 members:[]};
     var tripId = document.location.pathname.substring(6);
     var singleTrip = Meteor.subscribe('singleTrip',tripId,user);
-    if (singleTrip.ready()){
+    // if (singleTrip.ready()){
       data.trip = Trips.findOne({_id: tripId});
       var tripUsers = Meteor.subscribe('tripUsers',data.trip);
       if (tripUsers.ready()){
@@ -18,7 +18,7 @@ Trip = React.createClass({
           data.declined = Users.find({_id: {$in: data.trip.declined}}).fetch();
         }
       }
-    }
+    // }
     return data;
   },
 

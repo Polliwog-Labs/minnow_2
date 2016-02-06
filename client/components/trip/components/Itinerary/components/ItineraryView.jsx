@@ -159,8 +159,8 @@ ItineraryView = React.createClass({
                 </div>
               </div>
             </div>
-            <button className="button button-block button-positive" onClick={this.submitEvent}>Submit
-              Block Button
+            <button className="button button-block button-positive" onClick={this.submitEvent}>
+            Add Event
             </button>
           </ReactBootstrap.Modal.Body>
         </ReactBootstrap.Modal>

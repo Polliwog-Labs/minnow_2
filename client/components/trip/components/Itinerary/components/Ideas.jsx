@@ -91,8 +91,7 @@ Ideas = React.createClass({
                 <input type="number" ref="cost" placeholder="$"/>
               </label>
             </div>
-            <button className="button button-block button-positive" onClick={this.submitIdea}>Submit
-              Block Button
+            <button className="button button-block button-positive" onClick={this.submitIdea}>Add Idea
             </button>
           </ReactBootstrap.Modal.Body>
         </ReactBootstrap.Modal>
