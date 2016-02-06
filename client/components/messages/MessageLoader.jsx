@@ -22,6 +22,12 @@ MessageLoader = React.createClass({
       });
     } else return <div/>;
   },
+
+  shouldComponentUpdate(newprops){
+    if (!newprops.trip) return false;
+    return true;
+  },
+
 	render(){
 		return (<div className="message-wrapper">{this.message_list()}</div>);
 	}
