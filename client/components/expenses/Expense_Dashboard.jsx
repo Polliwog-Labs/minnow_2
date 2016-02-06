@@ -183,9 +183,9 @@ renderImage:function(){
 			 
 			
 			  { balance < 0 && !checkedState[key] ? 
-			  		<div id={key}><VenmoButton /><ReactBootstrap.Button value={key} className='expenseDashButtons' onClick={this.payedBalance}  bsStyle="primary" bsSize="small" active>Pay {key} ${balance * -1}</ReactBootstrap.Button></div>: 
+			  		<div id={key}><VenmoButton /><ReactBootstrap.Button value={key} className='expenseDashButtons' onClick={this.payedBalance}  bsStyle="primary" bsSize="small" active>Pay {key} ${balance.toString().substring(1)}</ReactBootstrap.Button></div>: 
 			  			balance < 0 && checkedState[key] ? 
-			  				<p> Thank you for paying {key} your balance of ${(balance * -1).toString()} </p> : ""}
+			  				<p> Thank you for paying {key} your balance of ${balance.toString().substring(1)} </p> : ""}
 			 </div>
 		    </a>
 		)
