@@ -81,7 +81,7 @@ ItineraryView = React.createClass({
     return (
       <div>
         <div className='row add-idea'>
-          {/*<div className='col'>
+          <div className='col'>
             <a onClick={ this.toggleMap }>
               <i className="icon ion-map"></i>
               {
@@ -90,7 +90,7 @@ ItineraryView = React.createClass({
                   <span className='icon-label'>Show Map</span>       
               }
             </a>
-          </div>*/}
+          </div>
           <div className='col'>
             {
               this.props.trip && _.contains(this.props.trip.organizers, Meteor.userId()) ?
