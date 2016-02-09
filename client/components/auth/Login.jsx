@@ -9,8 +9,6 @@ Login = React.createClass({
   },
 
   userLogin(event){
-    //wont trigger page refresh?
-
     event.preventDefault();
     //this function will grab the user's email and password from the "LOGIN input"
     var email = ReactDOM.findDOMNode(this.refs.email_input).value
@@ -26,9 +24,15 @@ Login = React.createClass({
       }
     });
   }, 
+
+  watchDemo() {
+    window.open('https://youtu.be/fEFffllBqig', '_system');
+  },
+
   componentDidMount(){
     Meteor.user() && this.props.history.push('/mytrips');
   },
+
   render(){
     console.log(Meteor.user())
     return (
@@ -48,6 +52,7 @@ Login = React.createClass({
             </button>
           </form>
           <ReactRouter.Link className="login-signup-text" to="signup">Don't have an account? Sign up!</ReactRouter.Link>
+          <a onClick={this.watchDemo}><p className='demo-link'>Watch Demo</p></a> 
         </div>
     )
   }

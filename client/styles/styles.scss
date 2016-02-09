@@ -112,11 +112,24 @@ h1.list {
   padding: 30px 31px;
   margin: 40% auto;
 }
+
+.login-btn {
+  border: none;
+}
+
 .login-input {
   padding-left: 10px!important;
   border-radius: 4px;
   box-shadow: 3px 7px 22px #666;
 }
+
+.demo-link {
+  font-weight:700;
+  margin-top: 10px;
+  margin-bottom: 0px;
+  color: #EFF2F1;
+}
+
 input {
   padding-left: 10px;
 }
@@ -226,7 +239,7 @@ input {
   color: #014771!important;
 }
 .login-signup-text {
-  font-weight:700;
+  /*font-weight:700;*/
   font-size:1em;
   color:#EFF2F1;
 }
