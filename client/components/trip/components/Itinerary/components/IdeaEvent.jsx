@@ -13,9 +13,9 @@ IdeaEvent = React.createClass({
 
   addToItinerary() {
     this.hideModal();
-    var hour = ReactDOM.findDOMNode(this.refs.hour).value;
-    var min = ReactDOM.findDOMNode(this.refs.min).value;
-    var amPm = ReactDOM.findDOMNode(this.refs.am_pm).value;
+    var hour = undefined;
+    var min = undefined;
+    var amPm = undefined;
     var utc = DateUtils.dateConvert(ReactDOM.findDOMNode(this.refs.date).value, ReactDOM.findDOMNode(this.refs.time).value)
     var unixTime = new Date(utc).getTime();
     var dateTime = {

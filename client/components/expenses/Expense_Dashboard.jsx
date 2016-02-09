@@ -79,6 +79,7 @@ renderImage:function(){
       return filtered.map(function (expense, index){
     	 	var people = expense.split_with.length + 1;
     		var total = (expense.amount * people).toFixed(2);
+        // var amount = expense.amount.toFixed(2)
     		if(expense.amount !== undefined){
     	   	  return (
     	   		<div key={index} className="item item-text-wrap">
@@ -99,7 +100,7 @@ renderImage:function(){
   	   			</div>
   	   		)
   	   	}
-      });
+      }).reverse();
     } else return <div/>;
 
   },
@@ -122,7 +123,7 @@ renderImage:function(){
   		changeChecked[member] = !changeChecked[member];
   		this.setState({checked: changeChecked});
   		Meteor.call("payExpense", user, member, dash, trip)
-  	},5000)
+  	},20000)
 
 
   },
@@ -151,7 +152,7 @@ renderImage:function(){
 
 
 		return (
-			<a className="item item-thumbnail-left">
+			<a className="item item-thumbnail-left exp-dash">
 			  {this.renderImage()}
 		      {checkedState[key] ? "" : ""}
 		      {balance > 0 ?  <p className='dark-blue-text balance'>{key} owes you ${balance.toString()}</p>: 
@@ -182,9 +183,14 @@ renderImage:function(){
 			 
 			
 			  { balance < 0 && !checkedState[key] ? 
-			  		<div id={key}><VenmoButton /><ReactBootstrap.Button value={key} className='expenseDashButtons' onClick={this.payedBalance}  bsStyle="primary" bsSize="small" active>Pay {key} ${balance.toString().substring(1)}</ReactBootstrap.Button></div>: 
+			  		<div id={key} className='row exp-btn'>
+              <div className='col'>
+                <VenmoButton />
+                <button onClick={this.payedBalance} className="button button-small button-positive button-outline">Pay Balance</button>
+              </div>
+            </div> : 
 			  			balance < 0 && checkedState[key] ? 
-			  				<p> Thank you for paying {key} your balance of ${balance.toString().substring(1)} </p> : ""}
+			  				<p> You paid {key} ${balance.toString().substring(1)} </p> : ""}
 			 </div>
 		    </a>
 		)
