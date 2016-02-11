@@ -2,9 +2,7 @@ Messages = React.createClass({
 	propTypes: {
 		trip: React.PropTypes.object.isRequired
 	},
-	// getInitialState(){
-	// 	return ({messages:this.props.trip.messages});
-	// },
+
 	submitMessage(event){
 		event.preventDefault();
 		var message = ReactDOM.findDOMNode(this.refs.message_text).value;

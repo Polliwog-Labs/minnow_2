@@ -26,17 +26,17 @@ Itinerary = React.createClass({
     this.props.updateParent('Itinerary');
   },
 
-  componentDidMount: function () {
+  componentDidMount: function () { //renders Itinerary view by default
     this.renderItinerary();
   },
 
-  renderItinerary: function() {
+  renderItinerary: function() {  //Toggles to Itinerary view
     $('#idea-toggle').removeClass('active');
     $('#itin-toggle').addClass('active');
     ReactDOM.render(<ItineraryView updateParent={this.props.updateParent} updateView={this.updateModule} trip={this.props.trip}/>, document.getElementById('itinerary-module'))
   },
 
-  renderIdeas: function() {
+  renderIdeas: function() {  // Toggles to Ideas View
     $('#itin-toggle').removeClass('active');
     $('#idea-toggle').addClass('active');
     ReactDOM.render(<Ideas updateParent={this.props.updateParent} updateView={this.updateModule} trip={this.props.trip}/>, document.getElementById('itinerary-module'))
@@ -58,21 +58,3 @@ Itinerary = React.createClass({
     )
   }
 })
-
-// <div>
-//   <div className="segmented-control col row">
-//     <div className='col seg-item control-item'>
-//     <a id="itin-toggle" className="control-item" onClick={this.renderItinerary} >
-//       Itinerary
-//     </a>
-//     </div>
-//     <span>
-//     <div className='col seg-item control-item'>
-//     <a id="idea-toggle" className="control-item" onClick={this.renderIdeas} >
-//       Ideas
-//     </a>
-//     </div>
-//     </span>
-//   </div>
-//   <div id="itinerary-module"></div>
-// </div>

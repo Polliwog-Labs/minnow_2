@@ -21,9 +21,7 @@ Photos = React.createClass({
           Trips.update({_id: tripId}, {$push: {'photos': image._id}}, function (error) {
             if (error) {
               console.log('error adding image id to trip: ', error)
-            } else {
-              // that.props.updateParent('Photos')
-            }
+            } 
           })
         }
       })
@@ -46,9 +44,12 @@ Photos = React.createClass({
   },
 
   renderPhotos: function () {
-    return this.props.trip.photos.map(function (photoId, index) {
-      return <div className='col' key={index}><Image ionicClass='photo-scroll' image_id={photoId} /></div>
-    })
+    if (this.props.trip && this.props.trip.photos) {
+      return this.props.trip.photos.map(function (photoId, index) {
+        return <div className='col' key={index}><Image ionicClass='photo-scroll' image_id={photoId} /></div>
+      })
+    } else return <div/>;
+
   },
   getCameraButton(){
     return ShowCamera ? <span className="btn btn-sm btn-file" onClick={this.takePic}>Take Picture</span> : <div/>;
@@ -68,7 +69,7 @@ Photos = React.createClass({
       <div className='photos-body'>
         <div className='col'></div>
         <Slider {...settings}>
-          <div><Image ionicClass='photo-scroll' image_id={this.props.trip.image_id}  /></div>
+          <div><Image ionicClass='photo-scroll' image_id={this.props.trip ? this.props.trip.image_id : ''}  /></div>
           {this.renderPhotos()}
         </Slider>
         <div className='row btn-container photo-btn'>

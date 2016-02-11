@@ -3,7 +3,59 @@
 @import 'meteoric_ionicons-sass/ionicons';
 /*@import 'ratchet.css';*/
 /*@import 'minnow.css';*/
+@media(min-width: 472px){
+  html{
+    -webkit-background-size: rgba(0,0,0,0.57)!important;
+    -moz-background-size: rgba(0,0,0,0.57)!important;
+    -o-background-size: rgba(0,0,0,0.57)!important;
+    -ms-background-size: rgba(0,0,0,0.57)!important;
+    background: rgba(0,0,0,0.57)!important;
+  }
+  html, body{
+    height: 900px!important;
+    width: 450px!important;
+    -webkit-background-size: containt!important;
+    -moz-background-size: containt!important;
+    -o-background-size: containt!important;
+    -ms-background-size: containt!important;
+    background-size: containt!important;
+    margin: 0 auto 10% 30%!important;
+    border-radius: 9px!important;
+    -webkit-background-repeat: repeat!important;
+    -moz-background-repeat: repeat!important;
+    -o-background-repeat: repeat!important;
+    background-repeat: repeat!important;
+  }
+  // .navbar-brand {
+  //   float: right!important;
+  // }
+}
+@media (min-width: 680px){
+  .modal {
+    top: 0!important;
+    right: 0!important;
+    bottom: 0!important;
+    left: 0!important;
+    width: 100%!important;
+  }
+  .tabs {
+    width: 450px;
+  }
+}
+@media (min-width: 768px){
+  .navbar > .container .navbar-brand, .navbar > .container-fluid .navbar-brand{
 
+  }
+  .navbar-brand{
+    float: right!important;
+  }
+}
+@media (min-width: 768px){
+.modal-dialog {
+  width: inherit!important;
+  margin: inherit!important;
+  }
+}
 html, body {
   font-family: "Helvetica Neue", "Roboto", sans-serif;
   height: 100%;

@@ -13,6 +13,8 @@ Ideas = React.createClass({
     var event_location = ReactDOM.findDOMNode(this.refs.idea_location).value;
     var trip = this.props.trip._id;
     var created_at = String(new Date())
+
+    //request to og scraper API to gather link data
     HTTP.call('GET', 'http://opengraph.io/api/1.0/site/' + event_url, (error, response)=>{
       if (error) {
         console.log('API call error - no URL data saved:', error)
@@ -32,10 +34,7 @@ Ideas = React.createClass({
         Meteor.call('addIdea', event, (error) => {
           if (error) {
             console.log(error)
-          } else {
-            // this.props.updateView('IdeasView')
-            // this.props.updateParent('Itinerary')
-          }
+          } 
         })
       }
     })

@@ -27,10 +27,7 @@ IdeaEvent = React.createClass({
     Meteor.call('addIdeaToItin', this.props.trip._id, this.props.idea, dateTime, err=> {
       if (err) {
         console.log('failed to add to itinerary: ', err)
-      } else {
-        // this.props.updateView('IdeasView')
-        // this.props.updateParent('Itinerary')
-      }
+      } 
     })
   },
 
@@ -49,10 +46,7 @@ IdeaEvent = React.createClass({
     Meteor.call('ideaUpVote', this.props.trip._id, this.props.idea.created_at, err => {
       if (err) {
         console.log('failed to upvote: ', err)
-      } else {
-        // this.props.updateView('IdeasView')
-        // this.props.updateParent('Itinerary')
-      }
+      } 
     })
   },
 
@@ -60,18 +54,14 @@ IdeaEvent = React.createClass({
     Meteor.call('ideaDownVote', this.props.trip._id, this.props.idea.created_at, err => {
       if (err) {
         console.log('failed to downvote: ', err)
-      } else {
-        // this.props.updateView('IdeasView')
-        // this.props.updateParent('Itinerary')
-      }
+      } 
     })
   },
 
-  navToLink() {
+  navToLink() { //opens link within app on mobile, in new tab on web
     window.open(this.props.idea.og.url, '_system');
   },
 
-        // <a  href={this.props.idea.og.url}  target="_system"><h3 className='event-link'>{this.props.idea.og.title}</h3></a>          
   render() {
     this.props.idea.og = this.props.idea.og || {image:"http://static1.squarespace.com/static/5542dcefe4b0f37cdc4d6e60/5542e8dae4b0b79fc2fc8dfd/5542e9a0e4b0b79fc2fc9a9e/1430448712022/Virginia-Group-Travel1.jpeg",
     title:'',description:''}

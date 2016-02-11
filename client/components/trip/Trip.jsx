@@ -2,6 +2,8 @@ Trip = React.createClass({
 
   mixins: [ReactMeteorData],
 
+  //defines subscriptions to Trip data so any changes are pushed up to client
+  //and distributed to child components
   getMeteorData() {
     var user = Meteor.user();
     var data = {view:'Home',
@@ -28,6 +30,7 @@ Trip = React.createClass({
             members:[]}
   },
 
+  //keeps track of what component to render after the data has been updated
   componentDidUpdate(){
     switch (this.state.view){
       case 'Messages':
@@ -46,6 +49,9 @@ Trip = React.createClass({
         this.renderHome();
     }
   },
+
+  //called from child components after render to set the view state of trip to allow the 
+  //componentDidUpdate to work
   setParentState(view){
     this.setState({view:view || null})
   },
