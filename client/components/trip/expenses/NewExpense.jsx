@@ -11,7 +11,7 @@ NewExpense = React.createClass({
 
 		
 		// var expense_split = ReactDOM.findDOMNode(this.refs.expense_split).value;
-		//Need to set a expenses schedma that can keep track of how much each person owes
+		//Need to set an expenses schema that can keep track of how much each person owes
 
 		Meteor.call('pushExpense',{
 			trip_id: this.props.trip._id,

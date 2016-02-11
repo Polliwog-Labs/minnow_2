@@ -1,7 +1,4 @@
 Expenses = React.createClass({
-   // propTypes:{
-   //   trip: React.PropTypes.object.isRequired
-   // },
    getInitialState(){
     return {
       trip:this.props.trip || {}, 
@@ -9,6 +6,7 @@ Expenses = React.createClass({
     };
    },
 
+  //keeps track of child component view
   componentDidUpdate:function(){
     switch (this.state.expenseView){
       case 'newExpense':
@@ -19,7 +17,7 @@ Expenses = React.createClass({
      }
    },
 
-  componentWillMount(){
+  componentWillMount(){ //sets parent state to Expenses
     this.props.updateParent('Expenses');
   },
   setExpenseView(view){
@@ -28,13 +26,8 @@ Expenses = React.createClass({
 
   componentDidMount: function () {
     this.renderDash();
-    // this.getExpenses();
   },
-// getExpenses(){
-//   Meteor.call('getTripById',this.props.trip._id,(err,data)=>{
-//     !err && this.setState({trip:data});
-//   });
-// },
+
   renderDash: function () {
     $('#newExpense').removeClass('active');
     $('#dashboard').addClass('active');
@@ -46,13 +39,12 @@ Expenses = React.createClass({
     $('#newExpense').addClass('active');
     ReactDOM.render(<NewExpense updateParent={this.props.updateParent}  trip={this.props.trip} members={this.props.members} setExpenseView={this.setExpenseView}/>, document.getElementById('expense-module'))
   },
-// componentDidUpdate(){
-//   this.renderDash();
-// },
+
   componentWillReceiveProps(newProps){
     this.setState(newProps);
   },
-render: function () {
+
+  render: function () {
     return (
       <div>
         <div className="segmented-control expense-control row">

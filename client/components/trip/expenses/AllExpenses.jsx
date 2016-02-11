@@ -1,7 +1,4 @@
 AllExpenses = React.createClass({
-	// shouldComponentUpdate(newprops){
- //    return !!(newprops.trip && newprops.members);
-	// },
 	expense_list(){
 		if (this.props.trip){
 			if(this.props.trip.expenses.length === 0) {
@@ -23,11 +20,6 @@ AllExpenses = React.createClass({
 		var expenses = this.props.trip ? this.props.trip.expenses : [];
 		var trip = this.props.trip;
 
-		// if(this.props.trip && this.props.trip.expense_dash && (this.props.trip.expense_dash.length === 1)){
-		// 	return (
-		// 		<div className="opaque-bg no-trips"><p className="no-invites">Invite others to see expenses!</p></div>
-		// 		);
-		// } else {
     if (this.props.trip && this.props.trip.expense_dash){
 			this.props.trip.expense_dash.map(function (user){
 				if(user.user === username) {
@@ -41,7 +33,6 @@ AllExpenses = React.createClass({
 					}
 				}
 			});
-		// }
 	}
 
 	return userExpenseDash.map(function (member, index) {

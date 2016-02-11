@@ -1,6 +1,6 @@
 ItineraryEvent = React.createClass({
   
-  displayTime() {
+  displayTime() { //formats time 
     return this.props.event.utc.toLocaleString().replace(':00 ', ' ').replace('at', ' ')
   },
 
@@ -15,7 +15,7 @@ ItineraryEvent = React.createClass({
     })
   },
 
-  navToLink() {
+  navToLink() { //opens og link within app
     window.open(this.props.idea.og.url, '_system')
   },
 

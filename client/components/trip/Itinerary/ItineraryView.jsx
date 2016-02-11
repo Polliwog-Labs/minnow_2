@@ -41,6 +41,7 @@ ItineraryView = React.createClass({
     var unixTime = new Date(utc).getTime();
     var date = ReactDOM.findDOMNode(this.refs.date).value;
 
+    // request to og scraper API to get og data for link input
     HTTP.call('GET', 'http://opengraph.io/api/1.0/site/' + event_url, (error, response)=> {
       if (error) {
         console.log('API call error - no URL data saved:', error)
@@ -81,6 +82,20 @@ ItineraryView = React.createClass({
     return (
       <div>
         <div className='row add-idea'>
+<<<<<<< HEAD:client/components/trip/Itinerary/ItineraryView.jsx
+          {
+            <div className='col'>
+              <a onClick={ this.toggleMap }>
+                <i className="icon ion-map"></i>
+                {
+                  this.state.showMap ?
+                    <span className='icon-label'>Hide Map</span> :
+                    <span className='icon-label'>Show Map</span>       
+                }
+              </a>
+            </div>
+          }
+=======
 <<<<<<< HEAD
           {<div className='col'>
 =======
@@ -99,6 +114,7 @@ ItineraryView = React.createClass({
 =======
           </div>
 >>>>>>> 328c439138ce8d0ba6cf5b406a0d3c62c8cba186
+>>>>>>> 650cc9c50ee2480fdaf5136cf40a8ee562d0aecf:client/components/trip/components/Itinerary/components/ItineraryView.jsx
           <div className='col'>
             {
               this.props.trip && _.contains(this.props.trip.organizers, Meteor.userId()) ?

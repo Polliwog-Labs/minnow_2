@@ -1,10 +1,8 @@
 EventMap = React.createClass({
   mixins: [ReactMeteorData],
   componentDidMount() {
-    //API- IOS: AIzaSyDAez-rJOuHy1F4H09m16CDFwnJdmQLW7g
-    //browser: AIzaSyATRL-qi3iid-xCviNeWsdZ8QU-xIa95vw
-    //daniels: AIzaSyDrj8LPd0RL2sGKYND-us2UlB5kexUdjJ0
-    GoogleMaps.load({key:'AIzaSyATRL-qi3iid-xCviNeWsdZ8QU-xIa95vw',
+    
+    GoogleMaps.load({key:'',
                     libraries: 'places'});
   },
   getMeteorData() {

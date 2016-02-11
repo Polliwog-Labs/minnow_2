@@ -21,9 +21,7 @@ Photos = React.createClass({
           Trips.update({_id: tripId}, {$push: {'photos': image._id}}, function (error) {
             if (error) {
               console.log('error adding image id to trip: ', error)
-            } else {
-              // that.props.updateParent('Photos')
-            }
+            } 
           })
         }
       })

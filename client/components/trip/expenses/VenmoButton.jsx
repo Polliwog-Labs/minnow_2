@@ -1,15 +1,6 @@
 VenmoButton = React.createClass({
 
-  launchVenmo() {
-    navigator.startApp.start("venmo://", function(message) { /* success */
-      console.log(message); // => OK
-    }, 
-    function(error) { /* error */
-        console.log(error);
-    });
-  },
-
-  launchVenmo() {
+  launchVenmo() { //opens venmo within app
     window.open("http://venmo.com", '_system')
   },
 
